@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Wi-Fi monitoring dongle placeholder image">
+  <rect width="800" height="800" fill="#f1f5f9"/>
+  <rect x="300" y="260" width="200" height="280" rx="16" fill="#16324f"/>
+  <rect x="330" y="300" width="140" height="60" rx="6" fill="#0b2136"/>
+  <g stroke="#4ade80" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.9">
+    <path d="M380 400 a40 40 0 0 1 60 0"/>
+    <path d="M355 375 a75 75 0 0 1 110 0"/>
+    <path d="M330 350 a110 110 0 0 1 160 0"/>
+  </g>
+  <circle cx="410" cy="415" r="9" fill="#4ade80"/>
+  <rect x="320" y="500" width="160" height="80" rx="8" fill="#f8fafc"/>
+  <text x="400" y="535" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#16324f" text-anchor="middle">ACC-WiFi</text>
+  <text x="400" y="562" font-family="Arial, sans-serif" font-size="15" fill="#64748b" text-anchor="middle">Wi-Fi Monitoring Dongle</text>
+  <text x="400" y="735" font-family="Arial, sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">Placeholder — replace with real product photo</text>
+</svg>

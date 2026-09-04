@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { COMPANY } from '../config';
+---
+
+<BaseLayout
+  title="Factory & Manufacturing — SMT, Assembly and Aging Test Lines"
+  description={`Tour our ${COMPANY.factoryAreaSqm.toLocaleString('en-US')} m² inverter factory: automated SMT lines, assembly lines, aging test rooms and warehouse. Video factory audits available for overseas buyers.`}
+  path="/factory/"
+>
+  <Section eyebrow="Manufacturing" title="Our Factory at a Glance">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { label: 'SMT lines', value: 'Automated placement + AOI' },
+          { label: 'Assembly lines', value: 'Multiple parallel lines' },
+          { label: 'Aging test room', value: '100% batch testing' },
+          { label: 'Warehouse', value: 'Finished goods + components' },
+        ].map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-base font-semibold text-slate-900">{item.label}</h3>
+            <p class="mt-1 text-sm text-slate-600">{item.value}</p>
+          </div>
+        ))
+      }
+    </div>
+    <!-- TODO: replace with real factory photos in src/assets/factory/ -->
+  </Section>
+
+  <Section eyebrow="Process" title="How Every Inverter Is Made" class="bg-slate-50">
+    <ol class="space-y-4">
+      {
+        [
+          'Incoming component inspection (IQC) — key components from qualified suppliers with batch traceability.',
+          'Automated SMT placement with AOI optical inspection for all PCBAs.',
+          'Board-level functional test and firmware flashing.',
+          'Full product assembly with torque-controlled fastening.',
+          '100% functional test: output waveform, efficiency, protection functions.',
+          '8-hour aging test under load for every production batch.',
+          'Final QC inspection, serial number registration and packing.',
+        ].map((step, i) => (
+          <li class="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
+              {i + 1}
+            </span>
+            <p class="pt-1 text-sm leading-relaxed text-slate-700">{step}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section eyebrow="Visits" title="Factory Audits Welcome">
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <p class="text-base leading-relaxed text-slate-700">
+        We welcome on-site factory audits and welcome third-party inspections
+        (SGS, TÜV, BV or your appointed agency). For overseas buyers who cannot
+        travel, we offer live video walkthroughs of the production lines —
+        schedule one through the contact form.
+      </p>
+      <div class="rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+        <p class="font-medium text-slate-900">Address</p>
+        <p class="mt-1">{COMPANY.address}</p>
+      </div>
+    </div>
+  </Section>
+
+  <CTABanner title="Schedule a Factory Video Tour" subtitle="See our production lines live before you place an order." />
+</BaseLayout>

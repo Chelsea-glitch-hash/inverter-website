@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="GT-10000 grid-tie inverter placeholder image">
+  <rect width="800" height="800" fill="#f1f5f9"/>
+  <rect x="220" y="100" width="360" height="600" rx="14" fill="#0f3d3a"/>
+  <rect x="255" y="145" width="290" height="115" rx="8" fill="#062926"/>
+  <text x="400" y="197" font-family="monospace" font-size="34" fill="#5eead4" text-anchor="middle">10000W</text>
+  <text x="400" y="233" font-family="monospace" font-size="18" fill="#94a3b8" text-anchor="middle">3-PHASE · 2 MPPT</text>
+  <g stroke="#1a514c" stroke-width="7" stroke-linecap="round">
+    <line x1="265" y1="330" x2="535" y2="330"/>
+    <line x1="265" y1="360" x2="535" y2="360"/>
+    <line x1="265" y1="390" x2="535" y2="390"/>
+    <line x1="265" y1="420" x2="535" y2="420"/>
+    <line x1="265" y1="450" x2="535" y2="450"/>
+  </g>
+  <rect x="250" y="540" width="300" height="100" rx="8" fill="#f8fafc"/>
+  <text x="400" y="582" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#0f3d3a" text-anchor="middle">GT-10000</text>
+  <text x="400" y="614" font-family="Arial, sans-serif" font-size="18" fill="#64748b" text-anchor="middle">Three-Phase Grid-Tie Inverter</text>
+  <text x="400" y="735" font-family="Arial, sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">Placeholder — replace with real product photo</text>
+</svg>

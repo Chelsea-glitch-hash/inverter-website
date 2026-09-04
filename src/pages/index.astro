@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import TrustBar from '../components/TrustBar.astro';
+import CTABanner from '../components/CTABanner.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import ApplicationCard from '../components/ApplicationCard.astro';
+import CertificationList from '../components/CertificationList.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../lib/categories';
+import { SITE, COMPANY } from '../config';
+
+const products = (await getCollection('products')).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+const featured = products.filter((p) => p.data.featured).slice(0, 4);
+if (featured.length === 0) featured.push(...products.slice(0, 4));
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const whyUs = [
+  {
+    title: 'In-house R&D',
+    description: `${COMPANY.rdEngineers} engineers covering hardware, firmware and structure design. Custom firmware, logos, packaging and specs for OEM/ODM projects.`,
+  },
+  {
+    title: 'Manufacturing scale',
+    description: `${COMPANY.factoryAreaSqm.toLocaleString('en-US')} m² facility with SMT, assembly and aging lines — ${COMPANY.annualCapacityUnits.toLocaleString('en-US')} units annual capacity.`,
+  },
+  {
+    title: 'Quality you can audit',
+    description: 'ISO 9001 quality system, 100% functional testing and 8-hour aging test before packing. Third-party inspection welcome.',
+  },
+];
+
+const applications = [
+  { title: 'Residential Solar', description: 'Home rooftop PV systems with battery backup and self-consumption optimization.', icon: 'home' as const },
+  { title: 'Commercial & Industrial', description: 'C&I rooftop and ground-mount plants with string inverters from 10 to 50 kW.', icon: 'industry' as const },
+  { title: 'Energy Storage', description: 'Hybrid systems with LiFePO4 battery integration for peak shaving and backup.', icon: 'battery' as const },
+  { title: 'Telecom Base Stations', description: 'Off-grid power for remote communication towers with unreliable or no grid access.', icon: 'signal' as const },
+  { title: 'Rural Electrification', description: 'Standalone microgrid and off-grid power for villages, farms and island communities.', icon: 'sun' as const },
+  { title: 'Backup Power', description: 'Uninterruptible supply for homes, clinics and small businesses during outages.', icon: 'plug' as const },
+];
+
+const certifications = ['ISO 9001', 'CE', 'RoHS'];
+---
+
+<BaseLayout
+  title={`${SITE.shortName} — Inverter Manufacturer for Global B2B Partners`}
+  description={`Professional solar inverter manufacturer since ${COMPANY.foundedYear}. Hybrid, grid-tie and off-grid inverters with OEM/ODM support, ISO 9001 quality system and factory-direct pricing. Export to ${COMPANY.exportCountries}+ countries.`}
+  path="/"
+>
+  <!-- 1. Hero -->
+  <section class="bg-gradient-to-b from-brand-50 to-white">
+    <Container>
+      <div class="grid grid-cols-1 items-center gap-10 py-16 sm:py-24 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-xs font-medium text-brand-700">
+            <span class="inline-block h-2 w-2 rounded-full bg-accent-500" aria-hidden="true"></span>
+            Inverter Manufacturer since {COMPANY.foundedYear}
+          </p>
+          <h1 class="text-3xl leading-tight font-bold text-slate-900 sm:text-4xl lg:text-5xl">
+            Factory-Direct Solar Inverters for Global B2B Partners
+          </h1>
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            Hybrid, grid-tie and off-grid inverters engineered and built in our own
+            factory. OEM / ODM programs, certified quality, and competitive
+            factory-direct pricing for distributors, installers and project developers.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <Button href="/contact/" variant="primary" size="lg" track="click_request_quote">
+              Request a Quote
+            </Button>
+            <Button href="/products/" variant="outline" size="lg">
+              View Products
+            </Button>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+            <li class="flex items-center gap-2">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-600" aria-hidden="true"></span>
+              OEM / ODM
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-600" aria-hidden="true"></span>
+              ISO 9001
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-600" aria-hidden="true"></span>
+              24h response
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-600" aria-hidden="true"></span>
+              {COMPANY.exportCountries}+ export countries
+            </li>
+          </ul>
+        </div>
+        <div class="order-first lg:order-last">
+          <svg viewBox="0 0 560 400" class="w-full" role="img" aria-label="Solar energy system illustration">
+            <rect width="560" height="400" rx="16" fill="#eef4fb" />
+            <rect x="40" y="60" width="180" height="120" rx="6" fill="#b3cdec" />
+            <g stroke="#245299" stroke-width="2" opacity="0.35">
+              <line x1="100" y1="60" x2="100" y2="180" />
+              <line x1="160" y1="60" x2="160" y2="180" />
+              <line x1="40" y1="120" x2="220" y2="120" />
+            </g>
+            <rect x="60" y="230" width="140" height="90" rx="6" fill="#85aedd" />
+            <line x1="80" y1="250" x2="180" y2="250" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="265" x2="180" y2="265" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="280" x2="180" y2="280" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="295" x2="140" y2="295" stroke="#fff" stroke-width="4" />
+            <rect x="280" y="140" width="110" height="170" rx="10" fill="#17355f" />
+            <rect x="295" y="160" width="80" height="44" rx="4" fill="#0b2136" />
+            <text x="335" y="188" font-family="monospace" font-size="16" fill="#4ade80" text-anchor="middle">ON</text>
+            <g stroke="#24425f" stroke-width="4">
+              <line x1="300" y1="230" x2="370" y2="230" />
+              <line x1="300" y1="248" x2="370" y2="248" />
+              <line x1="300" y1="266" x2="370" y2="266" />
+            </g>
+            <rect x="300" y="285" width="70" height="6" rx="3" fill="#4ade80" />
+            <rect x="300" y="285" width="45" height="6" rx="3" fill="#22c55e" />
+            <g stroke="#245299" stroke-width="3" fill="none" stroke-dasharray="6 6">
+              <path d="M220 120 C 260 120, 260 200, 280 210" />
+              <path d="M200 275 C 250 275, 250 235, 280 235" />
+              <path d="M390 210 C 450 210, 460 120, 510 120" />
+            </g>
+            <circle cx="500" cy="80" r="34" fill="#e8b23a" />
+            <circle cx="500" cy="80" r="24" fill="#facc15" opacity="0.6" />
+          </svg>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 2. Trust / company facts -->
+  <TrustBar />
+
+  <!-- 3. Product categories -->
+  <Section eyebrow="Our Products" title="Inverter Categories" subtitle="From residential hybrid systems to utility-scale string inverters — all designed and manufactured in-house.">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        CATEGORIES.map((c) => (
+          <a
+            href={`/products/${c.slug}/`}
+            class="group rounded-xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold text-brand-700">{c.powerRange}</span>
+              <svg class="h-5 w-5 text-slate-300 transition-colors group-hover:text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900 group-hover:text-brand-700">{c.name}</h3>
+            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{c.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 4. Featured products -->
+  <Section eyebrow="Featured" title="Popular Models" subtitle="Best-selling inverters from our catalog. Every model supports OEM branding and spec customization." class="bg-slate-50">
+    <ProductGrid products={featured} />
+    <div class="mt-10 text-center">
+      <Button href="/products/" variant="outline">Browse all products</Button>
+    </div>
+  </Section>
+
+  <!-- 5. Why choose us -->
+  <Section eyebrow="Why Us" title="Why Global Buyers Choose Us" subtitle="We are a manufacturer, not a trading company — which means direct engineering support, controlled quality and better margins.">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {
+        whyUs.map((item, i) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <span class="text-3xl font-bold text-brand-200">0{i + 1}</span>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 6. Manufacturing / factory -->
+  <Section eyebrow="Manufacturing" title="Inside Our Factory" subtitle="Vertical integration from SMT to final assembly and aging tests — visit us in person or by video call." class="bg-slate-50">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex aspect-[4/3] items-center justify-center rounded-xl bg-brand-100 text-brand-600">
+          <span class="text-sm font-medium">SMT Line</span>
+        </div>
+        <div class="flex aspect-[4/3] items-center justify-center rounded-xl bg-brand-200 text-brand-800">
+          <span class="text-sm font-medium">Assembly Line</span>
+        </div>
+        <div class="flex aspect-[4/3] items-center justify-center rounded-xl bg-brand-200 text-brand-800">
+          <span class="text-sm font-medium">Aging Test Room</span>
+        </div>
+        <div class="flex aspect-[4/3] items-center justify-center rounded-xl bg-brand-100 text-brand-600">
+          <span class="text-sm font-medium">Warehouse</span>
+        </div>
+        <!-- TODO: replace with real factory photos (src/assets/factory/) -->
+      </div>
+      <div>
+        <ul class="space-y-4">
+          {
+            [
+              `${COMPANY.employees}+ staff, ${COMPANY.rdEngineers} R&D engineers`,
+              'Automated SMT lines with AOI inspection',
+              '100% functional testing before packing',
+              '8-hour aging test on every production batch',
+              'Third-party pre-shipment inspection welcome',
+            ].map((item) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed text-slate-700">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                </svg>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <Button href="/factory/" variant="outline" class="mt-8">Explore our factory</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 7. Applications -->
+  <Section eyebrow="Applications" title="Where Our Inverters Work" subtitle="Proven in residential, commercial, telecom and off-grid projects across diverse climates and grid conditions.">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {applications.map((app) => <ApplicationCard title={app.title} description={app.description} icon={app.icon} />)}
+    </div>
+  </Section>
+
+  <!-- 8. Certifications -->
+  <Section eyebrow="Compliance" title="Certifications & Standards" class="bg-slate-50">
+    <div class="flex flex-col items-center gap-6">
+      <CertificationList certifications={certifications} />
+      <p class="max-w-2xl text-center text-sm text-slate-500">
+        Certification availability varies by model and target market. Tell us your
+        destination country and we will confirm applicable certifications for your order.
+      </p>
+    </div>
+  </Section>
+
+  <!-- 9. Testimonials placeholder -->
+  <Section eyebrow="Testimonials" title="What Our Partners Say">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {
+        [1, 2, 3].map(() => (
+          <figure class="rounded-xl border border-slate-200 bg-white p-7">
+            <blockquote class="text-sm leading-relaxed text-slate-700">
+              "TODO: Real customer testimonials — replace before launch with distributor
+              or installer feedback, including country and business type."
+            </blockquote>
+            <figcaption class="mt-4 text-xs font-medium text-slate-500">
+              — Distributor, Country (placeholder)
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 10. Blog preview -->
+  <Section eyebrow="Insights" title="Latest From Our Blog" class="bg-slate-50">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md">
+            <time datetime={post.data.publishDate.toISOString()} class="text-xs text-slate-500">
+              {post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <h3 class="mt-2 text-base leading-snug font-semibold text-slate-900 group-hover:text-brand-700">
+              {post.data.title}
+            </h3>
+            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{post.data.description}</p>
+          </a>
+        ))
+      }
+    </div>
+    <div class="mt-10 text-center">
+      <Button href="/blog/" variant="outline">Read all articles</Button>
+    </div>
+  </Section>
+
+  <!-- 11. Request a quote -->
+  <CTABanner />
+</BaseLayout>

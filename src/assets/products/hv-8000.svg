@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="HV-8000 hybrid inverter placeholder image">
+  <rect width="800" height="800" fill="#f1f5f9"/>
+  <rect x="230" y="100" width="340" height="600" rx="14" fill="#16324f"/>
+  <rect x="270" y="150" width="260" height="130" rx="8" fill="#0b2136"/>
+  <text x="400" y="205" font-family="monospace" font-size="36" fill="#4ade80" text-anchor="middle">8000W</text>
+  <text x="400" y="242" font-family="monospace" font-size="19" fill="#94a3b8" text-anchor="middle">48V · HYBRID · 2 MPPT</text>
+  <g stroke="#24425f" stroke-width="7" stroke-linecap="round">
+    <line x1="280" y1="340" x2="520" y2="340"/>
+    <line x1="280" y1="370" x2="520" y2="370"/>
+    <line x1="280" y1="400" x2="520" y2="400"/>
+    <line x1="280" y1="430" x2="520" y2="430"/>
+    <line x1="280" y1="460" x2="520" y2="460"/>
+  </g>
+  <rect x="260" y="540" width="280" height="100" rx="8" fill="#f8fafc"/>
+  <text x="400" y="582" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#16324f" text-anchor="middle">HV-8000</text>
+  <text x="400" y="614" font-family="Arial, sans-serif" font-size="18" fill="#64748b" text-anchor="middle">Hybrid Solar Inverter</text>
+  <text x="400" y="735" font-family="Arial, sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">Placeholder — replace with real product photo</text>
+</svg>

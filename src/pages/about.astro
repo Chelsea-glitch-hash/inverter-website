@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { COMPANY, SITE } from '../config';
+---
+
+<BaseLayout
+  title="About Us — Inverter Manufacturer with In-House R&D and Production"
+  description={`Learn about ${COMPANY.legalName}: an inverter manufacturer with in-house R&D, own factory and ISO 9001 quality system, serving B2B customers in ${COMPANY.exportCountries}+ countries.`}
+  path="/about/"
+>
+  <Section eyebrow="About Us" title="A Manufacturer, Not a Middleman">
+    <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
+      <div class="space-y-4 text-base leading-relaxed text-slate-700">
+        <p>
+          {COMPANY.legalName} is a professional inverter manufacturer based in China.
+          Since {COMPANY.foundedYear}, we have designed and produced hybrid, grid-tie
+          and off-grid inverters for distributors, installers, EPC contractors and
+          brand owners worldwide.
+        </p>
+        <p>
+          Unlike trading companies, we control the full production chain: hardware
+          design, firmware development, SMT, assembly, aging tests and final
+          inspection. That means faster engineering response, consistent quality and
+          better margins for our partners.
+        </p>
+        <p>
+          Today our {COMPANY.factoryAreaSqm.toLocaleString('en-US')} m² factory produces
+          over {COMPANY.annualCapacityUnits.toLocaleString('en-US')} inverters per year,
+          and our products operate in {COMPANY.exportCountries}+ countries across
+          residential, commercial, telecom and off-grid applications.
+        </p>
+        <!-- TODO: replace with real company history and milestones -->
+      </div>
+      <dl class="grid grid-cols-2 gap-4">
+        {
+          [
+            { label: 'Founded', value: String(COMPANY.foundedYear) },
+            { label: 'Employees', value: `${COMPANY.employees}+` },
+            { label: 'R&D engineers', value: `${COMPANY.rdEngineers}+` },
+            { label: 'Factory area', value: `${(COMPANY.factoryAreaSqm / 1000).toLocaleString('en-US')}k m²` },
+            { label: 'Annual capacity', value: `${(COMPANY.annualCapacityUnits / 1000).toLocaleString('en-US')}k units` },
+            { label: 'Export countries', value: `${COMPANY.exportCountries}+` },
+          ].map((item) => (
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <dd class="text-2xl font-semibold text-brand-700">{item.value}</dd>
+              <dt class="mt-1 text-sm text-slate-600">{item.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section eyebrow="How We Work" title="OEM / ODM Partnership Model" class="bg-slate-50">
+    <ol class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { step: '01', title: 'Requirement review', desc: 'Share specs, certifications and target market. Our engineers confirm feasibility within 48 hours.' },
+          { step: '02', title: 'Sampling', desc: 'We build and test pre-production samples against your technical requirements.' },
+          { step: '03', title: 'Customization', desc: 'Firmware parameters, branding, packaging and documentation tailored to your brand.' },
+          { step: '04', title: 'Mass production', desc: 'Scheduled production with 100% functional testing and pre-shipment inspection reports.' },
+        ].map((item) => (
+          <li class="rounded-xl border border-slate-200 bg-white p-6">
+            <span class="text-2xl font-bold text-brand-200">{item.step}</span>
+            <h3 class="mt-3 text-base font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <CTABanner title="Let's Build Something Together" subtitle="Whether you need a catalog model or a fully custom inverter, our team is ready to help." />
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import CertificationList from '../components/CertificationList.astro';
+---
+
+<BaseLayout
+  title="Quality Control — ISO 9001 System, 100% Testing, 8-Hour Aging"
+  description="Our inverter quality control: ISO 9001 certified quality system, 100% functional testing, 8-hour aging tests and full production traceability. Third-party inspection welcome."
+  path="/quality/"
+>
+  <Section eyebrow="Quality" title="Quality Is a Process, Not a Certificate">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {
+        [
+          {
+            title: 'ISO 9001 quality system',
+            desc: 'Documented processes cover design, purchasing, production and after-sales. Regular internal audits keep the system alive, not just certified.',
+          },
+          {
+            title: '100% functional testing',
+            desc: 'Every single unit is tested for output waveform, efficiency, protection behavior and communication before it leaves the line. No batch sampling excuses.',
+          },
+          {
+            title: '8-hour aging test',
+            desc: 'Production batches run under full load in our aging room to catch early-life failures before shipping.',
+          },
+        ].map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <h3 class="text-lg font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section eyebrow="Traceability" title="Every Unit Can Be Traced Back" class="bg-slate-50">
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <p class="text-base leading-relaxed text-slate-700">
+        Each inverter carries a unique serial number linking it to production date,
+        test records and component batches. If a field issue ever occurs, we can
+        trace the affected batch within hours — not weeks. Test reports and
+        inspection data are available to B2B customers on request.
+      </p>
+      <ul class="space-y-3 text-sm text-slate-700">
+        {
+          [
+            'Incoming quality control (IQC) on all key components',
+            'In-process quality control (IPQC) at each production stage',
+            'Outgoing quality control (OQC) with pre-shipment inspection',
+            'Reliability testing: high/low temperature, humidity, vibration',
+            'Third-party inspection (SGS / TÜV / BV) accepted',
+          ].map((item) => (
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+              </svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section eyebrow="Certifications" title="Compliance & Certifications">
+    <div class="flex flex-col items-center gap-4">
+      <CertificationList certifications={['ISO 9001', 'CE', 'RoHS']} />
+      <p class="max-w-2xl text-center text-sm text-slate-500">
+        TODO: certification logos and model-specific certificates — confirm the
+        applicable certification set for your target market with our sales team.
+      </p>
+    </div>
+  </Section>
+
+  <CTABanner title="Request Test Reports or a Sample" subtitle="Validate our quality yourself — we provide test reports and samples for qualified B2B buyers." />
+</BaseLayout>
