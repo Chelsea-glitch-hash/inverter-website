@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-preview/
+.astro/
+astro.config.preview.mjs
+
+# Environment / secrets - NEVER commit
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+
+# Cloudflare
+.wrangler/
+
+# Internal tooling
+.workbuddy/
+.npm-cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
