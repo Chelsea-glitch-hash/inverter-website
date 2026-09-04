@@ -1,0 +1,80 @@
+---
+/**
+ * Newsletter / marketing subscription form.
+ *
+ * STRICTLY SEPARATE from inquiries (spec section 8):
+ *  - subscribing = explicit marketing consent (checkbox required)
+ *  - inquiry customers are NEVER auto-subscribed
+ *
+ * POSTs to /api/newsletter which forwards to the ESP
+ * (Brevo / Mailchimp / etc.) when configured.
+ */
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div id="newsletter-root">
+  <form id="newsletter-form" class="flex flex-col gap-3" data-track-form="newsletter" novalidate>
+    <div class={compact ? 'flex flex-col gap-3 sm:flex-row' : 'flex flex-col gap-3 sm:flex-row'}>
+      <label for="nl-email" class="sr-only">Email address</label>
+      <input
+        id="nl-email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        placeholder="your@email.com"
+        class="w-full rounded-lg border border-slate-600 bg-slate-800 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/40"
+      />
+      <button
+        type="submit"
+        class="shrink-0 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-400"
+      >
+        Subscribe
+      </button>
+    </div>
+    <label class="flex items-start gap-2.5 text-xs leading-relaxed text-slate-400">
+      <input type="checkbox" name="consent" value="yes" required class="mt-0.5 h-3.5 w-3.5 rounded border-slate-600 bg-slate-800 text-brand-500 focus:ring-brand-500/40" />
+      <span>I agree to receive product updates, technical information and company news by email. I can unsubscribe at any time.</span>
+    </label>
+  </form>
+
+  <p id="newsletter-success" class="hidden text-sm text-green-400" role="status">
+    Subscribed — welcome aboard.
+  </p>
+  <p id="newsletter-error" class="hidden text-sm text-red-400" role="alert">
+    Subscription failed. Please try again later.
+  </p>
+</div>
+
+<script>
+  import { trackEvent } from '../lib/analytics';
+
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const success = document.getElementById('newsletter-success');
+  const errorBox = document.getElementById('newsletter-error');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!success || !errorBox) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { ok: boolean };
+      if (!res.ok || !result.ok) throw new Error('failed');
+
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+      trackEvent('newsletter_signup', {});
+    } catch {
+      errorBox.classList.remove('hidden');
+    }
+  });
+</script>

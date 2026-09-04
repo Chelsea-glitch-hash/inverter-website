@@ -1,0 +1,236 @@
+---
+/**
+ * B2B Inquiry Form — the most important conversion path.
+ *
+ * Fields: Name, Company, Country, Email, WhatsApp/Phone,
+ *         Interested Product (auto-prefilled), Quantity, Message
+ *         + separate marketing consent checkbox (default UNCHECKED)
+ *         + hidden attribution fields (UTM / landing page / referrer)
+ *         + honeypot anti-spam field
+ *
+ * Submission: Cloudflare Turnstile -> /api/inquiry (Pages Function)
+ *             -> Resend -> sales email.
+ */
+import { TURNSTILE } from '../config';
+
+interface Props {
+  /** Pre-selected product SKU (from product page CTA) */
+  productSku?: string;
+  /** Product options for the select, fetched by the page */
+  productOptions?: { sku: string; name: string }[];
+}
+const { productSku = '', productOptions = [] } = Astro.props;
+---
+
+<div
+  id="inquiry-form-root"
+  data-turnstile-sitekey={TURNSTILE.siteKey}
+  class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+>
+  <h2 class="text-xl font-semibold text-slate-900">Request a Quote</h2>
+  <p class="mt-2 text-sm text-slate-600">
+    Tell us what you need. Our sales engineers reply within 24 hours on business days.
+  </p>
+
+  <form
+    id="inquiry-form"
+    class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2"
+    data-track-form="inquiry"
+    novalidate
+  >
+    <div>
+      <label for="if-name" class="mb-1.5 block text-sm font-medium text-slate-700">Name <span class="text-red-500">*</span></label>
+      <input id="if-name" name="name" type="text" required autocomplete="name"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div>
+      <label for="if-company" class="mb-1.5 block text-sm font-medium text-slate-700">Company</label>
+      <input id="if-company" name="company" type="text" autocomplete="organization"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div>
+      <label for="if-country" class="mb-1.5 block text-sm font-medium text-slate-700">Country</label>
+      <input id="if-country" name="country" type="text" autocomplete="country-name"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div>
+      <label for="if-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email <span class="text-red-500">*</span></label>
+      <input id="if-email" name="email" type="email" required autocomplete="email"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div>
+      <label for="if-phone" class="mb-1.5 block text-sm font-medium text-slate-700">WhatsApp / Phone</label>
+      <input id="if-phone" name="phone" type="tel" autocomplete="tel"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div>
+      <label for="if-quantity" class="mb-1.5 block text-sm font-medium text-slate-700">Estimated Quantity</label>
+      <input id="if-quantity" name="quantity" type="text" inputmode="numeric" placeholder="e.g. 500"
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
+    </div>
+    <div class="sm:col-span-2">
+      <label for="if-product" class="mb-1.5 block text-sm font-medium text-slate-700">Interested Product</label>
+      <select id="if-product" name="product"
+        class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200">
+        <option value="">General inquiry / not sure yet</option>
+        {productOptions.map((o) => <option value={o.sku} selected={o.sku === productSku}>{o.sku} — {o.name}</option>)}
+      </select>
+    </div>
+    <div class="sm:col-span-2">
+      <label for="if-message" class="mb-1.5 block text-sm font-medium text-slate-700">Message <span class="text-red-500">*</span></label>
+      <textarea id="if-message" name="message" rows="4" required
+        placeholder="Technical requirements, target market, certification needs, delivery schedule..."
+        class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200"></textarea>
+    </div>
+
+    <!-- Honeypot: real users never see or fill this -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="if-website">Website</label>
+      <input id="if-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Marketing consent: SEPARATE from inquiry submission, default unchecked -->
+    <div class="sm:col-span-2">
+      <label class="flex items-start gap-3 text-sm text-slate-600">
+        <input type="checkbox" name="marketing_opt_in" value="yes" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+        <span>I would like to receive product updates, technical information and company news by email.</span>
+      </label>
+    </div>
+
+    <!-- Cloudflare Turnstile (rendered when site key is configured) -->
+    {TURNSTILE.siteKey && <div class="cf-turnstile sm:col-span-2" data-sitekey={TURNSTILE.siteKey}></div>}
+
+    <!-- Hidden attribution fields, populated by JS before submit -->
+    <input type="hidden" name="attr_source" />
+    <input type="hidden" name="attr_medium" />
+    <input type="hidden" name="attr_campaign" />
+    <input type="hidden" name="attr_term" />
+    <input type="hidden" name="attr_content" />
+    <input type="hidden" name="attr_gclid" />
+    <input type="hidden" name="attr_landing_page" />
+    <input type="hidden" name="attr_referrer" />
+
+    <div class="sm:col-span-2">
+      <button
+        type="submit"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      >
+        Send inquiry
+      </button>
+      <p class="mt-3 text-xs text-slate-500">
+        By submitting, you agree to our
+        <a href="/privacy-policy/" class="text-brand-700 underline">privacy policy</a>.
+        Your inquiry is not a marketing subscription.
+      </p>
+    </div>
+  </form>
+
+  <!-- Success state -->
+  <div id="inquiry-success" class="hidden mt-6 rounded-xl border border-green-200 bg-green-50 p-6" role="status">
+    <p class="font-medium text-green-800">Thank you — your inquiry has been sent.</p>
+    <p class="mt-1 text-sm text-green-700">Our sales engineers will get back to you within 24 hours on business days.</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="inquiry-error" class="hidden mt-6 rounded-xl border border-red-200 bg-red-50 p-6" role="alert">
+    <p class="font-medium text-red-800">Something went wrong.</p>
+    <p id="inquiry-error-detail" class="mt-1 text-sm text-red-700"></p>
+  </div>
+</div>
+
+<script>
+  import { getAttribution } from '../lib/attribution';
+  import { trackEvent } from '../lib/analytics';
+
+  const root = document.getElementById('inquiry-form-root');
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const success = document.getElementById('inquiry-success');
+  const errorBox = document.getElementById('inquiry-error');
+  const errorDetail = document.getElementById('inquiry-error-detail');
+
+  // Load Turnstile widget only when configured.
+  const siteKey = root?.dataset.turnstileSitekey;
+  if (siteKey && !document.querySelector('script[data-turnstile]')) {
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    s.defer = true;
+    s.dataset.turnstile = 'true';
+    document.head.appendChild(s);
+  }
+
+  // Prefill product from URL: /contact/?product=HV-5000
+  const urlProduct = new URLSearchParams(window.location.search).get('product');
+  if (urlProduct) {
+    const select = form?.querySelector<HTMLSelectElement>('[name="product"]');
+    if (select) {
+      const match = [...select.options].find((o) => o.value === urlProduct);
+      if (match) select.value = urlProduct;
+      else {
+        const opt = document.createElement('option');
+        opt.value = urlProduct;
+        opt.textContent = urlProduct;
+        select.prepend(opt);
+        select.value = urlProduct;
+      }
+    }
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form || !success || !errorBox || !errorDetail) return;
+
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) button.disabled = true;
+    errorBox.classList.add('hidden');
+    success.classList.add('hidden');
+
+    // Inject attribution into hidden fields right before submit.
+    const attr = getAttribution();
+    const set = (name: string, value: string) => {
+      const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
+      if (input) input.value = value;
+    };
+    set('attr_source', attr.source);
+    set('attr_medium', attr.medium);
+    set('attr_campaign', attr.campaign);
+    set('attr_term', attr.term);
+    set('attr_content', attr.content);
+    set('attr_gclid', attr.gclid);
+    set('attr_landing_page', attr.landingPage);
+    set('attr_referrer', attr.referrer);
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const res = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = (await res.json()) as { ok: boolean; error?: string };
+
+      if (res.ok && result.ok) {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        // Core GA4 conversion event, with product + attribution context.
+        trackEvent('form_submit', {
+          form_type: 'inquiry',
+          product_sku: String(data['product'] || ''),
+          utm_source: attr.source,
+          utm_medium: attr.medium,
+          utm_campaign: attr.campaign,
+        });
+      } else {
+        throw new Error(result.error || 'Submission failed.');
+      }
+    } catch (err) {
+      errorDetail.textContent =
+        err instanceof Error
+          ? `${err.message} Please try again, or email us directly.`
+          : 'Please try again, or email us directly.';
+      errorBox.classList.remove('hidden');
+      if (button) button.disabled = false;
+    }
+  });
+</script>
