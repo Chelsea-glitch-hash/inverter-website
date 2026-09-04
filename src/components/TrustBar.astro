@@ -1,0 +1,30 @@
+---
+import Container from './Container.astro';
+import { COMPANY } from '../config';
+
+/**
+ * Trust bar: key manufacturer facts (homepage section 2).
+ */
+const facts = [
+  { value: `Since ${COMPANY.foundedYear}`, label: 'Manufacturer' },
+  { value: `${COMPANY.factoryAreaSqm.toLocaleString('en-US')} m²`, label: 'Factory area' },
+  { value: `${(COMPANY.annualCapacityUnits / 1000).toLocaleString('en-US')}k+`, label: 'Units / year' },
+  { value: `${COMPANY.exportCountries}+`, label: 'Export countries' },
+  { value: `${COMPANY.oemClients}+`, label: 'OEM / ODM clients' },
+];
+---
+
+<section class="border-y border-slate-200 bg-slate-50" aria-label="Company facts">
+  <Container>
+    <dl class="grid grid-cols-2 gap-6 py-10 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        facts.map((f) => (
+          <div class="text-center">
+            <dt class="order-2 mt-1 text-xs tracking-wide text-slate-500 uppercase">{f.label}</dt>
+            <dd class="order-1 text-2xl font-semibold text-brand-700">{f.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Container>
+</section>

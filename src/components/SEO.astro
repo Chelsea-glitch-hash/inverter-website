@@ -1,0 +1,33 @@
+---
+/**
+ * SEO meta tags: unique title, description, canonical, Open Graph,
+ * Twitter card. Included by BaseLayout.
+ */
+import { SITE } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogType?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+}
+
+const { title, description, path, ogType = 'website', noindex = false } = Astro.props;
+const canonical = new URL(path, Astro.site);
+const ogUrl = canonical.toString();
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
+
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={ogUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

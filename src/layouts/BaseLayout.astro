@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { SITE, COMPANY, ANALYTICS } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Canonical path, e.g. "/products/hybrid-inverters/" */
+  path: string;
+  ogType?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+  /** body data attributes for analytics */
+  pageType?: string;
+  productSku?: string;
+  productCategory?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogType = 'website',
+  noindex = false,
+  pageType,
+  productSku,
+  productCategory,
+} = Astro.props;
+
+/* Organization structured data (site-wide) */
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: COMPANY.legalName,
+  url: SITE.url,
+  description: `${COMPANY.legalName} is a professional inverter manufacturer providing OEM/ODM services for global B2B customers.`,
+  foundingDate: String(COMPANY.foundedYear),
+  address: { '@type': 'PostalAddress', streetAddress: COMPANY.address, addressCountry: 'CN' },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO title={title} description={description} path={path} ogType={ogType} noindex={noindex} />
+
+    <!-- GA4 with Consent Mode v2: all marketing/analytics storage denied until consent -->
+    {
+      ANALYTICS.ga4MeasurementId && (
+        <script is:inline define:vars={{ measurementId: ANALYTICS.ga4MeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+          // Re-apply a saved decision so returning visitors keep their choice.
+          try {
+            var saved = JSON.parse(localStorage.getItem('consent_mode') || 'null');
+            if (saved && saved.mode === 'granted') {
+              gtag('consent', 'update', {
+                analytics_storage: 'granted',
+                ad_storage: 'granted',
+                ad_user_data: 'granted',
+                ad_personalization: 'granted',
+              });
+            }
+          } catch (e) {}
+          gtag('js', new Date());
+          gtag('config', measurementId);
+        </script>
+      )
+    }
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+  </head>
+
+  <body
+    class="flex min-h-screen flex-col"
+    data-page-type={pageType}
+    data-product-sku={productSku}
+    data-product-category={productCategory}
+  >
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
+    <ConsentBanner />
+
+    <script>
+      import '../scripts/tracking';
+    </script>
+  </body>
+</html>

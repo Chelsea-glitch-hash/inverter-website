@@ -1,0 +1,52 @@
+---
+/**
+ * Breadcrumb navigation + BreadcrumbList structured data (JSON-LD).
+ */
+import { SITE } from '../config';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  crumbs: Crumb[];
+}
+const { crumbs } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: new URL('/', Astro.site).toString(),
+    },
+    ...crumbs.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: c.label,
+      ...(c.href ? { item: new URL(c.href, Astro.site).toString() } : {}),
+    })),
+  ],
+};
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+  <ol class="flex flex-wrap items-center gap-1.5">
+    <li>
+      <a href="/" class="hover:text-brand-700">Home</a>
+    </li>
+    {
+      crumbs.map((c) => (
+        <li class="flex items-center gap-1.5">
+          <span aria-hidden="true" class="text-slate-400">/</span>
+          {c.href ? <a href={c.href} class="hover:text-brand-700">{c.label}</a> : <span class="text-slate-700">{c.label}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

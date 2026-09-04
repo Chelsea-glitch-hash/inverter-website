@@ -1,0 +1,117 @@
+---
+import Container from './Container.astro';
+import NewsletterForm from './NewsletterForm.astro';
+import { SITE, COMPANY, CONTACT, SOCIAL } from '../config';
+import { CATEGORIES } from '../lib/categories';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-slate-200 bg-slate-900 text-slate-300">
+  <Container>
+    <div class="grid grid-cols-1 gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Company -->
+      <div>
+        <div class="flex items-center gap-2.5">
+          <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" class="fill-brand-500" />
+            <path d="M17.5 5 9 18h5.5L13 27l9-13.5h-5.5L17.5 5Z" class="fill-accent-400" />
+          </svg>
+          <span class="text-lg font-semibold text-white">{SITE.shortName}</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-slate-400">
+          {COMPANY.legalName} — professional inverter manufacturer since {COMPANY.foundedYear}.
+          OEM / ODM partner for {COMPANY.exportCountries}+ countries.
+        </p>
+        <div class="mt-4 flex gap-4 text-sm">
+          {
+            SOCIAL.linkedin && (
+              <a href={SOCIAL.linkedin} class="text-slate-400 hover:text-white" rel="noopener" target="_blank">
+                LinkedIn
+              </a>
+            )
+          }
+          {
+            SOCIAL.youtube && (
+              <a href={SOCIAL.youtube} class="text-slate-400 hover:text-white" rel="noopener" target="_blank">
+                YouTube
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- Products -->
+      <nav aria-label="Product categories">
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Products</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            CATEGORIES.map((c) => (
+              <li>
+                <a href={`/products/${c.slug}/`} class="text-slate-400 hover:text-white">
+                  {c.name}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/products/" class="text-slate-400 hover:text-white">All products</a></li>
+        </ul>
+      </nav>
+
+      <!-- Company links -->
+      <nav aria-label="Company">
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Company</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="/about/" class="text-slate-400 hover:text-white">About us</a></li>
+          <li><a href="/factory/" class="text-slate-400 hover:text-white">Factory &amp; Manufacturing</a></li>
+          <li><a href="/quality/" class="text-slate-400 hover:text-white">Quality Control</a></li>
+          <li><a href="/blog/" class="text-slate-400 hover:text-white">Blog &amp; Insights</a></li>
+          <li><a href="/contact/" class="text-slate-400 hover:text-white">Contact us</a></li>
+          <li><a href="/privacy-policy/" class="text-slate-400 hover:text-white">Privacy policy</a></li>
+        </ul>
+      </nav>
+
+      <!-- Contact + newsletter -->
+      <div>
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Stay updated</h3>
+        <p class="mt-4 text-sm text-slate-400">
+          Product updates, technical insights and company news.
+        </p>
+        <div class="mt-4">
+          <NewsletterForm compact />
+        </div>
+        <ul class="mt-5 space-y-2 text-sm text-slate-400">
+          <li>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              class="hover:text-white"
+              data-track="click_email"
+            >
+              {CONTACT.email}
+            </a>
+          </li>
+          {
+            CONTACT.whatsapp && (
+              <li>
+                <a
+                  href={`https://wa.me/${CONTACT.whatsapp}`}
+                  class="hover:text-white"
+                  data-track="click_whatsapp"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  WhatsApp: +{CONTACT.whatsapp}
+                </a>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-between gap-3 border-t border-slate-800 py-6 text-xs text-slate-500 sm:flex-row">
+      <p>&copy; {year} {COMPANY.legalName}. All rights reserved.</p>
+      <p>{SITE.url.replace('https://', '')}</p>
+    </div>
+  </Container>
+</footer>

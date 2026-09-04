@@ -1,0 +1,46 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+import { CONTACT } from '../config';
+
+/**
+ * "Request a Quote" call-to-action band, reused across pages.
+ */
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const {
+  title = 'Request a Quote Today',
+  subtitle = 'Send us your requirements — our sales engineers reply within 24 hours with pricing, lead times and OEM options.',
+} = Astro.props;
+---
+
+<section class="bg-brand-800">
+  <Container>
+    <div class="flex flex-col items-center gap-6 py-14 text-center sm:py-16">
+      <div>
+        <h2 class="text-2xl font-semibold text-white sm:text-3xl">{title}</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-brand-100">{subtitle}</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button href="/contact/" variant="secondary" size="lg" track="click_request_quote">
+          Request a Quote
+        </Button>
+        {
+          CONTACT.whatsapp && (
+            <Button
+              href={`https://wa.me/${CONTACT.whatsapp}`}
+              variant="outline"
+              size="lg"
+              class="border-brand-400 bg-transparent text-white hover:border-white hover:text-white"
+              track="click_whatsapp"
+            >
+              Chat on WhatsApp
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</section>

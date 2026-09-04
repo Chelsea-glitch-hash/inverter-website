@@ -1,0 +1,165 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+import { SITE, CONTACT } from '../config';
+import { CATEGORIES } from '../lib/categories';
+
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: '/products/', label: 'Products' },
+  { href: '/factory/', label: 'Factory' },
+  { href: '/quality/', label: 'Quality' },
+  { href: '/about/', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <Container>
+    <div class="flex h-16 items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2.5" aria-label={`${SITE.name} home`}>
+        <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" class="fill-brand-600" />
+          <path
+            d="M17.5 5 9 18h5.5L13 27l9-13.5h-5.5L17.5 5Z"
+            class="fill-accent-400"
+          />
+        </svg>
+        <span class="text-lg font-semibold text-slate-900">{SITE.shortName}</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden items-center gap-6 lg:flex" aria-label="Main navigation">
+        <div class="group relative">
+          <a
+            href="/products/"
+            class:list={[
+              'py-2 text-sm font-medium transition-colors',
+              currentPath.startsWith('/products')
+                ? 'text-brand-700'
+                : 'text-slate-700 hover:text-brand-700',
+            ]}
+          >
+            Products
+            <svg class="ml-1 inline-block h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path
+                d="M5.5 7.5 10 12l4.5-4.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <div class="invisible absolute top-full left-0 z-50 w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+            <div class="rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+              {
+                CATEGORIES.map((c) => (
+                  <a
+                    href={`/products/${c.slug}/`}
+                    class="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700"
+                  >
+                    {c.name}
+                  </a>
+                ))
+              }
+              <a
+                href="/products/"
+                class="block rounded-lg px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50"
+              >
+                View all products &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+        {
+          navLinks
+            .filter((l) => l.href !== '/products/')
+            .map((link) => (
+              <a
+                href={link.href}
+                class:list={[
+                  'py-2 text-sm font-medium transition-colors',
+                  currentPath.startsWith(link.href) && link.href !== '/'
+                    ? 'text-brand-700'
+                    : 'text-slate-700 hover:text-brand-700',
+                ]}
+              >
+                {link.label}
+              </a>
+            ))
+        }
+      </nav>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        <Button href="/contact/" variant="primary" track="click_request_quote">
+          Request a Quote
+        </Button>
+      </div>
+
+      <!-- Mobile menu toggle -->
+      <button
+        id="mobile-menu-toggle"
+        class="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation menu"
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </Container>
+
+  <!-- Mobile nav -->
+  <nav id="mobile-menu" class="hidden border-t border-slate-200 bg-white lg:hidden" aria-label="Mobile navigation">
+    <Container>
+      <div class="flex flex-col gap-1 py-4">
+        {
+          navLinks.map((link) => (
+            <a href={link.href} class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700">
+              {link.label}
+            </a>
+          ))
+        }
+        <div class="mt-2 flex flex-col gap-1 border-t border-slate-100 pt-3">
+          {
+            CATEGORIES.map((c) => (
+              <a href={`/products/${c.slug}/`} class="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-700">
+                {c.name}
+              </a>
+            ))
+          }
+        </div>
+        <Button href="/contact/" variant="primary" class="mt-3 w-full" track="click_request_quote">
+          Request a Quote
+        </Button>
+        {
+          CONTACT.whatsapp && (
+            <a
+              href={`https://wa.me/${CONTACT.whatsapp}`}
+              class="rounded-lg px-3 py-2.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
+              data-track="click_whatsapp"
+            >
+              WhatsApp Us
+            </a>
+          )
+        }
+      </div>
+    </Container>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+</script>

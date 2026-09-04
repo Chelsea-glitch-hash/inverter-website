@@ -1,0 +1,73 @@
+---
+/**
+ * Button / link with variants.
+ * Tracking: pass `track` to add data-track attributes for GA4 events.
+ */
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'md' | 'lg';
+  class?: string;
+  /** GA4 event name, e.g. "click_request_quote" */
+  track?: string;
+  /** JSON params for the GA4 event, e.g. '{"product_sku":"HV-5000"}' */
+  trackParams?: Record<string, string>;
+  target?: string;
+  rel?: string;
+  type?: 'button' | 'submit';
+  download?: boolean;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  track,
+  trackParams,
+  target,
+  rel,
+  type,
+  download,
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500';
+
+const variants: Record<string, string> = {
+  primary: 'bg-brand-600 text-white hover:bg-brand-700',
+  secondary: 'bg-accent-500 text-slate-900 hover:bg-accent-400',
+  outline: 'border border-slate-300 bg-white text-slate-800 hover:border-brand-400 hover:text-brand-700',
+  ghost: 'text-brand-700 hover:bg-brand-50',
+};
+
+const sizes: Record<string, string> = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-6 py-3 text-base',
+};
+
+const classes = [base, variants[variant], sizes[size], className];
+const attrs = {
+  ...(track ? { 'data-track': track } : {}),
+  ...(trackParams ? { 'data-track-params': JSON.stringify(trackParams) } : {}),
+};
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      target={target}
+      rel={rel}
+      download={download || undefined}
+      {...attrs}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type={type ?? 'button'} class={classes} {...attrs}>
+      <slot />
+    </button>
+  )
+}
