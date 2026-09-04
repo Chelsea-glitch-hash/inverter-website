@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * Product image gallery with thumbnail switching (progressive JS).
+ * Uses <noscript>-friendly markup: first image always visible.
+ */
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/products/*.{svg,png,jpg,jpeg,webp,avif}',
+  { eager: true }
+);
+
+interface Props {
+  sku: string;
+  name: string;
+  images: string[];
+}
+const { sku, name, images } = Astro.props;
+
+const resolved = images
+  .map((file) => imageModules[`/src/assets/products/${file}`]?.default)
+  .filter((img): img is ImageMetadata => Boolean(img));
+---
+
+{
+  resolved.length > 0 && (
+    <div class="gallery" data-gallery>
+      <div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+        {resolved.map((img, i) => (
+          <Image
+            src={img}
+            alt={`${name} (${sku}) — view ${i + 1}`}
+            width={800}
+            height={800}
+            class:list={['gallery-main w-full object-contain p-8', i > 0 && 'hidden']}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            data-gallery-image={i}
+          />
+        ))}
+      </div>
+      {
+        resolved.length > 1 && (
+          <div class="mt-3 grid grid-cols-4 gap-3">
+            {resolved.map((img, i) => (
+              <button
+                type="button"
+                class="gallery-thumb overflow-hidden rounded-lg border-2 border-transparent bg-slate-50 data-[active=true]:border-brand-500"
+                data-gallery-thumb={i}
+                aria-label={`Show image ${i + 1}`}
+              >
+                <Image src={img} alt="" width={160} height={160} class="aspect-square w-full object-contain p-2" loading="lazy" />
+              </button>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const mains = gallery.querySelectorAll('[data-gallery-image]');
+    const thumbs = gallery.querySelectorAll('[data-gallery-thumb]');
+    const activate = (index: number) => {
+      mains.forEach((el, i) => el.classList.toggle('hidden', i !== index));
+      thumbs.forEach((el, i) => el.dataset.active = String(i === index));
+    };
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => activate(i));
+    });
+  });
+</script>

@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Section from '../../../components/Section.astro';
+import Button from '../../../components/Button.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ProductGallery from '../../../components/ProductGallery.astro';
+import SpecTable from '../../../components/SpecTable.astro';
+import FeatureList from '../../../components/FeatureList.astro';
+import CertificationList from '../../../components/CertificationList.astro';
+import FAQ from '../../../components/FAQ.astro';
+import DownloadCard from '../../../components/DownloadCard.astro';
+import ProductGrid from '../../../components/ProductGrid.astro';
+import CTABanner from '../../../components/CTABanner.astro';
+import { getCollection, render } from 'astro:content';
+import { getCategory } from '../../../lib/categories';
+import { SITE } from '../../../config';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => {
+    const [category] = product.id.split('/');
+    return {
+      params: { category, product: product.id.split('/')[1] },
+      props: { product },
+    };
+  });
+}
+
+const { product } = Astro.props;
+const { Content } = await render(product);
+const p = product.data;
+const categoryMeta = getCategory(p.category);
+
+/* Related products: same category, excluding current */
+const related = (await getCollection('products', (x) => x.data.category === p.category && x.id !== product.id))
+  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
+  .slice(0, 4);
+
+/* Product structured data. Offer markup intentionally omitted until
+   real pricing data exists (per SEO spec: only use with real data). */
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  sku: p.sku,
+  mpn: p.sku,
+  description: p.seoDescription,
+  brand: { '@type': 'Brand', name: SITE.name },
+  ...(p.certifications.length > 0
+    ? { additionalProperty: p.certifications.map((c) => ({ '@type': 'PropertyValue', name: 'Certification', value: c })) }
+    : {}),
+};
+
+const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
+---
+
+<BaseLayout
+  title={p.seoTitle ?? `${p.name} (${p.sku}) — ${categoryMeta?.name ?? 'Inverter'}`}
+  description={p.seoDescription}
+  path={`/products/${product.id}/`}
+  ogType="product"
+  pageType="product"
+  productSku={p.sku}
+  productCategory={p.category}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Products', href: '/products/' },
+        { label: categoryMeta?.name ?? p.category, href: `/products/${p.category}/` },
+        { label: p.sku },
+      ]}
+    />
+  </Container>
+
+  <!-- Product hero: gallery + key info -->
+  <Container class="pt-6 pb-4">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <ProductGallery sku={p.sku} name={p.name} images={p.images} />
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">{p.sku}</span>
+          {p.featured && <span class="rounded bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-600">Featured</span>}
+          {
+            p.ratedPower && (
+              <span class="rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                {p.ratedPower >= 1000 ? `${p.ratedPower / 1000} kW` : `${p.ratedPower} W`} rated output
+              </span>
+            )
+          }
+        </div>
+
+        <h1 class="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">{p.name}</h1>
+        <p class="mt-4 text-base leading-relaxed text-slate-600">{p.shortDescription}</p>
+
+        <div class="mt-6">
+          <CertificationList certifications={p.certifications} />
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href={inquiryHref} variant="primary" size="lg" track="click_request_quote" trackParams={{ product_sku: p.sku, product_category: p.category }}>
+            Get a Quote for This Model
+          </Button>
+          <Button href="/contact/" variant="outline" size="lg">
+            Contact Sales
+          </Button>
+        </div>
+
+        <ul class="mt-6 space-y-2 text-sm text-slate-600">
+          <li>• OEM / ODM branding available for volume orders</li>
+          <li>• Datasheet and pricing on request</li>
+          <li>• Reply within 24 hours on business days</li>
+        </ul>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Overview (MDX body) -->
+  <Section title="Product Overview">
+    <div class="max-w-3xl text-base leading-relaxed text-slate-700 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mb-1 [&_a]:text-brand-700 [&_a]:underline">
+      <Content />
+    </div>
+  </Section>
+
+  <!-- Technical specifications -->
+  {
+    p.specs.length > 0 && (
+      <Section title="Technical Specifications" class="bg-slate-50">
+        <div class="max-w-3xl">
+          <SpecTable specs={p.specs} />
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- Features -->
+  {
+    p.features.length > 0 && (
+      <Section title="Key Features">
+        <FeatureList features={p.features} />
+      </Section>
+    )
+  }
+
+  <!-- Applications -->
+  {
+    p.applications.length > 0 && (
+      <Section title="Applications" class="bg-slate-50">
+        <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {p.applications.map((app) => (
+            <li class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-5">
+              <span class="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
+              <span class="text-sm text-slate-700">{app}</span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  <!-- Downloads -->
+  {
+    p.datasheet && (
+      <Section title="Downloads">
+        <div class="max-w-xl">
+          <DownloadCard sku={p.sku} file={p.datasheet} />
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- FAQ -->
+  {
+    p.faq.length > 0 && (
+      <Section class="bg-slate-50">
+        <FAQ faq={p.faq} />
+      </Section>
+    )
+  }
+
+  <!-- Related products -->
+  {
+    related.length > 0 && (
+      <Section title="Related Products" subtitle={`More options in ${categoryMeta?.name ?? 'this category'}`}>
+        <ProductGrid products={related} />
+      </Section>
+    )
+  }
+
+  <CTABanner
+    title={`Get Pricing for ${p.sku}`}
+    subtitle="Tell us your quantity and target market — we reply with factory-direct pricing, lead time and certification options."
+  />
+</BaseLayout>

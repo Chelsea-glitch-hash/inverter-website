@@ -1,0 +1,47 @@
+---
+/**
+ * Technical specification table, optionally grouped.
+ */
+interface Spec {
+  group?: string;
+  label: string;
+  value: string;
+}
+interface Props {
+  specs: Spec[];
+}
+const { specs } = Astro.props;
+
+const groups = new Map<string, Spec[]>();
+for (const spec of specs) {
+  const key = spec.group || 'Specifications';
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key)!.push(spec);
+}
+---
+
+<div class="overflow-hidden rounded-xl border border-slate-200">
+  {
+    [...groups.entries()].map(([group, items], gi) => (
+      <table class="w-full text-sm">
+        <thead class={gi > 0 ? 'mt-6' : 'sr-only'}>
+          <tr>
+            <th colspan="2" scope="colgroup" class="bg-slate-50 px-5 py-3 text-left text-xs font-semibold tracking-wider text-slate-500 uppercase">
+              {group}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {items.map((s) => (
+            <tr>
+              <th scope="row" class="w-2/5 px-5 py-3 text-left font-medium text-slate-600">
+                {s.label}
+              </th>
+              <td class="px-5 py-3 text-slate-900">{s.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ))
+  }
+</div>

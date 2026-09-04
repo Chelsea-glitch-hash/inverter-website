@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Section from '../../../components/Section.astro';
+import CTABanner from '../../../components/CTABanner.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ProductGrid from '../../../components/ProductGrid.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, getCategory } from '../../../lib/categories';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((category) => ({
+    params: { category: category.slug },
+  }));
+}
+
+const { category } = Astro.params;
+const meta = getCategory(category!);
+const products = (await getCollection('products', (p) => p.data.category === category)).sort(
+  (a, b) => (b.data.ratedPower ?? 0) - (a.data.ratedPower ?? 0)
+);
+---
+
+<BaseLayout
+  title={`${meta?.heading ?? 'Products'} — Manufacturer & OEM Supplier`}
+  description={meta?.description ?? 'Inverter product category.'}
+  path={`/products/${category}/`}
+>
+  <Container class="pt-8">
+    <Breadcrumb crumbs={[{ label: 'Products', href: '/products/' }, { label: meta?.name ?? '' }]} />
+  </Container>
+
+  <Section eyebrow="Product Category" title={meta?.heading ?? 'Products'} subtitle={meta?.description}>
+    {
+      products.length > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          Models for this category are being prepared. Contact us for the latest catalog.
+        </p>
+      )
+    }
+  </Section>
+
+  <CTABanner
+    title="Need a Custom Specification?"
+    subtitle="We develop custom inverters for OEM/ODM projects — power rating, firmware, branding and certifications tailored to your market."
+  />
+</BaseLayout>

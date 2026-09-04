@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import CTABanner from '../../components/CTABanner.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, getCategory } from '../../lib/categories';
+
+const products = (await getCollection('products')).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<BaseLayout
+  title="All Products — Hybrid, Grid-Tie & Off-Grid Inverters"
+  description="Browse our complete inverter catalog: hybrid solar inverters, grid-tie string inverters, off-grid power inverters and accessories. OEM/ODM available for all models."
+  path="/products/"
+>
+  <Container class="pt-8">
+    <Breadcrumb crumbs={[{ label: 'Products' }]} />
+  </Container>
+
+  <Section eyebrow="Product Catalog" title="All Products" subtitle="Every model is designed, manufactured and tested in our own factory. Contact us for datasheets, pricing and OEM options.">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        CATEGORIES.map((c) => (
+          <a
+            href={`/products/${c.slug}/`}
+            class="group flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-brand-400 hover:bg-brand-50"
+          >
+            <div>
+              <h3 class="text-base font-semibold text-slate-900 group-hover:text-brand-700">{c.name}</h3>
+              <p class="mt-0.5 text-xs text-slate-500">{c.powerRange} · {products.filter((p) => p.data.category === c.slug).length} models</p>
+            </div>
+            <svg class="h-5 w-5 text-slate-400 group-hover:text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        ))
+      }
+    </div>
+
+    {
+      CATEGORIES.map((c) => {
+        const inCategory = products.filter((p) => p.data.category === c.slug);
+        if (inCategory.length === 0) return null;
+        return (
+          <div class="mt-14">
+            <div class="mb-6 flex items-end justify-between gap-4">
+              <div>
+                <h3 class="text-xl font-semibold text-slate-900">{getCategory(c.slug)?.heading ?? c.name}</h3>
+                <p class="mt-1 text-sm text-slate-600">{c.description}</p>
+              </div>
+              <Button href={`/products/${c.slug}/`} variant="ghost" class="shrink-0">
+                View category &rarr;
+              </Button>
+            </div>
+            <ProductGrid products={inCategory} />
+          </div>
+        );
+      })
+    }
+  </Section>
+
+  <CTABanner />
+</BaseLayout>
