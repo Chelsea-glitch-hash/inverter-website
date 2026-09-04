@@ -5,6 +5,7 @@ node_modules/
 dist/
 dist-preview/
 .astro/
+.astro-bak/
 astro.config.preview.mjs
 
 # Environment / secrets - NEVER commit
