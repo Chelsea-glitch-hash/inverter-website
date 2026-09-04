@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How we collect, use and protect your data when you use our website, submit an inquiry or subscribe to our newsletter."
+  path="/privacy-policy/"
+>
+  <Section title="Privacy Policy">
+    <div class="max-w-3xl space-y-6 text-sm leading-relaxed text-slate-700 [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-slate-900">
+      <p class="text-xs text-slate-500">Last updated: September 2026</p>
+
+      <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-800">
+        <strong>Note:</strong> This is a technical placeholder. Have the final text
+        reviewed by a legal professional before launch, especially for EU visitors
+        (GDPR) and other regulated markets.
+      </div>
+
+      <h2>1. Who we are</h2>
+      <p>
+        TODO: legal entity name, registered address and contact email as configured
+        in <code>src/config.ts</code>.
+      </p>
+
+      <h2>2. Data we collect</h2>
+      <ul class="list-disc space-y-1 pl-6">
+        <li><strong>Inquiry data</strong>: name, company, country, email, phone/WhatsApp, product interest, quantity and message — provided by you when submitting the inquiry form.</li>
+        <li><strong>Newsletter data</strong>: email address — provided only with your explicit marketing consent.</li>
+        <li><strong>Analytics data</strong>: anonymized usage statistics (Google Analytics 4), loaded only after you consent via the cookie banner.</li>
+        <li><strong>Attribution data</strong>: UTM parameters and referring page, used solely to understand which channel your inquiry came from.</li>
+      </ul>
+
+      <h2>3. How we use your data</h2>
+      <ul class="list-disc space-y-1 pl-6">
+        <li>Inquiry data is used to respond to your request and prepare quotations.</li>
+        <li>Newsletter data is used to send marketing emails you explicitly opted in to. You can unsubscribe at any time.</li>
+        <li>Submitting an inquiry does <strong>not</strong> subscribe you to marketing emails.</li>
+      </ul>
+
+      <h2>4. Cookies and consent</h2>
+      <p>
+        Marketing and analytics cookies are only set after you click "Accept all"
+        in the consent banner. "Necessary only" keeps them disabled. You can change
+        your choice at any time by clearing site data in your browser.
+      </p>
+
+      <h2>5. Third-party processors</h2>
+      <ul class="list-disc space-y-1 pl-6">
+        <li>Google Analytics (statistics, consent-based)</li>
+        <li>Cloudflare (hosting, CDN, bot protection)</li>
+        <li>Resend (transactional email delivery)</li>
+      </ul>
+
+      <h2>6. Your rights</h2>
+      <p>
+        You may request access, correction or deletion of your personal data at any
+        time by emailing us. TODO: add DPO / contact details and any
+        market-specific rights text (GDPR Art. 15–21, etc.).
+      </p>
+
+      <h2>7. Data retention</h2>
+      <p>
+        Inquiry data is retained as long as needed to handle your request and for
+        legitimate business record-keeping. TODO: confirm retention periods.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

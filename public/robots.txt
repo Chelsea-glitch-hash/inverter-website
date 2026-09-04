@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# TODO(launch): replace with the real domain
+Sitemap: https://www.your-domain.com/sitemap-index.xml
