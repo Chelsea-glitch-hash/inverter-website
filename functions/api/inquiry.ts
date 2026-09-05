@@ -28,15 +28,39 @@ interface Context {
 }
 
 const REQUIRED_FIELDS = ['name', 'email', 'message'] as const;
-const ATTRIBUTION_FIELDS = [
+
+/**
+ * Attribution fields are split to show BOTH first-touch (cross-session) and
+ * last-touch (current session) so the sales team can answer both
+ * "where did this customer first come from?" and "what campaign drove
+ * this conversion?".
+ */
+const FIRST_TOUCH_FIELDS = [
+  'attr_first_source',
+  'attr_first_medium',
+  'attr_first_campaign',
+  'attr_first_term',
+  'attr_first_content',
+] as const;
+const LAST_TOUCH_FIELDS = [
+  'attr_last_source',
+  'attr_last_medium',
+  'attr_last_campaign',
+  'attr_last_term',
+  'attr_last_content',
+] as const;
+const META_FIELDS = [
+  'attr_gclid',
+  'attr_landing_page',
+  'attr_referrer',
+] as const;
+/** Legacy v0.1.0 fields - still present for backward compatibility. */
+const LEGACY_ATTRIBUTION_FIELDS = [
   'attr_source',
   'attr_medium',
   'attr_campaign',
   'attr_term',
   'attr_content',
-  'attr_gclid',
-  'attr_landing_page',
-  'attr_referrer',
 ] as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,6 +71,26 @@ function escapeHtml(value: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/** Render an attribution block (e.g. First / Last / Meta / Legacy) as a row group. */
+function renderAttributionSection(
+  heading: string,
+  fields: readonly string[],
+  labelMap: Record<string, string>,
+  data: InquiryPayload
+): string {
+  const rows: string[] = [];
+  for (const field of fields) {
+    const value = data[field];
+    if (!value) continue; // skip empty so the section doesn't show "(none)"
+    rows.push(
+      `<tr><td style="padding:6px 12px;color:#64748b;">${labelMap[field] || field}</td><td style="padding:6px 12px;color:#0f172a;">${escapeHtml(value)}</td></tr>`
+    );
+  }
+  if (rows.length === 0) return '';
+  return `<h3 style="color:#245299;margin-top:20px;margin-bottom:6px;">${heading}</h3>
+    <table style="border-collapse:collapse;border:1px solid #e2e8f0;">${rows.join('')}</table>`;
 }
 
 async function verifyTurnstile(
@@ -76,7 +120,7 @@ function buildEmailHtml(data: InquiryPayload): string {
     country: 'Country',
     email: 'Email',
     phone: 'WhatsApp / Phone',
-    product: 'Interested Product',
+    product: 'Interested Product (SKU)',
     quantity: 'Estimated Quantity',
     message: 'Message',
     marketing_opt_in: 'Marketing Consent',
@@ -89,11 +133,59 @@ function buildEmailHtml(data: InquiryPayload): string {
     }
   }
 
-  const attrRows = ATTRIBUTION_FIELDS.map((field) => {
-    const value = data[field];
-    if (!value) return '';
-    return `<tr><td style="padding:6px 12px;color:#64748b;">${field.replace('attr_', '')}</td><td style="padding:6px 12px;color:#0f172a;">${escapeHtml(value)}</td></tr>`;
-  }).join('');
+  const firstLabelMap: Record<string, string> = {
+    attr_first_source: 'Source',
+    attr_first_medium: 'Medium',
+    attr_first_campaign: 'Campaign',
+    attr_first_term: 'Term',
+    attr_first_content: 'Content',
+  };
+  const lastLabelMap: Record<string, string> = {
+    attr_last_source: 'Source',
+    attr_last_medium: 'Medium',
+    attr_last_campaign: 'Campaign',
+    attr_last_term: 'Term',
+    attr_last_content: 'Content',
+  };
+  const metaLabelMap: Record<string, string> = {
+    attr_gclid: 'GCLID',
+    attr_landing_page: 'Landing Page',
+    attr_referrer: 'Referrer',
+  };
+  const legacyLabelMap: Record<string, string> = {
+    attr_source: 'Source (legacy/last)',
+    attr_medium: 'Medium (legacy/last)',
+    attr_campaign: 'Campaign (legacy/last)',
+    attr_term: 'Term (legacy/last)',
+    attr_content: 'Content (legacy/last)',
+  };
+
+  const firstBlock = renderAttributionSection(
+    'First Touch Attribution',
+    FIRST_TOUCH_FIELDS,
+    firstLabelMap,
+    data
+  );
+  const lastBlock = renderAttributionSection(
+    'Last Touch Attribution',
+    LAST_TOUCH_FIELDS,
+    lastLabelMap,
+    data
+  );
+  const metaBlock = renderAttributionSection(
+    'Attribution Meta',
+    META_FIELDS,
+    metaLabelMap,
+    data
+  );
+  const legacyBlock = renderAttributionSection(
+    'Legacy Attribution (v0.1.0 compatibility)',
+    LEGACY_ATTRIBUTION_FIELDS,
+    legacyLabelMap,
+    data
+  );
+
+  const hasAnyAttribution = !!(firstBlock || lastBlock || metaBlock || legacyBlock);
 
   return `
   <div style="font-family:Arial,sans-serif;max-width:640px;">
@@ -102,9 +194,8 @@ function buildEmailHtml(data: InquiryPayload): string {
       ${formRows.join('')}
     </table>
     ${
-      attrRows
-        ? `<h3 style="color:#245299;margin-top:20px;">Attribution (where did this customer come from?)</h3>
-    <table style="border-collapse:collapse;border:1px solid #e2e8f0;">${attrRows}</table>`
+      hasAnyAttribution
+        ? `${firstBlock}${lastBlock}${metaBlock}${legacyBlock}`
         : '<p style="color:#94a3b8;font-size:12px;">No UTM / attribution data captured.</p>'
     }
   </div>`;

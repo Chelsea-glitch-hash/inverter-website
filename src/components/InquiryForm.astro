@@ -5,8 +5,8 @@
  * Fields: Name, Company, Country, Email, WhatsApp/Phone,
  *         Interested Product (auto-prefilled), Quantity, Message
  *         + separate marketing consent checkbox (default UNCHECKED)
- *         + hidden attribution fields (UTM / landing page / referrer)
- *         + honeypot anti-spam field
+ *         + 18 hidden attribution fields (separate FIRST TOUCH /
+ *           LAST TOUCH + meta) + honeypot anti-spam field
  *
  * Submission: Cloudflare Turnstile -> /api/inquiry (Pages Function)
  *             -> Resend -> sales email.
@@ -100,7 +100,12 @@ const { productSku = '', productOptions = [] } = Astro.props;
     <!-- Cloudflare Turnstile (rendered when site key is configured) -->
     {TURNSTILE.siteKey && <div class="cf-turnstile sm:col-span-2" data-sitekey={TURNSTILE.siteKey}></div>}
 
-    <!-- Hidden attribution fields, populated by JS before submit -->
+    <!--
+      Hidden attribution fields - 18 total.
+      Legacy (8) stays last-wins merged values for backward compatibility with v0.1.0.
+      Explicit First / Last Touch (10) lets the email show BOTH values cleanly.
+      Meta (already in legacy) carries gclid + landing_page + referrer.
+    -->
     <input type="hidden" name="attr_source" />
     <input type="hidden" name="attr_medium" />
     <input type="hidden" name="attr_campaign" />
@@ -109,6 +114,18 @@ const { productSku = '', productOptions = [] } = Astro.props;
     <input type="hidden" name="attr_gclid" />
     <input type="hidden" name="attr_landing_page" />
     <input type="hidden" name="attr_referrer" />
+    <!-- First Touch (preserved across sessions, null if never seen) -->
+    <input type="hidden" name="attr_first_source" />
+    <input type="hidden" name="attr_first_medium" />
+    <input type="hidden" name="attr_first_campaign" />
+    <input type="hidden" name="attr_first_term" />
+    <input type="hidden" name="attr_first_content" />
+    <!-- Last Touch (current session, null if no campaign arrived this session) -->
+    <input type="hidden" name="attr_last_source" />
+    <input type="hidden" name="attr_last_medium" />
+    <input type="hidden" name="attr_last_campaign" />
+    <input type="hidden" name="attr_last_term" />
+    <input type="hidden" name="attr_last_content" />
 
     <div class="sm:col-span-2">
       <button
@@ -186,19 +203,35 @@ const { productSku = '', productOptions = [] } = Astro.props;
     success.classList.add('hidden');
 
     // Inject attribution into hidden fields right before submit.
+    // Attribution is split into explicit First Touch / Last Touch, while
+    // legacy fields (attr_source/medium/...) carry the last-touch value
+    // for full backward compatibility with v0.1.0 payloads.
     const attr = getAttribution();
     const set = (name: string, value: string) => {
       const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
       if (input) input.value = value;
     };
-    set('attr_source', attr.source);
-    set('attr_medium', attr.medium);
-    set('attr_campaign', attr.campaign);
-    set('attr_term', attr.term);
-    set('attr_content', attr.content);
-    set('attr_gclid', attr.gclid);
-    set('attr_landing_page', attr.landingPage);
-    set('attr_referrer', attr.referrer);
+    // Legacy flat fields (v0.1.0-compatible, last-wins values)
+    set('attr_source',         attr.last?.source || '');
+    set('attr_medium',         attr.last?.medium || '');
+    set('attr_campaign',       attr.last?.campaign || '');
+    set('attr_term',           attr.last?.term || '');
+    set('attr_content',        attr.last?.content || '');
+    set('attr_gclid',          attr.last?.gclid || '');
+    set('attr_landing_page',   attr.landingPage);
+    set('attr_referrer',       attr.referrer);
+    // Explicit First Touch (cross-session, null-safe)
+    set('attr_first_source',   attr.first?.source || '');
+    set('attr_first_medium',   attr.first?.medium || '');
+    set('attr_first_campaign', attr.first?.campaign || '');
+    set('attr_first_term',     attr.first?.term || '');
+    set('attr_first_content',  attr.first?.content || '');
+    // Explicit Last Touch (current session, null-safe)
+    set('attr_last_source',    attr.last?.source || '');
+    set('attr_last_medium',    attr.last?.medium || '');
+    set('attr_last_campaign',  attr.last?.campaign || '');
+    set('attr_last_term',      attr.last?.term || '');
+    set('attr_last_content',   attr.last?.content || '');
 
     const data = Object.fromEntries(new FormData(form).entries());
 
@@ -214,12 +247,13 @@ const { productSku = '', productOptions = [] } = Astro.props;
         form.classList.add('hidden');
         success.classList.remove('hidden');
         // Core GA4 conversion event, with product + attribution context.
+        // Carry forward the last-touch values - same semantics GA4 saw before.
         trackEvent('form_submit', {
           form_type: 'inquiry',
           product_sku: String(data['product'] || ''),
-          utm_source: attr.source,
-          utm_medium: attr.medium,
-          utm_campaign: attr.campaign,
+          utm_source:   String(data['attr_source']   || ''),
+          utm_medium:   String(data['attr_medium']   || ''),
+          utm_campaign: String(data['attr_campaign'] || ''),
         });
       } else {
         throw new Error(result.error || 'Submission failed.');

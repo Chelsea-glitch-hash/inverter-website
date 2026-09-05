@@ -7,18 +7,37 @@
  *  - first touch -> localStorage   (kept across sessions)
  *  - landing page + referrer      -> sessionStorage
  *
- * The InquiryForm injects these fields as hidden inputs so every
- * inquiry email answers "where did this customer come from?".
+ * The InquiryForm injects BOTH first-touch and last-touch as hidden
+ * inputs so every inquiry email can answer "where did this customer
+ * first come from?" (first touch) and "what campaign drove this
+ * conversion?" (last touch). Direct visits are never mistaken for a
+ * marketing source because sessionStorage is only updated when a
+ * real campaign signal (UTM or gclid) is present.
  */
 
-export interface Attribution {
+export interface TouchData {
+  /** Source of the touch, e.g. "google", "linkedin", "edm" */
   source: string;
+  /** Medium, e.g. "organic", "cpc", "social", "email" */
   medium: string;
+  /** Campaign name from utm_campaign */
   campaign: string;
+  /** Paid keyword from utm_term */
   term: string;
+  /** Creative / ad variant from utm_content */
   content: string;
+  /** Google Ads click identifier (when present) */
   gclid: string;
+}
+
+export interface AttributionData {
+  /** First touch kept across sessions; null if never seen a campaign. */
+  first: TouchData | null;
+  /** Last touch for the current session; null if no campaign seen. */
+  last: TouchData | null;
+  /** First page seen this session. */
   landingPage: string;
+  /** External referrer when user first arrived. */
   referrer: string;
 }
 
@@ -51,6 +70,26 @@ function writeJson(storage: Storage | null, key: string, value: Record<string, s
   } catch {
     /* storage unavailable (private mode) - attribution is best-effort */
   }
+}
+
+/** Internal: convert stored JSON into a TouchData object (or null when empty). */
+function toTouch(raw: Record<string, string>): TouchData | null {
+  if (Object.keys(raw).length === 0) return null;
+  return {
+    source: raw['utm_source'] || '',
+    medium: raw['utm_medium'] || '',
+    campaign: raw['utm_campaign'] || '',
+    term: raw['utm_term'] || '',
+    content: raw['utm_content'] || '',
+    gclid: raw['gclid'] || '',
+  };
+}
+
+/** Internal: read first and last touches as separated objects (never merged). */
+function readTouches(): { first: TouchData | null; last: TouchData | null } {
+  const firstRaw = readJson(localStorage, FIRST_TOUCH_KEY);
+  const lastRaw = readJson(sessionStorage, SESSION_KEY);
+  return { first: toTouch(firstRaw), last: toTouch(lastRaw) };
 }
 
 /** Called once on every page load by src/scripts/tracking.ts */
@@ -94,19 +133,18 @@ export function captureAttribution(): void {
   }
 }
 
-/** Merged attribution snapshot for the current visitor. */
-export function getAttribution(): Attribution {
-  const last = readJson(sessionStorage, SESSION_KEY);
-  const first = readJson(localStorage, FIRST_TOUCH_KEY);
-  // Last touch describes the *current* campaign, so it wins on overlap.
-  const combined = { ...first, ...last };
+/**
+ * Full attribution snapshot for the current visitor with EXPLICIT first/last.
+ * UI uses this to populate both the inquiry hidden fields and the email body.
+ * Direct visits leave both `first` and `last` as null instead of inventing
+ * "direct" traffic, so downstream analytics still recognize the absence of
+ * campaign data as "no marketing source seen this journey".
+ */
+export function getAttribution(): AttributionData {
+  const { first, last } = readTouches();
   return {
-    source: combined['utm_source'] || '',
-    medium: combined['utm_medium'] || '',
-    campaign: combined['utm_campaign'] || '',
-    term: combined['utm_term'] || '',
-    content: combined['utm_content'] || '',
-    gclid: combined['gclid'] || '',
+    first,
+    last,
     landingPage: sessionStorage.getItem(LANDING_KEY) || '',
     referrer: sessionStorage.getItem(REFERRER_KEY) || '',
   };
