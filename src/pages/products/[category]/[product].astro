@@ -32,10 +32,25 @@ const { Content } = await render(product);
 const p = product.data;
 const categoryMeta = getCategory(p.category);
 
-/* Related products: same category, excluding current */
-const related = (await getCollection('products', (x) => x.data.category === p.category && x.id !== product.id))
-  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
-  .slice(0, 4);
+/* Related products: same category first (by rated power), then backfill
+   from other categories (featured first) so cards with few siblings
+   (e.g. accessories) still show a useful cross-sell row. */
+const byPowerDesc = (a: { data: { ratedPower?: number } }, b: { data: { ratedPower?: number } }) =>
+  (b.data.ratedPower ?? 0) - (a.data.ratedPower ?? 0);
+
+const sameCategory = (
+  await getCollection('products', (x) => x.data.category === p.category && x.id !== product.id)
+).sort(byPowerDesc);
+
+const others = (
+  await getCollection('products', (x) => x.data.category !== p.category)
+).sort(
+  (a, b) =>
+    (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) ||
+    (b.data.ratedPower ?? 0) - (a.data.ratedPower ?? 0)
+);
+
+const related = [...sameCategory, ...others].slice(0, 4);
 
 /* Product structured data. Offer markup intentionally omitted until
    real pricing data exists (per SEO spec: only use with real data). */
@@ -185,7 +200,10 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
   <!-- Related products -->
   {
     related.length > 0 && (
-      <Section title="Related Products" subtitle={`More options in ${categoryMeta?.name ?? 'this category'}`}>
+      <Section
+        title="Related Products"
+        subtitle={sameCategory.length >= 4 ? `More options in ${categoryMeta?.name ?? 'this category'}` : 'More models from our catalog'}
+      >
         <ProductGrid products={related} />
       </Section>
     )

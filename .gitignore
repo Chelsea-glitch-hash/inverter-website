@@ -4,9 +4,10 @@ node_modules/
 # Build output
 dist/
 dist-preview/
-.astro/
-.astro-bak/
+dist-verify/
+.astro*
 astro.config.preview.mjs
+astro.config.verify.mjs
 
 # Environment / secrets - NEVER commit
 .env
