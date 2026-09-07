@@ -46,7 +46,7 @@ const sizes: Record<string, string> = {
   lg: 'px-6 py-3 text-base',
 };
 
-const classes = [base, variants[variant], sizes[size], className];
+const classes = [base, variants[variant], sizes[size], className].filter(Boolean).join(' ');
 const attrs = {
   ...(track ? { 'data-track': track } : {}),
   ...(trackParams ? { 'data-track-params': JSON.stringify(trackParams) } : {}),
