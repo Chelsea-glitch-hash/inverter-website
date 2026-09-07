@@ -50,7 +50,7 @@ export const ANALYTICS = {
 /** Cloudflare Turnstile site key (public, client-side widget). */
 export const TURNSTILE = {
   /** TODO: from Cloudflare dashboard -> Turnstile -> Widgets */
-  siteKey: '',
+  siteKey: '0x4AAAAAAEow10wbwRFXcQia5HLr76w_1do',
 };
 
 export const SOCIAL = {
