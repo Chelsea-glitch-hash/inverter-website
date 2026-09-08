@@ -1,0 +1,255 @@
+---
+/**
+ * Site-wide chat widget — Phase 1: front-end UI only.
+ * No AI API, no third-party provider, no persistence.
+ *
+ * Reserved hooks for Phase 2 (do NOT build yet):
+ *  - config.ts CHAT.*  — master switch lives here (CHAT.enabled)
+ *  - data-track="chat_open" / data-track="chat_send" already feed the
+ *    existing delegated analytics in src/scripts/tracking.ts
+ *  - AI proxy endpoint: functions/api/chat.ts (same pattern as inquiry.ts)
+ *
+ * Widget positioning (responsive):
+ *  - Mobile (<md, default): launcher fixed right-5 bottom-5 (bottom-right
+ *    corner); panel opens upward from it (absolute right-0 bottom-[4.5rem]).
+ *    Approved on 390×844.
+ *  - Desktop (md+): launcher fixed right-6, pinned at 40% of the viewport
+ *    height and nudged up by half of its own height (no bottom anchor);
+ *    panel opens from the same spot, vertically centered on the launcher.
+ * Z-index coordination:
+ *  - WhatsAppButton: fixed right-5 bottom-5 z-40 (only when CONTACT.whatsapp set)
+ *  - ConsentBanner:   full-width bar bottom-0 z-50 (only when GA4 enabled)
+ *  - This widget:     z-[60]
+ *  Those only share the viewport corner with this widget on mobile; if
+ *  WhatsApp is enabled later, shift it to bottom-24 (or bottom-left).
+ */
+import { CHAT } from '../config';
+
+const launcherLabel = 'Chat with us';
+---
+
+{
+  CHAT.enabled && (
+    <div id="chat-widget" class="fixed bottom-5 right-5 z-[60] md:bottom-auto md:right-6 md:top-[40%] md:-translate-y-1/2">
+      <!-- Launcher (collapsed) -->
+      <button
+        type="button"
+        id="chat-launcher"
+        class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg transition-colors hover:bg-brand-700"
+        aria-label={launcherLabel}
+        aria-expanded="false"
+        aria-controls="chat-panel"
+        data-track="chat_open"
+      >
+        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3C6.5 3 2 6.9 2 11.7c0 2.6 1.4 4.9 3.5 6.4L5 21.5l3.5-2c1.1.3 2.3.5 3.5.5 5.5 0 10-3.9 10-8.7S17.5 3 12 3Z" />
+        </svg>
+      </button>
+
+      <!-- Panel (expanded) -->
+      <section
+        id="chat-panel"
+        class="absolute right-0 bottom-[4.5rem] flex hidden h-[min(70vh,540px)] w-[min(calc(100vw-2.5rem),24rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl md:bottom-auto md:top-1/2 md:-translate-y-1/2"
+        role="dialog"
+        aria-label="Chat with us"
+      >
+        <header class="flex shrink-0 items-center justify-between rounded-t-2xl bg-brand-600 px-4 py-3 text-white">
+          <div>
+            <p class="text-sm font-medium">Chat with us</p>
+            <p class="text-xs text-brand-100">Preview assistant · replies instantly</p>
+          </div>
+          <button
+            type="button"
+            id="chat-close"
+            class="-m-1 flex h-8 w-8 items-center justify-center rounded-full text-brand-100 transition-colors hover:bg-brand-700 hover:text-white"
+            aria-label="Close chat"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </header>
+
+        <div
+          id="chat-messages"
+          class="flex-1 space-y-2 overflow-y-auto px-3.5 py-3"
+          role="log"
+          aria-live="polite"
+          aria-label="Messages"
+        ></div>
+
+        <div class="flex shrink-0 items-center gap-2 border-t border-slate-200 bg-white px-3 py-2.5">
+          <input
+            id="chat-input"
+            type="text"
+            class="min-w-0 flex-1 rounded-full border border-slate-300 bg-white px-4 py-2 text-base text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+            placeholder="Type your message…"
+            autocomplete="off"
+            enterkeyhint="send"
+            aria-label="Type your message"
+          />
+          <button
+            type="button"
+            id="chat-send"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700"
+            aria-label="Send message"
+            data-track="chat_send"
+          >
+            <svg class="h-4.5 w-4.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+<script>
+  interface Msg {
+    id: number;
+    role: 'user' | 'bot';
+    text: string;
+    typing?: boolean;
+  }
+
+  const WELCOME =
+    "Hi! Welcome to our site. Ask me anything about our inverters — models, specs, or how to request a quote. For a formal quotation, our team replies within one business day via the inquiry form.";
+
+  const INTENTS: { re: RegExp; reply: string }[] = [
+    {
+      re: /price|quote|quotation|cost|how much|pricing/i,
+      reply:
+        "Pricing depends on the model, quantity and destination. Please use the inquiry form at /contact/ (or open any product page and press Request a Quote) and our sales team will send you a tailored quotation.",
+    },
+    {
+      re: /spec|datasheet|parameter|technical|watt|voltage/i,
+      reply:
+        "Every product page has a Download Datasheet button with full technical parameters. Tell me your application (e.g. load, battery voltage) and I can point you to the right series.",
+    },
+    {
+      re: /oem|odm|custom|private label|brand/i,
+      reply:
+        "Yes, we support OEM / ODM and private-label projects. Share your target specs and volume via /contact/ and an engineer will follow up.",
+    },
+    {
+      re: /moq|minimum order|quantity/i,
+      reply:
+        "MOQ depends on the model and configuration. Please send your expected annual / batch quantity through /contact/ so we can confirm availability.",
+    },
+    {
+      re: /ship|deliver|lead time|leadtime|freight|logistics/i,
+      reply:
+        "Lead time and freight depend on your destination and order size. Ask via /contact/ and we will confirm both in the quotation.",
+    },
+    {
+      re: /contact|email|phone|human|agent|sales team/i,
+      reply:
+        "You can reach us through the inquiry form at /contact/, or use the contact details in the page footer. A sales engineer will get back to you.",
+    },
+  ];
+
+  const FALLBACKS = [
+    "Thanks for your message! This is a preview assistant, so for a precise answer please send your requirements via /contact/ and our team will reply shortly.",
+    "Got it — could you share a few more details (model, quantity, destination)? For a full answer, the inquiry form at /contact/ is the fastest route.",
+    "Thanks! If this is about a specific product, open it and press Request a Quote — our sales team answers within one business day.",
+  ];
+
+  let fallbackIndex = 0;
+
+  // Script scope copy — Astro-processed <script> bundles cannot see frontmatter
+  // consts, so the label must be declared here (template keeps its own copy).
+  const LAUNCHER_LABEL = 'Chat with us';
+
+  function pickReply(text: string): string {
+    const hit = INTENTS.find((i) => i.re.test(text));
+    if (hit) return hit.reply;
+    const reply = FALLBACKS[fallbackIndex % FALLBACKS.length];
+    fallbackIndex += 1;
+    return reply;
+  }
+
+  function initChat(): void {
+    // Non-null assertions match runtime reality (nodes are rendered above when
+    // CHAT.enabled); the guard below stays as a cheap runtime safety net.
+    const launcher = document.getElementById('chat-launcher') as HTMLButtonElement;
+    const closeBtn = document.getElementById('chat-close') as HTMLButtonElement;
+    const panel = document.getElementById('chat-panel') as HTMLElement;
+    const list = document.getElementById('chat-messages') as HTMLElement;
+    const input = document.getElementById('chat-input') as HTMLInputElement;
+    const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
+    if (!launcher || !closeBtn || !panel || !list || !input || !sendBtn) return;
+
+    const msgs: Msg[] = [];
+    let nextId = 1;
+    let open = false;
+
+    function scrollToBottom(): void {
+      requestAnimationFrame(() => {
+        list.scrollTop = list.scrollHeight;
+      });
+    }
+
+    function render(): void {
+      list.textContent = '';
+      for (const m of msgs) {
+        const wrap = document.createElement('div');
+        wrap.className = 'flex ' + (m.role === 'user' ? 'justify-end' : 'justify-start');
+        const bubble = document.createElement('div');
+        bubble.className =
+          'max-w-[85%] whitespace-pre-line break-words rounded-2xl px-3.5 py-2 text-sm leading-relaxed ' +
+          (m.role === 'user'
+            ? 'rounded-br-md bg-brand-600 text-white'
+            : 'rounded-bl-md bg-slate-100 text-slate-800');
+        bubble.textContent = m.typing ? 'Typing…' : m.text;
+        wrap.appendChild(bubble);
+        list.appendChild(wrap);
+      }
+      scrollToBottom();
+    }
+
+    function queueBot(text: string, delay: number): void {
+      const m: Msg = { id: nextId++, role: 'bot', text: '', typing: true };
+      msgs.push(m);
+      render();
+      setTimeout(() => {
+        m.typing = false;
+        m.text = text;
+        render();
+      }, delay);
+    }
+
+    function send(): void {
+      const raw = input.value.trim();
+      if (!raw) return;
+      msgs.push({ id: nextId++, role: 'user', text: raw });
+      input.value = '';
+      render();
+      queueBot(pickReply(raw), 700 + Math.random() * 500);
+    }
+
+    function setOpen(next: boolean): void {
+      open = next;
+      panel.classList.toggle('hidden', !open);
+      launcher.setAttribute('aria-expanded', String(open));
+      launcher.setAttribute('aria-label', open ? 'Close chat' : LAUNCHER_LABEL);
+      if (open) scrollToBottom();
+    }
+
+    launcher.addEventListener('click', () => setOpen(!open));
+    closeBtn.addEventListener('click', () => setOpen(false));
+    sendBtn.addEventListener('click', send);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        send();
+      }
+    });
+
+    // Initial greeting (rendered once on page load, kept in memory only).
+    msgs.push({ id: nextId++, role: 'bot', text: WELCOME });
+    render();
+  }
+
+  initChat();
+</script>

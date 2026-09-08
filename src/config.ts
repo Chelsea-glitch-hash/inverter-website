@@ -47,6 +47,12 @@ export const ANALYTICS = {
   ga4MeasurementId: '',
 };
 
+/** Chat widget configuration. Phase 1 = front-end UI only (no AI backend). */
+export const CHAT = {
+  /** Master switch - set false to hide the widget site-wide. */
+  enabled: true,
+};
+
 /** Cloudflare Turnstile site key (public, client-side widget). */
 export const TURNSTILE = {
   /** TODO: from Cloudflare dashboard -> Turnstile -> Widgets */
