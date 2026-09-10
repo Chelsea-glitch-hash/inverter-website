@@ -3,9 +3,13 @@
  * Floating WhatsApp button (B2B buyers in many markets prefer WhatsApp).
  * Hidden entirely when no number is configured.
  *
- * Position: bottom-right on desktop, but lifted upward on mobile so it does
- * not sit underneath the ChatWidget launcher, which occupies the same
- * bottom-right corner below the md breakpoint (see ChatWidget.astro).
+ * Position: pinned to the right edge, centred on a point thirty percent of
+ * the way down the viewport - i.e. the right side, a little above the middle.
+ * Same anchor on every breakpoint; no bottom offset, so it never uses the
+ * bottom-right corner. The offset above the midpoint is deliberate: the
+ * ChatWidget launcher is pinned at the same right edge, vertically centred
+ * on the forty percent line once the viewport reaches the md breakpoint, so
+ * this button has to sit clear above it (see ChatWidget.astro).
  */
 import { CONTACT } from '../config';
 ---
@@ -14,7 +18,7 @@ import { CONTACT } from '../config';
   CONTACT.whatsapp && (
     <a
       href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent('Hello, I would like to inquire about your inverters.')}`}
-      class="fixed right-5 bottom-24 z-40 flex h-13 w-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 md:bottom-5"
+      class="fixed right-6 top-[30%] z-40 flex h-13 w-13 -translate-y-1/2 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105"
       rel="noopener"
       target="_blank"
       aria-label="Chat on WhatsApp"
