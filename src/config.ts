@@ -33,8 +33,11 @@ export const COMPANY = {
 export const CONTACT = {
   /** TODO: sales inbox shown on the website */
   email: 'sales@your-domain.com',
-  /** TODO: international format, digits only, e.g. 8613800000000 */
-  whatsapp: '',
+  /**
+   * International format, digits only - no "+", spaces or dashes.
+   * Used verbatim to build wa.me links: https://wa.me/<whatsapp>
+   */
+  whatsapp: '8618923094074',
   phone: '+86-000-0000-0000',
 };
 
