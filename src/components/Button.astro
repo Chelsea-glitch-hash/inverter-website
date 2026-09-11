@@ -5,7 +5,7 @@
  */
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'outline-light' | 'ghost';
   size?: 'md' | 'lg';
   class?: string;
   /** GA4 event name, e.g. "click_request_quote" */
@@ -38,6 +38,13 @@ const variants: Record<string, string> = {
   primary: 'bg-brand-600 text-white hover:bg-brand-700',
   secondary: 'bg-accent-500 text-slate-900 hover:bg-accent-400',
   outline: 'border border-slate-300 bg-white text-slate-800 hover:border-brand-400 hover:text-brand-700',
+  /**
+   * Outline for use on dark surfaces (e.g. the brand-800 CTA band).
+   * Kept as its own variant because overriding `outline` with utility
+   * classes cannot win the CSS cascade: Tailwind emits `.bg-white` after
+   * `.bg-transparent`, so a `bg-transparent` override silently loses.
+   */
+  'outline-light': 'border border-white/40 bg-transparent text-white hover:border-white hover:text-white',
   ghost: 'text-brand-700 hover:bg-brand-50',
 };
 

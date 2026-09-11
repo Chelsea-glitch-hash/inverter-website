@@ -1,76 +1,351 @@
 ---
+/**
+ * About Us (/about/)
+ *
+ * Structure follows the intended visual hierarchy:
+ * Company -> Inverter focus -> Technology -> Manufacturing -> Quality ->
+ * Product portfolio -> Global supply -> Inquiry.
+ *
+ * All user-facing copy lives in the i18n dictionary (src/i18n/about/), not in
+ * this template. Routes stay here on purpose: there is no localized routing
+ * yet, so URLs must not be swapped for translated slugs.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
 import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
 import CTABanner from '../components/CTABanner.astro';
-import { COMPANY, SITE } from '../config';
+import AboutImage from '../components/AboutImage.astro';
+import { getAboutContent } from '../i18n/about';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { aboutImages, frameFor, type AboutImageSlot } from '../lib/about-images';
+
+const t = getAboutContent(DEFAULT_LOCALE);
+
+const factoryHero = aboutImages['factory-hero'];
+const factoryQuality = aboutImages['factory-quality'];
+const factoryGlobal = aboutImages['factory-global'];
+
+/* Production-floor photos (factory capability, NOT product photos) map to gallery slots in order. */
+const productionSlots: AboutImageSlot[] = [
+  'product-line-01',
+  'product-line-02',
+  'product-line-03',
+  'product-line-04',
+];
+const productionImages = productionSlots.map((slot) => aboutImages[slot]);
+
+/* Decorative icons for the application tiles; paired with translated labels by index. */
+const applicationIcons: string[] = [
+  // Residential - home
+  'M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75',
+  // Solar PV - sun
+  'M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z',
+  // Energy Storage - battery
+  'M2.25 8.25h16.5a.75.75 0 01.75.75v6a.75.75 0 01-.75.75H2.25A.75.75 0 011.5 15V9a.75.75 0 01.75-.75zM21.75 10.5v3',
+  // Outdoor Power - bolt
+  'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
+  // Commercial - office building
+  'M3.75 21h16.5M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21',
+  // Industrial - factory
+  'M2.25 21V10.5l6.75 4.5v-4.5l6.75 4.5V4.5h6V21M2.25 21h19.5',
+];
+
+const heroFrame = frameFor(factoryHero, 'aspect-[16/10]');
+const qualityFrame = frameFor(factoryQuality, 'aspect-[16/10]');
 ---
 
-<BaseLayout
-  title="About Us — Inverter Manufacturer with In-House R&D and Production"
-  description={`Learn about ${COMPANY.legalName}: an inverter manufacturer with in-house R&D, own factory and ISO 9001 quality system, serving B2B customers in ${COMPANY.exportCountries}+ countries.`}
-  path="/about/"
->
-  <Section eyebrow="About Us" title="A Manufacturer, Not a Middleman">
-    <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
-      <div class="space-y-4 text-base leading-relaxed text-slate-700">
-        <p>
-          {COMPANY.legalName} is a professional inverter manufacturer based in China.
-          Since {COMPANY.foundedYear}, we have designed and produced hybrid, grid-tie
-          and off-grid inverters for distributors, installers, EPC contractors and
-          brand owners worldwide.
-        </p>
-        <p>
-          Unlike trading companies, we control the full production chain: hardware
-          design, firmware development, SMT, assembly, aging tests and final
-          inspection. That means faster engineering response, consistent quality and
-          better margins for our partners.
-        </p>
-        <p>
-          Today our {COMPANY.factoryAreaSqm.toLocaleString('en-US')} m² factory produces
-          over {COMPANY.annualCapacityUnits.toLocaleString('en-US')} inverters per year,
-          and our products operate in {COMPANY.exportCountries}+ countries across
-          residential, commercial, telecom and off-grid applications.
-        </p>
-        <!-- TODO: replace with real company history and milestones -->
+<BaseLayout title={t.seo.title} description={t.seo.description} path="/about/">
+  <!-- 1. Hero -->
+  <section class="bg-gradient-to-b from-brand-50 to-white">
+    <Container>
+      <div class="grid grid-cols-1 items-center gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:gap-14">
+        <div>
+          <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-xs font-medium text-brand-700">
+            <span class="inline-block h-2 w-2 rounded-full bg-accent-500" aria-hidden="true"></span>
+            {t.hero.eyebrow}
+          </p>
+          <h1 class="text-3xl leading-tight font-bold text-slate-900 sm:text-4xl lg:text-5xl">
+            {t.hero.heading}
+          </h1>
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            {t.hero.intro}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <Button href="/products/" variant="primary" size="lg">{t.hero.primaryCta}</Button>
+            <Button href="/contact/" variant="outline" size="lg" track="click_request_quote">
+              {t.hero.secondaryCta}
+            </Button>
+          </div>
+        </div>
+        <div class:list={['overflow-hidden rounded-xl border border-slate-200 bg-white', heroFrame]}>
+          <AboutImage
+            src={factoryHero}
+            alt={t.hero.image.alt}
+            placeholder={t.hero.image.placeholder}
+            loading="eager"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
+        </div>
       </div>
-      <dl class="grid grid-cols-2 gap-4">
-        {
-          [
-            { label: 'Founded', value: String(COMPANY.foundedYear) },
-            { label: 'Employees', value: `${COMPANY.employees}+` },
-            { label: 'R&D engineers', value: `${COMPANY.rdEngineers}+` },
-            { label: 'Factory area', value: `${(COMPANY.factoryAreaSqm / 1000).toLocaleString('en-US')}k m²` },
-            { label: 'Annual capacity', value: `${(COMPANY.annualCapacityUnits / 1000).toLocaleString('en-US')}k units` },
-            { label: 'Export countries', value: `${COMPANY.exportCountries}+` },
-          ].map((item) => (
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-5">
-              <dd class="text-2xl font-semibold text-brand-700">{item.value}</dd>
-              <dt class="mt-1 text-sm text-slate-600">{item.label}</dt>
-            </div>
-          ))
-        }
-      </dl>
+    </Container>
+  </section>
+
+  <!-- 2. Company at a glance -->
+  <Section eyebrow={t.glance.eyebrow} title={t.glance.title}>
+    <!--
+      2 / 3 columns (not 6-up): "10,000㎡+" contains U+33A1, which browsers may
+      line-break around, so each card needs enough width to keep figures whole.
+    -->
+    <dl class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:gap-6">
+      {
+        t.glance.stats.map((stat) => (
+          <div class="flex flex-col rounded-xl border border-slate-200 bg-white p-4 text-center sm:p-6">
+            <dt class="order-2 mt-2 text-xs leading-snug text-slate-600 sm:text-sm">{stat.label}</dt>
+            <dd class="order-1 text-2xl font-bold text-brand-700 sm:text-3xl lg:text-4xl">{stat.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Section>
+
+  <!-- 3. Deeply focused on inverters -->
+  <Section
+    eyebrow={t.focus.eyebrow}
+    title={t.focus.title}
+    subtitle={t.focus.intro}
+    class="bg-slate-50"
+  >
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        t.focus.points.map((point, i) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <span class="text-3xl font-bold text-brand-200">0{i + 1}</span>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900">{point.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{point.text}</p>
+          </div>
+        ))
+      }
     </div>
   </Section>
 
-  <Section eyebrow="How We Work" title="OEM / ODM Partnership Model" class="bg-slate-50">
-    <ol class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        [
-          { step: '01', title: 'Requirement review', desc: 'Share specs, certifications and target market. Our engineers confirm feasibility within 48 hours.' },
-          { step: '02', title: 'Sampling', desc: 'We build and test pre-production samples against your technical requirements.' },
-          { step: '03', title: 'Customization', desc: 'Firmware parameters, branding, packaging and documentation tailored to your brand.' },
-          { step: '04', title: 'Mass production', desc: 'Scheduled production with 100% functional testing and pre-shipment inspection reports.' },
-        ].map((item) => (
-          <li class="rounded-xl border border-slate-200 bg-white p-6">
-            <span class="text-2xl font-bold text-brand-200">{item.step}</span>
-            <h3 class="mt-3 text-base font-semibold text-slate-900">{item.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.desc}</p>
-          </li>
-        ))
-      }
-    </ol>
+  <!-- 4. R&D / Manufacturing / Quality -->
+  <Section
+    eyebrow={t.capability.eyebrow}
+    title={t.capability.title}
+    subtitle={t.capability.intro}
+  >
+    <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
+      <div class:list={['overflow-hidden rounded-xl border border-slate-200 bg-white', qualityFrame]}>
+        <AboutImage
+          src={factoryQuality}
+          alt={t.capability.image.alt}
+          placeholder={t.capability.image.placeholder}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+        />
+      </div>
+
+      <div class="space-y-6">
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <p class="text-3xl font-bold text-brand-700 sm:text-4xl">{t.capability.space.value}</p>
+          <p class="mt-1 text-sm text-slate-600">{t.capability.space.label}</p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span class="text-2xl font-bold text-brand-700">{t.capability.testing.value}</span>
+            <h3 class="text-base font-semibold text-slate-900">{t.capability.testing.label}</h3>
+          </div>
+          <p class="mt-4 text-xs font-medium tracking-wide text-slate-500 uppercase">
+            {t.capability.testing.areasLabel}
+          </p>
+          <ul class="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {
+              t.capability.testing.areas.map((area) => (
+                <li class="flex items-start gap-2 text-sm text-slate-700">
+                  <svg
+                    class="mt-0.5 h-5 w-5 shrink-0 text-brand-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  {area}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <p class="text-3xl font-bold text-brand-700">{t.capability.quality.value}</p>
+            <p class="mt-1 text-sm text-slate-600">{t.capability.quality.label}</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <p class="text-3xl font-bold text-brand-700">{t.capability.quality.passRate.value}</p>
+            <p class="mt-1 text-sm text-slate-600">{t.capability.quality.passRate.label}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Production-floor photo strip (factory capability, not product photos) -->
+    <div class="mt-14">
+      <p class="text-xs font-medium tracking-wide text-slate-500 uppercase">
+        {t.capability.gallery.label}
+      </p>
+      <h3 class="mt-2 text-xl font-semibold text-slate-900 sm:text-2xl">
+        {t.capability.gallery.title}
+      </h3>
+      <p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-600">
+        {t.capability.gallery.intro}
+      </p>
+      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          t.capability.gallery.items.map((item, i) => (
+            <figure class="overflow-hidden rounded-xl border border-slate-200 bg-white">
+              <div class="aspect-[4/3]">
+                <AboutImage
+                  src={productionImages[i]}
+                  alt={item.image.alt}
+                  placeholder={item.image.placeholder}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                />
+              </div>
+              <figcaption class="border-t border-slate-200 p-4 text-sm font-medium text-slate-700">
+                {item.caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
   </Section>
 
-  <CTABanner title="Let's Build Something Together" subtitle="Whether you need a catalog model or a fully custom inverter, our team is ready to help." />
+  <!-- 5. Product portfolio -->
+  <Section
+    eyebrow={t.portfolio.eyebrow}
+    title={t.portfolio.title}
+    subtitle={t.portfolio.intro}
+    class="bg-slate-50"
+  >
+    <div>
+      <p class="text-xs font-medium tracking-wide text-slate-500 uppercase">
+        {t.portfolio.applicationsLabel}
+      </p>
+      <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {
+          t.portfolio.applications.map((application, i) => (
+            <div class="flex flex-col items-center rounded-xl border border-slate-200 bg-white p-6 text-center">
+              <span class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                <svg
+                  class="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d={applicationIcons[i]} />
+                </svg>
+              </span>
+              <p class="mt-3 text-sm font-semibold text-slate-800">{application}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <Button href="/products/" variant="primary" size="lg">{t.portfolio.cta}</Button>
+    </div>
+  </Section>
+
+  <!-- 6. OEM / ODM -->
+  <Section eyebrow={t.oem.eyebrow} title={t.oem.title}>
+    <p class="max-w-3xl text-base leading-relaxed text-slate-700">{t.oem.text}</p>
+  </Section>
+
+  <!-- 7. Global supply / professional service (wide visual band) -->
+  <section class="relative isolate overflow-hidden bg-brand-900">
+    <div class="absolute inset-0 -z-10">
+      <AboutImage
+        src={factoryGlobal}
+        alt={t.global.image.alt}
+        placeholder={t.global.image.placeholder}
+        tone="dark"
+        sizes="100vw"
+      />
+      {factoryGlobal && <div class="absolute inset-0 bg-brand-900/75" aria-hidden="true" />}
+    </div>
+
+    <Container>
+      <div class="py-20 sm:py-24">
+        <div class="max-w-3xl">
+          <p class="mb-2 text-sm font-medium tracking-wide text-brand-200 uppercase">
+            {t.global.eyebrow}
+          </p>
+          <h2 class="text-2xl font-semibold text-white sm:text-3xl">{t.global.title}</h2>
+          <p class="mt-4 text-base leading-relaxed text-brand-100">{t.global.intro}</p>
+        </div>
+
+        <dl class="mt-10 grid grid-cols-2 gap-6 sm:max-w-md">
+          {
+            t.global.metrics.map((metric) => (
+              <div class="flex flex-col">
+                <dt class="order-2 mt-1 text-sm text-brand-200">{metric.label}</dt>
+                <dd class="order-1 text-3xl font-bold text-white">{metric.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-10">
+          <p class="text-xs font-medium tracking-wide text-brand-200 uppercase">
+            {t.global.flowLabel}
+          </p>
+          <ol class="mt-4 flex flex-wrap items-center gap-2 text-sm">
+            {
+              t.global.flow.map((step, i) => (
+                <li class="flex items-center gap-2">
+                  {i > 0 && (
+                    <span class="text-brand-200" aria-hidden="true">
+                      &rarr;
+                    </span>
+                  )}
+                  <span class="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 font-medium text-white">
+                    {step}
+                  </span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            t.global.positioning.map((paragraph) => (
+              <p class="text-sm leading-relaxed text-brand-100">{paragraph}</p>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 8. Our vision -->
+  <Section eyebrow={t.vision.eyebrow} title={t.vision.title} class="bg-slate-50">
+    <div class="max-w-3xl space-y-4 text-base leading-relaxed text-slate-700">
+      {t.vision.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </Section>
+
+  <!-- 9. Final CTA (reuses the shared CTA band: Request a Quote + WhatsApp) -->
+  <CTABanner title={t.finalCta.title} subtitle={t.finalCta.subtitle} />
 </BaseLayout>

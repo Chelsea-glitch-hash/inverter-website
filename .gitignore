@@ -5,6 +5,10 @@ node_modules/
 dist/
 dist-preview/
 dist-verify/
+dist-about-verify*/
+dist-about-img/
+dist-about-gallery/
+dist-about-img/
 .astro*
 astro.config.preview.mjs
 astro.config.verify.mjs

@@ -1,0 +1,60 @@
+---
+/**
+ * Image slot for the About page.
+ *
+ * Renders the real, build-optimised image when a file exists for the slot, and
+ * a neutral labelled placeholder when it does not. No stock photo, no mock-up,
+ * no generated stand-in: an empty slot stays visibly empty.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src?: ImageMetadata;
+  alt: string;
+  /** Uppercase-safe placeholder text, e.g. "[Factory image 1 to be provided]" */
+  placeholder: string;
+  /** 'dark' keeps the placeholder readable on a dark background band. */
+  tone?: 'light' | 'dark';
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  widths?: number[];
+}
+
+const {
+  src,
+  alt,
+  placeholder,
+  tone = 'light',
+  sizes = '100vw',
+  loading = 'lazy',
+  widths = [480, 768, 1024, 1440, 1920],
+} = Astro.props;
+
+const placeholderClass =
+  tone === 'dark'
+    ? 'flex h-full w-full items-center justify-center border border-white/15 bg-white/5 px-6 py-10 text-center'
+    : 'flex h-full w-full items-center justify-center border border-dashed border-slate-300 bg-slate-100 px-6 py-10 text-center';
+
+const placeholderTextClass =
+  tone === 'dark'
+    ? 'text-xs font-medium tracking-wide text-brand-100 uppercase'
+    : 'text-xs font-medium tracking-wide text-slate-400 uppercase';
+---
+
+{
+  src ? (
+    <Image
+      src={src}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      class="h-full w-full object-cover"
+    />
+  ) : (
+    <div class={placeholderClass}>
+      <span class={placeholderTextClass}>{placeholder}</span>
+    </div>
+  )
+}
