@@ -9,10 +9,13 @@ import { CONTACT } from '../config';
 interface Props {
   title?: string;
   subtitle?: string;
+  /** Primary button label. Products may override it via `inquiry.buttonText`. */
+  buttonText?: string;
 }
 const {
   title = 'Request a Quote Today',
   subtitle = 'Send us your requirements — our sales engineers reply within 24 hours with pricing, lead times and OEM options.',
+  buttonText = 'Request a Quote',
 } = Astro.props;
 ---
 
@@ -25,7 +28,7 @@ const {
       </div>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <Button href="/contact/" variant="secondary" size="lg" track="click_request_quote">
-          Request a Quote
+          {buttonText}
         </Button>
         {
           CONTACT.whatsapp && (

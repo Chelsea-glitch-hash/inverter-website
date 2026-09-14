@@ -3,8 +3,12 @@ import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import NewsletterForm from './NewsletterForm.astro';
 import { SITE, COMPANY, CONTACT, SOCIAL } from '../config';
-import { CATEGORIES } from '../lib/categories';
+import { getCategoriesWithProducts } from '../lib/products';
 import brandLogo from '../assets/brand/logo.png';
+
+/* Categories with at least one product — see lib/products.getCategoriesWithProducts.
+   Keeps the footer from linking to an empty range. */
+const categories = getCategoriesWithProducts();
 
 const year = new Date().getFullYear();
 ---
@@ -58,7 +62,7 @@ const year = new Date().getFullYear();
         <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Products</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
           {
-            CATEGORIES.map((c) => (
+            categories.map((c) => (
               <li>
                 <a href={`/products/${c.slug}/`} class="text-slate-400 hover:text-white">
                   {c.name}

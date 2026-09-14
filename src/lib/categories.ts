@@ -4,8 +4,18 @@
  * after launch (301 redirects would be required).
  */
 
+/** The single source of truth for category slugs (also typed as a union). */
+export const CATEGORY_SLUGS = [
+  'hybrid-inverters',
+  'grid-tie-inverters',
+  'off-grid-inverters',
+  'accessories',
+] as const;
+
+export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
+
 export interface Category {
-  slug: string;
+  slug: CategorySlug;
   name: string;
   heading: string;
   description: string;

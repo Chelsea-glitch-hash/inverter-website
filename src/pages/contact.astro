@@ -4,13 +4,12 @@ import Container from '../components/Container.astro';
 import Section from '../components/Section.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import InquiryForm from '../components/InquiryForm.astro';
-import { getCollection } from 'astro:content';
+import { getProductOptions } from '../lib/products';
 import { CONTACT, SOCIAL } from '../config';
 
-const products = (await getCollection('products')).sort((a, b) =>
-  a.data.sku.localeCompare(b.data.sku)
-);
-const productOptions = products.map((p) => ({ sku: p.data.sku, name: p.data.name }));
+/* Populated from the product data table — add a product there and it appears
+   in the inquiry form's product selector automatically. */
+const productOptions = getProductOptions();
 ---
 
 <BaseLayout

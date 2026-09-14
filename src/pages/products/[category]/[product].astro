@@ -12,45 +12,60 @@ import FAQ from '../../../components/FAQ.astro';
 import DownloadCard from '../../../components/DownloadCard.astro';
 import ProductGrid from '../../../components/ProductGrid.astro';
 import CTABanner from '../../../components/CTABanner.astro';
-import { getCollection, render } from 'astro:content';
 import { getCategory } from '../../../lib/categories';
+import { getPowerCategoryForProduct, powerCategoryPath } from '../../../lib/power-categories';
+import {
+  formatPower,
+  getAllProducts,
+  getRelatedProducts,
+  productPath,
+  resolveSeo,
+  resolveShortDescription,
+  toPackagingRows,
+  toSpecRows,
+  type Product,
+} from '../../../lib/products';
 import { SITE } from '../../../config';
 
-export async function getStaticPaths() {
-  const products = await getCollection('products');
-  return products.map((product) => {
-    const [category] = product.id.split('/');
-    return {
-      params: { category, product: product.id.split('/')[1] },
-      props: { product },
-    };
-  });
+/**
+ * Product detail page — a pure template.
+ *
+ * It holds NO product data: the URL picks a record out of the catalog
+ * (src/data/products.ts) and renders it. Add a product to the data table and
+ * its page exists; there is nothing to edit here.
+ */
+export function getStaticPaths() {
+  return getAllProducts().map((product) => ({
+    params: { category: product.category, product: product.slug },
+    props: { product },
+  }));
 }
 
-const { product } = Astro.props;
-const { Content } = await render(product);
-const p = product.data;
+interface Props {
+  product: Product;
+}
+const { product: p } = Astro.props;
+
 const categoryMeta = getCategory(p.category);
+/** Power-level sub-category (off-grid range only) — enables the 4-level breadcrumb. */
+const powerCategory = getPowerCategoryForProduct(p);
 
-/* Related products: same category first (by rated power), then backfill
-   from other categories (featured first) so cards with few siblings
-   (e.g. accessories) still show a useful cross-sell row. */
-const byPowerDesc = (a: { data: { ratedPower?: number } }, b: { data: { ratedPower?: number } }) =>
-  (b.data.ratedPower ?? 0) - (a.data.ratedPower ?? 0);
+const related = getRelatedProducts(p, 4);
+const relatedInCategory = related.filter((item) => item.category === p.category).length;
 
-const sameCategory = (
-  await getCollection('products', (x) => x.data.category === p.category && x.id !== product.id)
-).sort(byPowerDesc);
+/** SEO: authored copy wins, otherwise composed from the product's real fields. */
+const seo = resolveSeo(p);
 
-const others = (
-  await getCollection('products', (x) => x.data.category !== p.category)
-).sort(
-  (a, b) =>
-    (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0) ||
-    (b.data.ratedPower ?? 0) - (a.data.ratedPower ?? 0)
-);
+const specRows = toSpecRows(p);
+const packagingRows = toPackagingRows(p.packaging);
 
-const related = [...sameCategory, ...others].slice(0, 4);
+const overview = p.overview ?? [];
+const features = p.features ?? [];
+const certifications = p.certifications ?? [];
+const applications = p.applications ?? [];
+const faq = p.faq ?? [];
+
+const heroImage = p.images[0];
 
 /* Product structured data. Offer markup intentionally omitted until
    real pricing data exists (per SEO spec: only use with real data). */
@@ -58,25 +73,33 @@ const productJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: p.name,
-  sku: p.sku,
-  mpn: p.sku,
-  description: p.seoDescription,
+  sku: p.id,
+  mpn: p.id,
+  description: seo.description,
+  category: categoryMeta?.name ?? p.category,
   brand: { '@type': 'Brand', name: SITE.name },
-  ...(p.certifications.length > 0
-    ? { additionalProperty: p.certifications.map((c) => ({ '@type': 'PropertyValue', name: 'Certification', value: c })) }
+  ...(heroImage ? { image: heroImage } : {}),
+  ...(certifications.length > 0
+    ? {
+        additionalProperty: certifications.map((c) => ({
+          '@type': 'PropertyValue',
+          name: 'Certification',
+          value: c,
+        })),
+      }
     : {}),
 };
 
-const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
+const inquiryHref = `/contact/?product=${encodeURIComponent(p.id)}`;
 ---
 
 <BaseLayout
-  title={p.seoTitle ?? `${p.name} (${p.sku}) — ${categoryMeta?.name ?? 'Inverter'}`}
-  description={p.seoDescription}
-  path={`/products/${product.id}/`}
+  title={seo.title}
+  description={seo.description}
+  path={productPath(p)}
   ogType="product"
   pageType="product"
-  productSku={p.sku}
+  productSku={p.id}
   productCategory={p.category}
 >
   <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
@@ -86,7 +109,15 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
       crumbs={[
         { label: 'Products', href: '/products/' },
         { label: categoryMeta?.name ?? p.category, href: `/products/${p.category}/` },
-        { label: p.sku },
+        ...(powerCategory
+          ? [
+              {
+                label: powerCategory.name,
+                href: powerCategoryPath(p.category, powerCategory.slug),
+              },
+            ]
+          : []),
+        { label: p.id },
       ]}
     />
   </Container>
@@ -94,30 +125,44 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
   <!-- Product hero: gallery + key info -->
   <Container class="pt-6 pb-4">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
-      <ProductGallery sku={p.sku} name={p.name} images={p.images} />
+      <ProductGallery sku={p.id} name={p.name} images={p.images} />
 
       <div>
         <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">{p.sku}</span>
+          <span class="rounded bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">{p.id}</span>
           {p.featured && <span class="rounded bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-600">Featured</span>}
+          <span class="rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+            {formatPower(p.ratedPower)} rated output
+          </span>
           {
-            p.ratedPower && (
+            p.series && (
               <span class="rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
-                {p.ratedPower >= 1000 ? `${p.ratedPower / 1000} kW` : `${p.ratedPower} W`} rated output
+                {p.series}
               </span>
             )
           }
         </div>
 
         <h1 class="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">{p.name}</h1>
-        <p class="mt-4 text-base leading-relaxed text-slate-600">{p.shortDescription}</p>
+        <p class="mt-2 text-sm font-medium text-slate-500">{p.productType}</p>
+        <p class="mt-4 text-base leading-relaxed text-slate-600">{resolveShortDescription(p)}</p>
 
-        <div class="mt-6">
-          <CertificationList certifications={p.certifications} />
-        </div>
+        {
+          certifications.length > 0 && (
+            <div class="mt-6">
+              <CertificationList certifications={certifications} />
+            </div>
+          )
+        }
 
         <div class="mt-8 flex flex-wrap gap-3">
-          <Button href={inquiryHref} variant="primary" size="lg" track="click_request_quote" trackParams={{ product_sku: p.sku, product_category: p.category }}>
+          <Button
+            href={inquiryHref}
+            variant="primary"
+            size="lg"
+            track="click_request_quote"
+            trackParams={{ product_sku: p.id, product_category: p.category }}
+          >
             Get a Quote for This Model
           </Button>
           <Button href="/contact/" variant="outline" size="lg">
@@ -134,19 +179,23 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
     </div>
   </Container>
 
-  <!-- Overview (MDX body) -->
-  <Section title="Product Overview">
-    <div class="max-w-3xl text-base leading-relaxed text-slate-700 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mb-1 [&_a]:text-brand-700 [&_a]:underline">
-      <Content />
-    </div>
-  </Section>
+  <!-- Overview -->
+  {
+    overview.length > 0 && (
+      <Section title="Product Overview">
+        <div class="max-w-3xl space-y-4 text-base leading-relaxed text-slate-700">
+          {overview.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </Section>
+    )
+  }
 
   <!-- Technical specifications -->
   {
-    p.specs.length > 0 && (
+    specRows.length > 0 && (
       <Section title="Technical Specifications" class="bg-slate-50">
         <div class="max-w-3xl">
-          <SpecTable specs={p.specs} />
+          <SpecTable specs={specRows} />
         </div>
       </Section>
     )
@@ -154,19 +203,30 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
 
   <!-- Features -->
   {
-    p.features.length > 0 && (
+    features.length > 0 && (
       <Section title="Key Features">
-        <FeatureList features={p.features} />
+        <FeatureList features={features} />
+      </Section>
+    )
+  }
+
+  <!-- Packaging information -->
+  {
+    packagingRows.length > 0 && (
+      <Section title="Packaging Information" class="bg-slate-50">
+        <div class="max-w-3xl">
+          <SpecTable specs={packagingRows} fallbackGroup="Packaging Information" />
+        </div>
       </Section>
     )
   }
 
   <!-- Applications -->
   {
-    p.applications.length > 0 && (
+    applications.length > 0 && (
       <Section title="Applications" class="bg-slate-50">
         <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {p.applications.map((app) => (
+          {applications.map((app) => (
             <li class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-5">
               <span class="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
               <span class="text-sm text-slate-700">{app}</span>
@@ -182,7 +242,7 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
     p.datasheet && (
       <Section title="Downloads">
         <div class="max-w-xl">
-          <DownloadCard sku={p.sku} file={p.datasheet} />
+          <DownloadCard sku={p.id} file={p.datasheet} />
         </div>
       </Section>
     )
@@ -190,9 +250,9 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
 
   <!-- FAQ -->
   {
-    p.faq.length > 0 && (
+    faq.length > 0 && (
       <Section class="bg-slate-50">
-        <FAQ faq={p.faq} />
+        <FAQ faq={faq} />
       </Section>
     )
   }
@@ -202,7 +262,11 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
     related.length > 0 && (
       <Section
         title="Related Products"
-        subtitle={sameCategory.length >= 4 ? `More options in ${categoryMeta?.name ?? 'this category'}` : 'More models from our catalog'}
+        subtitle={
+          relatedInCategory >= 3
+            ? `More options in ${categoryMeta?.name ?? 'this category'}`
+            : 'More models from our catalog'
+        }
       >
         <ProductGrid products={related} />
       </Section>
@@ -210,7 +274,8 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(p.sku)}`;
   }
 
   <CTABanner
-    title={`Get Pricing for ${p.sku}`}
-    subtitle="Tell us your quantity and target market — we reply with factory-direct pricing, lead time and certification options."
+    title={p.inquiry?.headline}
+    subtitle={p.inquiry?.text}
+    buttonText={p.inquiry?.buttonText}
   />
 </BaseLayout>

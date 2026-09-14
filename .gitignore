@@ -9,6 +9,8 @@ dist-about-verify*/
 dist-about-img/
 dist-about-gallery/
 dist-about-img/
+dist-og-check/
+dist-wa-check*/
 .astro*
 astro.config.preview.mjs
 astro.config.verify.mjs

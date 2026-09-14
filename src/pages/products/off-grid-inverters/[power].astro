@@ -1,0 +1,121 @@
+---
+/**
+ * Power-level collection page, e.g. /products/off-grid-inverters/1800w/
+ *
+ * Front-end navigation is organised by rated power (customer search intent).
+ * The manufacturer series (P-Series, 1159-Series) stays in product metadata
+ * and is never used as a category here.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Section from '../../../components/Section.astro';
+import CTABanner from '../../../components/CTABanner.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ProductGrid from '../../../components/ProductGrid.astro';
+import { getCategory } from '../../../lib/categories';
+import {
+  POWER_CATEGORY_PARENT,
+  getPowerCategories,
+  powerCategoryPath,
+  type PowerCategory,
+} from '../../../lib/power-categories';
+import { formatPower, getProductsByPower } from '../../../lib/products';
+
+export function getStaticPaths() {
+  return getPowerCategories(POWER_CATEGORY_PARENT).map((powerCategory) => ({
+    params: { power: powerCategory.slug },
+    props: { powerCategory },
+  }));
+}
+
+interface Props {
+  powerCategory: PowerCategory;
+}
+const { powerCategory } = Astro.props;
+
+const parentMeta = getCategory(POWER_CATEGORY_PARENT);
+const siblingPowerCategories = getPowerCategories(POWER_CATEGORY_PARENT);
+
+const products = getProductsByPower(POWER_CATEGORY_PARENT, powerCategory.power);
+const modelCount = products.length;
+---
+<BaseLayout
+  title={powerCategory.seoTitle}
+  description={powerCategory.seoDescription}
+  path={powerCategoryPath(POWER_CATEGORY_PARENT, powerCategory.slug)}
+>
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Products', href: '/products/' },
+        {
+          label: parentMeta?.name ?? 'Off-Grid Inverters',
+          href: `/products/${POWER_CATEGORY_PARENT}/`,
+        },
+        { label: powerCategory.name },
+      ]}
+    />
+  </Container>
+
+  <Container class="pt-6 pb-4">
+    <p class="text-sm font-medium tracking-wide text-brand-600 uppercase">
+      Off-Grid Inverters
+    </p>
+    <h1 class="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{powerCategory.heading}</h1>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
+      {powerCategory.description}
+    </p>
+    <p class="mt-4 text-sm text-slate-500">
+      {modelCount} {modelCount === 1 ? 'model' : 'models'} in this power rating
+    </p>
+  </Container>
+
+  <Section>
+    {
+      modelCount > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          Models for this power rating are being prepared. Contact us for the latest catalog.
+        </p>
+      )
+    }
+  </Section>
+
+  <!-- Power ratings: internal links across the off-grid range -->
+  <Section
+    class="bg-slate-50"
+    eyebrow="Off-Grid Range"
+    title="Other Power Ratings"
+    subtitle="Browse the full off-grid inverter range by rated power."
+  >
+    <ul class="flex flex-wrap gap-2.5">
+      {
+        siblingPowerCategories.map((power) => {
+          const isCurrent = power.slug === powerCategory.slug;
+          return (
+            <li>
+              <a
+                href={powerCategoryPath(POWER_CATEGORY_PARENT, power.slug)}
+                aria-current={isCurrent ? 'page' : undefined}
+                class:list={[
+                  'inline-flex rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors',
+                  isCurrent
+                    ? 'border-brand-300 bg-white text-brand-700'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-brand-400 hover:text-brand-700',
+                ]}
+              >
+                {formatPower(power.power)} Off-Grid
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Section>
+
+  <CTABanner
+    title={`Need a ${formatPower(powerCategory.power)} Off-Grid Inverter?`}
+    subtitle="Tell us your target market, required DC input voltage and quantity — we reply with factory-direct pricing and lead time."
+  />
+</BaseLayout>

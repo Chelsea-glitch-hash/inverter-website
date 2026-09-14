@@ -9,12 +9,14 @@ interface Spec {
 }
 interface Props {
   specs: Spec[];
+  /** Heading for rows without a `group`. Defaults to "Specifications". */
+  fallbackGroup?: string;
 }
-const { specs } = Astro.props;
+const { specs, fallbackGroup = 'Specifications' } = Astro.props;
 
 const groups = new Map<string, Spec[]>();
 for (const spec of specs) {
-  const key = spec.group || 'Specifications';
+  const key = spec.group || fallbackGroup;
   if (!groups.has(key)) groups.set(key, []);
   groups.get(key)!.push(spec);
 }

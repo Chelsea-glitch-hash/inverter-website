@@ -3,8 +3,13 @@ import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import Button from './Button.astro';
 import { SITE, CONTACT } from '../config';
-import { CATEGORIES } from '../lib/categories';
+import { getCategoriesWithProducts } from '../lib/products';
 import brandLogo from '../assets/brand/logo.png';
+
+/* Only categories that actually contain products are listed, so the menu never
+   sends a visitor to an empty range. A category reappears here automatically
+   once its first product is added to the catalog. */
+const categories = getCategoriesWithProducts();
 
 const currentPath = Astro.url.pathname;
 const navLinks = [
@@ -60,7 +65,7 @@ const navLinks = [
           <div class="invisible absolute top-full left-0 z-50 w-56 pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
             <div class="rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
               {
-                CATEGORIES.map((c) => (
+                categories.map((c) => (
                   <a
                     href={`/products/${c.slug}/`}
                     class="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-brand-50 hover:text-brand-700"
@@ -131,7 +136,7 @@ const navLinks = [
         }
         <div class="mt-2 flex flex-col gap-1 border-t border-slate-100 pt-3">
           {
-            CATEGORIES.map((c) => (
+            categories.map((c) => (
               <a href={`/products/${c.slug}/`} class="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-brand-50 hover:text-brand-700">
                 {c.name}
               </a>

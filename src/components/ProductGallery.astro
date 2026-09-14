@@ -1,16 +1,16 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import { resolveProductImages } from '../lib/product-images';
 
 /**
  * Product image gallery with thumbnail switching (progressive JS).
  * Uses <noscript>-friendly markup: first image always visible.
+ *
+ * Products may not have images yet — in that case a neutral placeholder is
+ * rendered so the page layout stays intact and no broken image is emitted.
+ * Image references resolve through lib/product-images (optimised asset path
+ * or public path).
  */
-const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/products/*.{svg,png,jpg,jpeg,webp,avif}',
-  { eager: true }
-);
-
 interface Props {
   sku: string;
   name: string;
@@ -18,26 +18,57 @@ interface Props {
 }
 const { sku, name, images } = Astro.props;
 
-const resolved = images
-  .map((file) => imageModules[`/src/assets/products/${file}`]?.default)
-  .filter((img): img is ImageMetadata => Boolean(img));
+const resolved = resolveProductImages(images);
 ---
 
 {
-  resolved.length > 0 && (
+  resolved.length === 0 ? (
+    <div class="flex aspect-square items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+      <div class="px-6 text-center text-slate-300">
+        <svg
+          class="mx-auto h-20 w-20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.2"
+          aria-hidden="true"
+        >
+          <rect x="5" y="2.5" width="14" height="19" rx="2" />
+          <path d="M8.5 6h7M8.5 9h7" stroke-linecap="round" />
+        </svg>
+        <p class="mt-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
+          Product images coming soon
+        </p>
+      </div>
+      <span class="sr-only">{name} ({sku}) has no product images available yet.</span>
+    </div>
+  ) : (
     <div class="gallery" data-gallery>
       <div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-        {resolved.map((img, i) => (
-          <Image
-            src={img}
-            alt={`${name} (${sku}) — view ${i + 1}`}
-            width={800}
-            height={800}
-            class:list={['gallery-main w-full object-contain p-8', i > 0 && 'hidden']}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            data-gallery-image={i}
-          />
-        ))}
+        {resolved.map((img, i) =>
+          img.kind === 'asset' ? (
+            <Image
+              src={img.src}
+              alt={`${name} (${sku}) — view ${i + 1}`}
+              width={800}
+              height={800}
+              class:list={['gallery-main w-full object-contain p-8', i > 0 && 'hidden']}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              data-gallery-image={i}
+            />
+          ) : (
+            <img
+              src={img.src}
+              alt={`${name} (${sku}) — view ${i + 1}`}
+              width="800"
+              height="800"
+              class:list={['gallery-main w-full object-contain p-8', i > 0 && 'hidden']}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              data-gallery-image={i}
+            />
+          )
+        )}
       </div>
       {
         resolved.length > 1 && (
@@ -49,7 +80,26 @@ const resolved = images
                 data-gallery-thumb={i}
                 aria-label={`Show image ${i + 1}`}
               >
-                <Image src={img} alt="" width={160} height={160} class="aspect-square w-full object-contain p-2" loading="lazy" />
+                {img.kind === 'asset' ? (
+                  <Image
+                    src={img.src}
+                    alt=""
+                    width={160}
+                    height={160}
+                    class="aspect-square w-full object-contain p-2"
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    src={img.src}
+                    alt=""
+                    width="160"
+                    height="160"
+                    class="aspect-square w-full object-contain p-2"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
               </button>
             ))}
           </div>
@@ -61,8 +111,8 @@ const resolved = images
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
-    const mains = gallery.querySelectorAll('[data-gallery-image]');
-    const thumbs = gallery.querySelectorAll('[data-gallery-thumb]');
+    const mains = gallery.querySelectorAll<HTMLElement>('[data-gallery-image]');
+    const thumbs = gallery.querySelectorAll<HTMLElement>('[data-gallery-thumb]');
     const activate = (index: number) => {
       mains.forEach((el, i) => el.classList.toggle('hidden', i !== index));
       thumbs.forEach((el, i) => el.dataset.active = String(i === index));
