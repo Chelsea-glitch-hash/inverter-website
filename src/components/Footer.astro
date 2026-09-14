@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import NewsletterForm from './NewsletterForm.astro';
 import { SITE, COMPANY, CONTACT, SOCIAL } from '../config';
 import { CATEGORIES } from '../lib/categories';
+import brandLogo from '../assets/brand/logo.png';
 
 const year = new Date().getFullYear();
 ---
@@ -13,10 +15,20 @@ const year = new Date().getFullYear();
       <!-- Company -->
       <div>
         <div class="flex items-center gap-2.5">
-          <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
-            <rect width="32" height="32" rx="7" class="fill-brand-500" />
-            <path d="M17.5 5 9 18h5.5L13 27l9-13.5h-5.5L17.5 5Z" class="fill-accent-400" />
-          </svg>
+          <span
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white"
+            aria-hidden="true"
+          >
+            <Image
+              src={brandLogo}
+              alt=""
+              width={44}
+              height={44}
+              densities={[1, 2, 3]}
+              loading="lazy"
+              class="h-11 w-11"
+            />
+          </span>
           <span class="text-lg font-semibold text-white">{SITE.shortName}</span>
         </div>
         <p class="mt-4 text-sm leading-relaxed text-slate-400">
