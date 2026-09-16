@@ -215,9 +215,9 @@ export const PRODUCTS: Product[] = [
       "AC 220V / 110V output options available",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/900w-pure-sine-wave/main.jpg"],
 
     inquiry: {
       headline: "Looking for a compact off-grid inverter for your market?",
@@ -274,9 +274,9 @@ export const PRODUCTS: Product[] = [
       "Flexible output voltage options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/1800w-p-series/main.jpg"],
 
     inquiry: {
       headline: "Need a higher-power off-grid inverter for your application?",
@@ -332,9 +332,9 @@ export const PRODUCTS: Product[] = [
       "Flexible output voltage options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/2500w-p-series/main.jpg"],
 
     inquiry: {
       headline: "Looking for a 2500W off-grid inverter for your market?",
@@ -389,9 +389,9 @@ export const PRODUCTS: Product[] = [
       "Flexible output voltage options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/3000w-p-series/main.jpg"],
 
     inquiry: {
       headline: "Need a 3000W off-grid inverter for your next project or product line?",
@@ -446,9 +446,9 @@ export const PRODUCTS: Product[] = [
       "Flexible AC output options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/4000w-1159-series/main.jpg"],
 
     inquiry: {
       headline: "Looking for a high-power off-grid inverter for your market?",
@@ -505,9 +505,9 @@ export const PRODUCTS: Product[] = [
       "Compact aluminum housing",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/5000w-1159-series/main.jpg"],
 
     inquiry: {
       headline: "Need a 5000W off-grid inverter for higher-power applications?",
@@ -564,9 +564,9 @@ export const PRODUCTS: Product[] = [
       "Intelligent temperature-controlled fan",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/1800w-p-series-usb/main.jpg"],
 
     inquiry: {
       headline: "Looking for an off-grid inverter with USB functionality?",
@@ -623,9 +623,9 @@ export const PRODUCTS: Product[] = [
       "Intelligent temperature-controlled fan",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/2500w-p-series-usb/main.jpg"],
 
     inquiry: {
       headline: "Need a higher-power off-grid inverter with USB functionality?",
@@ -682,9 +682,9 @@ export const PRODUCTS: Product[] = [
       "Intelligent temperature-controlled fan",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/3000w-p-series-usb/main.jpg"],
 
     inquiry: {
       headline: "Looking for a 3000W off-grid inverter with USB functionality?",
@@ -737,9 +737,9 @@ export const PRODUCTS: Product[] = [
       "Flexible AC socket options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/1900w-multi-voltage/main.jpg"],
 
     inquiry: {
       headline: "Need a multi-voltage off-grid inverter for your market?",
@@ -795,9 +795,9 @@ export const PRODUCTS: Product[] = [
       "Flexible AC socket options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/2300w-multi-voltage/main.jpg"],
 
     inquiry: {
       headline: "Looking for flexible DC voltage options in an off-grid inverter?",
@@ -853,9 +853,9 @@ export const PRODUCTS: Product[] = [
       "Flexible AC socket options",
     ],
 
-    // Real photos go to public/images/products/off-grid-inverters/<slug>/
-    // then reference them here, e.g. "images/products/off-grid-inverters/<slug>/01.webp"
-    images: [],
+    // Main product photo, served from public/.
+    // Additional views can be appended to this list.
+    images: ["images/products/off-grid-inverters/3200w-multi-voltage/main.jpg"],
 
     inquiry: {
       headline: "Need a higher-power multi-voltage off-grid inverter?",

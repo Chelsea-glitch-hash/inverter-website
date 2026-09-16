@@ -13,6 +13,7 @@ import DownloadCard from '../../../components/DownloadCard.astro';
 import ProductGrid from '../../../components/ProductGrid.astro';
 import CTABanner from '../../../components/CTABanner.astro';
 import { getCategory } from '../../../lib/categories';
+import { resolveProductImage } from '../../../lib/product-images';
 import { getPowerCategoryForProduct, powerCategoryPath } from '../../../lib/power-categories';
 import {
   formatPower,
@@ -65,7 +66,14 @@ const certifications = p.certifications ?? [];
 const applications = p.applications ?? [];
 const faq = p.faq ?? [];
 
-const heroImage = p.images[0];
+/**
+ * First image, resolved to an absolute URL for structured data
+ * (schema.org/Google require absolute image URLs).
+ */
+const heroImage = resolveProductImage(p.images[0] ?? '');
+const heroImageUrl = heroImage
+  ? new URL(heroImage.kind === 'asset' ? heroImage.src.src : heroImage.src, Astro.site).href
+  : undefined;
 
 /* Product structured data. Offer markup intentionally omitted until
    real pricing data exists (per SEO spec: only use with real data). */
@@ -78,7 +86,7 @@ const productJsonLd = {
   description: seo.description,
   category: categoryMeta?.name ?? p.category,
   brand: { '@type': 'Brand', name: SITE.name },
-  ...(heroImage ? { image: heroImage } : {}),
+  ...(heroImageUrl ? { image: heroImageUrl } : {}),
   ...(certifications.length > 0
     ? {
         additionalProperty: certifications.map((c) => ({
