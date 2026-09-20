@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
+import { COMPANY, CONTACT } from '../config';
 ---
 
 <BaseLayout
@@ -20,23 +21,27 @@ import Section from '../components/Section.astro';
 
       <h2>1. Who we are</h2>
       <p>
-        TODO: legal entity name, registered address and contact email as configured
-        in <code>src/config.ts</code>.
+        The controller of the personal data described in this policy is {COMPANY.legalName}.
+        You can reach us about privacy matters at
+        <a href={`mailto:${CONTACT.email}`} class="text-brand-700 underline">{CONTACT.email}</a>.
+        TODO: add the registered address and, where required, an EU/UK representative.
       </p>
 
       <h2>2. Data we collect</h2>
       <ul class="list-disc space-y-1 pl-6">
         <li><strong>Inquiry data</strong>: name, company, country, email, phone/WhatsApp, product interest, quantity and message — provided by you when submitting the inquiry form.</li>
+        <li><strong>Chat data</strong>: the messages you exchange with the AI sales assistant, the products it recommended to you, and — if you choose to provide them — your email address, WhatsApp number, name, company and country. The conversation is stored in your browser session and sent to us only when you submit contact details; nothing is stored on our servers without it.</li>
         <li><strong>Newsletter data</strong>: email address — provided only with your explicit marketing consent.</li>
-        <li><strong>Analytics data</strong>: anonymized usage statistics (Google Analytics 4), loaded only after you consent via the cookie banner.</li>
+        <li><strong>Analytics data</strong>: anonymized usage statistics (Google Analytics 4), loaded only after you consent via the cookie banner. Chat interactions are measured as aggregate events only; the content of your messages, your email address and your phone number are never sent to analytics.</li>
         <li><strong>Attribution data</strong>: UTM parameters and referring page, used solely to understand which channel your inquiry came from.</li>
       </ul>
 
       <h2>3. How we use your data</h2>
       <ul class="list-disc space-y-1 pl-6">
         <li>Inquiry data is used to respond to your request and prepare quotations.</li>
+        <li>Chat messages are used to understand your requirement, recommend a product and let our sales team follow up on the contact details you provide.</li>
         <li>Newsletter data is used to send marketing emails you explicitly opted in to. You can unsubscribe at any time.</li>
-        <li>Submitting an inquiry does <strong>not</strong> subscribe you to marketing emails.</li>
+        <li>Submitting an inquiry or a chat lead does <strong>not</strong> subscribe you to marketing emails.</li>
       </ul>
 
       <h2>4. Cookies and consent</h2>
@@ -44,26 +49,48 @@ import Section from '../components/Section.astro';
         Marketing and analytics cookies are only set after you click "Accept all"
         in the consent banner. "Necessary only" keeps them disabled. You can change
         your choice at any time by clearing site data in your browser.
+        The chat widget does not set cookies: the conversation is kept in your
+        browser's session storage and is discarded when you close the tab.
       </p>
 
       <h2>5. Third-party processors</h2>
       <ul class="list-disc space-y-1 pl-6">
         <li>Google Analytics (statistics, consent-based)</li>
-        <li>Cloudflare (hosting, CDN, bot protection)</li>
+        <li>Cloudflare (hosting, CDN, bot protection, and the Turnstile challenge that protects our forms and chat)</li>
         <li>Resend (transactional email delivery)</li>
+        <li>An AI language-model provider (processing of chat messages in order to draft the assistant's replies)</li>
       </ul>
+      <p>
+        <strong>International transfers.</strong> These providers may process data on
+        servers outside your country, including outside the EEA. Where required, the
+        transfer is covered by appropriate safeguards such as the Standard
+        Contractual Clauses.
+      </p>
+      <p>
+        <strong>What the AI provider receives.</strong> Only the text needed to draft a
+        reply: your message and the product information being discussed. Email
+        addresses and phone numbers you enter in the chat are detected in your
+        browser and sent straight to our own lead pipeline — they are not sent to the
+        AI provider, and message history passed to the model is screened for contact
+        details before it leaves our server.
+      </p>
 
       <h2>6. Your rights</h2>
       <p>
         You may request access, correction or deletion of your personal data at any
-        time by emailing us. TODO: add DPO / contact details and any
-        market-specific rights text (GDPR Art. 15–21, etc.).
+        time by emailing
+        <a href={`mailto:${CONTACT.email}`} class="text-brand-700 underline">{CONTACT.email}</a>.
+        TODO: add any market-specific rights text (GDPR Art. 15–21, etc.) and an
+        EU/UK representative where one is required.
       </p>
 
       <h2>7. Data retention</h2>
       <p>
-        Inquiry data is retained as long as needed to handle your request and for
-        legitimate business record-keeping. TODO: confirm retention periods.
+        Inquiry data and chat leads are retained as long as needed to handle your
+        request and for legitimate business record-keeping. Chat conversations that
+        were never submitted to us as a lead are not retained on our side at all —
+        they exist only in the session storage of your own browser.
+        TODO: confirm the retention period (e.g. 24 months) with the legal reviewer.
       </p>
     </div>
   </Section>

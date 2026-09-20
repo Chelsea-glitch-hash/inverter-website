@@ -14,7 +14,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     publishDate: z.coerce.date(),
-    author: z.string().default('Your Company Name'),
+    author: z.string().default('Zhongze Huasong'),
     tags: z.array(z.string()).default([]),
   }),
 });

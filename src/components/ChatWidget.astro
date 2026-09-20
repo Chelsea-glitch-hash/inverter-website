@@ -1,42 +1,82 @@
 ---
 /**
- * Site-wide chat widget — Phase 1: front-end UI only.
- * No AI API, no third-party provider, no persistence.
+ * Site-wide AI sales chat widget.
  *
- * Reserved hooks for Phase 2 (do NOT build yet):
- *  - config.ts CHAT.*  — master switch lives here (CHAT.enabled)
- *  - data-track="chat_open" / data-track="chat_send" already feed the
- *    existing delegated analytics in src/scripts/tracking.ts
- *  - AI proxy endpoint: functions/api/chat.ts (same pattern as inquiry.ts)
+ * Structure is unchanged from Phase 1 (launcher → panel → message log → input)
+ * so the existing responsive positioning, ARIA wiring and data-track hooks all
+ * still apply:
  *
- * Widget positioning (responsive):
- *  - Mobile (<md, default): launcher fixed right-5 bottom-5 (bottom-right
- *    corner); panel opens upward from it (absolute right-0 bottom-[4.5rem]).
- *    Approved on 390×844.
- *  - Desktop (md+): launcher fixed right-6, pinned at 40% of the viewport
- *    height and nudged up by half of its own height (no bottom anchor);
- *    panel opens from the same spot, vertically centered on the launcher.
- * Z-index coordination:
- *  - WhatsAppButton: fixed right-5 bottom-5 z-40 (only when CONTACT.whatsapp set)
- *  - ConsentBanner:   full-width bar bottom-0 z-50 (only when GA4 enabled)
- *  - This widget:     z-[60]
- *  Those only share the viewport corner with this widget on mobile; if
- *  WhatsApp is enabled later, shift it to bottom-24 (or bottom-left).
+ *  - Mobile (<md): launcher fixed right-5 bottom-5; panel opens upward from it.
+ *  - Desktop (md+): launcher fixed right-6 at 40% viewport height; panel opens
+ *    from the same spot, vertically centred on the launcher.
+ *  - Z-index: WhatsAppButton z-40, ConsentBanner z-50, this widget z-[60].
+ *    The WhatsApp button sits at top-[30%] so the two never overlap.
+ *
+ * What is new:
+ *  - unread badge + dismissible teaser bubble before the first open
+ *  - quick-reply chips generated from the REAL power ratings in the catalog
+ *  - product cards rendered from values the server read out of products.ts
+ *  - inline email / WhatsApp capture, then the company's own contact details
+ *  - sessionStorage persistence (no cookies, no database, no PII in analytics)
+ *
+ * The conversation is driven by functions/api/chat.ts; this file never holds an
+ * API key, a model name or a system prompt, and it never renders company
+ * contact details until /api/chat-lead confirms the lead was stored.
+ *
+ * Chat options come from src/config.ts (CHAT.*) and are injected as JSON below,
+ * because an Astro-bundled <script> cannot see frontmatter values.
  */
-import { CHAT } from '../config';
+import { CHAT, SITE, TURNSTILE } from '../config';
+import { getPowerRatings } from '../lib/products';
 
-const launcherLabel = 'Chat with us';
+/** Real power ratings, highest first — never a hand-written list. */
+const powerChips = getPowerRatings('off-grid-inverters')
+  .slice()
+  .sort((a, b) => b - a)
+  .map((power) => `${power}W`);
+
+const chatConfig = {
+  greeting: CHAT.greeting,
+  teaser: CHAT.teaser,
+  proactive: CHAT.proactive,
+  quickReplies: CHAT.quickReplies,
+  powerChips: [...powerChips, 'Not sure'],
+  turnstileSiteKey: TURNSTILE.siteKey,
+};
 ---
 
 {
   CHAT.enabled && (
-    <div id="chat-widget" class="fixed bottom-5 right-5 z-[60] md:bottom-auto md:right-6 md:top-[40%] md:-translate-y-1/2">
-      <!-- Launcher (collapsed) -->
+    <div
+      id="chat-widget"
+      class="fixed bottom-5 right-5 z-[60] md:bottom-auto md:right-6 md:top-[40%] md:-translate-y-1/2"
+    >
+      {/* Proactive teaser — visible only while the panel is closed */}
+      <div
+        id="chat-teaser"
+        class="absolute right-0 bottom-[4.5rem] hidden w-64 md:bottom-auto md:right-[4.75rem] md:top-1/2 md:w-72 md:-translate-y-1/2"
+      >
+        <div class="relative rounded-2xl border border-slate-200 bg-white p-3 pr-8 shadow-lg">
+          <p id="chat-teaser-text" class="text-sm leading-relaxed text-slate-700" />
+          <button
+            type="button"
+            id="chat-teaser-close"
+            class="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+            aria-label="Dismiss message"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Launcher (collapsed) */}
       <button
         type="button"
         id="chat-launcher"
-        class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg transition-colors hover:bg-brand-700"
-        aria-label={launcherLabel}
+        class="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg transition-colors hover:bg-brand-700"
+        aria-label="Chat with us"
         aria-expanded="false"
         aria-controls="chat-panel"
         data-track="chat_open"
@@ -44,9 +84,16 @@ const launcherLabel = 'Chat with us';
         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 3C6.5 3 2 6.9 2 11.7c0 2.6 1.4 4.9 3.5 6.4L5 21.5l3.5-2c1.1.3 2.3.5 3.5.5 5.5 0 10-3.9 10-8.7S17.5 3 12 3Z" />
         </svg>
+        <span
+          id="chat-badge"
+          class="absolute -right-0.5 -top-0.5 hidden h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-semibold leading-none text-white ring-2 ring-white"
+          aria-hidden="true"
+        >
+          1
+        </span>
       </button>
 
-      <!-- Panel (expanded) -->
+      {/* Panel (expanded) */}
       <section
         id="chat-panel"
         class="absolute right-0 bottom-[4.5rem] flex hidden h-[min(70vh,540px)] w-[min(calc(100vw-2.5rem),24rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl md:bottom-auto md:top-1/2 md:-translate-y-1/2"
@@ -56,7 +103,7 @@ const launcherLabel = 'Chat with us';
         <header class="flex shrink-0 items-center justify-between rounded-t-2xl bg-brand-600 px-4 py-3 text-white">
           <div>
             <p class="text-sm font-medium">Chat with us</p>
-            <p class="text-xs text-brand-100">Preview assistant · replies instantly</p>
+            <p class="text-xs text-brand-100">{SITE.shortName} · AI sales assistant</p>
           </div>
           <button
             type="button"
@@ -72,183 +119,803 @@ const launcherLabel = 'Chat with us';
 
         <div
           id="chat-messages"
-          class="flex-1 space-y-2 overflow-y-auto px-3.5 py-3"
+          class="flex-1 space-y-3 overflow-y-auto px-3.5 py-3"
           role="log"
           aria-live="polite"
           aria-label="Messages"
         ></div>
 
-        <div class="flex shrink-0 items-center gap-2 border-t border-slate-200 bg-white px-3 py-2.5">
-          <input
-            id="chat-input"
-            type="text"
-            class="min-w-0 flex-1 rounded-full border border-slate-300 bg-white px-4 py-2 text-base text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder="Type your message…"
-            autocomplete="off"
-            enterkeyhint="send"
-            aria-label="Type your message"
-          />
-          <button
-            type="button"
-            id="chat-send"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700"
-            aria-label="Send message"
-            data-track="chat_send"
-          >
-            <svg class="h-4.5 w-4.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
-            </svg>
-          </button>
+        {/* Optional fields — shown only while contact details are requested */}
+        <div id="chat-extra" class="hidden shrink-0 border-t border-slate-200 bg-slate-50 px-3 pb-1 pt-2">
+          <div class="grid grid-cols-3 gap-1.5">
+            <input
+              id="chat-name"
+              type="text"
+              autocomplete="name"
+              placeholder="Name"
+              aria-label="Your name (optional)"
+              class="min-w-0 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
+            />
+            <input
+              id="chat-company"
+              type="text"
+              autocomplete="organization"
+              placeholder="Company"
+              aria-label="Your company (optional)"
+              class="min-w-0 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
+            />
+            <input
+              id="chat-country"
+              type="text"
+              autocomplete="country-name"
+              placeholder="Country"
+              aria-label="Your country (optional)"
+              class="min-w-0 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
+            />
+          </div>
+          <p class="mt-1 px-0.5 text-[11px] text-slate-400">Optional — we only need an email or WhatsApp.</p>
         </div>
+
+        <div class="shrink-0 border-t border-slate-200 bg-white px-3 py-2.5">
+          <p id="chat-hint" class="mb-1.5 hidden px-1 text-[11px] text-slate-500"></p>
+          <div class="flex items-center gap-2">
+            <input
+              id="chat-input"
+              type="text"
+              class="min-w-0 flex-1 rounded-full border border-slate-300 bg-white px-4 py-2 text-base text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+              placeholder="Type your message…"
+              autocomplete="off"
+              enterkeyhint="send"
+              aria-label="Type your message"
+            />
+            <button
+              type="button"
+              id="chat-send"
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
+              aria-label="Send message"
+              data-track="chat_send"
+            >
+              <svg class="h-4.5 w-4.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Turnstile mounts here (invisible widget) */}
+        <div id="chat-turnstile" class="shrink-0" aria-hidden="true"></div>
       </section>
     </div>
   )
 }
 
+<script
+  type="application/json"
+  id="chat-config"
+  is:inline
+  set:html={JSON.stringify(chatConfig)}
+/>
+
 <script>
+  import { trackEvent } from '../lib/analytics';
+  import { getAttribution } from '../lib/attribution';
+  import type {
+    ChatContact,
+    ChatLeadResponse,
+    ChatProductCard,
+    ChatResponse,
+    ChatState,
+    ChatTranscriptEntry,
+  } from '../lib/chat-types';
+
+  /* ------------------------------------------------------------------ *
+   * Types & config
+   * ------------------------------------------------------------------ */
+
+  interface ChatUiConfig {
+    greeting: string;
+    teaser: string;
+    proactive: boolean;
+    quickReplies: boolean;
+    powerChips: string[];
+    turnstileSiteKey: string;
+  }
+
   interface Msg {
     id: number;
     role: 'user' | 'bot';
     text: string;
     typing?: boolean;
+    products?: ChatProductCard[];
+    quickReplies?: string[];
+    contact?: ChatContact;
   }
 
-  const WELCOME =
-    "Hi! Welcome to our site. Ask me anything about our inverters — models, specs, or how to request a quote. For a formal quotation, our team replies within one business day via the inquiry form.";
-
-  const INTENTS: { re: RegExp; reply: string }[] = [
-    {
-      re: /price|quote|quotation|cost|how much|pricing/i,
-      reply:
-        "Pricing depends on the model, quantity and destination. Please use the inquiry form at /contact/ (or open any product page and press Request a Quote) and our sales team will send you a tailored quotation.",
-    },
-    {
-      re: /spec|datasheet|parameter|technical|watt|voltage/i,
-      reply:
-        "Product specifications are listed on each product page. If you need a datasheet or additional technical information, please contact us — tell us your application (load and DC input voltage) and our team will help match a model to it.",
-    },
-    {
-      re: /oem|odm|custom|private label|brand/i,
-      reply:
-        "Yes, we support OEM / ODM and private-label projects. Share your target specs and volume via /contact/ and an engineer will follow up.",
-    },
-    {
-      re: /moq|minimum order|quantity/i,
-      reply:
-        "MOQ depends on the model and configuration. Please send your expected annual / batch quantity through /contact/ so we can confirm availability.",
-    },
-    {
-      re: /ship|deliver|lead time|leadtime|freight|logistics/i,
-      reply:
-        "Lead time and freight depend on your destination and order size. Ask via /contact/ and we will confirm both in the quotation.",
-    },
-    {
-      re: /contact|email|phone|human|agent|sales team/i,
-      reply:
-        "You can reach us through the inquiry form at /contact/, or use the contact details in the page footer. A sales engineer will get back to you.",
-    },
-  ];
-
-  const FALLBACKS = [
-    "Thanks for your message! This is a preview assistant, so for a precise answer please send your requirements via /contact/ and our team will reply shortly.",
-    "Got it — could you share a few more details (model, quantity, destination)? For a full answer, the inquiry form at /contact/ is the fastest route.",
-    "Thanks! If this is about a specific product, open it and press Request a Quote — our sales team answers within one business day.",
-  ];
-
-  let fallbackIndex = 0;
-
-  // Script scope copy — Astro-processed <script> bundles cannot see frontmatter
-  // consts, so the label must be declared here (template keeps its own copy).
-  const LAUNCHER_LABEL = 'Chat with us';
-
-  function pickReply(text: string): string {
-    const hit = INTENTS.find((i) => i.re.test(text));
-    if (hit) return hit.reply;
-    const reply = FALLBACKS[fallbackIndex % FALLBACKS.length];
-    fallbackIndex += 1;
-    return reply;
+  interface Persisted {
+    v: 1;
+    sessionId: string;
+    msgs: Msg[];
+    state: ChatState;
+    contactMode: boolean;
+    opened: boolean;
+    teaserDismissed: boolean;
   }
+
+  interface TurnstileApi {
+    render(element: HTMLElement, options: Record<string, unknown>): string;
+    execute(widgetId: string, options?: Record<string, unknown>): void;
+    reset(widgetId?: string): void;
+    getResponse(widgetId?: string): string | undefined;
+  }
+
+  const STORAGE_KEY = 'chat_session_v1';
+  const EMAIL_RE = /[^\s@]+@[^\s@]+\.[^\s@]{2,}/;
+  const OTHER_MODELS = 'Show other models';
+
+  const FALLBACK_CONFIG: ChatUiConfig = {
+    greeting: 'Hi! What power are you looking for?',
+    teaser: '',
+    proactive: false,
+    quickReplies: true,
+    powerChips: [],
+    turnstileSiteKey: '',
+  };
+
+  function readConfig(): ChatUiConfig {
+    const el = document.getElementById('chat-config');
+    if (!el || !el.textContent) return FALLBACK_CONFIG;
+    try {
+      return { ...FALLBACK_CONFIG, ...(JSON.parse(el.textContent) as Partial<ChatUiConfig>) };
+    } catch {
+      return FALLBACK_CONFIG;
+    }
+  }
+
+  function emptyState(): ChatState {
+    return {
+      stage: 'power',
+      power: null,
+      usb: null,
+      sku: null,
+      contactCaptured: false,
+      turnCount: 0,
+      fallbacks: 0,
+      handoffReason: null,
+    };
+  }
+
+  function newSessionId(): string {
+    try {
+      if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+        return crypto.randomUUID();
+      }
+    } catch {
+      /* fall through */
+    }
+    return `s_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+  }
+
+  /** Only site-relative product URLs may become links in a message. */
+  function productHref(url: unknown): string | null {
+    return typeof url === 'string' && url.startsWith('/products/') ? url : null;
+  }
+
+  /** Only mailto: and wa.me links may reach an href from a server response. */
+  function contactHref(url: unknown, allowed: string): string | null {
+    return typeof url === 'string' && url.startsWith(allowed) ? url : null;
+  }
+
+  /** Pull an email and/or WhatsApp number out of a free-text message. */
+  function extractContact(text: string): { email: string; whatsapp: string } | null {
+    const email = text.match(EMAIL_RE)?.[0] ?? '';
+
+    let whatsapp = '';
+    const candidates = text.match(/\+?\d[\d\s()\-]{6,}\d/g) ?? [];
+    for (const candidate of candidates) {
+      const digits = candidate.replace(/\D/g, '');
+      // Require a country code or a long number so "3000 4000" is not a phone.
+      if (digits.length >= 8 && digits.length <= 15 && (candidate.startsWith('+') || digits.length >= 10)) {
+        whatsapp = digits;
+        break;
+      }
+    }
+
+    if (!email && !whatsapp) return null;
+    return { email, whatsapp };
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Widget
+   * ------------------------------------------------------------------ */
 
   function initChat(): void {
-    // Non-null assertions match runtime reality (nodes are rendered above when
-    // CHAT.enabled); the guard below stays as a cheap runtime safety net.
-    const launcher = document.getElementById('chat-launcher') as HTMLButtonElement;
-    const closeBtn = document.getElementById('chat-close') as HTMLButtonElement;
-    const panel = document.getElementById('chat-panel') as HTMLElement;
-    const list = document.getElementById('chat-messages') as HTMLElement;
-    const input = document.getElementById('chat-input') as HTMLInputElement;
-    const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
+    const launcher = document.getElementById('chat-launcher') as HTMLButtonElement | null;
+    const closeBtn = document.getElementById('chat-close') as HTMLButtonElement | null;
+    const panel = document.getElementById('chat-panel') as HTMLElement | null;
+    const list = document.getElementById('chat-messages') as HTMLElement | null;
+    const input = document.getElementById('chat-input') as HTMLInputElement | null;
+    const sendBtn = document.getElementById('chat-send') as HTMLButtonElement | null;
+    const badge = document.getElementById('chat-badge') as HTMLElement | null;
+    const teaser = document.getElementById('chat-teaser') as HTMLElement | null;
+    const teaserText = document.getElementById('chat-teaser-text') as HTMLElement | null;
+    const teaserClose = document.getElementById('chat-teaser-close') as HTMLButtonElement | null;
+    const hint = document.getElementById('chat-hint') as HTMLElement | null;
+    const extra = document.getElementById('chat-extra') as HTMLElement | null;
+    const turnstileSlot = document.getElementById('chat-turnstile') as HTMLElement | null;
+
     if (!launcher || !closeBtn || !panel || !list || !input || !sendBtn) return;
 
-    const msgs: Msg[] = [];
+    const config = readConfig();
+
+    let msgs: Msg[] = [];
     let nextId = 1;
     let open = false;
+    let busy = false;
+    let contactMode = false;
+    let state: ChatState = emptyState();
+    let opened = false;
+    let teaserDismissed = false;
+    let sessionId = newSessionId();
+
+    /* --- persistence: sessionStorage only, no cookie, no server session --- */
+
+    function persist(): void {
+      const payload: Persisted = {
+        v: 1,
+        sessionId,
+        msgs: msgs.filter((msg) => !msg.typing),
+        state,
+        contactMode,
+        opened,
+        teaserDismissed,
+      };
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch {
+        /* private mode — the conversation simply does not survive navigation */
+      }
+    }
+
+    function restore(): boolean {
+      try {
+        const raw = sessionStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw) as Partial<Persisted>;
+        if (parsed.v !== 1 || !Array.isArray(parsed.msgs)) return false;
+
+        msgs = parsed.msgs.filter((msg) => !msg.typing);
+        nextId = msgs.reduce((max, msg) => Math.max(max, msg.id), 0) + 1;
+        state = { ...emptyState(), ...(parsed.state ?? {}) };
+        contactMode = parsed.contactMode === true;
+        opened = parsed.opened === true;
+        teaserDismissed = parsed.teaserDismissed === true;
+        if (typeof parsed.sessionId === 'string' && parsed.sessionId) sessionId = parsed.sessionId;
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    /* --- rendering ---------------------------------------------------- */
 
     function scrollToBottom(): void {
       requestAnimationFrame(() => {
-        list.scrollTop = list.scrollHeight;
+        list!.scrollTop = list!.scrollHeight;
       });
     }
 
+    function productCard(card: ChatProductCard): HTMLElement {
+      const box = document.createElement('div');
+      box.className = 'rounded-xl border border-slate-200 bg-white p-3 shadow-sm';
+
+      const title = document.createElement('p');
+      title.className = 'text-sm font-semibold leading-snug text-slate-900';
+      title.textContent = card.name;
+      box.appendChild(title);
+
+      const listEl = document.createElement('ul');
+      listEl.className = 'mt-1.5 space-y-0.5';
+      for (const bullet of card.bullets ?? []) {
+        const li = document.createElement('li');
+        li.className = 'text-xs leading-relaxed text-slate-600';
+        li.textContent = `• ${bullet}`;
+        listEl.appendChild(li);
+      }
+      box.appendChild(listEl);
+
+      const href = productHref(card.url);
+      if (href) {
+        const link = document.createElement('a');
+        link.href = href;
+        link.rel = 'noopener';
+        link.className = 'mt-2 inline-block text-xs font-medium text-brand-700 hover:underline';
+        link.textContent = 'View product details';
+        box.appendChild(link);
+      }
+
+      return box;
+    }
+
+    function contactBlock(contact: ChatContact): HTMLElement {
+      const box = document.createElement('div');
+      box.className = 'rounded-xl border border-green-200 bg-green-50 p-3';
+
+      const title = document.createElement('p');
+      title.className = 'text-xs font-medium text-green-800';
+      title.textContent = 'You can also reach us directly:';
+      box.appendChild(title);
+
+      const rows: [string, string, string, string][] = [
+        ['Email: ', contact.email, contactHref(contact.mailtoLink, 'mailto:') ?? '', 'click_email'],
+        [ 'WhatsApp: ', contact.whatsappDisplay, contactHref(contact.waLink, 'https://wa.me/') ?? '', 'click_whatsapp'],
+      ];
+
+      const wrap = document.createElement('div');
+      wrap.className = 'mt-1.5 space-y-1';
+      for (const [prefix, label, href, track] of rows) {
+        if (!href) continue;
+        const line = document.createElement('p');
+        line.className = 'text-xs text-green-900';
+        line.appendChild(document.createTextNode(prefix));
+
+        const link = document.createElement('a');
+        link.href = href;
+        link.rel = 'noopener';
+        link.target = '_blank';
+        link.className = 'font-medium underline';
+        // Reuses the site-wide delegated click tracking — no PII is sent.
+        link.dataset.track = track;
+        link.textContent = label;
+        line.appendChild(link);
+        wrap.appendChild(line);
+      }
+      box.appendChild(wrap);
+
+      return box;
+    }
+
     function render(): void {
-      list.textContent = '';
-      for (const m of msgs) {
-        const wrap = document.createElement('div');
-        wrap.className = 'flex ' + (m.role === 'user' ? 'justify-end' : 'justify-start');
+      list!.textContent = '';
+
+      for (const msg of msgs) {
+        const block = document.createElement('div');
+        block.className = 'space-y-2';
+
+        const row = document.createElement('div');
+        row.className = 'flex ' + (msg.role === 'user' ? 'justify-end' : 'justify-start');
+
+        const stack = document.createElement('div');
+        stack.className = 'max-w-[85%] space-y-2';
+
         const bubble = document.createElement('div');
         bubble.className =
-          'max-w-[85%] whitespace-pre-line break-words rounded-2xl px-3.5 py-2 text-sm leading-relaxed ' +
-          (m.role === 'user'
+          'whitespace-pre-line break-words rounded-2xl px-3.5 py-2 text-sm leading-relaxed ' +
+          (msg.role === 'user'
             ? 'rounded-br-md bg-brand-600 text-white'
             : 'rounded-bl-md bg-slate-100 text-slate-800');
-        bubble.textContent = m.typing ? 'Typing…' : m.text;
-        wrap.appendChild(bubble);
-        list.appendChild(wrap);
+        bubble.textContent = msg.typing ? 'Typing…' : msg.text;
+        stack.appendChild(bubble);
+
+        if (msg.role === 'bot') {
+          for (const card of msg.products ?? []) stack.appendChild(productCard(card));
+          if (msg.contact) stack.appendChild(contactBlock(msg.contact));
+        }
+
+        row.appendChild(stack);
+        block.appendChild(row);
+
+        if (msg.role === 'bot' && msg.quickReplies && msg.quickReplies.length > 0) {
+          const chips = document.createElement('div');
+          chips.className = 'flex flex-wrap gap-1.5';
+          for (const label of msg.quickReplies) {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className =
+              'rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-medium text-brand-700 transition-colors hover:bg-brand-100';
+            chip.textContent = label;
+            chip.addEventListener('click', () => {
+              trackEvent('chat_quick_reply', { quick_reply_value: label });
+              void send(label, true);
+            });
+            chips.appendChild(chip);
+          }
+          block.appendChild(chips);
+        }
+
+        list!.appendChild(block);
       }
+
       scrollToBottom();
     }
 
-    function queueBot(text: string, delay: number): void {
-      const m: Msg = { id: nextId++, role: 'bot', text: '', typing: true };
-      msgs.push(m);
+    function pushBot(text: string, quickReplies: string[], products: ChatProductCard[], contact?: ChatContact): void {
+      msgs.push({
+        id: nextId++,
+        role: 'bot',
+        text,
+        quickReplies: quickReplies.length > 0 ? quickReplies : undefined,
+        products: products.length > 0 ? products : undefined,
+        contact,
+      });
       render();
-      setTimeout(() => {
-        m.typing = false;
-        m.text = text;
-        render();
-      }, delay);
+      persist();
     }
 
-    function send(): void {
-      const raw = input.value.trim();
-      if (!raw) return;
-      msgs.push({ id: nextId++, role: 'user', text: raw });
-      input.value = '';
+    function pushTyping(): Msg {
+      const msg: Msg = { id: nextId++, role: 'bot', text: '', typing: true };
+      msgs.push(msg);
       render();
-      queueBot(pickReply(raw), 700 + Math.random() * 500);
+      return msg;
     }
+
+    function removeTyping(msg: Msg): void {
+      const index = msgs.indexOf(msg);
+      if (index >= 0) msgs.splice(index, 1);
+      render();
+    }
+
+    /* --- composer / chrome state -------------------------------------- */
+
+    function syncComposer(): void {
+      if (contactMode) {
+        input!.placeholder = 'Your email or WhatsApp…';
+        if (hint) {
+          hint.textContent = 'Your details go to our sales team only.';
+          hint.classList.remove('hidden');
+        }
+        extra?.classList.remove('hidden');
+      } else {
+        input!.placeholder = 'Type your message…';
+        hint?.classList.add('hidden');
+        extra?.classList.add('hidden');
+      }
+    }
+
+    function syncChrome(): void {
+      if (opened || !config.proactive) {
+        badge?.classList.add('hidden');
+        badge?.classList.remove('flex');
+        teaser?.classList.add('hidden');
+        launcher!.setAttribute('aria-label', open ? 'Close chat' : 'Chat with us');
+        return;
+      }
+
+      // The badge marks an unread assistant greeting, not a human sales rep.
+      badge?.classList.remove('hidden');
+      badge?.classList.add('flex');
+      launcher!.setAttribute('aria-label', 'Chat with us, 1 new message');
+
+      if (!teaserDismissed && config.teaser && teaserText) {
+        teaserText.textContent = config.teaser;
+        teaser?.classList.remove('hidden');
+      } else {
+        teaser?.classList.add('hidden');
+      }
+    }
+
+    function setBusy(next: boolean): void {
+      busy = next;
+      sendBtn!.disabled = next;
+      input!.disabled = next;
+    }
+
+    /* --- turnstile (lazy, invisible) ---------------------------------- */
+
+    let turnstileWidgetId: string | null = null;
+    let turnstileLoader: Promise<TurnstileApi | null> | null = null;
+
+    function loadTurnstile(): Promise<TurnstileApi | null> {
+      if (!config.turnstileSiteKey) return Promise.resolve(null);
+      if (turnstileLoader) return turnstileLoader;
+
+      turnstileLoader = new Promise<TurnstileApi | null>((resolve) => {
+        const existing = (window as unknown as { turnstile?: TurnstileApi }).turnstile;
+        if (existing) {
+          resolve(existing);
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.async = true;
+        script.defer = true;
+        script.dataset.turnstile = 'true';
+        script.onload = () => {
+          resolve((window as unknown as { turnstile?: TurnstileApi }).turnstile ?? null);
+        };
+        script.onerror = () => resolve(null);
+        document.head.appendChild(script);
+        // Never let a blocked script stall the conversation.
+        setTimeout(() => resolve((window as unknown as { turnstile?: TurnstileApi }).turnstile ?? null), 6000);
+      });
+
+      return turnstileLoader;
+    }
+
+    /**
+     * A fresh single-use token for the next request, or '' when Turnstile is
+     * unavailable. The server only insists on a token for the first turn, so a
+     * blocked script degrades to "unverified session" rather than a dead chat.
+     */
+    async function turnstileToken(): Promise<string> {
+      const api = await loadTurnstile();
+      if (!api || !turnstileSlot) return '';
+      try {
+        if (turnstileWidgetId === null) {
+          turnstileWidgetId = api.render(turnstileSlot, {
+            sitekey: config.turnstileSiteKey,
+            size: 'invisible',
+            execution: 'execute',
+            callback: () => undefined,
+          });
+        } else {
+          api.reset(turnstileWidgetId);
+        }
+
+        return await new Promise<string>((resolve) => {
+          let settled = false;
+          const finish = (value: string) => {
+            if (settled) return;
+            settled = true;
+            resolve(value);
+          };
+          setTimeout(() => finish(''), 6000);
+          try {
+            api.execute(turnstileWidgetId as string, {
+              callback: (token: string) => finish(token),
+              'error-callback': () => finish(''),
+            });
+          } catch {
+            finish('');
+          }
+        });
+      } catch {
+        return '';
+      }
+    }
+
+    /* --- payloads ----------------------------------------------------- */
+
+    function transcript(): ChatTranscriptEntry[] {
+      return msgs
+        .filter((msg) => !msg.typing && msg.text.trim() !== '')
+        .slice(-10)
+        .map((msg) => ({ role: msg.role, text: msg.text }));
+    }
+
+    function recommendedSkus(): { sku: string; name: string }[] {
+      const seen = new Map<string, string>();
+      for (const msg of msgs) {
+        for (const card of msg.products ?? []) {
+          if (!seen.has(card.sku)) seen.set(card.sku, card.name);
+        }
+      }
+      return [...seen].map(([sku, name]) => ({ sku, name }));
+    }
+
+    function context(): { pageUrl: string; productSku: string } {
+      return {
+        pageUrl: window.location.href,
+        productSku: document.body.dataset.productSku ?? '',
+      };
+    }
+
+    /* --- network ------------------------------------------------------ */
+
+    async function askServer(message: string, isQuickReply: boolean, attempt = 1): Promise<void> {
+      const typing = pushTyping();
+      try {
+        const token = await turnstileToken();
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            message,
+            quickReply: isQuickReply,
+            state,
+            context: context(),
+            transcript: transcript(),
+            turnstileToken: token,
+          }),
+        });
+        const data = (await res.json()) as ChatResponse;
+
+        if (!data.ok) {
+          // A pending verification is worth exactly one retry with a fresh token.
+          if (data.retryable && attempt < 2) {
+            removeTyping(typing);
+            return askServer(message, isQuickReply, attempt + 1);
+          }
+          removeTyping(typing);
+          pushBot(
+            data.error === 'verification_required' || data.error === 'verification_failed'
+              ? 'I could not verify this session. Please use the WhatsApp button or the contact form and our team will help you directly.'
+              : data.error || 'Sorry, something went wrong. Please try again or use the contact form.',
+            [],
+            []
+          );
+          return;
+        }
+
+        if (data.state) state = data.state;
+        contactMode = data.askForContact === true;
+
+        if (data.handoff?.required) {
+          trackEvent('chat_handoff', { handoff_reason: data.handoff.reason });
+        }
+        for (const card of data.products ?? []) {
+          trackEvent('chat_product_recommended', { product_sku: card.sku });
+        }
+
+        removeTyping(typing);
+        pushBot(data.reply ?? '', data.quickReplies ?? [], data.products ?? []);
+        syncComposer();
+      } catch {
+        removeTyping(typing);
+        pushBot(
+          'Sorry — I could not reach the server. Please try again, or use the contact form and our team will reply by email.',
+          [],
+          []
+        );
+      }
+    }
+
+    async function submitLead(contactInfo: { email: string; whatsapp: string }, attempt = 1): Promise<void> {
+      const typing = pushTyping();
+      try {
+        const token = await turnstileToken();
+        const attribution = getAttribution();
+        const nameField = document.getElementById('chat-name') as HTMLInputElement | null;
+        const companyField = document.getElementById('chat-company') as HTMLInputElement | null;
+        const countryField = document.getElementById('chat-country') as HTMLInputElement | null;
+
+        const res = await fetch('/api/chat-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            email: contactInfo.email,
+            whatsapp: contactInfo.whatsapp,
+            name: nameField?.value.trim() ?? '',
+            company: companyField?.value.trim() ?? '',
+            country: countryField?.value.trim() ?? '',
+            recommended: recommendedSkus(),
+            transcript: transcript(),
+            pageUrl: window.location.href,
+            productSku: document.body.dataset.productSku ?? '',
+            handoffReason: state.handoffReason ?? '',
+            turnCount: state.turnCount,
+            'cf-turnstile-response': token,
+            attr_first_source: attribution.first?.source ?? '',
+            attr_first_medium: attribution.first?.medium ?? '',
+            attr_first_campaign: attribution.first?.campaign ?? '',
+            attr_first_term: attribution.first?.term ?? '',
+            attr_first_content: attribution.first?.content ?? '',
+            attr_last_source: attribution.last?.source ?? '',
+            attr_last_medium: attribution.last?.medium ?? '',
+            attr_last_campaign: attribution.last?.campaign ?? '',
+            attr_last_term: attribution.last?.term ?? '',
+            attr_last_content: attribution.last?.content ?? '',
+            attr_gclid: attribution.last?.gclid ?? '',
+            attr_landing_page: attribution.landingPage,
+            attr_referrer: attribution.referrer,
+          }),
+        });
+        const data = (await res.json()) as ChatLeadResponse;
+
+        if (!data.ok || !data.contact) {
+          if (data.retryable && attempt < 2) {
+            removeTyping(typing);
+            return submitLead(contactInfo, attempt + 1);
+          }
+          removeTyping(typing);
+          pushBot(
+            data.error || 'Sorry, we could not save your details. Please email us or try again.',
+            [],
+            []
+          );
+          return;
+        }
+
+        state = { ...state, contactCaptured: true, stage: 'contact' };
+        contactMode = false;
+
+        trackEvent('chat_lead_captured', {
+          has_email: contactInfo.email !== '',
+          has_whatsapp: contactInfo.whatsapp !== '',
+          product_sku: recommendedSkus()[0]?.sku ?? '',
+        });
+
+        removeTyping(typing);
+        pushBot(
+          'Thank you — our sales team will follow up with you shortly. Here are our details if you would rather contact us first:',
+          [OTHER_MODELS],
+          [],
+          data.contact
+        );
+        syncComposer();
+      } catch {
+        removeTyping(typing);
+        pushBot('Sorry, we could not save your details. Please email us or try again.', [], []);
+      }
+    }
+
+    async function send(raw: string, isQuickReply = false): Promise<void> {
+      const text = raw.trim();
+      if (!text || busy) return;
+
+      msgs.push({ id: nextId++, role: 'user', text });
+      input!.value = '';
+      render();
+      persist();
+
+      trackEvent('chat_message_sent', {
+        turn: state.turnCount,
+        is_quick_reply: isQuickReply,
+      });
+
+      // Contact details never go to the model — they go straight to the lead
+      // endpoint, which is the only place that stores personal data.
+      const detected = extractContact(text);
+      if (detected && (contactMode || detected.email !== '')) {
+        setBusy(true);
+        await submitLead(detected);
+        setBusy(false);
+        return;
+      }
+
+      setBusy(true);
+      await askServer(text, isQuickReply);
+      setBusy(false);
+    }
+
+    /* --- wiring ------------------------------------------------------- */
 
     function setOpen(next: boolean): void {
       open = next;
-      panel.classList.toggle('hidden', !open);
-      launcher.setAttribute('aria-expanded', String(open));
-      launcher.setAttribute('aria-label', open ? 'Close chat' : LAUNCHER_LABEL);
-      if (open) scrollToBottom();
+      panel!.classList.toggle('hidden', !next);
+      launcher!.setAttribute('aria-expanded', String(next));
+      if (next && !opened) {
+        opened = true;
+        // Loading Turnstile only when the panel is first opened keeps the
+        // third-party script off every page view.
+        void loadTurnstile();
+      }
+      syncChrome();
+      persist();
+      if (next) scrollToBottom();
     }
 
     launcher.addEventListener('click', () => setOpen(!open));
     closeBtn.addEventListener('click', () => setOpen(false));
-    sendBtn.addEventListener('click', send);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        send();
+    sendBtn.addEventListener('click', () => void send(input.value));
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        void send(input.value);
       }
     });
+    teaserClose?.addEventListener('click', () => {
+      teaserDismissed = true;
+      teaser?.classList.add('hidden');
+      persist();
+    });
 
-    // Initial greeting (rendered once on page load, kept in memory only).
-    msgs.push({ id: nextId++, role: 'bot', text: WELCOME });
+    /* --- boot --------------------------------------------------------- */
+
+    if (!restore()) {
+      msgs.push({
+        id: nextId++,
+        role: 'bot',
+        text: config.greeting,
+        quickReplies: config.quickReplies ? config.powerChips : undefined,
+      });
+    }
+
     render();
+    syncComposer();
+    syncChrome();
+    persist();
   }
 
   initChat();
