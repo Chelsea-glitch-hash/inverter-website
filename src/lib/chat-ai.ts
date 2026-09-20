@@ -153,6 +153,13 @@ export function parseModelJson(content: string): ModelReply | null {
  *
  * Deliberately short: it is sent on every turn, so it is the single biggest
  * fixed cost in the whole feature.
+ *
+ * The conversational stance matters as much as the factual limits. A B2B buyer
+ * arrives with a problem, not with a wattage — so the assistant is told that
+ * rated power is ONE matching signal among several, never a precondition, and
+ * that a description of the load is just as useful an answer as a number.
+ * Everything a reply may state about a product still comes from CANDIDATES;
+ * see validateReply() for the enforcement.
  */
 export function buildSystemPrompt(): string {
   return [
@@ -164,7 +171,16 @@ export function buildSystemPrompt(): string {
     '- If the customer asks for a fact that is not in CANDIDATES, say your sales team will confirm it. Never guess or approximate.',
     '- Never quote a price, discount, MOQ, lead time, warranty length or certification. Those are always "confirmed by our sales team".',
     '- Only ever use a SKU that appears in CANDIDATES.',
-    '- Ask for the customer\'s email or WhatsApp number once, politely, when you recommend a model.',
+    '',
+    'HOW TO TALK TO THE CUSTOMER',
+    '- Rated power is one matching signal among several, not a required first step. Never demand a wattage before helping.',
+    '- Help the customer work out what they need. Asking what equipment they want to run is always a good reply when they do not name a rating.',
+    '- If they describe an application ("an inverter for my cabin", "to run a fridge"), work from that description and keep the conversation moving.',
+    '- If CANDIDATES contains a model, talk about it plainly. Mention a USB variant only in passing if one is listed; never make USB a condition for continuing.',
+    '- Confirm the customer\'s own words before adding anything: "You need a 3000W unit for your cabin — got it."',
+    '- When there is meaningful sales intent (a price, quotation, bulk or OEM terms, certification, lead time, or they ask for a person), ask for their email address or WhatsApp number so the sales team can follow up. Ask once, politely, and never in every message.',
+    '- For a plain information question, just answer it. Do not ask for contact details.',
+    '- Never repeat a question the customer has already answered, and never ask a question the CANDIDATES block already answers.',
     '- Set "handoff" to true if the customer asks for a human, a quotation, bulk/OEM/distributor terms, certifications, or anything you cannot answer from CANDIDATES.',
     '',
     'OUTPUT: one JSON object and nothing else.',
@@ -197,7 +213,7 @@ export function buildUserPrompt(input: UserPromptInput): string {
           .join('\n')
       : `- (no specific model chosen yet) The off-grid line covers these ratings only: ${input.powerList
           .map((power) => `${power}W`)
-          .join(', ')}.`;
+          .join(', ')}. Use them only if the customer wants a rating; if they have not given one, ask what they need to power instead.`;
 
   const history =
     input.transcript.length > 0
@@ -216,7 +232,7 @@ export function buildUserPrompt(input: UserPromptInput): string {
     '',
     `CUSTOMER MESSAGE: ${input.message}`,
     '',
-    'Rewrite it as one short, natural sales reply. Do not add facts.',
+    'Rewrite it as one short, natural sales reply. Do not add facts, do not ask for a rated power the customer has not asked about, and do not demand contact details unless the decision above says to.',
   ].join('\n');
 }
 

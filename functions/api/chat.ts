@@ -213,12 +213,25 @@ function pickCandidates(base: ChatTurnResult): AiProduct[] {
   return [];
 }
 
+/**
+ * Turn the engine's decision into one sentence of instruction for the model.
+ *
+ * The instruction describes the SHAPE of the reply the code already decided on
+ * — it is never a licence to add a fact. Note the last case: when nothing has
+ * been shortlisted we ask about the application, because a rated power is one
+ * matching signal rather than a gate the customer has to pass.
+ */
 function instructionFor(base: ChatTurnResult): string {
   if (base.handoff.required) {
-    return 'The customer needs a sales answer we cannot verify (price, quotation, bulk terms, certifications, or they asked for a person). Acknowledge it briefly and ask for their email or WhatsApp so the sales team can follow up.';
+    if (base.state.contactCaptured) {
+      return 'The lead is already captured. Acknowledge the sales follow-up briefly and do not ask for contact details again.';
+    }
+    return 'The customer needs a sales answer we cannot verify (price, quotation, bulk terms, certifications, lead time or stock, or they asked for a person). Acknowledge it briefly and ask for their email or WhatsApp so the sales team can follow up.';
   }
   if (base.products.length > 0) {
-    return `Recommend ${base.products.map((card) => card.sku).join(' or ')} and ask for the customer's email or WhatsApp number.`;
+    return base.askForContact
+      ? `Recommend ${base.products.map((card) => card.sku).join(' or ')} and ask for the customer's email or WhatsApp number.`
+      : `Talk about ${base.products.map((card) => card.sku).join(' or ')} plainly. Answer the question and keep the conversation moving; do not push for contact details this turn.`;
   }
   if (base.state.stage === 'usb') {
     return 'Ask whether they need a USB port — both a standard and a USB-equipped model exist at this rating.';
@@ -226,7 +239,10 @@ function instructionFor(base: ChatTurnResult): string {
   if (base.state.contactCaptured) {
     return 'The lead is already captured. Answer briefly and do not ask for contact details again.';
   }
-  return 'No model has been shortlisted yet. Find out which rated power they need.';
+  if (base.askForContact) {
+    return 'A buying signal came up that we cannot answer from the catalog. Say briefly that the sales team will confirm it, and ask for the customer\'s email or WhatsApp number.';
+  }
+  return 'No model has been shortlisted yet. Do not ask for a rated power — ask what equipment the customer needs to power, or answer the question they asked.';
 }
 
 /* ------------------------------------------------------------------ *
