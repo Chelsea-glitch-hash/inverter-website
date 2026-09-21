@@ -171,6 +171,7 @@ export function buildSystemPrompt(): string {
     '- If the customer asks for a fact that is not in CANDIDATES, say your sales team will confirm it. Never guess or approximate.',
     '- Never quote a price, discount, MOQ, lead time, warranty length or certification. Those are always "confirmed by our sales team".',
     '- Only ever use a SKU that appears in CANDIDATES.',
+    '- If the CANDIDATES block lists no model, do not name, suggest or describe any product — not even as an example. Greet the customer, or help them work out what they need, and follow the INSTRUCTION: offer the ratings when they are choosing one, ask about the load when they are not.',
     '',
     'HOW TO TALK TO THE CUSTOMER',
     '- Rated power is one matching signal among several, not a required first step. Never demand a wattage before helping.',
@@ -211,9 +212,9 @@ export function buildUserPrompt(input: UserPromptInput): string {
               }\n  not available: ${product.unknowns.join(', ') || 'nothing missing'}`
           )
           .join('\n')
-      : `- (no specific model chosen yet) The off-grid line covers these ratings only: ${input.powerList
+      : `- (no specific model chosen yet) Do not name or suggest any product. The off-grid line covers these ratings only: ${input.powerList
           .map((power) => `${power}W`)
-          .join(', ')}. Use them only if the customer wants a rating; if they have not given one, ask what they need to power instead.`;
+          .join(', ')}. Offer a rating as an option if the customer is choosing one, but never read the whole list back at them; if they have not named a rating, ask what they need to power instead.`;
 
   const history =
     input.transcript.length > 0

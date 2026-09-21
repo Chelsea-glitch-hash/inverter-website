@@ -27,20 +27,23 @@
  * because an Astro-bundled <script> cannot see frontmatter values.
  */
 import { CHAT, SITE, TURNSTILE } from '../config';
-import { getPowerRatings } from '../lib/products';
+import { guidanceQuickReplies } from '../lib/chat-engine';
 
-/** Real power ratings, highest first — never a hand-written list. */
-const powerChips = getPowerRatings('off-grid-inverters')
-  .slice()
-  .sort((a, b) => b - a)
-  .map((power) => `${power}W`);
+/**
+ * Chips on the opening bubble.
+ *
+ * Two ways forward rather than one button per rating: the panel should open as
+ * a question, not as the full product menu. Taken from the engine so the first
+ * screen and the first greeting cannot disagree about what to offer.
+ */
+const startChips = guidanceQuickReplies();
 
 const chatConfig = {
   greeting: CHAT.greeting,
   teaser: CHAT.teaser,
   proactive: CHAT.proactive,
   quickReplies: CHAT.quickReplies,
-  powerChips: [...powerChips, 'Not sure'],
+  startChips,
   turnstileSiteKey: TURNSTILE.siteKey,
 };
 ---
@@ -217,7 +220,7 @@ const chatConfig = {
     teaser: string;
     proactive: boolean;
     quickReplies: boolean;
-    powerChips: string[];
+    startChips: string[];
     turnstileSiteKey: string;
   }
 
@@ -257,7 +260,7 @@ const chatConfig = {
     teaser: '',
     proactive: false,
     quickReplies: true,
-    powerChips: [],
+    startChips: [],
     turnstileSiteKey: '',
   };
 
@@ -908,7 +911,7 @@ const chatConfig = {
         id: nextId++,
         role: 'bot',
         text: config.greeting,
-        quickReplies: config.quickReplies ? config.powerChips : undefined,
+        quickReplies: config.quickReplies ? config.startChips : undefined,
       });
     }
 

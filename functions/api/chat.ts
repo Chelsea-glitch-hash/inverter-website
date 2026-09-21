@@ -38,6 +38,8 @@
 import {
   DEFAULT_MAX_TURNS,
   MAX_REPLY_CHARS,
+  isSelectionIntent,
+  isSmallTalkIntent,
   runRulesTurn,
   type ChatTurnResult,
 } from '../../src/lib/chat-engine';
@@ -204,6 +206,16 @@ function aiEnabled(env: Env): boolean {
 
 /** Which products the model is allowed to talk about this turn. */
 function pickCandidates(base: ChatTurnResult): AiProduct[] {
+  // Small talk has no product to talk about, and must not inherit one from a
+  // rating chosen earlier in the conversation — otherwise "Hello" after a
+  // 3000W click would hand the model a model to name.
+  if (isSmallTalkIntent(base.intent)) return [];
+
+  // A turn that asks the customer to CHOOSE a rating is a question, not a
+  // recommendation, so it gets no shortlist either: "Choose another power"
+  // after a 3000W conversation must not come back holding a 3000W card.
+  if (isSelectionIntent(base.intent)) return [];
+
   const fromCards = base.products
     .map((card) => matchBySku(card.sku))
     .filter((product): product is AiProduct => Boolean(product));
@@ -222,6 +234,19 @@ function pickCandidates(base: ChatTurnResult): AiProduct[] {
  * matching signal rather than a gate the customer has to pass.
  */
 function instructionFor(base: ChatTurnResult): string {
+  // Checked first so the instruction matches the reply the engine wrote: small
+  // talk is answered as small talk, with no product anywhere in it.
+  if (isSmallTalkIntent(base.intent)) {
+    return 'This is only a greeting or a general question — no product has been chosen. Greet them back warmly, say in one phrase what range the off-grid line covers, and invite them to name a power or describe what they want to power. Do not list every rating, and do not name or recommend any product.';
+  }
+  // The turns that ask the customer to narrow things down. Each reply is a
+  // question about real ratings, so the instruction has to stay in that shape.
+  if (isSelectionIntent(base.intent)) {
+    return 'The customer is choosing a power rating. Offer the available ratings as options and ask which one they need. Do not name, describe or recommend any product.';
+  }
+  if (base.intent === 'other_models') {
+    return 'The customer asked for the other models at the rating already in play. The real versions at that rating are in CANDIDATES — talk about those only, and do not move them to a different rating.';
+  }
   if (base.handoff.required) {
     if (base.state.contactCaptured) {
       return 'The lead is already captured. Acknowledge the sales follow-up briefly and do not ask for contact details again.';
