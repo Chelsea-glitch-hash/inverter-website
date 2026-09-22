@@ -33,6 +33,7 @@ import {
   type AiProduct,
 } from './ai-catalog';
 import type { ChatHandoff, ChatProductCard, ChatStage, ChatState } from './chat-types';
+import { detectContact } from './contact-detect';
 
 /** Turns before the conversation is handed to a human, unless overridden. */
 export const DEFAULT_MAX_TURNS = 8;
@@ -319,6 +320,15 @@ function detectHandoffReason(text: string): string | null {
   if (PURCHASE_QUANTITY_RE.test(text)) return 'purchase_quantity';
   return null;
 }
+
+/**
+ * The details detector, re-exported under the name this module has always used.
+ *
+ * The implementation lives in ./contact-detect so the widget and the engine
+ * read the same rule — they cannot drift into disagreeing about whether the
+ * customer has just handed their details over.
+ */
+export { detectContact as detectSharedContact };
 
 /**
  * Strip a purchase quantity out of a message before looking for a wattage.
@@ -623,6 +633,17 @@ function askForContactFirstReply(): string {
 }
 
 /**
+ * The contact request used by the second-message rule (see
+ * `enforceContactCapture`).
+ *
+ * One sentence, appended to whatever the turn already answered. It asks for
+ * either channel and never asks the customer to pick one first — an email, a
+ * WhatsApp number, or both are all accepted by /api/chat-lead.
+ */
+export const CONTACT_ASK =
+  'Could you share your email or WhatsApp so our sales team can follow up with you?';
+
+/**
  * Show a model without turning the turn into a sales moment.
  *
  * Used when the customer is plainly gathering information (browsing a rating,
@@ -722,6 +743,57 @@ interface RunOptions {
  * @param options  turn cap and any externally forced handoff reason
  */
 export function runRulesTurn(
+  message: string,
+  rawState: unknown,
+  options: RunOptions = {}
+): ChatTurnResult {
+  return enforceContactCapture(decideTurn(message, rawState, options), message);
+}
+
+/**
+ * The second-message rule: from the customer's SECOND message onwards, every
+ * turn also asks for contact details — after answering, never instead of
+ * answering.
+ *
+ * It is applied here, around the whole turn, rather than inside each branch.
+ * One place means no branch can forget the rule, the product and handoff logic
+ * stays untouched, and the order the customer sees is always the same:
+ * answer → capture. Four ways out, and each one is a real reason not to ask:
+ *
+ *   1. the lead is already captured — the rule is "capture", not "nag", and a
+ *      customer who has already left their details must never be asked twice;
+ *   2. the message itself carries contact details — they have just given one, so
+ *      asking again would read as not listening (recognised by
+ *      `detectContact`, the same rule the widget reads for the same purpose);
+ *   3. this is the customer's first message — that turn identifies the need and
+ *      guides; nothing is demanded of a visitor who has said one thing;
+ *   4. the branch already asked in its own words — a recommendation or an
+ *      escalation closes with its own request, and this sentence must not be
+ *      appended on top of it.
+ */
+export const CONTACT_FROM_TURN = 2;
+
+function enforceContactCapture(result: ChatTurnResult, message: string): ChatTurnResult {
+  if (result.state.contactCaptured) return result;
+  if (detectContact(message)) return result;
+  if (result.state.turnCount < CONTACT_FROM_TURN) return result;
+  if (result.askForContact) return result;
+
+  return {
+    ...result,
+    reply: `${result.reply}\n\n${CONTACT_ASK}`,
+    askForContact: true,
+  };
+}
+
+/**
+ * Decide the turn itself — the branch order is the script.
+ *
+ * @param message  raw customer text (length-capped by the caller)
+ * @param rawState conversation state as sent by the client (untrusted)
+ * @param options  turn cap and any externally forced handoff reason
+ */
+function decideTurn(
   message: string,
   rawState: unknown,
   options: RunOptions = {}
@@ -856,8 +928,10 @@ export function runRulesTurn(
     state.sku = null;
     state.fallbacks = 0;
     // Answer as a greeting, not as a sales moment: no card and no contact
-    // form. A handoff already flagged in an earlier turn stays flagged in
-    // `state` / `handoff`, so the lead path resumes on the next real request.
+    // form of its own. A handoff already flagged in an earlier turn stays
+    // flagged in `state` / `handoff`, so the lead path resumes on the next real
+    // request — and once this is the customer's second message or later,
+    // `enforceContactCapture` adds the contact request on top of the greeting.
     //
     // `state.power` is deliberately NOT cleared here — a rating the visitor
     // gave earlier still stands, so "Hello" followed by "3000W" picks up where

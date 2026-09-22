@@ -226,14 +226,37 @@ function pickCandidates(base: ChatTurnResult): AiProduct[] {
 }
 
 /**
+ * The contact request the model has to put into words.
+ *
+ * Whether details are due is decided by the engine (`askForContact`) — the
+ * model is only told to phrase the request. Appended when the instruction body
+ * does not already cover it, so a recommendation that closes with its own
+ * request is never given a second one.
+ */
+const CONTACT_CLAUSE = ' End with one short request for their email or WhatsApp number.';
+
+/**
  * Turn the engine's decision into one sentence of instruction for the model.
  *
  * The instruction describes the SHAPE of the reply the code already decided on
- * — it is never a licence to add a fact. Note the last case: when nothing has
- * been shortlisted we ask about the application, because a rated power is one
- * matching signal rather than a gate the customer has to pass.
+ * — it is never a licence to add a fact. Note the last case in the body below:
+ * when nothing has been shortlisted we ask about the application, because a
+ * rated power is one matching signal rather than a gate the customer has to
+ * pass.
+ *
+ * The contact request is layered on top here, because the engine asks for
+ * details on every turn from the customer's second message on — including the
+ * turns whose body is otherwise only about ratings.
  */
 function instructionFor(base: ChatTurnResult): string {
+  const body = instructionBody(base);
+  if (base.askForContact && !base.state.contactCaptured && !/email or whatsapp/i.test(body)) {
+    return `${body}${CONTACT_CLAUSE}`;
+  }
+  return body;
+}
+
+function instructionBody(base: ChatTurnResult): string {
   // Checked first so the instruction matches the reply the engine wrote: small
   // talk is answered as small talk, with no product anywhere in it.
   if (isSmallTalkIntent(base.intent)) {

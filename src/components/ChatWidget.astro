@@ -202,6 +202,7 @@ const chatConfig = {
 <script>
   import { trackEvent } from '../lib/analytics';
   import { getAttribution } from '../lib/attribution';
+  import { detectContact } from '../lib/contact-detect';
   import type {
     ChatContact,
     ChatLeadResponse,
@@ -252,7 +253,6 @@ const chatConfig = {
   }
 
   const STORAGE_KEY = 'chat_session_v1';
-  const EMAIL_RE = /[^\s@]+@[^\s@]+\.[^\s@]{2,}/;
   const OTHER_MODELS = 'Show other models';
 
   const FALLBACK_CONFIG: ChatUiConfig = {
@@ -306,25 +306,6 @@ const chatConfig = {
   /** Only mailto: and wa.me links may reach an href from a server response. */
   function contactHref(url: unknown, allowed: string): string | null {
     return typeof url === 'string' && url.startsWith(allowed) ? url : null;
-  }
-
-  /** Pull an email and/or WhatsApp number out of a free-text message. */
-  function extractContact(text: string): { email: string; whatsapp: string } | null {
-    const email = text.match(EMAIL_RE)?.[0] ?? '';
-
-    let whatsapp = '';
-    const candidates = text.match(/\+?\d[\d\s()\-]{6,}\d/g) ?? [];
-    for (const candidate of candidates) {
-      const digits = candidate.replace(/\D/g, '');
-      // Require a country code or a long number so "3000 4000" is not a phone.
-      if (digits.length >= 8 && digits.length <= 15 && (candidate.startsWith('+') || digits.length >= 10)) {
-        whatsapp = digits;
-        break;
-      }
-    }
-
-    if (!email && !whatsapp) return null;
-    return { email, whatsapp };
   }
 
   /* ------------------------------------------------------------------ *
@@ -858,9 +839,17 @@ const chatConfig = {
       });
 
       // Contact details never go to the model — they go straight to the lead
-      // endpoint, which is the only place that stores personal data.
-      const detected = extractContact(text);
-      if (detected && (contactMode || detected.email !== '')) {
+      // endpoint, which is the only place that stores personal data. That holds
+      // whatever mode the composer is in: a visitor may hand over their details
+      // in an ordinary message, and once we have asked for them we must not
+      // demand them again. `detectContact` is the same rule the engine reads,
+      // and it is deliberately hard to trip: a wattage, a quantity, a voltage
+      // or a pair of business numbers ("15000 20000 USD") cannot be mistaken
+      // for a phone number. A number with no country code needs a word like
+      // "WhatsApp" or "call" — unless the composer is waiting for details, in
+      // which case a bare number is exactly what was asked for.
+      const detected = detectContact(text, { awaiting: contactMode });
+      if (detected) {
         setBusy(true);
         await submitLead(detected);
         setBusy(false);
