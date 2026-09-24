@@ -132,11 +132,28 @@ const processSteps = [
   { step: '06', title: 'Delivery & Support', description: 'Export packing, shipping arrangement and after-sales support.' },
 ];
 
-// Placeholder certifications — no real certificate names or numbers until
-// the official list is provided. Replace before launch.
-const certificationPlaceholders = Array.from({ length: 4 }, () => ({
-  name: '[Certification to be provided]',
-}));
+/**
+ * Certification cards — only the two compliance documents that actually exist
+ * under public/certificates/ are listed. `title` and `standard` mirror what the
+ * source PDFs state; nothing else is implied. Card 2 has no `standard` because
+ * the brief for this section lists only product type for EMC.
+ */
+const certifications = [
+  {
+    title: 'CE / LVD',
+    standard: 'EN 62109-1',
+    product: 'Solar Inverter',
+    description: 'LVD compliance documentation is available for our solar inverters on request.',
+    file: '/certificates/solar-inverter-ce-lvd-en62109-1.pdf',
+  },
+  {
+    title: 'CE / EMC',
+    standard: null,
+    product: 'Solar Inverter',
+    description: 'EMC compliance documentation is available for our solar inverters on request.',
+    file: '/certificates/solar-inverter-ce-emc.pdf',
+  },
+];
 ---
 
 <BaseLayout
@@ -370,14 +387,37 @@ const certificationPlaceholders = Array.from({ length: 4 }, () => ({
     </Container>
   </section>
 
-  <!-- 10. Certifications (placeholder) -->
-  <Section eyebrow="Compliance" title="Certifications & Standards" class="bg-slate-50">
+  <!-- 10. Certifications -->
+  <Section
+    eyebrow="Certifications & Standards"
+    title="Compliance Documentation for Global Markets"
+    subtitle="Our solar inverter compliance documentation supports customer review and product qualification requirements. Documentation is available on request."
+    class="bg-slate-50"
+  >
     <div class="flex flex-col items-center gap-6">
-      <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
         {
-          certificationPlaceholders.map((c) => (
-            <div class="flex items-center justify-center rounded-xl border border-dashed border-slate-300 bg-white px-4 py-6">
-              <span class="text-center text-sm text-slate-400">{c.name}</span>
+          certifications.map((c) => (
+            <div class="flex flex-col rounded-xl border border-slate-200 bg-white p-6">
+              <h3 class="text-lg font-semibold text-slate-900">{c.title}</h3>
+              <dl class="mt-4 space-y-2 text-sm">
+                {c.standard && (
+                  <div class="flex gap-3">
+                    <dt class="w-20 shrink-0 text-slate-500">Standard</dt>
+                    <dd class="font-medium text-slate-800">{c.standard}</dd>
+                  </div>
+                )}
+                <div class="flex gap-3">
+                  <dt class="w-20 shrink-0 text-slate-500">Product</dt>
+                  <dd class="font-medium text-slate-800">{c.product}</dd>
+                </div>
+              </dl>
+              <p class="mt-4 text-sm leading-relaxed text-slate-600">{c.description}</p>
+              <div class="mt-auto pt-6">
+                <Button href={c.file} variant="outline" target="_blank" rel="noopener noreferrer">
+                  View Certificate<span class="sr-only"> — {c.title} (opens the PDF in a new tab)</span>
+                </Button>
+              </div>
             </div>
           ))
         }
