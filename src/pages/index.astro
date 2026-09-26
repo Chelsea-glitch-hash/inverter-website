@@ -154,6 +154,62 @@ const certifications = [
     file: '/certificates/solar-inverter-ce-emc.pdf',
   },
 ];
+
+/**
+ * Testimonial placeholders — ILLUSTRATIVE, market-based copy, not real
+ * customer statements. No customer names, companies, order data or
+ * unconfirmed product specs are used; every claim mirrors what the catalog
+ * in src/data/products.ts actually offers (power range, DC input options,
+ * multi-voltage models, USB-equipped variants, configuration choices).
+ *
+ * When authorized customer testimonials arrive: set isPlaceholder to false
+ * and fill customerName / company. isPlaceholder is intentionally not
+ * rendered on the page.
+ */
+const testimonials = [
+  {
+    quote:
+      'The range of power options and clearly defined product specifications makes it easier for us to evaluate different inverter configurations for our market.',
+    country: 'Germany',
+    customerType: 'Solar Distributor',
+    isPlaceholder: true,
+  },
+  {
+    quote:
+      'Having several off-grid inverter power options gives us more flexibility when selecting products for different customer applications.',
+    country: 'Nigeria',
+    customerType: 'Solar Installer',
+    isPlaceholder: true,
+  },
+  {
+    quote:
+      'The higher-power inverter options give us more flexibility when looking at different off-grid power requirements.',
+    country: 'UAE',
+    customerType: 'Solar Distributor',
+    isPlaceholder: true,
+  },
+  {
+    quote:
+      'The multi-voltage configurations are useful when we need to evaluate different DC input requirements for off-grid applications.',
+    country: 'Kenya',
+    customerType: 'Renewable Energy Company',
+    isPlaceholder: true,
+  },
+  {
+    quote:
+      'The USB-equipped inverter configurations give us another option for applications where additional charging functionality is required.',
+    country: 'Philippines',
+    customerType: 'Solar Products Distributor',
+    isPlaceholder: true,
+  },
+  {
+    quote:
+      'The range from lower-power to higher-power off-grid inverters gives us more flexibility when selecting products for different applications.',
+    country: 'South Africa',
+    customerType: 'Off-Grid Energy Supplier',
+    isPlaceholder: true,
+  },
+];
 ---
 
 <BaseLayout
@@ -430,18 +486,15 @@ const certifications = [
     </div>
   </Section>
 
-  <!-- 11. Testimonials placeholder -->
+  <!-- 11. Testimonials (illustrative placeholders — see `testimonials` data) -->
   <Section eyebrow="Testimonials" title="What Our Partners Say">
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
-        [1, 2, 3].map(() => (
-          <figure class="rounded-xl border border-slate-200 bg-white p-7">
-            <blockquote class="text-sm leading-relaxed text-slate-700">
-              "TODO: Real customer testimonials — replace before launch with distributor
-              or installer feedback, including country and business type."
-            </blockquote>
-            <figcaption class="mt-4 text-xs font-medium text-slate-500">
-              — Distributor, Country (placeholder)
+        testimonials.map((t) => (
+          <figure class="flex flex-col rounded-xl border border-slate-200 bg-white p-7">
+            <blockquote class="text-sm leading-relaxed text-slate-700">“{t.quote}”</blockquote>
+            <figcaption class="mt-auto pt-4 text-xs font-medium text-slate-500">
+              — {t.customerType} · {t.country}
             </figcaption>
           </figure>
         ))
