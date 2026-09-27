@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 // TODO(launch): Replace with the real production domain.
 // This value drives canonical URLs and the XML sitemap.
 export default defineConfig({
-  site: 'https://www.your-domain.com',
+  site: 'https://zzpine.com',
   integrations: [
     mdx(),
     sitemap({

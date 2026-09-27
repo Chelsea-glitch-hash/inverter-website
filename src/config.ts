@@ -19,7 +19,7 @@ export const SITE = {
   shortName: 'Zhongze Huasong',
   tagline: 'B2B Inverter Manufacturer',
   /** TODO: must match astro.config.mjs `site`. */
-  url: 'https://www.your-domain.com',
+  url: 'https://zzpine.com',
   /** Default SEO title suffix */
   titleSuffix: ' | Zhongze Huasong',
 };
