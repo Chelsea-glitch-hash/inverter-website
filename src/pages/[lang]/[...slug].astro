@@ -1,0 +1,70 @@
+---
+/**
+ * ALL localized (non-English) routes, generated from ONE dynamic file.
+ *
+ *   /[lang]/                    home
+ *   /[lang]/products/...        catalog / category / power / product pages
+ *   /[lang]/about|factory|quality|contact|privacy-policy/
+ *   /[lang]/blog/...            news listing + articles
+ *
+ * `lang` is validated against src/i18n/config.ts (English is NOT generated
+ * here — it keeps its unprefixed URLs). The page identity is the English
+ * path (see src/i18n/routes.ts), and every page is rendered by the SAME
+ * template the English page uses — one template, eleven languages.
+ */
+import HomePage from '../../templates/HomePage.astro';
+import ProductsIndexPage from '../../templates/ProductsIndexPage.astro';
+import CategoryPage from '../../templates/CategoryPage.astro';
+import PowerPage from '../../templates/PowerPage.astro';
+import ProductDetailPage from '../../templates/ProductDetailPage.astro';
+import AboutPage from '../../templates/AboutPage.astro';
+import FactoryPage from '../../templates/FactoryPage.astro';
+import QualityPage from '../../templates/QualityPage.astro';
+import ContactPage from '../../templates/ContactPage.astro';
+import PrivacyPage from '../../templates/PrivacyPage.astro';
+import BlogIndexPage from '../../templates/BlogIndexPage.astro';
+import BlogArticlePage from '../../templates/BlogArticlePage.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { buildLocalizedRoutes, type RouteEntry } from '../../i18n/routes';
+import { getProduct, type Product } from '../../lib/products';
+import { getPowerCategory, type PowerCategory } from '../../lib/power-categories';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return buildLocalizedRoutes(posts);
+}
+
+interface Props extends RouteEntry {}
+const entry = Astro.props as RouteEntry;
+
+/* Blog articles need their collection entry; all other kinds render from the
+   data the entry already carries. */
+let post: CollectionEntry<'blog'> | undefined;
+if (entry.kind === 'blogArticle') {
+  const all = await getCollection('blog');
+  post = all.find((p) => p.id === entry.data.post);
+}
+---
+
+{entry.kind === 'home' && <HomePage locale={entry.locale} />}
+{entry.kind === 'products' && <ProductsIndexPage locale={entry.locale} />}
+{entry.kind === 'category' && <CategoryPage category={entry.data.category!} locale={entry.locale} />}
+{entry.kind === 'power' && (
+  <PowerPage
+    powerCategory={getPowerCategory(entry.data.category!, entry.data.power!) as PowerCategory}
+    locale={entry.locale}
+  />
+)}
+{entry.kind === 'product' && (
+  <ProductDetailPage
+    product={getProduct(entry.data.category!, entry.data.product!) as Product}
+    locale={entry.locale}
+  />
+)}
+{entry.kind === 'about' && <AboutPage locale={entry.locale} />}
+{entry.kind === 'factory' && <FactoryPage locale={entry.locale} />}
+{entry.kind === 'quality' && <QualityPage locale={entry.locale} />}
+{entry.kind === 'contact' && <ContactPage locale={entry.locale} />}
+{entry.kind === 'privacy' && <PrivacyPage locale={entry.locale} />}
+{entry.kind === 'blog' && <BlogIndexPage locale={entry.locale} />}
+{entry.kind === 'blogArticle' && post && <BlogArticlePage post={post} locale={entry.locale} />}

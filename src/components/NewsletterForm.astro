@@ -9,16 +9,21 @@
  * POSTs to /api/newsletter which forwards to the ESP
  * (Brevo / Mailchimp / etc.) when configured.
  */
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
+
 interface Props {
   compact?: boolean;
+  locale?: Locale;
 }
-const { compact = false } = Astro.props;
+const { compact = false, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale).newsletter;
 ---
 
 <div id="newsletter-root">
   <form id="newsletter-form" class="flex flex-col gap-3" data-track-form="newsletter" novalidate>
     <div class={compact ? 'flex flex-col gap-3 sm:flex-row' : 'flex flex-col gap-3 sm:flex-row'}>
-      <label for="nl-email" class="sr-only">Email address</label>
+      <label for="nl-email" class="sr-only">{t.emailLabel}</label>
       <input
         id="nl-email"
         name="email"
@@ -32,20 +37,20 @@ const { compact = false } = Astro.props;
         type="submit"
         class="shrink-0 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-400"
       >
-        Subscribe
+        {t.subscribe}
       </button>
     </div>
     <label class="flex items-start gap-2.5 text-xs leading-relaxed text-slate-400">
       <input type="checkbox" name="consent" value="yes" required class="mt-0.5 h-3.5 w-3.5 rounded border-slate-600 bg-slate-800 text-brand-500 focus:ring-brand-500/40" />
-      <span>I agree to receive product updates, technical information and company news by email. I can unsubscribe at any time.</span>
+      <span>{t.consent}</span>
     </label>
   </form>
 
   <p id="newsletter-success" class="hidden text-sm text-green-400" role="status">
-    Subscribed — welcome aboard.
+    {t.success}
   </p>
   <p id="newsletter-error" class="hidden text-sm text-red-400" role="alert">
-    Subscription failed. Please try again later.
+    {t.error}
   </p>
 </div>
 

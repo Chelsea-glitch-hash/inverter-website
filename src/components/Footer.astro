@@ -4,11 +4,20 @@ import Container from './Container.astro';
 import NewsletterForm from './NewsletterForm.astro';
 import { SITE, COMPANY, CONTACT, SOCIAL } from '../config';
 import { getCategoriesWithProducts } from '../lib/products';
+import { localizedCategory } from '../i18n/category-content';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
 import brandLogo from '../assets/brand/logo.png';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
 
 /* Categories with at least one product — see lib/products.getCategoriesWithProducts.
    Keeps the footer from linking to an empty range. */
-const categories = getCategoriesWithProducts();
+const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, locale));
 
 const year = new Date().getFullYear();
 ---
@@ -36,8 +45,7 @@ const year = new Date().getFullYear();
           <span class="text-lg font-semibold text-white">{SITE.shortName}</span>
         </div>
         <p class="mt-4 text-sm leading-relaxed text-slate-400">
-          {COMPANY.legalName} — professional inverter manufacturer since {COMPANY.foundedYear}.
-          OEM / ODM partner for {COMPANY.exportCountries}+ countries.
+          {COMPANY.legalName} — {fill(t.footer.blurb, { year: COMPANY.foundedYear, countries: COMPANY.exportCountries })}
         </p>
         <div class="mt-4 flex gap-4 text-sm">
           {
@@ -58,43 +66,43 @@ const year = new Date().getFullYear();
       </div>
 
       <!-- Products -->
-      <nav aria-label="Product categories">
-        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Products</h3>
+      <nav aria-label={t.footer.productCategoriesAria}>
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">{t.footer.productsHeading}</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
           {
             categories.map((c) => (
               <li>
-                <a href={`/products/${c.slug}/`} class="text-slate-400 hover:text-white">
+                <a href={localizedPath(locale, `/products/${c.slug}/`)} class="text-slate-400 hover:text-white">
                   {c.name}
                 </a>
               </li>
             ))
           }
-          <li><a href="/products/" class="text-slate-400 hover:text-white">All products</a></li>
+          <li><a href={localizedPath(locale, '/products/')} class="text-slate-400 hover:text-white">{t.footer.allProducts}</a></li>
         </ul>
       </nav>
 
       <!-- Company links -->
-      <nav aria-label="Company">
-        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Company</h3>
+      <nav aria-label={t.footer.companyNavAria}>
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">{t.footer.companyHeading}</h3>
         <ul class="mt-4 space-y-2.5 text-sm">
-          <li><a href="/about/" class="text-slate-400 hover:text-white">About us</a></li>
-          <li><a href="/factory/" class="text-slate-400 hover:text-white">Factory &amp; Manufacturing</a></li>
-          <li><a href="/quality/" class="text-slate-400 hover:text-white">Quality Control</a></li>
-          <li><a href="/blog/" class="text-slate-400 hover:text-white">Blog &amp; Insights</a></li>
-          <li><a href="/contact/" class="text-slate-400 hover:text-white">Contact us</a></li>
-          <li><a href="/privacy-policy/" class="text-slate-400 hover:text-white">Privacy policy</a></li>
+          <li><a href={localizedPath(locale, '/about/')} class="text-slate-400 hover:text-white">{t.footer.aboutUs}</a></li>
+          <li><a href={localizedPath(locale, '/factory/')} class="text-slate-400 hover:text-white">{t.footer.factoryAndManufacturing}</a></li>
+          <li><a href={localizedPath(locale, '/quality/')} class="text-slate-400 hover:text-white">{t.footer.qualityControl}</a></li>
+          <li><a href={localizedPath(locale, '/blog/')} class="text-slate-400 hover:text-white">{t.footer.blogInsights}</a></li>
+          <li><a href={localizedPath(locale, '/contact/')} class="text-slate-400 hover:text-white">{t.footer.contactUs}</a></li>
+          <li><a href={localizedPath(locale, '/privacy-policy/')} class="text-slate-400 hover:text-white">{t.footer.privacyPolicy}</a></li>
         </ul>
       </nav>
 
       <!-- Contact + newsletter -->
       <div>
-        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Stay updated</h3>
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">{t.footer.stayUpdated}</h3>
         <p class="mt-4 text-sm text-slate-400">
-          Product updates, technical insights and company news.
+          {t.footer.newsletterBlurb}
         </p>
         <div class="mt-4">
-          <NewsletterForm compact />
+          <NewsletterForm compact locale={locale} />
         </div>
         <ul class="mt-5 space-y-2 text-sm text-slate-400">
           <li>
@@ -126,7 +134,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="flex flex-col items-center justify-between gap-3 border-t border-slate-800 py-6 text-xs text-slate-500 sm:flex-row">
-      <p>&copy; {year} {COMPANY.legalName}. All rights reserved.</p>
+      <p>&copy; {year} {COMPANY.legalName}. {t.footer.rights}</p>
       <p>{SITE.url.replace('https://', '')}</p>
     </div>
   </Container>

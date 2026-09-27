@@ -1,0 +1,65 @@
+---
+/**
+ * Blog / News listing template — ONE template for all 11 languages.
+ * English MDX articles are the single source; titles/descriptions are
+ * overridden by the per-locale translation layer when available.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getBlogTranslation } from '../i18n/blog-content';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { formatDate, getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+const localized = (post: CollectionEntry<'blog'>) => {
+  const bt = getBlogTranslation(post.id, locale);
+  return { post, bt };
+};
+---
+
+<BaseLayout title={t.seo.blog.title} description={t.seo.blog.description} path="/blog/" locale={locale}>
+  <Container class="pt-8">
+    <Breadcrumb crumbs={[{ label: t.blog.breadcrumb }]} locale={locale} />
+  </Container>
+
+  <Section eyebrow={t.blog.eyebrow} title={t.blog.title} subtitle={t.blog.subtitle}>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => {
+          const { bt } = localized(post);
+          return (
+            <a href={localizedPath(locale, `/blog/${post.id}/`)} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md">
+              <time datetime={post.data.publishDate.toISOString()} class="text-xs text-slate-500">
+                {formatDate(post.data.publishDate, locale)}
+              </time>
+              <h2 class="mt-2 text-base leading-snug font-semibold text-slate-900 group-hover:text-brand-700">
+                {bt.title ?? post.data.title}
+              </h2>
+              <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{bt.description ?? post.data.description}</p>
+              <div class="mt-4 flex flex-wrap gap-1.5">
+                {(bt.tags ?? post.data.tags).map((tag) => (
+                  <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600">{tag}</span>
+                ))}
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </Section>
+
+  <CTABanner locale={locale} />
+</BaseLayout>

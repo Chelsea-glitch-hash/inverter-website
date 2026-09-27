@@ -2,7 +2,8 @@
 /**
  * Breadcrumb navigation + BreadcrumbList structured data (JSON-LD).
  */
-import { SITE } from '../config';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
 
 interface Crumb {
   label: string;
@@ -10,8 +11,12 @@ interface Crumb {
 }
 interface Props {
   crumbs: Crumb[];
+  locale?: Locale;
 }
-const { crumbs } = Astro.props;
+const { crumbs, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+
+const homeHref = localizedPath(locale, '/');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -20,8 +25,8 @@ const jsonLd = {
     {
       '@type': 'ListItem',
       position: 1,
-      name: 'Home',
-      item: new URL('/', Astro.site).toString(),
+      name: t.common.home,
+      item: new URL(homeHref, Astro.site).toString(),
     },
     ...crumbs.map((c, i) => ({
       '@type': 'ListItem',
@@ -36,7 +41,7 @@ const jsonLd = {
 <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
   <ol class="flex flex-wrap items-center gap-1.5">
     <li>
-      <a href="/" class="hover:text-brand-700">Home</a>
+      <a href={homeHref} class="hover:text-brand-700">{t.common.home}</a>
     </li>
     {
       crumbs.map((c) => (

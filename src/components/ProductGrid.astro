@@ -1,14 +1,16 @@
 ---
 import ProductCard from './ProductCard.astro';
 import type { Product } from '../lib/products';
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
 
 interface Props {
   products: Product[];
   class?: string;
+  locale?: Locale;
 }
-const { products, class: className = '' } = Astro.props;
+const { products, class: className = '', locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <div class:list={['grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4', className]}>
-  {products.map((product) => <ProductCard {product} />)}
+  {products.map((product) => <ProductCard {product} locale={locale} />)}
 </div>

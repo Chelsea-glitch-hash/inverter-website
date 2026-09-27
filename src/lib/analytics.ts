@@ -22,6 +22,10 @@ declare global {
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}): void {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    window.gtag('event', name, params);
+    // Every event carries the current content language so GA4 can segment
+    // engagement/conversions by locale without changing any call site.
+    const language =
+      typeof document !== 'undefined' ? document.documentElement.lang || undefined : undefined;
+    window.gtag('event', name, language ? { ...params, language } : params);
   }
 }

@@ -7,11 +7,16 @@ import ConsentBanner from '../components/ConsentBanner.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import ChatWidget from '../components/ChatWidget.astro';
 import { SITE, COMPANY, ANALYTICS } from '../config';
+import { DEFAULT_LOCALE, meta, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
 
 interface Props {
   title: string;
   description: string;
-  /** Canonical path, e.g. "/products/off-grid-inverters/" */
+  /**
+   * Canonical ENGLISH path of the page, e.g. "/products/off-grid-inverters/".
+   * The localized URL, hreflang alternates and canonical are derived from it.
+   */
   path: string;
   ogType?: 'website' | 'article' | 'product';
   noindex?: boolean;
@@ -19,6 +24,8 @@ interface Props {
   pageType?: string;
   productSku?: string;
   productCategory?: string;
+  /** Current locale. English pages may omit it. */
+  locale?: Locale;
 }
 
 const {
@@ -30,7 +37,11 @@ const {
   pageType,
   productSku,
   productCategory,
+  locale = DEFAULT_LOCALE,
 } = Astro.props;
+
+const t = getDict(locale);
+const localeMeta = meta(locale);
 
 /* Organization structured data (site-wide) */
 const orgJsonLd = {
@@ -45,7 +56,7 @@ const orgJsonLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={localeMeta.htmlLang} dir={localeMeta.dir}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,7 +64,14 @@ const orgJsonLd = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} description={description} path={path} ogType={ogType} noindex={noindex} />
+    <SEO
+      title={title}
+      description={description}
+      path={path}
+      ogType={ogType}
+      noindex={noindex}
+      locale={locale}
+    />
 
     <!-- GA4 with Consent Mode v2: all marketing/analytics storage denied until consent -->
     {
@@ -93,21 +111,22 @@ const orgJsonLd = {
     data-page-type={pageType}
     data-product-sku={productSku}
     data-product-category={productCategory}
+    data-lang={locale}
   >
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"
     >
-      Skip to content
+      {t.nav.skipToContent}
     </a>
-    <Header />
+    <Header locale={locale} />
     <main id="main" class="flex-1">
       <slot />
     </main>
-    <Footer />
-    <ChatWidget />
-    <WhatsAppButton />
-    <ConsentBanner />
+    <Footer locale={locale} />
+    <ChatWidget locale={locale} />
+    <WhatsAppButton locale={locale} />
+    <ConsentBanner locale={locale} />
 
     <script>
       import '../scripts/tracking';

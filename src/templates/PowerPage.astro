@@ -1,0 +1,142 @@
+---
+/**
+ * Power-rating collection page template (e.g. /products/off-grid-inverters/1800w/).
+ * ONE template for all 11 languages; localized copy is assembled from the
+ * catalog facts by dict.powerPage.copy — never from a second data source.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import { getCategory } from '../lib/categories';
+import {
+  POWER_CATEGORY_PARENT,
+  getPowerCategories,
+  powerCategoryPath,
+  type PowerCategory,
+} from '../lib/power-categories';
+import { formatPower, getProductsByPower } from '../lib/products';
+import { localizedProduct } from '../i18n/product-content';
+import { localizedCategory } from '../i18n/category-content';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
+
+interface Props {
+  powerCategory: PowerCategory;
+  locale?: Locale;
+}
+const { powerCategory, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+
+const parentMeta = localizedCategory(getCategory(POWER_CATEGORY_PARENT)!, locale);
+const siblingPowerCategories = getPowerCategories(POWER_CATEGORY_PARENT);
+
+const products = getProductsByPower(POWER_CATEGORY_PARENT, powerCategory.power).map((p) =>
+  localizedProduct(p, locale)
+);
+const modelCount = products.length;
+
+/* Facts for the localized copy — read from the models at this rating only. */
+const distinct = (values: (string | null | undefined)[]) =>
+  [...new Set(values.filter((v): v is string => Boolean(v)))];
+const dcList = distinct(products.map((p) => p.specifications.dcInputVoltage)).join(' / ');
+const acList = distinct(products.map((p) => p.specifications.acOutput)).join(' / ');
+const types = [...new Set(products.map((p) => p.productType))].join(' / ');
+const seriesList = distinct(products.map((p) => p.series));
+const sharedSeries = seriesList.length === 1 && products.every((p) => p.series === seriesList[0]);
+
+const copy = t.powerPage.copy({
+  label: formatPower(powerCategory.power),
+  count: modelCount,
+  types,
+  series: sharedSeries ? seriesList[0] : null,
+  dc: dcList || null,
+  ac: acList || null,
+});
+---
+
+<BaseLayout
+  title={copy.seoTitle}
+  description={copy.seoDescription}
+  path={powerCategoryPath(POWER_CATEGORY_PARENT, powerCategory.slug)}
+  locale={locale}
+>
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[
+        { label: t.nav.products, href: localizedPath(locale, '/products/') },
+        {
+          label: parentMeta.name,
+          href: localizedPath(locale, `/products/${POWER_CATEGORY_PARENT}/`),
+        },
+        { label: powerCategory.name },
+      ]}
+      locale={locale}
+    />
+  </Container>
+
+  <Container class="pt-6 pb-4">
+    <p class="text-sm font-medium tracking-wide text-brand-600 uppercase">
+      {parentMeta.name}
+    </p>
+    <h1 class="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{powerCategory.heading}</h1>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
+      {copy.description}
+    </p>
+    <p class="mt-4 text-sm text-slate-500">
+      {fill(t.powerPage.modelsInRating, { count: modelCount, model: modelCount === 1 ? t.common.model : t.common.models })}
+    </p>
+  </Container>
+
+  <Section>
+    {
+      modelCount > 0 ? (
+        <ProductGrid products={products} locale={locale} />
+      ) : (
+        <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          {t.powerPage.empty}
+        </p>
+      )
+    }
+  </Section>
+
+  <!-- Power ratings: internal links across the off-grid range -->
+  <Section
+    class="bg-slate-50"
+    eyebrow={t.powerPage.otherRatings.eyebrow}
+    title={t.powerPage.otherRatings.title}
+    subtitle={t.powerPage.otherRatings.subtitle}
+  >
+    <ul class="flex flex-wrap gap-2.5">
+      {
+        siblingPowerCategories.map((power) => {
+          const isCurrent = power.slug === powerCategory.slug;
+          return (
+            <li>
+              <a
+                href={localizedPath(locale, powerCategoryPath(POWER_CATEGORY_PARENT, power.slug))}
+                aria-current={isCurrent ? 'page' : undefined}
+                class:list={[
+                  'inline-flex rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors',
+                  isCurrent
+                    ? 'border-brand-300 bg-white text-brand-700'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-brand-400 hover:text-brand-700',
+                ]}
+              >
+                {fill(t.powerPage.chip, { power: formatPower(power.power) })}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Section>
+
+  <CTABanner
+    title={fill(t.powerPage.ctaTitle, { power: formatPower(powerCategory.power) })}
+    subtitle={t.powerPage.ctaSubtitle}
+    locale={locale}
+  />
+</BaseLayout>

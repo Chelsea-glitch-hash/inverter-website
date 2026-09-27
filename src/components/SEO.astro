@@ -1,9 +1,14 @@
 ---
 /**
- * SEO meta tags: unique title, description, canonical, Open Graph,
- * Twitter card. Included by BaseLayout.
+ * SEO meta tags: unique title, description, canonical, hreflang alternates,
+ * Open Graph (with og:locale), Twitter card. Included by BaseLayout.
+ *
+ * `path` is the canonical ENGLISH path; the canonical URL, the hreflang set
+ * and the Open Graph URL are derived from it, so language versions of one
+ * page are always mutually linked (no duplicate-content signals).
  */
 import { SITE } from '../config';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, localizedPath, type Locale } from '../i18n/config';
 
 interface Props {
   title: string;
@@ -11,11 +16,25 @@ interface Props {
   path: string;
   ogType?: 'website' | 'article' | 'product';
   noindex?: boolean;
+  locale?: Locale;
 }
 
-const { title, description, path, ogType = 'website', noindex = false } = Astro.props;
-const canonical = new URL(path, Astro.site);
+const { title, description, path, ogType = 'website', noindex = false, locale = DEFAULT_LOCALE } =
+  Astro.props;
+
+const canonicalPath = localizedPath(locale, path);
+const canonical = new URL(canonicalPath, Astro.site);
 const ogUrl = canonical.toString();
+
+/**
+ * hreflang alternates: one per locale + x-default pointing at English.
+ * Every locale exposes the same English path behind its prefix, so all
+ * alternates exist by construction.
+ */
+const alternates = LOCALES.map((l) => ({
+  hrefLang: LOCALE_META[l].htmlLang,
+  href: new URL(localizedPath(l, path), Astro.site).toString(),
+}));
 ---
 
 <title>{title}</title>
@@ -23,11 +42,18 @@ const ogUrl = canonical.toString();
 <link rel="canonical" href={canonical} />
 {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
 
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.hrefLang} href={alt.href} />)}
+<link rel="alternate" hreflang="x-default" href={new URL(path, Astro.site).toString()} />
+
 <meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={SITE.name} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={ogUrl} />
+<meta property="og:locale" content={LOCALE_META[locale].ogLocale} />
+{LOCALES.filter((l) => l !== locale).map((l) => (
+  <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />
+))}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

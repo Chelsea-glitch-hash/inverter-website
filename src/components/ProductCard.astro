@@ -3,12 +3,17 @@ import Button from './Button.astro';
 import { Image } from 'astro:assets';
 import { formatPower, productPath, resolveShortDescription, type Product } from '../lib/products';
 import { resolveProductImage } from '../lib/product-images';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
 
 /**
  * Product card for grids and listings.
  *
  * Everything shown here comes from the product data table
  * (src/data/products.ts) — nothing is hardcoded per product.
+ * Pass an ALREADY-LOCALIZED product (see localizedProduct in
+ * src/i18n/product-content.ts) to render translated copy; facts, images and
+ * URLs are identical in every language.
  * Images resolve through lib/product-images: optimised assets from
  * src/assets/products/ or public paths under /images/products/.
  * Cards without an image render a neutral placeholder instead of a
@@ -16,12 +21,14 @@ import { resolveProductImage } from '../lib/product-images';
  */
 interface Props {
   product: Product;
+  locale?: Locale;
 }
-const { product } = Astro.props;
+const { product, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
 
 const image = resolveProductImage(product.images[0] ?? '');
-const href = productPath(product);
-const inquiryHref = `/contact/?product=${encodeURIComponent(product.id)}`;
+const href = localizedPath(locale, productPath(product));
+const inquiryHref = `${localizedPath(locale, '/contact/')}?product=${encodeURIComponent(product.id)}`;
 ---
 
 <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-shadow hover:shadow-lg">
@@ -71,7 +78,7 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(product.id)}`;
     <p class="line-clamp-2 text-sm text-slate-600">{resolveShortDescription(product)}</p>
     <div class="mt-auto flex gap-2 pt-2">
       <Button href={href} variant="outline" class="flex-1 !px-3 !py-2 !text-xs">
-        View details
+        {t.common.viewDetails}
       </Button>
       <Button
         href={inquiryHref}
@@ -80,7 +87,7 @@ const inquiryHref = `/contact/?product=${encodeURIComponent(product.id)}`;
         track="click_request_quote"
         trackParams={{ product_sku: product.id, product_category: product.category }}
       >
-        Get a quote
+        {t.common.getQuote}
       </Button>
     </div>
   </div>

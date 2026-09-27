@@ -1,0 +1,112 @@
+---
+/**
+ * Product category page template (e.g. /products/off-grid-inverters/).
+ * ONE template for all 11 languages; the caller passes the category slug.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import { getCategory } from '../lib/categories';
+import { getPowerCategories, powerCategoryPath } from '../lib/power-categories';
+import { getProductsByCategory } from '../lib/products';
+import { localizedProduct } from '../i18n/product-content';
+import { localizedCategory } from '../i18n/category-content';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
+
+interface Props {
+  category: string;
+  locale?: Locale;
+}
+const { category, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+
+const meta = localizedCategory(getCategory(category)!, locale);
+const products = getProductsByCategory(category).map((p) => localizedProduct(p, locale));
+
+/* Power-level sub-categories (currently only for the off-grid range), derived
+   from the product data. A power level with no models never links anywhere. */
+const powerCategories = getPowerCategories(category).map((power) => ({
+  ...power,
+  name: `${fill(t.powerPage.chip, { power: `${power.power}W` })}`,
+  count: products.filter((p) => p.ratedPower === power.power).length,
+}));
+---
+
+<BaseLayout
+  title={`${meta.heading} ${t.seo.category.titleSuffix}`}
+  description={meta.description}
+  path={`/products/${category}/`}
+  locale={locale}
+>
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[{ label: t.nav.products, href: localizedPath(locale, '/products/') }, { label: meta.name }]}
+      locale={locale}
+    />
+  </Container>
+
+  <Section eyebrow={t.categoryPage.eyebrow} title={meta.heading} subtitle={meta.description}>
+    {
+      products.length > 0 ? (
+        <ProductGrid products={products} locale={locale} />
+      ) : (
+        <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          {t.categoryPage.empty}
+        </p>
+      )
+    }
+  </Section>
+
+  {
+    powerCategories.length > 0 && (
+      <Section
+        class="bg-slate-50"
+        eyebrow={t.categoryPage.byPowerEyebrow}
+        title={fill(t.categoryPage.byPowerTitle, { category: meta.name })}
+        subtitle={t.categoryPage.byPowerSubtitle}
+      >
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {powerCategories.map((power) => (
+            <li>
+              <a
+                href={localizedPath(locale, powerCategoryPath(category, power.slug))}
+                class="group flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-5 transition-colors hover:border-brand-400 hover:bg-brand-50"
+              >
+                <span>
+                  <span class="block text-base font-semibold text-slate-900 group-hover:text-brand-700">
+                    {power.name}
+                  </span>
+                  <span class="mt-0.5 block text-xs text-slate-500">
+                    {power.count} {power.count === 1 ? t.common.model : t.common.models}
+                  </span>
+                </span>
+                <svg
+                  class="h-5 w-5 shrink-0 text-slate-400 group-hover:text-brand-600 rtl:rotate-180"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  <CTABanner
+    title={t.categoryPage.customCtaTitle}
+    subtitle={t.categoryPage.customCtaSubtitle}
+    locale={locale}
+  />
+</BaseLayout>

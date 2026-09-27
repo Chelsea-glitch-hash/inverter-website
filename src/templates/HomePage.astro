@@ -1,0 +1,387 @@
+---
+/**
+ * Homepage template — ONE template for all 11 languages.
+ *
+ * All copy comes from the i18n dictionary (src/i18n/ui/); product/category
+ * data comes from the catalog (src/data/products.ts). English pages render
+ * this with locale="en" (src/pages/index.astro), every other language via
+ * src/pages/[lang]/[...slug].astro.
+ */
+import Container from '../components/Container.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import TrustBar from '../components/TrustBar.astro';
+import CTABanner from '../components/CTABanner.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import ApplicationCard from '../components/ApplicationCard.astro';
+import { getCollection } from 'astro:content';
+import { getCategoriesWithProducts, getFeaturedProducts } from '../lib/products';
+import { localizedProduct } from '../i18n/product-content';
+import { localizedCategory } from '../i18n/category-content';
+import { getBlogTranslation } from '../i18n/blog-content';
+import { COMPANY } from '../config';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { fill, formatDate, getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+
+/* Featured models come from the product data table — mark up to four with
+   `featured: true`; if none are marked, the top of the catalog is used. */
+const featured = getFeaturedProducts(4).map((p) => localizedProduct(p, locale));
+
+/* Only categories that actually hold products are shown, so the homepage never
+   advertises a range that has no models yet. */
+const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, locale));
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const sellingPoints = t.home.advantages.items.map((item, i) => ({ ...item, number: `0${i + 1}` }));
+
+const whyUs = t.home.whyUs.items.map((item) => ({
+  title: item.title,
+  description: fill(item.description, {
+    engineers: COMPANY.rdEngineers,
+    area: COMPANY.factoryAreaSqm.toLocaleString('en-US'),
+    capacity: COMPANY.annualCapacityUnits.toLocaleString('en-US'),
+  }),
+}));
+
+const applications = t.home.applications.items.map((item, i) => ({
+  ...item,
+  icon: (['home', 'industry', 'battery', 'signal', 'sun', 'plug'] as const)[i],
+}));
+
+const factoryCapabilities = t.home.factory.capabilities.map((cap, i) => ({ ...cap, number: `0${i + 1}` }));
+
+const processSteps = t.home.process.steps.map((s, i) => ({ ...s, step: `0${i + 1}` }));
+
+/* Certification cards — only the two compliance documents that actually exist
+   under public/certificates/. Titles/standards are language-neutral. */
+const certifications = t.home.certifications.items.map((item, i) => ({
+  ...item,
+  standard: i === 0 ? 'EN 62109-1' : null,
+  product: t.common.product,
+  file: i === 0 ? '/certificates/solar-inverter-ce-lvd-en62109-1.pdf' : '/certificates/solar-inverter-ce-emc.pdf',
+}));
+
+/* Illustrative, market-based testimonials (NOT real customer statements).
+   `isPlaceholder` is preserved per project convention: when authorized
+   customer testimonials arrive, replace the data and set it to false. */
+const testimonials = t.home.testimonials.items.map((tm) => ({ ...tm, isPlaceholder: true }));
+
+const factoryBullets = t.home.factory.bullets.map((b) =>
+  fill(b, { employees: COMPANY.employees, engineers: COMPANY.rdEngineers })
+);
+
+const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.exportCountries }));
+---
+
+<BaseLayout
+  title={fill(t.seo.home.title, { brand: 'Zhongze Huasong' })}
+  description={fill(t.seo.home.description, { year: COMPANY.foundedYear, countries: COMPANY.exportCountries })}
+  path="/"
+  locale={locale}
+>
+  <!-- 1. Hero -->
+  <section class="bg-gradient-to-b from-brand-50 to-white">
+    <Container>
+      <div class="grid grid-cols-1 items-center gap-10 py-16 sm:py-24 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-xs font-medium text-brand-700">
+            <span class="inline-block h-2 w-2 rounded-full bg-accent-500" aria-hidden="true"></span>
+            {fill(t.home.hero.eyebrow, { year: COMPANY.foundedYear })}
+          </p>
+          <h1 class="text-3xl leading-tight font-bold text-slate-900 sm:text-4xl lg:text-5xl">
+            {t.home.hero.title}
+          </h1>
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            {t.home.hero.subtitle}
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <Button href={localizedPath(locale, '/contact/')} variant="primary" size="lg" track="click_request_quote">
+              {t.common.requestQuote}
+            </Button>
+            <Button href={localizedPath(locale, '/products/')} variant="outline" size="lg">
+              {t.common.viewProducts}
+            </Button>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+            {
+              heroBullets.map((item) => (
+                <li class="flex items-center gap-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-brand-600" aria-hidden="true" />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="order-first lg:order-last">
+          <svg viewBox="0 0 560 400" class="w-full" role="img" aria-label={t.home.hero.heroImageAria}>
+            <rect width="560" height="400" rx="16" fill="#eef4fb" />
+            <rect x="40" y="60" width="180" height="120" rx="6" fill="#b3cdec" />
+            <g stroke="#245299" stroke-width="2" opacity="0.35">
+              <line x1="100" y1="60" x2="100" y2="180" />
+              <line x1="160" y1="60" x2="160" y2="180" />
+              <line x1="40" y1="120" x2="220" y2="120" />
+            </g>
+            <rect x="60" y="230" width="140" height="90" rx="6" fill="#85aedd" />
+            <line x1="80" y1="250" x2="180" y2="250" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="265" x2="180" y2="265" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="280" x2="180" y2="280" stroke="#fff" stroke-width="4" />
+            <line x1="80" y1="295" x2="140" y2="295" stroke="#fff" stroke-width="4" />
+            <rect x="280" y="140" width="110" height="170" rx="10" fill="#17355f" />
+            <rect x="295" y="160" width="80" height="44" rx="4" fill="#0b2136" />
+            <text x="335" y="188" font-family="monospace" font-size="16" fill="#4ade80" text-anchor="middle">ON</text>
+            <g stroke="#24425f" stroke-width="4">
+              <line x1="300" y1="230" x2="370" y2="230" />
+              <line x1="300" y1="248" x2="370" y2="248" />
+              <line x1="300" y1="266" x2="370" y2="266" />
+            </g>
+            <rect x="300" y="285" width="70" height="6" rx="3" fill="#4ade80" />
+            <rect x="300" y="285" width="45" height="6" rx="3" fill="#22c55e" />
+            <g stroke="#245299" stroke-width="3" fill="none" stroke-dasharray="6 6">
+              <path d="M220 120 C 260 120, 260 200, 280 210" />
+              <path d="M200 275 C 250 275, 250 235, 280 235" />
+              <path d="M390 210 C 450 210, 460 120, 510 120" />
+            </g>
+            <circle cx="500" cy="80" r="34" fill="#e8b23a" />
+            <circle cx="500" cy="80" r="24" fill="#facc15" opacity="0.6" />
+          </svg>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 2. Trust / company facts -->
+  <TrustBar locale={locale} />
+
+  <!-- 3. Product categories -->
+  <Section eyebrow={t.home.categories.eyebrow} title={t.home.categories.title} subtitle={t.home.categories.subtitle}>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        categories.map((c) => (
+          <a
+            href={localizedPath(locale, `/products/${c.slug}/`)}
+            class="group rounded-xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold text-brand-700">{c.powerRange}</span>
+              <svg class="h-5 w-5 text-slate-300 transition-colors group-hover:text-brand-600 rtl:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900 group-hover:text-brand-700">{c.name}</h3>
+            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{c.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 4. Featured products -->
+  <Section eyebrow={t.home.featured.eyebrow} title={t.home.featured.title} subtitle={t.home.featured.subtitle} class="bg-slate-50">
+    <ProductGrid products={featured} locale={locale} />
+    <div class="mt-10 text-center">
+      <Button href={localizedPath(locale, '/products/')} variant="outline">{t.common.browseAllProducts}</Button>
+    </div>
+  </Section>
+
+  <!-- 5. Product advantages / technical strengths -->
+  <Section eyebrow={t.home.advantages.eyebrow} title={t.home.advantages.title} subtitle={t.home.advantages.subtitle}>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        sellingPoints.map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <span class="text-3xl font-bold text-brand-200">{item.number}</span>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-500">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 6. Why choose us -->
+  <Section eyebrow={t.home.whyUs.eyebrow} title={t.home.whyUs.title} subtitle={t.home.whyUs.subtitle}>
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {
+        whyUs.map((item, i) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <span class="text-3xl font-bold text-brand-200">0{i + 1}</span>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 7. How we work (B2B cooperation process) -->
+  <Section eyebrow={t.home.process.eyebrow} title={t.home.process.title} subtitle={t.home.process.subtitle} class="bg-slate-50">
+    <ol class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        processSteps.map((s) => (
+          <li class="relative rounded-xl border border-slate-200 bg-white p-7">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
+                {s.step}
+              </span>
+              <h3 class="text-base font-semibold text-slate-900">{s.title}</h3>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">{s.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- 8. Manufacturing / factory capability -->
+  <Section eyebrow={t.home.factory.eyebrow} title={t.home.factory.title} subtitle={t.home.factory.subtitle} class="bg-slate-50">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          factoryCapabilities.map((cap) => (
+            <div class="rounded-xl border border-slate-200 bg-white p-6">
+              <span class="text-3xl font-bold text-brand-200">{cap.number}</span>
+              <h3 class="mt-3 text-base font-semibold text-slate-900">{cap.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{cap.description}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div>
+        <ul class="space-y-4">
+          {
+            factoryBullets.map((item) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed text-slate-700">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                </svg>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <Button href={localizedPath(locale, '/factory/')} variant="outline" class="mt-8">{t.home.factory.cta}</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 8. Applications -->
+  <Section eyebrow={t.home.applications.eyebrow} title={t.home.applications.title} subtitle={t.home.applications.subtitle}>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {applications.map((app) => <ApplicationCard title={app.title} description={app.description} icon={app.icon} />)}
+    </div>
+  </Section>
+
+  <!-- 9. Mid-page inquiry CTA -->
+  <section aria-label={t.common.requestQuote}>
+    <Container>
+      <div class="my-4 flex flex-col items-center justify-between gap-5 rounded-xl border border-brand-200 bg-brand-50 px-6 py-8 sm:px-10 lg:flex-row">
+        <div class="text-center lg:text-left">
+          <h2 class="text-xl font-semibold text-slate-900">{t.cta.midTitle}</h2>
+          <p class="mt-2 text-sm text-slate-600">
+            {t.cta.midSubtitle}
+          </p>
+        </div>
+        <Button href={localizedPath(locale, '/contact/')} variant="primary" size="lg" track="click_request_quote" class="shrink-0">
+          {t.common.requestQuote}
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 10. Certifications -->
+  <Section
+    eyebrow={t.home.certifications.eyebrow}
+    title={t.home.certifications.title}
+    subtitle={t.home.certifications.subtitle}
+    class="bg-slate-50"
+  >
+    <div class="flex flex-col items-center gap-6">
+      <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+        {
+          certifications.map((c) => (
+            <div class="flex flex-col rounded-xl border border-slate-200 bg-white p-6">
+              <h3 class="text-lg font-semibold text-slate-900">{c.title}</h3>
+              <dl class="mt-4 space-y-2 text-sm">
+                {c.standard && (
+                  <div class="flex gap-3">
+                    <dt class="w-20 shrink-0 text-slate-500">{t.common.standard}</dt>
+                    <dd class="font-medium text-slate-800">{c.standard}</dd>
+                  </div>
+                )}
+                <div class="flex gap-3">
+                  <dt class="w-20 shrink-0 text-slate-500">{t.common.product}</dt>
+                  <dd class="font-medium text-slate-800">{c.product}</dd>
+                </div>
+              </dl>
+              <p class="mt-4 text-sm leading-relaxed text-slate-600">{c.description}</p>
+              <div class="mt-auto pt-6">
+                <Button href={c.file} variant="outline" target="_blank" rel="noopener noreferrer">
+                  {t.common.viewCertificate}<span class="sr-only"> — {c.title} {t.common.viewCertificateSr}</span>
+                </Button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="max-w-2xl text-center text-sm text-slate-500">
+        {t.home.certifications.note}
+      </p>
+      <Button href={localizedPath(locale, '/quality/')} variant="outline">{t.home.certifications.qualityButton}</Button>
+    </div>
+  </Section>
+
+  <!-- 11. Testimonials (illustrative placeholders — see the testimonials data) -->
+  <Section title={t.home.testimonials.title}>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        testimonials.map((tm) => (
+          <figure class="flex flex-col rounded-xl border border-slate-200 bg-white p-7">
+            <blockquote class="text-sm leading-relaxed text-slate-700">“{tm.quote}”</blockquote>
+            <figcaption class="mt-auto pt-4 text-xs font-medium text-slate-500">
+              — {tm.customerType} · {tm.country}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- 12. Blog preview -->
+  <Section eyebrow={t.home.blog.eyebrow} title={t.home.blog.title} class="bg-slate-50">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        posts.map((post) => {
+          const bt = getBlogTranslation(post.id, locale);
+          return (
+            <a href={localizedPath(locale, `/blog/${post.id}/`)} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md">
+              <time datetime={post.data.publishDate.toISOString()} class="text-xs text-slate-500">
+                {formatDate(post.data.publishDate, locale)}
+              </time>
+              <h3 class="mt-2 text-base leading-snug font-semibold text-slate-900 group-hover:text-brand-700">
+                {bt.title ?? post.data.title}
+              </h3>
+              <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{bt.description ?? post.data.description}</p>
+            </a>
+          );
+        })
+      }
+    </div>
+    <div class="mt-10 text-center">
+      <Button href={localizedPath(locale, '/blog/')} variant="outline">{t.common.readAllArticles}</Button>
+    </div>
+  </Section>
+
+  <!-- 13. Request a quote -->
+  <CTABanner locale={locale} />
+</BaseLayout>

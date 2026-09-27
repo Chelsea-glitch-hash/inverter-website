@@ -1,0 +1,287 @@
+---
+/**
+ * Product detail page template — a pure template, ONE copy for all languages.
+ *
+ * It holds NO product data: the caller resolves the product out of the catalog
+ * (src/data/products.ts) and passes the LOCALIZED clone
+ * (localizedProduct(p, locale)). Specs, packaging, images and URLs are
+ * language-neutral; name/overview/features/SEO come from the translation
+ * layer with English fallback.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ProductGallery from '../components/ProductGallery.astro';
+import SpecTable from '../components/SpecTable.astro';
+import FeatureList from '../components/FeatureList.astro';
+import CertificationList from '../components/CertificationList.astro';
+import FAQ from '../components/FAQ.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { getCategory } from '../lib/categories';
+import { resolveProductImage } from '../lib/product-images';
+import { getPowerCategoryForProduct, powerCategoryPath } from '../lib/power-categories';
+import {
+  formatPower,
+  getRelatedProducts,
+  productPath,
+  resolveSeo,
+  resolveShortDescription,
+  type Product,
+} from '../lib/products';
+import { localizedProduct, localizedSpecRows, localizedPackagingRows } from '../i18n/product-content';
+import { localizedCategory } from '../i18n/category-content';
+import { SITE } from '../config';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
+
+interface Props {
+  product: Product;
+  locale?: Locale;
+}
+const { product: rawProduct, locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+const p = localizedProduct(rawProduct, locale);
+
+const categoryMeta = localizedCategory(getCategory(p.category)!, locale);
+/** Power-level sub-category (off-grid range only) — enables the 4-level breadcrumb. */
+const powerCategory = getPowerCategoryForProduct(p);
+
+const related = getRelatedProducts(rawProduct, 4).map((item) => localizedProduct(item, locale));
+const relatedInCategory = related.filter((item) => item.category === p.category).length;
+
+/** SEO: authored (translated) copy wins, otherwise composed from real fields. */
+const seo = resolveSeo(p);
+
+const specRows = localizedSpecRows(rawProduct, locale);
+const packagingRows = localizedPackagingRows(rawProduct.packaging, locale);
+
+const overview = p.overview ?? [];
+const features = p.features ?? [];
+const certifications = p.certifications ?? [];
+const applications = p.applications ?? [];
+const faq = p.faq ?? [];
+
+/** First image, resolved to an absolute URL for structured data. */
+const heroImage = resolveProductImage(p.images[0] ?? '');
+const heroImageUrl = heroImage
+  ? new URL(heroImage.kind === 'asset' ? heroImage.src.src : heroImage.src, Astro.site).href
+  : undefined;
+
+/* Product structured data. Offer markup intentionally omitted until
+   real pricing data exists (per SEO spec: only use with real data). */
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  sku: p.id,
+  mpn: p.id,
+  description: seo.description,
+  category: categoryMeta.name,
+  brand: { '@type': 'Brand', name: SITE.name },
+  ...(heroImageUrl ? { image: heroImageUrl } : {}),
+  ...(certifications.length > 0
+    ? {
+        additionalProperty: certifications.map((c) => ({
+          '@type': 'PropertyValue',
+          name: 'Certification',
+          value: c,
+        })),
+      }
+    : {}),
+};
+
+const inquiryHref = `${localizedPath(locale, '/contact/')}?product=${encodeURIComponent(p.id)}`;
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  path={productPath(p)}
+  ogType="product"
+  pageType="product"
+  productSku={p.id}
+  productCategory={p.category}
+  locale={locale}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(productJsonLd)} />
+
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[
+        { label: t.nav.products, href: localizedPath(locale, '/products/') },
+        { label: categoryMeta.name, href: localizedPath(locale, `/products/${p.category}/`) },
+        ...(powerCategory
+          ? [
+              {
+                label: powerCategory.name,
+                href: localizedPath(locale, powerCategoryPath(p.category, powerCategory.slug)),
+              },
+            ]
+          : []),
+        { label: p.id },
+      ]}
+      locale={locale}
+    />
+  </Container>
+
+  <!-- Product hero: gallery + key info -->
+  <Container class="pt-6 pb-4">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <ProductGallery sku={p.id} name={p.name} images={p.images} />
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">{p.id}</span>
+          {p.featured && <span class="rounded bg-accent-100 px-2.5 py-1 text-xs font-semibold text-accent-600">{t.common.featured}</span>}
+          <span class="rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+            {formatPower(p.ratedPower)} {t.common.ratedOutput}
+          </span>
+          {
+            p.series && (
+              <span class="rounded bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                {p.series}
+              </span>
+            )
+          }
+        </div>
+
+        <h1 class="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">{p.name}</h1>
+        <p class="mt-2 text-sm font-medium text-slate-500">{p.productType}</p>
+        <p class="mt-4 text-base leading-relaxed text-slate-600">{resolveShortDescription(p)}</p>
+
+        {
+          certifications.length > 0 && (
+            <div class="mt-6">
+              <CertificationList certifications={certifications} />
+            </div>
+          )
+        }
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button
+            href={inquiryHref}
+            variant="primary"
+            size="lg"
+            track="click_request_quote"
+            trackParams={{ product_sku: p.id, product_category: p.category }}
+          >
+            {t.common.quoteForModel}
+          </Button>
+          <Button href={localizedPath(locale, '/contact/')} variant="outline" size="lg">
+            {t.common.contactSales}
+          </Button>
+        </div>
+
+        <ul class="mt-6 space-y-2 text-sm text-slate-600">
+          {t.common.oemBullets.map((item) => <li>• {item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Overview -->
+  {
+    overview.length > 0 && (
+      <Section title={t.common.productOverview}>
+        <div class="max-w-3xl space-y-4 text-base leading-relaxed text-slate-700">
+          {overview.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- Technical specifications -->
+  {
+    specRows.length > 0 && (
+      <Section title={t.common.technicalSpecifications} class="bg-slate-50">
+        <div class="max-w-3xl">
+          <SpecTable specs={specRows} fallbackGroup={t.common.specifications} />
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- Features -->
+  {
+    features.length > 0 && (
+      <Section title={t.common.keyFeatures}>
+        <FeatureList features={features} />
+      </Section>
+    )
+  }
+
+  <!-- Packaging information -->
+  {
+    packagingRows.length > 0 && (
+      <Section title={t.common.packagingInformation} class="bg-slate-50">
+        <div class="max-w-3xl">
+          <SpecTable specs={packagingRows} fallbackGroup={t.common.packagingInformation} />
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- Applications -->
+  {
+    applications.length > 0 && (
+      <Section title={t.common.applications} class="bg-slate-50">
+        <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {applications.map((app) => (
+            <li class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-5">
+              <span class="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
+              <span class="text-sm text-slate-700">{app}</span>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    )
+  }
+
+  <!-- Downloads -->
+  {
+    p.datasheet && (
+      <Section title={t.common.downloads}>
+        <div class="max-w-xl">
+          <a href={p.datasheet} class="rounded-xl border border-slate-200 bg-white p-6 text-sm font-medium text-brand-700 hover:underline">
+            {p.datasheet}
+          </a>
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- FAQ -->
+  {
+    faq.length > 0 && (
+      <Section class="bg-slate-50">
+        <FAQ faq={faq} />
+      </Section>
+    )
+  }
+
+  <!-- Related products -->
+  {
+    related.length > 0 && (
+      <Section
+        title={t.common.relatedProducts}
+        subtitle={
+          relatedInCategory >= 3
+            ? fill(t.common.relatedSameCategory, { category: categoryMeta.name })
+            : t.common.relatedMoreModels
+        }
+      >
+        <ProductGrid products={related} locale={locale} />
+      </Section>
+    )
+  }
+
+  <CTABanner
+    title={p.inquiry?.headline}
+    subtitle={p.inquiry?.text}
+    buttonText={p.inquiry?.buttonText}
+    locale={locale}
+  />
+</BaseLayout>

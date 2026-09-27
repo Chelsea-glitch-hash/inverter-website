@@ -28,6 +28,15 @@
  */
 import { CHAT, SITE, TURNSTILE } from '../config';
 import { guidanceQuickReplies } from '../lib/chat-engine';
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale).chat;
+const headerSubtitle = fill(t.headerSubtitle, { brand: SITE.shortName });
 
 /**
  * Chips on the opening bubble.
@@ -35,16 +44,35 @@ import { guidanceQuickReplies } from '../lib/chat-engine';
  * Two ways forward rather than one button per rating: the panel should open as
  * a question, not as the full product menu. Taken from the engine so the first
  * screen and the first greeting cannot disagree about what to offer.
+ *
+ * Chips are rendered with the localized label from `chipLabels` while the
+ * message sent to the engine stays the ENGLISH value — translated chips can
+ * therefore never break the engine's exact-match intent detection.
  */
 const startChips = guidanceQuickReplies();
 
 const chatConfig = {
-  greeting: CHAT.greeting,
-  teaser: CHAT.teaser,
+  greeting: t.greeting,
+  teaser: t.teaser,
   proactive: CHAT.proactive,
   quickReplies: CHAT.quickReplies,
   startChips,
   turnstileSiteKey: TURNSTILE.siteKey,
+  // Localized UI strings for the client script (English fallback applied there).
+  ui: {
+    inputPlaceholder: t.inputPlaceholder,
+    contactPlaceholder: t.contactPlaceholder,
+    contactHint: t.contactHint,
+    viewProduct: t.viewProduct,
+    reachUsDirectly: t.reachUsDirectly,
+    leadThanks: t.leadThanks,
+    verificationError: t.verificationError,
+    genericError: t.genericError,
+    networkError: t.networkError,
+    leadError: t.leadError,
+    typing: t.typing,
+    chipLabels: t.chipLabels,
+  },
 };
 ---
 
@@ -65,7 +93,7 @@ const chatConfig = {
             type="button"
             id="chat-teaser-close"
             class="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
-            aria-label="Dismiss message"
+            aria-label={t.dismissAria}
           >
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />
@@ -106,7 +134,7 @@ const chatConfig = {
         <header class="flex shrink-0 items-center justify-between rounded-t-2xl bg-brand-600 px-4 py-3 text-white">
           <div>
             <p class="text-sm font-medium">Chat with us</p>
-            <p class="text-xs text-brand-100">{SITE.shortName} · AI sales assistant</p>
+            <p class="text-xs text-brand-100">{headerSubtitle}</p>
           </div>
           <button
             type="button"
@@ -143,16 +171,16 @@ const chatConfig = {
               id="chat-company"
               type="text"
               autocomplete="organization"
-              placeholder="Company"
-              aria-label="Your company (optional)"
+              placeholder={t.companyPlaceholder}
+              aria-label={t.companyAria}
               class="min-w-0 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
             />
             <input
               id="chat-country"
               type="text"
               autocomplete="country-name"
-              placeholder="Country"
-              aria-label="Your country (optional)"
+              placeholder={t.countryPlaceholder}
+              aria-label={t.countryAria}
               class="min-w-0 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
             />
           </div>
@@ -223,6 +251,23 @@ const chatConfig = {
     quickReplies: boolean;
     startChips: string[];
     turnstileSiteKey: string;
+    ui: {
+      inputPlaceholder: string;
+      contactPlaceholder: string;
+      contactHint: string;
+      viewProduct: string;
+      reachUsDirectly: string;
+      leadThanks: string;
+      verificationError: string;
+      genericError: string;
+      networkError: string;
+      leadError: string;
+      typing: string;
+      launcherAria: string;
+      launcherUnreadAria: string;
+      closeAria: string;
+      chipLabels: Record<string, string>;
+    };
   }
 
   interface Msg {
@@ -255,6 +300,11 @@ const chatConfig = {
   const STORAGE_KEY = 'chat_session_v1';
   const OTHER_MODELS = 'Show other models';
 
+  /** Display label for an engine chip value (the English value stays the message). */
+  function chipLabel(config: ChatUiConfig, value: string): string {
+    return config.ui.chipLabels[value] ?? value;
+  }
+
   const FALLBACK_CONFIG: ChatUiConfig = {
     greeting: 'Hi! What power are you looking for?',
     teaser: '',
@@ -262,6 +312,23 @@ const chatConfig = {
     quickReplies: true,
     startChips: [],
     turnstileSiteKey: '',
+    ui: {
+      inputPlaceholder: 'Type your message…',
+      contactPlaceholder: 'Your email or WhatsApp…',
+      contactHint: 'Your details go to our sales team only.',
+      viewProduct: 'View product details',
+      reachUsDirectly: 'You can also reach us directly:',
+      leadThanks: 'Thank you — our sales team will follow up with you shortly. Here are our details if you would rather contact us first:',
+      verificationError: 'I could not verify this session. Please use the WhatsApp button or the contact form and our team will help you directly.',
+      genericError: 'Sorry, something went wrong. Please try again or use the contact form.',
+      networkError: 'Sorry — I could not reach the server. Please try again, or use the contact form and our team will reply by email.',
+      leadError: 'Sorry, we could not save your details. Please email us or try again.',
+      typing: 'Typing…',
+      launcherAria: 'Chat with us',
+      launcherUnreadAria: 'Chat with us, 1 new message',
+      closeAria: 'Close chat',
+      chipLabels: {},
+    },
   };
 
   function readConfig(): ChatUiConfig {
@@ -477,7 +544,7 @@ const chatConfig = {
           (msg.role === 'user'
             ? 'rounded-br-md bg-brand-600 text-white'
             : 'rounded-bl-md bg-slate-100 text-slate-800');
-        bubble.textContent = msg.typing ? 'Typing…' : msg.text;
+        bubble.textContent = msg.typing ? config.ui.typing : msg.text;
         stack.appendChild(bubble);
 
         if (msg.role === 'bot') {
@@ -496,7 +563,7 @@ const chatConfig = {
             chip.type = 'button';
             chip.className =
               'rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-medium text-brand-700 transition-colors hover:bg-brand-100';
-            chip.textContent = label;
+            chip.textContent = chipLabel(config, label);
             chip.addEventListener('click', () => {
               trackEvent('chat_quick_reply', { quick_reply_value: label });
               void send(label, true);
@@ -560,14 +627,14 @@ const chatConfig = {
         badge?.classList.add('hidden');
         badge?.classList.remove('flex');
         teaser?.classList.add('hidden');
-        launcher!.setAttribute('aria-label', open ? 'Close chat' : 'Chat with us');
+        launcher!.setAttribute('aria-label', open ? config.ui.closeAria : config.ui.launcherAria);
         return;
       }
 
       // The badge marks an unread assistant greeting, not a human sales rep.
       badge?.classList.remove('hidden');
       badge?.classList.add('flex');
-      launcher!.setAttribute('aria-label', 'Chat with us, 1 new message');
+      launcher!.setAttribute('aria-label', config.ui.launcherUnreadAria);
 
       if (!teaserDismissed && config.teaser && teaserText) {
         teaserText.textContent = config.teaser;
@@ -736,11 +803,7 @@ const chatConfig = {
         syncComposer();
       } catch {
         removeTyping(typing);
-        pushBot(
-          'Sorry — I could not reach the server. Please try again, or use the contact form and our team will reply by email.',
-          [],
-          []
-        );
+        pushBot(config.ui.networkError, [], []);
       }
     }
 

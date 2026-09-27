@@ -1,0 +1,64 @@
+---
+/**
+ * Quality page template — ONE template for all 11 languages.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import CertificationList from '../components/CertificationList.astro';
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale).quality;
+const seo = getDict(locale).seo.quality;
+---
+
+<BaseLayout title={seo.title} description={seo.description} path="/quality/" locale={locale}>
+  <Section eyebrow={t.intro.eyebrow} title={t.intro.title}>
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {
+        t.intro.items.map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-7">
+            <h3 class="text-lg font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section eyebrow={t.traceability.eyebrow} title={t.traceability.title} class="bg-slate-50">
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <p class="text-base leading-relaxed text-slate-700">
+        {t.traceability.text}
+      </p>
+      <ul class="space-y-3 text-sm text-slate-700">
+        {
+          t.traceability.bullets.map((item) => (
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-5 w-5 shrink-0 text-brand-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+              </svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section eyebrow={t.certifications.eyebrow} title={t.certifications.title}>
+    <div class="flex flex-col items-center gap-4">
+      <CertificationList certifications={['ISO 9001', 'CE', 'RoHS']} />
+      <p class="max-w-2xl text-center text-sm text-slate-500">
+        {t.certifications.note}
+      </p>
+    </div>
+  </Section>
+
+  <CTABanner title={t.cta.title} subtitle={t.cta.subtitle} locale={locale} />
+</BaseLayout>

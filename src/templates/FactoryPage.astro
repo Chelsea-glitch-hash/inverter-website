@@ -1,0 +1,68 @@
+---
+/**
+ * Factory page template — ONE template for all 11 languages.
+ * Keeps the current inverter factory positioning; no legacy PCBA/SMT imagery.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { COMPANY } from '../config';
+import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { fill, getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale).factory;
+const seo = getDict(locale).seo.factory;
+---
+
+<BaseLayout
+  title={seo.title}
+  description={fill(seo.description, { area: COMPANY.factoryAreaSqm.toLocaleString('en-US') })}
+  path="/factory/"
+  locale={locale}
+>
+  <Section eyebrow={t.glance.eyebrow} title={t.glance.title}>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.glance.items.map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-base font-semibold text-slate-900">{item.title}</h3>
+            <p class="mt-1 text-sm text-slate-600">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section eyebrow={t.process.eyebrow} title={t.process.title} class="bg-slate-50">
+    <ol class="space-y-4">
+      {
+        t.process.steps.map((step, i) => (
+          <li class="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
+              {i + 1}
+            </span>
+            <p class="pt-1 text-sm leading-relaxed text-slate-700">{step}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section eyebrow={t.visits.eyebrow} title={t.visits.title}>
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <p class="text-base leading-relaxed text-slate-700">
+        {t.visits.text}
+      </p>
+      <div class="rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+        <p class="font-medium text-slate-900">{t.visits.addressLabel}</p>
+        <p class="mt-1">{COMPANY.address}</p>
+      </div>
+    </div>
+  </Section>
+
+  <CTABanner title={t.cta.title} subtitle={t.cta.subtitle} locale={locale} />
+</BaseLayout>

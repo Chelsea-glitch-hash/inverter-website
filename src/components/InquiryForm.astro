@@ -10,16 +10,31 @@
  *
  * Submission: Cloudflare Turnstile -> /api/inquiry (Pages Function)
  *             -> Resend -> sales email.
+ *
+ * Labels follow the page locale; the strings used by the client script are
+ * injected as JSON below (an Astro-bundled <script> cannot see frontmatter).
  */
 import { TURNSTILE } from '../config';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
 
 interface Props {
   /** Pre-selected product SKU (from product page CTA) */
   productSku?: string;
   /** Product options for the select, fetched by the page */
   productOptions?: { sku: string; name: string }[];
+  locale?: Locale;
 }
-const { productSku = '', productOptions = [] } = Astro.props;
+const { productSku = '', productOptions = [], locale = DEFAULT_LOCALE } = Astro.props;
+
+const t = getDict(locale);
+const f = t.form;
+
+const scriptStrings = {
+  errorDetail: f.errorDetail,
+  fallbackError: f.fallbackError,
+  submissionFailed: f.submissionFailed,
+};
 ---
 
 <div
@@ -27,9 +42,9 @@ const { productSku = '', productOptions = [] } = Astro.props;
   data-turnstile-sitekey={TURNSTILE.siteKey}
   class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
 >
-  <h2 class="text-xl font-semibold text-slate-900">Request a Quote</h2>
+  <h2 class="text-xl font-semibold text-slate-900">{f.title}</h2>
   <p class="mt-2 text-sm text-slate-600">
-    Tell us what you need. Our sales engineers reply within 24 hours on business days.
+    {f.subtitle}
   </p>
 
   <form
@@ -39,47 +54,47 @@ const { productSku = '', productOptions = [] } = Astro.props;
     novalidate
   >
     <div>
-      <label for="if-name" class="mb-1.5 block text-sm font-medium text-slate-700">Name <span class="text-red-500">*</span></label>
+      <label for="if-name" class="mb-1.5 block text-sm font-medium text-slate-700">{f.name} <span class="text-red-500">*</span></label>
       <input id="if-name" name="name" type="text" required autocomplete="name"
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div>
-      <label for="if-company" class="mb-1.5 block text-sm font-medium text-slate-700">Company</label>
+      <label for="if-company" class="mb-1.5 block text-sm font-medium text-slate-700">{f.company}</label>
       <input id="if-company" name="company" type="text" autocomplete="organization"
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div>
-      <label for="if-country" class="mb-1.5 block text-sm font-medium text-slate-700">Country</label>
+      <label for="if-country" class="mb-1.5 block text-sm font-medium text-slate-700">{f.country}</label>
       <input id="if-country" name="country" type="text" autocomplete="country-name"
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div>
-      <label for="if-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email <span class="text-red-500">*</span></label>
+      <label for="if-email" class="mb-1.5 block text-sm font-medium text-slate-700">{f.email} <span class="text-red-500">*</span></label>
       <input id="if-email" name="email" type="email" required autocomplete="email"
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div>
-      <label for="if-phone" class="mb-1.5 block text-sm font-medium text-slate-700">WhatsApp / Phone</label>
+      <label for="if-phone" class="mb-1.5 block text-sm font-medium text-slate-700">{f.phone}</label>
       <input id="if-phone" name="phone" type="tel" autocomplete="tel"
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div>
-      <label for="if-quantity" class="mb-1.5 block text-sm font-medium text-slate-700">Estimated Quantity</label>
-      <input id="if-quantity" name="quantity" type="text" inputmode="numeric" placeholder="e.g. 500"
+      <label for="if-quantity" class="mb-1.5 block text-sm font-medium text-slate-700">{f.quantity}</label>
+      <input id="if-quantity" name="quantity" type="text" inputmode="numeric" placeholder={f.quantityPlaceholder}
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
     </div>
     <div class="sm:col-span-2">
-      <label for="if-product" class="mb-1.5 block text-sm font-medium text-slate-700">Interested Product</label>
+      <label for="if-product" class="mb-1.5 block text-sm font-medium text-slate-700">{f.product}</label>
       <select id="if-product" name="product"
         class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200">
-        <option value="">General inquiry / not sure yet</option>
+        <option value="">{f.productGeneral}</option>
         {productOptions.map((o) => <option value={o.sku} selected={o.sku === productSku}>{o.sku} — {o.name}</option>)}
       </select>
     </div>
     <div class="sm:col-span-2">
-      <label for="if-message" class="mb-1.5 block text-sm font-medium text-slate-700">Message <span class="text-red-500">*</span></label>
+      <label for="if-message" class="mb-1.5 block text-sm font-medium text-slate-700">{f.message} <span class="text-red-500">*</span></label>
       <textarea id="if-message" name="message" rows="4" required
-        placeholder="Technical requirements, target market, certification needs, delivery schedule..."
+        placeholder={f.messagePlaceholder}
         class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200"></textarea>
     </div>
 
@@ -93,7 +108,7 @@ const { productSku = '', productOptions = [] } = Astro.props;
     <div class="sm:col-span-2">
       <label class="flex items-start gap-3 text-sm text-slate-600">
         <input type="checkbox" name="marketing_opt_in" value="yes" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
-        <span>I would like to receive product updates, technical information and company news by email.</span>
+        <span>{t.newsletter.consent}</span>
       </label>
     </div>
 
@@ -132,28 +147,34 @@ const { productSku = '', productOptions = [] } = Astro.props;
         type="submit"
         class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
-        Send inquiry
+        {f.submit}
       </button>
       <p class="mt-3 text-xs text-slate-500">
-        By submitting, you agree to our
-        <a href="/privacy-policy/" class="text-brand-700 underline">privacy policy</a>.
-        Your inquiry is not a marketing subscription.
+        {f.consentPrefix}
+        <a href={localizedPath(locale, '/privacy-policy/')} class="text-brand-700 underline">{f.consentLink}</a>{f.consentSuffix}
       </p>
     </div>
   </form>
 
   <!-- Success state -->
   <div id="inquiry-success" class="hidden mt-6 rounded-xl border border-green-200 bg-green-50 p-6" role="status">
-    <p class="font-medium text-green-800">Thank you — your inquiry has been sent.</p>
-    <p class="mt-1 text-sm text-green-700">Our sales engineers will get back to you within 24 hours on business days.</p>
+    <p class="font-medium text-green-800">{f.successTitle}</p>
+    <p class="mt-1 text-sm text-green-700">{f.successText}</p>
   </div>
 
   <!-- Error state -->
   <div id="inquiry-error" class="hidden mt-6 rounded-xl border border-red-200 bg-red-50 p-6" role="alert">
-    <p class="font-medium text-red-800">Something went wrong.</p>
+    <p class="font-medium text-red-800">{f.errorTitle}</p>
     <p id="inquiry-error-detail" class="mt-1 text-sm text-red-700"></p>
   </div>
 </div>
+
+<script
+  type="application/json"
+  id="inquiry-i18n"
+  is:inline
+  set:html={JSON.stringify(scriptStrings)}
+/>
 
 <script>
   import { getAttribution } from '../lib/attribution';
@@ -164,6 +185,17 @@ const { productSku = '', productOptions = [] } = Astro.props;
   const success = document.getElementById('inquiry-success');
   const errorBox = document.getElementById('inquiry-error');
   const errorDetail = document.getElementById('inquiry-error-detail');
+
+  // Locale strings injected from the server render (English fallback included).
+  let i18n = { errorDetail: '{message} Please try again, or email us directly.', fallbackError: 'Please try again, or email us directly.', submissionFailed: 'Submission failed.' };
+  try {
+    const el = document.getElementById('inquiry-i18n');
+    if (el?.textContent) i18n = { ...i18n, ...(JSON.parse(el.textContent) as typeof i18n) };
+  } catch { /* keep English fallback */ }
+
+  function fill(template: string, vars: Record<string, string>): string {
+    return template.replace(/\{(\w+)\}/g, (m, key: string) => (key in vars ? vars[key] : m));
+  }
 
   // Load Turnstile widget only when configured.
   const siteKey = root?.dataset.turnstileSitekey;
@@ -256,13 +288,12 @@ const { productSku = '', productOptions = [] } = Astro.props;
           utm_campaign: String(data['attr_campaign'] || ''),
         });
       } else {
-        throw new Error(result.error || 'Submission failed.');
+        throw new Error(result.error || i18n.submissionFailed);
       }
     } catch (err) {
-      errorDetail.textContent =
-        err instanceof Error
-          ? `${err.message} Please try again, or email us directly.`
-          : 'Please try again, or email us directly.';
+      errorDetail.textContent = fill(i18n.errorDetail, {
+        message: err instanceof Error ? err.message : i18n.fallbackError,
+      });
       errorBox.classList.remove('hidden');
       if (button) button.disabled = false;
     }
