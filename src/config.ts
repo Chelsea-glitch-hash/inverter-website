@@ -34,8 +34,14 @@ export const COMPANY = {
   rdEngineers: 40,
   exportCountries: 60,
   oemClients: 120,
-  /** TODO: full registered address, City, Province, China */
-  address: 'TODO: full factory address, City, Province, China',
+  /**
+   * Street address without the city/province/country tail — those are set
+   * separately below so the schema.org PostalAddress can split them correctly.
+   */
+  address: 'Nantai Yunchuanggu, Tangwei Community, Fenghuang Street, Guangming District',
+  addressLocality: 'Shenzhen',
+  addressRegion: 'Guangdong',
+  addressCountry: 'CN',
 };
 
 export const CONTACT = {
@@ -46,8 +52,8 @@ export const CONTACT = {
    * Used verbatim to build wa.me links: https://wa.me/<whatsapp>
    */
   whatsapp: '8618923094074',
-  /** TODO: published phone number for the contact page. */
-  phone: '+86-000-0000-0000',
+  /** Published sales phone number, international format. */
+  phone: '+86 189 2309 4074',
 };
 
 /**

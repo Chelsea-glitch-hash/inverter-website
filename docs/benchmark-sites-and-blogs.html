@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>逆变器 / 储能独立站 · 内容栏目与博客链接清单</title>
+<style>
+  :root{
+    --bg:#f7f8fa;
+    --surface:#ffffff;
+    --border:#e4e7ec;
+    --text:#1a1d21;
+    --text-2:#52586b;
+    --text-3:#828a9e;
+    --a:#2563eb;      /* A层 蓝 */
+    --b:#0f9d76;      /* B层 绿 */
+    --c:#b45309;      /* C层 橙 */
+    --d:#7c3aed;      /* D层 紫 */
+    --a-bg:#eff5ff; --b-bg:#ecfaf5; --c-bg:#fff6e9; --d-bg:#f6f0ff;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.65;
+    font-size:15px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px}
+
+  /* ---------- header ---------- */
+  header{
+    background:var(--surface); border-bottom:1px solid var(--border);
+    padding:44px 0 36px; margin-bottom:36px;
+  }
+  header .wrap{padding-bottom:0}
+  .eyebrow{
+    font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--b); margin-bottom:12px;
+  }
+  h1{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.3;margin-bottom:14px}
+  .sub{color:var(--text-2);font-size:14.5px;max-width:760px}
+  .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;
+    background:var(--bg);border:1px solid var(--border);color:var(--text-2);
+  }
+
+  /* ---------- section ---------- */
+  section{margin-bottom:44px;scroll-margin-top:20px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+  .tier{
+    font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:5px;
+    color:#fff;flex-shrink:0;
+  }
+  .tier.a{background:var(--a)} .tier.b{background:var(--b)}
+  .tier.c{background:var(--c)} .tier.d{background:var(--d)}
+  h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .sec-note{color:var(--text-2);font-size:13.5px;margin-bottom:20px;padding-left:2px}
+
+  /* ---------- toc ---------- */
+  .toc{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px 24px;margin-bottom:40px;
+  }
+  .toc h3{font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
+  .toc ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 24px}
+  .toc a{color:var(--text);text-decoration:none;font-size:14px;display:flex;gap:9px;align-items:baseline}
+  .toc a:hover{color:var(--a)}
+  .toc .n{font-variant-numeric:tabular-nums;color:var(--text-3);font-size:12.5px;min-width:16px}
+
+  /* ---------- card ---------- */
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px 24px;margin-bottom:16px;
+  }
+  .card-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .card h3{font-size:17px;font-weight:700}
+  .badge{
+    font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;
+    background:var(--bg);border:1px solid var(--border);color:var(--text-2);
+  }
+  .badge.hot{background:var(--b-bg);border-color:#bfe8da;color:#0b7a5b}
+
+  /* link rows */
+  .links{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+  .row{
+    display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;
+    background:var(--surface);padding:10px 14px;font-size:14px;
+  }
+  .row .k{color:var(--text-2);font-size:13.5px;padding-top:1px}
+  .row .v{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .row a{
+    color:var(--a);text-decoration:none;word-break:break-all;font-size:13.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .row a:hover{text-decoration:underline}
+  .row .note{color:var(--text-3);font-size:12.5px;font-family:inherit}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .tag{
+    font-size:12px;padding:2px 9px;border-radius:99px;
+    background:var(--bg);border:1px solid var(--border);color:var(--text-2);
+  }
+
+  .takeaway{
+    margin-top:16px;padding:12px 16px;border-radius:8px;
+    background:#fafbfc;border-left:3px solid var(--b);
+    font-size:13.5px;color:var(--text-2);
+  }
+  .takeaway b{color:var(--text)}
+  .takeaway.warn{border-left-color:#d97706;background:#fffbf3}
+
+  /* ---------- rules ---------- */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .rule{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px 20px;
+  }
+  .rule .num{
+    font-size:12px;font-weight:700;color:var(--b);letter-spacing:.06em;margin-bottom:8px;
+  }
+  .rule h4{font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.5}
+  .rule p{font-size:13.5px;color:var(--text-2)}
+  .rule code{
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;
+    background:var(--bg);padding:1px 5px;border-radius:4px;color:#0b7a5b;
+  }
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:13.5px}
+  th{
+    text-align:left;padding:11px 14px;background:#fafbfc;font-weight:600;
+    color:var(--text-2);font-size:12.5px;letter-spacing:.03em;border-bottom:1px solid var(--border);
+  }
+  td{padding:11px 14px;border-bottom:1px solid #f0f2f5;vertical-align:top;color:var(--text-2)}
+  tr:last-child td{border-bottom:none}
+  td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+  td a{color:var(--a);text-decoration:none;word-break:break-all}
+  td a:hover{text-decoration:underline}
+  .p0{color:#b91c1c;font-weight:700}
+  .p1{color:#b45309;font-weight:700}
+  .p2{color:#0b7a5b;font-weight:600}
+  .p3{color:#6d28d9;font-weight:600}
+
+  footer{
+    border-top:1px solid var(--border);padding-top:24px;margin-top:48px;
+    color:var(--text-3);font-size:12.5px;
+  }
+  @media (max-width:640px){
+    h1{font-size:23px}
+    .row{grid-template-columns:1fr;gap:4px}
+    .row .k{font-weight:600;color:var(--text)}
+    .wrap{padding:0 16px 60px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Competitor Content Research</div>
+    <h1>逆变器 / 储能独立站<br>内容栏目与博客链接清单</h1>
+    <p class="sub">为本站（B2B 离网逆变器 · Astro 站）整理的对标清单。按「同赛道竞品 → 内容打法标杆 → 分发阵地」四层分组，全部链接逐一访问验证。</p>
+    <div class="meta">
+      <span class="chip">调研日期 2026-09-28</span>
+      <span class="chip">34 个站点</span>
+      <span class="chip">四层分组</span>
+      <span class="chip">链接均已验证</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h3>目录</h3>
+    <ol>
+      <li><a href="#tier-a"><span class="n">A</span>头部储能品牌独立站（6家）</a></li>
+      <li><a href="#tier-b"><span class="n">B</span>离网 / DIY 太阳能站（6家）</a></li>
+      <li><a href="#tier-c"><span class="n">C</span>逆变器厂商官网 B2B（8家）</a></li>
+      <li><a href="#tier-d"><span class="n">D</span>内容型站点与论坛（13个）</a></li>
+      <li><a href="#rules"><span class="n">7</span>条可复用内容规律</a></li>
+      <li><a href="#actions"><span class="n">→</span>本站落地建议</a></li>
+    </ol>
+  </nav>
+
+  <!-- ================= A ================= -->
+  <section id="tier-a">
+    <div class="sec-head">
+      <span class="tier a">A 层</span>
+      <h2>头部储能品牌独立站</h2>
+    </div>
+    <p class="sec-note">内容矩阵最成熟的一层。重点看它们<b>怎么切栏目、怎么拆站群</b>，而不是看产品。</p>
+
+    <!-- EcoFlow -->
+    <div class="card">
+      <div class="card-top"><h3>EcoFlow</h3><span class="badge hot">品牌站 / 商城分离</span></div>
+      <div class="links">
+        <div class="row"><div class="k">品牌主站</div><div class="v"><a href="https://www.ecoflow.com/us" target="_blank">https://www.ecoflow.com/us</a></div></div>
+        <div class="row"><div class="k">博客</div><div class="v"><a href="https://www.ecoflow.com/us/blog" target="_blank">https://www.ecoflow.com/us/blog</a><span class="note">从首页 "Featured Blogs and News" 进入</span></div></div>
+        <div class="row"><div class="k">交易商城</div><div class="v"><a href="https://us.ecoflow.com" target="_blank">https://us.ecoflow.com</a><span class="note">Shopify，独立子域</span></div></div>
+        <div class="row"><div class="k">场景内容页</div><div class="v">
+          <a href="https://www.ecoflow.com/us/cost-saving" target="_blank">/us/cost-saving</a>
+          <a href="https://www.ecoflow.com/us/on-the-road-power-solution" target="_blank">/us/on-the-road-power-solution</a>
+          <a href="https://www.ecoflow.com/us/battery-backup-for-home" target="_blank">/us/battery-backup-for-home</a>
+        </div></div>
+        <div class="row"><div class="k">用户论坛</div><div class="v"><a href="https://forum.ecoflow.com/us" target="_blank">https://forum.ecoflow.com/us</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>品牌站不挂购物车。首页第一屏不是产品列表，而是 <b>Cost Saving / On the Road / Power Backup</b> 三个场景入口 —— 先讲用途，再讲产品。</div>
+    </div>
+
+    <!-- BLUETTI -->
+    <div class="card">
+      <div class="card-top"><h3>BLUETTI</h3><span class="badge hot">关键词矩阵最狠</span></div>
+      <div class="links">
+        <div class="row"><div class="k">品牌主站</div><div class="v"><a href="https://www.bluetti.com" target="_blank">https://www.bluetti.com</a><span class="note">B2B / 解决方案导向</span></div></div>
+        <div class="row"><div class="k">博客 / News</div><div class="v"><a href="https://www.bluettipower.com/blogs/news" target="_blank">https://www.bluettipower.com/blogs/news</a><span class="note">内容主阵地，更新频率约每周 2–3 篇</span></div></div>
+        <div class="row"><div class="k">工商业储能站</div><div class="v"><a href="https://bluetti-ess.com/ciess" target="_blank">https://bluetti-ess.com/ciess</a></div></div>
+        <div class="row"><div class="k">解决方案页</div><div class="v">
+          <a href="https://www.bluetti.com/solution/balcony-solar-system" target="_blank">/solution/balcony-solar-system</a>
+          <a href="https://www.bluetti.com/solution/rv-off-grid" target="_blank">/solution/rv-off-grid</a>
+        </div></div>
+      </div>
+      <div class="tags">
+        <span class="tag">Home Appliances</span><span class="tag">Camping</span><span class="tag">Solar Panels</span>
+        <span class="tag">Knowledge Base</span><span class="tag">How-tos</span><span class="tag">Outdoor Usage</span>
+        <span class="tag">Solar Generator</span><span class="tag">Emergency</span>
+      </div>
+      <div class="takeaway">上面这排就是它的博客栏目结构。<b>可抄的点：</b>用「功耗百科」铺关键词 —— <code>How Much Electricity Does A Fan Use?</code>、<code>How Many Watts Does a Well Pump Use?</code>、<code>How Much Energy Does A Kettle Consume?</code>。这类词搜索量大、竞争低、商业意图明确，是品类流量基本盘。</div>
+    </div>
+
+    <!-- Jackery -->
+    <div class="card">
+      <div class="card-top"><h3>Jackery</h3><span class="badge">知识库拆独立域名</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://www.jackery.com" target="_blank">https://www.jackery.com</a></div></div>
+        <div class="row"><div class="k">博客</div><div class="v"><a href="https://www.jackery.com/pages/blogs" target="_blank">https://www.jackery.com/pages/blogs</a></div></div>
+        <div class="row"><div class="k">知识中心</div><div class="v"><a href="https://community.jackery.com/us/knowledge" target="_blank">https://community.jackery.com/us/knowledge</a><span class="note">独立子域</span></div></div>
+        <div class="row"><div class="k">视频教程</div><div class="v"><a href="https://community.jackery.com/us/videos" target="_blank">https://community.jackery.com/us/videos</a></div></div>
+        <div class="row"><div class="k">应急专题</div><div class="v"><a href="https://www.jackery.com/blogs/emergency" target="_blank">https://www.jackery.com/blogs/emergency</a></div></div>
+        <div class="row"><div class="k">产品指南</div><div class="v"><a href="https://www.jackery.com/tagged/product-guide" target="_blank">https://www.jackery.com/tagged/product-guide</a></div></div>
+        <div class="row"><div class="k">用户故事</div><div class="v"><a href="https://www.jackery.com/pages/jackery-stories" target="_blank">https://www.jackery.com/pages/jackery-stories</a><span class="note">按 Home Backup / Off-Grid / Camping / RV 分锚点</span></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>知识中心与视频库整体搬到 <code>community.jackery.com</code>，主站只留导流入口 —— 主站权重不被海量内容稀释，知识库还能独立做 SEO。</div>
+    </div>
+
+    <!-- Anker SOLIX -->
+    <div class="card">
+      <div class="card-top"><h3>Anker SOLIX</h3></div>
+      <div class="links">
+        <div class="row"><div class="k">博客中心</div><div class="v"><a href="https://www.ankersolix.com/blogs/" target="_blank">https://www.ankersolix.com/blogs/</a></div></div>
+        <div class="row"><div class="k">栏目 · 家用发电机</div><div class="v"><a href="https://www.ankersolix.com/blogs/home-generator" target="_blank">/blogs/home-generator</a><span class="note">重点押注，客单价最高</span></div></div>
+        <div class="row"><div class="k">栏目 · 电池</div><div class="v"><a href="https://www.ankersolix.com/blogs/battery" target="_blank">/blogs/battery</a></div></div>
+        <div class="row"><div class="k">栏目 · 便携电源</div><div class="v"><a href="https://www.ankersolix.com/blogs/portable-power-station" target="_blank">/blogs/portable-power-station</a></div></div>
+        <div class="row"><div class="k">栏目 · 其他</div><div class="v"><a href="https://www.ankersolix.com/blogs/others" target="_blank">/blogs/others</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>栏目按「产品线 + 采购意图」切，不是按话题切。场景长尾铺得极细（<i>Utah RV Parks Guide</i>、<i>What Is Primitive Camping</i>），用低竞争场景词走量。</div>
+    </div>
+
+    <!-- Zendure -->
+    <div class="card">
+      <div class="card-top"><h3>Zendure</h3><span class="badge">单场景聚焦</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站（EU）</div><div class="v"><a href="https://zendure.com" target="_blank">https://zendure.com</a></div></div>
+        <div class="row"><div class="k">博客</div><div class="v"><a href="https://zendure.com/blogs/news" target="_blank">https://zendure.com/blogs/news</a></div></div>
+        <div class="row"><div class="k">HEMS 系统页</div><div class="v"><a href="https://zendure.com/pages/hems" target="_blank">https://zendure.com/pages/hems</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>内容 100% 押在「欧洲阳台光伏 / 插电式储能」这一个场景上，几乎不做泛科普。产品指南类长文（<i>SolarFlow 2400 Pro: The Ultimate Product Guide</i>）承担转化。</div>
+    </div>
+
+    <!-- Renogy -->
+    <div class="card">
+      <div class="card-top"><h3>Renogy</h3><span class="badge hot">内容矩阵最完整 · 整体对标首选</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://www.renogy.com" target="_blank">https://www.renogy.com</a></div></div>
+        <div class="row"><div class="k">博客总入口</div><div class="v"><a href="https://www.renogy.com/pages/blog" target="_blank">https://www.renogy.com/pages/blog</a></div></div>
+        <div class="row"><div class="k">博客栏目</div><div class="v">
+          <a href="https://www.renogy.com/blogs/general-solar" target="_blank">/blogs/general-solar</a>
+          <a href="https://www.renogy.com/blogs/buyers-guide" target="_blank">/blogs/buyers-guide</a>
+          <a href="https://www.renogy.com/blogs/off-grid-power" target="_blank">/blogs/off-grid-power</a>
+          <a href="https://www.renogy.com/blogs/home-backup" target="_blank">/blogs/home-backup</a>
+          <a href="https://www.renogy.com/blogs/emergency" target="_blank">/blogs/emergency</a>
+          <a href="https://www.renogy.com/blogs/learn-center" target="_blank">/blogs/learn-center</a>
+          <a href="https://www.renogy.com/blogs/news" target="_blank">/blogs/news</a>
+          <a href="https://www.renogy.com/blogs/user-story" target="_blank">/blogs/user-story</a>
+          <a href="https://www.renogy.com/blogs/case-study" target="_blank">/blogs/case-study</a>
+        </div></div>
+        <div class="row"><div class="k">学习中心</div><div class="v"><a href="https://www.renogy.com/pages/learning-center" target="_blank">https://www.renogy.com/pages/learning-center</a></div></div>
+        <div class="row"><div class="k">功率计算器</div><div class="v"><a href="https://www.renogy.com/pages/renogy-calculator" target="_blank">https://www.renogy.com/pages/renogy-calculator</a></div></div>
+        <div class="row"><div class="k">手册下载中心</div><div class="v"><a href="https://www.renogy.com/pages/manuals-download" target="_blank">https://www.renogy.com/pages/manuals-download</a></div></div>
+        <div class="row"><div class="k">论坛（独立域名）</div><div class="v"><a href="https://forum.renogy.com/" target="_blank">https://forum.renogy.com/</a></div></div>
+        <div class="row"><div class="k">Reddit 社区</div><div class="v"><a href="https://www.reddit.com/r/RenogyCommunity/" target="_blank">https://www.reddit.com/r/RenogyCommunity/</a></div></div>
+        <div class="row"><div class="k">逆变器分类页</div><div class="v"><a href="https://www.renogy.com/collections/inverters" target="_blank">https://www.renogy.com/collections/inverters</a></div></div>
+        <div class="row"><div class="k">场景落地页</div><div class="v">
+          <a href="https://www.renogy.com/pages/rv-solution" target="_blank">/pages/rv-solution</a>
+          <a href="https://www.renogy.com/pages/tiny-house" target="_blank">/pages/tiny-house</a>
+          <a href="https://www.renogy.com/pages/shed-solution" target="_blank">/pages/shed-solution</a>
+          <a href="https://www.renogy.com/pages/farm-solution" target="_blank">/pages/farm-solution</a>
+          <a href="https://www.renogy.com/pages/sail-boat-solution" target="_blank">/pages/sail-boat-solution</a>
+          <a href="https://www.renogy.com/pages/off-road" target="_blank">/pages/off-road</a>
+          <a href="https://www.renogy.com/pages/residential-grid-tie" target="_blank">/pages/residential-grid-tie</a>
+        </div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>博客 + 学习中心 + 计算器 + 手册中心 + 论坛 + 用户故事 + 商业案例 + 场景落地页，<b>八件套齐备</b>。场景落地页结构为 <code>RV / Tiny House / Workshop / Marine / Off Road / Farm</code> —— 每场景一个独立 URL，全部从导航二级菜单进入。B2C 侧整体对标首选。</div>
+    </div>
+
+    <!-- others -->
+    <div class="card">
+      <div class="card-top"><h3>其他便携储能 DTC 站</h3></div>
+      <table>
+        <thead><tr><th>品牌</th><th>博客 / 内容入口</th><th>参考价值</th></tr></thead>
+        <tbody>
+          <tr><td>VTOMAN</td><td><a href="https://vtoman.com/blogs/news" target="_blank">vtoman.com/blogs/news</a></td><td>更新频繁，选题偏实用科普</td></tr>
+          <tr><td>Pecron</td><td><a href="https://www.pecron.com/blogs/news" target="_blank">pecron.com/blogs/news</a></td><td>内容薄但选题精准（容量 / 功率类）</td></tr>
+          <tr><td>ECO-WORTHY</td><td><a href="https://www.eco-worthy.com/pages/blog-page" target="_blank">eco-worthy.com/pages/blog-page</a><br><a href="https://www.eco-worthy.com/blogs/lithium-battery" target="_blank">/blogs/lithium-battery</a> · <a href="https://www.eco-worthy.com/blogs/solar-panel-system-3" target="_blank">/blogs/solar-panel-system-3</a> · <a href="https://www.eco-worthy.com/blogs/videos" target="_blank">/blogs/videos</a></td><td>电池技术向内容，中等</td></tr>
+          <tr><td>OUKITEL</td><td><a href="https://oukitel.com/blogs/news" target="_blank">oukitel.com/blogs/news</a></td><td>混手机品类，较低</td></tr>
+          <tr><td>ALLPOWERS</td><td><a href="https://allpowers.com/CompanyNews/list.aspx" target="_blank">allpowers.com/CompanyNews/list.aspx</a></td><td>纯企业新闻，几乎无内容策略</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section id="tier-b">
+    <div class="sec-head">
+      <span class="tier b">B 层</span>
+      <h2>离网 / DIY 太阳能独立站</h2>
+    </div>
+    <p class="sec-note">与本站业务最接近的一层，看的是<b>产品页与内容页怎么融合</b>。</p>
+
+    <!-- Victron -->
+    <div class="card">
+      <div class="card-top"><h3>Victron Energy</h3><span class="badge hot">案例即内容 · B2B 对标重点</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://www.victronenergy.com" target="_blank">https://www.victronenergy.com</a></div></div>
+        <div class="row"><div class="k">博客</div><div class="v"><a href="https://www.victronenergy.com/blog" target="_blank">https://www.victronenergy.com/blog</a></div></div>
+        <div class="row"><div class="k">用户故事</div><div class="v"><a href="https://www.victronenergy.com/blog/category/users-stories/" target="_blank">/blog/category/users-stories/</a></div></div>
+        <div class="row"><div class="k">新闻</div><div class="v"><a href="https://www.victronenergy.com/blog/category/news/" target="_blank">/blog/category/news/</a></div></div>
+        <div class="row"><div class="k">固件与软件</div><div class="v"><a href="https://www.victronenergy.com/blog/category/firmware-software/" target="_blank">/blog/category/firmware-software/</a></div></div>
+        <div class="row"><div class="k">产品</div><div class="v"><a href="https://www.victronenergy.com/blog/category/products/" target="_blank">/blog/category/products/</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>基本不做科普，只做<b>真实项目故事</b> —— 远洋帆船供电、澳洲牛场灌溉、窄船锂电改造、社区微电网、地雷清除设备。每篇都是「完整应用场景 + 具体设备清单」。对 B2B 询盘的信任建立极其有效，且天然获得行业媒体引用（直接服务 GEO 品牌实体建设）。</div>
+    </div>
+
+    <!-- SunGoldPower -->
+    <div class="card">
+      <div class="card-top"><h3>SunGoldPower</h3><span class="badge">Kit 商业词集群</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://sungoldpower.com" target="_blank">https://sungoldpower.com</a></div></div>
+        <div class="row"><div class="k">博客 / News</div><div class="v"><a href="https://sungoldpower.com/blogs/news" target="_blank">https://sungoldpower.com/blogs/news</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>选题全押「成套系统（Kit）」商业词 —— <i>Off-Grid House Kit</i>、<i>Best RV Solar Power Kit</i>、<i>Best Hybrid Solar System Kits 2026</i>、<i>Best Off Grid Cabin Kits</i>。每个集群围绕一条产品线，文内链直达对应 Kit 产品页。</div>
+    </div>
+
+    <!-- RICH SOLAR -->
+    <div class="card">
+      <div class="card-top"><h3>RICH SOLAR</h3></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://richsolar.com" target="_blank">https://richsolar.com</a></div></div>
+        <div class="row"><div class="k">博客 / News</div><div class="v"><a href="https://richsolar.com/blogs/news" target="_blank">https://richsolar.com/blogs/news</a></div></div>
+        <div class="row"><div class="k">学习中心</div><div class="v"><a href="https://richsolar.com/pages/rich-solar-learning-center-1" target="_blank">richsolar.com/pages/rich-solar-learning-center-1</a></div></div>
+        <div class="row"><div class="k">逆变器产品线</div><div class="v"><a href="https://richsolar.com/collections/inverters" target="_blank">https://richsolar.com/collections/inverters</a></div></div>
+        <div class="row"><div class="k">FAQ</div><div class="v"><a href="https://richsolar.com/pages/faq" target="_blank">https://richsolar.com/pages/faq</a></div></div>
+        <div class="row"><div class="k">对标选题</div><div class="v">
+          <a href="https://richsolar.com/blogs/news/inverter-sizing-101" target="_blank">/blogs/news/inverter-sizing-101</a>
+          <a href="https://richsolar.com/blogs/news/wiring-your-solar-panel-series-parallel-and-series-parallel" target="_blank">/blogs/news/wiring-your-solar-panel-series-parallel…</a>
+        </div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>产品线做成<b>系列命名</b>（NOVA 逆变器 / ALPHA 电池 / MEGA 面板 / BRAVO 控制器），内容围绕「如何选型」而非「泛科普」，首页 FAQ 直接回答系统兼容性问题。</div>
+    </div>
+
+    <!-- Signature Solar -->
+    <div class="card">
+      <div class="card-top"><h3>Signature Solar</h3><span class="badge">少而深</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://signaturesolar.com" target="_blank">https://signaturesolar.com</a></div></div>
+        <div class="row"><div class="k">博客</div><div class="v"><a href="https://signaturesolar.com/blog/" target="_blank">https://signaturesolar.com/blog/</a></div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>更新频率低（约每月 1 篇）但<b>全部是深度长文</b>，且紧跟时政与成本话题（<i>The Real Cost of Driving an EV</i>、<i>Home Energy Efficiency Tips for Winter</i>）。适合人手有限时走「少而深」路线。</div>
+    </div>
+
+    <!-- EG4 -->
+    <div class="card">
+      <div class="card-top"><h3>EG4 Electronics</h3><span class="badge hot">认证内容打法 · 强烈建议对标</span></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://eg4electronics.com" target="_blank">https://eg4electronics.com</a></div></div>
+        <div class="row"><div class="k">新闻 / 博客</div><div class="v"><a href="https://eg4electronics.com/blog/news" target="_blank">https://eg4electronics.com/blog/news</a></div></div>
+        <div class="row"><div class="k">重点文章</div><div class="v">
+          <a href="https://eg4electronics.com/the-only-ul-9540-certified-off-grid-ess-eg4-delivers-certified-safety-beyond-the-grid/" target="_blank">The Only UL 9540 Certified Off-Grid ESS</a>
+          <a href="https://eg4electronics.com/read-this-before-installing-eg4/" target="_blank">Read This Before Installing EG4</a>
+          <a href="https://eg4electronics.com/building-an-off-grid-home-with-eg4-kevins-story/" target="_blank">Building an Off-Grid Home with EG4: Kevin's Story</a>
+        </div></div>
+      </div>
+      <div class="takeaway"><b>可抄的点：</b>内容 = <b>认证 + 案例 + 立场</b>。把认证（UL 1741 / UL 9540 / IEC 62109 / CE）写成独立内容页，直接建立品类优势并承接 B2B 采购的合规审查需求 —— <b>这一篇的写法对本站价值最高</b>。</div>
+    </div>
+
+    <!-- Lion -->
+    <div class="card">
+      <div class="card-top"><h3>Lion Energy</h3></div>
+      <div class="links">
+        <div class="row"><div class="k">主站</div><div class="v"><a href="https://lionenergy.com" target="_blank">https://lionenergy.com</a></div></div>
+      </div>
+      <div class="takeaway warn">主站访问正常，但<b>未找到公开的博客索引 URL</b>；内容以产品页 + 用户评价为主，推测无独立博客栏目。如需要可后续复查其站内导航。</div>
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section id="tier-c">
+    <div class="sec-head">
+      <span class="tier c">C 层</span>
+      <h2>逆变器厂商官网（B2B · 直接竞品）</h2>
+    </div>
+    <p class="sec-note">同赛道，看的是<b>它们对内容 SEO 的投入程度</b>——整体低于 A 层，说明这里仍有空间。</p>
+
+    <table>
+      <thead><tr><th>品牌</th><th>主站</th><th>内容栏目</th><th>参考点</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Sol-Ark</td>
+          <td><a href="https://sol-ark.com" target="_blank">sol-ark.com</a></td>
+          <td><a href="https://sol-ark.com/news/" target="_blank">sol-ark.com/news/</a></td>
+          <td>选题全部面向安装商与承包商（VPP 销售、Safe Harbor 政策、商用电站）—— <b>B2B 内容最佳样板</b></td>
+        </tr>
+        <tr>
+          <td>Sunsynk</td>
+          <td><a href="https://www.sunsynk.org" target="_blank">sunsynk.org</a></td>
+          <td><a href="https://www.sunsynk.org/blog/" target="_blank">/blog/</a><br><a href="https://www.sunsynk.org/events" target="_blank">/events</a><br><a href="https://support.sunsynk.com/support/solutions" target="_blank">support.sunsynk.com/support/solutions</a></td>
+          <td>知识库按 Grid / Load / MPPT / Battery / Fault Codes 分类 —— <b>安装商技术支持的教科书结构，直接可抄</b></td>
+        </tr>
+        <tr>
+          <td>SolaX Power</td>
+          <td><a href="https://www.solaxpower.com" target="_blank">solaxpower.com</a></td>
+          <td><a href="https://au.solaxpower.com/blogs_3.html" target="_blank">au.solaxpower.com/blogs_3.html</a><br><a href="https://de.solaxpower.com/blog/" target="_blank">de.solaxpower.com/blog/</a><br><a href="https://id.solaxpower.com/blog/" target="_blank">id.solaxpower.com/blog/</a></td>
+          <td>按国家分站做本地化内容（动态电价、FCAS、EnWG §14a 等本地政策解读）</td>
+        </tr>
+        <tr>
+          <td>SolarEdge</td>
+          <td><a href="https://www.solaredge.com" target="_blank">solaredge.com</a></td>
+          <td><a href="https://www.solaredge.com/us/solaredge-blog/home-backup" target="_blank">/us/solaredge-blog/home-backup</a></td>
+          <td>偏商用 / 大型电站技术文，住宅侧内容偏弱</td>
+        </tr>
+        <tr>
+          <td>Enphase</td>
+          <td><a href="https://enphase.com" target="_blank">enphase.com</a></td>
+          <td><a href="https://enphase.com/learn/home-energy" target="_blank">/learn/home-energy</a><br><a href="https://enphase.com/energy-stories" target="_blank">/energy-stories</a></td>
+          <td>微逆龙头，「太阳能 A-Z」式教育培训 + 用户故事</td>
+        </tr>
+        <tr>
+          <td>Growatt 古瑞瓦特</td>
+          <td><a href="https://www.growatt.com" target="_blank">growatt.com</a></td>
+          <td><a href="https://www.growatt.com/media/news" target="_blank">/media/news</a></td>
+          <td>以企业新闻稿为主，科普内容少</td>
+        </tr>
+        <tr>
+          <td>GoodWe 固德威</td>
+          <td><a href="https://en.goodwe.com" target="_blank">en.goodwe.com</a></td>
+          <td><a href="https://en.goodwe.com/news" target="_blank">/news</a></td>
+          <td>同上，企业新闻 + 公益项目导向</td>
+        </tr>
+        <tr>
+          <td>Sigenergy 思格</td>
+          <td><a href="https://www.sigenergy.com" target="_blank">sigenergy.com</a></td>
+          <td><a href="https://www.sigenergy.com/cn/newsroom/news" target="_blank">/cn/newsroom/news</a><br><a href="https://www.sigenergy.com/cn/support/learn" target="_blank">/cn/support/learn</a></td>
+          <td>围绕「AI + 光储」叙事，技术白皮书式</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-top"><h3>站外 B2B 电商 + 内容混合样本</h3></div>
+      <div class="links">
+        <div class="row"><div class="k">SOLARKIT（欧洲）</div><div class="v"><a href="https://solar-kit.eu/home" target="_blank">https://solar-kit.eu/home</a><span class="note">面向安装商做「Webinar + 技术博客 + 品牌对比文」，选题如 <i>Solar Inverter Prices and Selection Criteria</i>、<i>FoxESS: Everything You Need to Know</i> —— 适合 B2B 出口站对标</span></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><h3>可扩展补充（未逐一验证）</h3></div>
+      <p style="font-size:13.5px;color:var(--text-2)">Deye（德业）· FoxESS（艾罗）· Sungrow（阳光电源）· SMA · Fronius · Tesla Powerwall · Schneider · Xantrex · Magnum。这几家官网内容普遍以企业新闻稿为主，对内容 SEO 的投入远低于 A 层品牌。</p>
+    </div>
+  </section>
+
+  <!-- ================= D ================= -->
+  <section id="tier-d">
+    <div class="sec-head">
+      <span class="tier d">D 层</span>
+      <h2>内容型站点 / 论坛（GEO 品牌实体阵地）</h2>
+    </div>
+    <p class="sec-note">这一层不是竞品，而是<b>你希望被提及、被引用、被链接的阵地</b> —— 对应 SEO/GEO 方案 P3「品牌实体建设」。</p>
+
+    <div class="card">
+      <div class="card-top"><h3>论坛与社区</h3></div>
+      <table>
+        <thead><tr><th>名称</th><th>地址</th><th>定位 / 规模</th></tr></thead>
+        <tbody>
+          <tr><td>DIYSolarForum</td><td><a href="https://diysolarforum.com" target="_blank">diysolarforum.com</a></td><td>全球最大 DIY 太阳能论坛，5 万+ 成员，离网逆变器与电池组深度知识库</td></tr>
+          <tr><td>r/DIYsolar</td><td><a href="https://www.reddit.com/r/DIYsolar/" target="_blank">reddit.com/r/DIYsolar</a></td><td>8 万+，新手友好</td></tr>
+          <tr><td>r/solar</td><td><a href="https://www.reddit.com/r/solar/" target="_blank">reddit.com/r/solar</a></td><td>25 万+，住宅光伏综合</td></tr>
+          <tr><td>r/OffGrid</td><td><a href="https://www.reddit.com/r/OffGrid/" target="_blank">reddit.com/r/OffGrid</a></td><td>12 万+，离网生活</td></tr>
+          <tr><td>r/vandwellers</td><td><a href="https://www.reddit.com/r/vandwellers/" target="_blank">reddit.com/r/vandwellers</a></td><td>26 万+，房车 / van 改装供电</td></tr>
+          <tr><td>Victron Community</td><td><a href="https://community.victronenergy.com" target="_blank">community.victronenergy.com</a></td><td>厂商自建社区的可参考样本</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><h3>内容型 / 评测型独立站</h3></div>
+      <table>
+        <thead><tr><th>站点</th><th>地址</th><th>参考点</th></tr></thead>
+        <tbody>
+          <tr><td>PowerGetup</td><td><a href="https://powergetup.com" target="_blank">powergetup.com</a></td><td><b>Topic Cluster 结构最清晰</b>：Calculators / Solar Wiring / Power Inverters / Troubleshooting / Safety / System Setup 等 12 个集群，主打逆变器故障排查</td></tr>
+          <tr><td>Power Station Basics</td><td><a href="https://powerstationbasics.com/blog/" target="_blank">powerstationbasics.com/blog/</a></td><td>长文深度评测 + DIY 建站指南</td></tr>
+          <tr><td>Outdoor Tech Lab</td><td><a href="https://www.outdoortechlab.com" target="_blank">outdoortechlab.com</a></td><td>「实测型」内容（三季实测数据）建立可信度</td></tr>
+          <tr><td>Backup Power Hub</td><td><a href="https://backuppowerhub.com" target="_blank">backuppowerhub.com</a></td><td>品牌三方对比（Bluetti vs EcoFlow vs Jackery）</td></tr>
+          <tr><td>SunergyHub</td><td><a href="https://sunergyhub.com" target="_blank">sunergyhub.com</a></td><td>同类型三方对比 + 联盟营销</td></tr>
+          <tr><td>HowToGoSolar</td><td><a href="https://www.howtogosolar.org" target="_blank">howtogosolar.org</a></td><td>论坛导览型聚合内容</td></tr>
+          <tr><td>Daily Tech Navigator</td><td><a href="https://dailytechnavigator.com" target="_blank">dailytechnavigator.com</a></td><td>DIY 系统搭建实录 + 成本拆解</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= RULES ================= -->
+  <section id="rules">
+    <div class="sec-head"><h2>7 条可直接复用的内容规律</h2></div>
+    <p class="sec-note">把上面 34 个站点的内容策略抽象出来，反复出现的就是这 7 条。</p>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="num">01</div>
+        <h4>「功耗 / 参数百科」关键词矩阵是流量基本盘</h4>
+        <p><code>How many watts does X use</code> · <code>What can a XXXXW inverter run</code> · <code>How long will X last</code><br>代表：BLUETTI、Pecron、VTOMAN</p>
+      </div>
+      <div class="rule">
+        <div class="num">02</div>
+        <h4>场景落地页 &gt; 产品列表页</h4>
+        <p>每个场景一个独立 URL，从导航二级菜单进入。代表：Renogy、EcoFlow、Zendure</p>
+      </div>
+      <div class="rule">
+        <div class="num">03</div>
+        <h4>工具化内容带来高质量外链与停留</h4>
+        <p>功率计算器、系统选型器、电池兼容性查询。代表：Renogy Calculator、PowerGetup、Sunsynk 知识库</p>
+      </div>
+      <div class="rule">
+        <div class="num">04</div>
+        <h4>真实项目案例是 B2B 最强信任背书</h4>
+        <p>Victron 全部内容都是用户故事；EG4 / Sunsynk / Renogy 都有 Case Study 栏目。<b>对本站价值最高</b> —— 海外经销商看的就是「你给谁装过、装在哪」</p>
+      </div>
+      <div class="rule">
+        <div class="num">05</div>
+        <h4>知识库 / 论坛从主站拆到独立域名</h4>
+        <p><code>community.jackery.com</code> · <code>forum.renogy.com</code> · <code>support.sunsynk.com</code>。主站不被海量内容稀释权重，知识库还能独立做 SEO</p>
+      </div>
+      <div class="rule">
+        <div class="num">06</div>
+        <h4>认证与合规本身就是一个内容品类</h4>
+        <p>UL 1741 / UL 9540 / IEC 62109 / CE / 各国并网规范，做成独立内容页 → 直接承接 B2B 采购的合规审查需求。EG4、Sol-Ark、Sunsynk 都在打这张牌</p>
+      </div>
+      <div class="rule">
+        <div class="num">07</div>
+        <h4>品牌三方对比由内容站承接，品牌站只做规格对比表</h4>
+        <p>品牌站不做 <code>vs</code> 攻击性内容（避免争议），改为在产品页放<b>结构化规格对比表</b> —— 同时服务 AI 引擎抓取（表格是 AI 最喜欢的引用格式）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ACTIONS ================= -->
+  <section id="actions">
+    <div class="sec-head"><h2>本站落地建议</h2></div>
+    <p class="sec-note">与 <code>docs/seo-geo-plan.md</code> 的 P0–P3 阶段对齐。</p>
+    <table>
+      <thead><tr><th>优先级</th><th>动作</th><th>对标对象</th></tr></thead>
+      <tbody>
+        <tr><td class="p0">P0</td><td>建「场景落地页」：<code>/solutions/off-grid-home</code> · <code>/solutions/solar-pumping</code> · <code>/solutions/rv-marine</code> · <code>/solutions/telecom-backup</code> · <code>/solutions/farm-agriculture</code></td><td>Renogy 场景页结构</td></tr>
+        <tr><td class="p1">P1</td><td>建「认证合规」内容页：CE / RoHS / ISO9001 / IEC 62109 / 各国电网标准</td><td>EG4 的 UL 9540 页写法</td></tr>
+        <tr><td class="p1">P1</td><td>建「应用案例」栏目：真实海外项目（国家 + 负载 + 设备配置 + 结果）</td><td>Victron 用户故事</td></tr>
+        <tr><td class="p2">P2</td><td>建「技术支持知识库」：接线、并联、电池兼容、故障代码</td><td>Sunsynk support 分类结构</td></tr>
+        <tr><td class="p2">P2</td><td>上「逆变器选型计算器」：输入负载 / 功率 / 电压 → 输出推荐型号</td><td>Renogy Calculator</td></tr>
+        <tr><td class="p3">P3</td><td>在 D 层阵地建设品牌提及：DIYSolarForum 技术回答、行业目录、媒体提及（保持 NAP 一致）</td><td>SEO/GEO 方案 P3</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    全部链接于 2026-09-28 逐一访问验证。带 <b>「链接均已验证」</b> 标识的栏目为实际打开确认；Lion Energy 与 C 层「可扩展补充」列表为站内导航推断或搜索结果，使用前建议再确认一次。
+  </footer>
+
+</div>
+</body>
+</html>

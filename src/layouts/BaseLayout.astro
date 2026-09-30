@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import ChatWidget from '../components/ChatWidget.astro';
-import { SITE, COMPANY, ANALYTICS } from '../config';
+import { SITE, COMPANY, CONTACT, ANALYTICS } from '../config';
 
 interface Props {
   title: string;
@@ -40,7 +40,20 @@ const orgJsonLd = {
   url: SITE.url,
   description: `${COMPANY.legalName} is a professional inverter manufacturer providing OEM/ODM services for global B2B customers.`,
   foundingDate: String(COMPANY.foundedYear),
-  address: { '@type': 'PostalAddress', streetAddress: COMPANY.address, addressCountry: 'CN' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: COMPANY.address,
+    addressLocality: COMPANY.addressLocality,
+    addressRegion: COMPANY.addressRegion,
+    addressCountry: COMPANY.addressCountry,
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    telephone: CONTACT.phone,
+    email: CONTACT.email,
+    availableLanguage: ['en', 'zh'],
+  },
 };
 ---
 
