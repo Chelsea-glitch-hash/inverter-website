@@ -143,7 +143,7 @@ export const CHAT = {
 
 /** Cloudflare Turnstile site key (public, client-side widget). */
 export const TURNSTILE = {
-  siteKey: '0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo',
+  siteKey: '0x4AAAAAAEow16pcFLjiXJag',
 };
 
 export const SOCIAL = {

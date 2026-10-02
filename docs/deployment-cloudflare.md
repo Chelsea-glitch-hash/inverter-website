@@ -76,11 +76,14 @@ Cloudflare 用 **Node 20** 构建。本地已验证 770 页产出正常，无需
 | `TURNSTILE_SECRET_KEY` | `0xXXXX...`（**secret**） | Cloudflare 控制台 → Turnstile |
 
 > ⚠️ `TURNSTILE_SECRET_KEY` 是**服务端密钥**，和 `src/config.ts` 里已经写好的
-> `TURNSTILE.siteKey`（前端公开 key，`0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo`）是**两个不同的值**。
+> `TURNSTILE.siteKey`（前端公开 key，`0x4AAAAAAEow16pcFLjiXJag`）是**两个不同的值**。
 > 要去 Cloudflare → Turnstile 里，为这个 site key 找到**配对的 secret key**。
 > 如果你之前没建过 Turnstile widget，需要新建一个并选择该 site key。
-> **改 site key 时，必须同步更新 Cloudflare 环境变量中与之配对的 secret key** ——
-> 二者属于同一个 widget，取错一个就会在提交时返回 `Spam verification failed.`
+>
+> **⚠️ 两个 key 都以 `0x` 开头、长得几乎一样，极易搞混（本项目已实际踩坑两次）：**
+> Widget 页面上方显示的、标着 **"Site key"** 的才是前端用的；标 **"Secret key"** 的
+> 填进 Cloudflare 环境变量 `TURNSTILE_SECRET_KEY`。把 Secret 当 Site 用或反之，
+> 提交表单都会返回 `Spam verification failed.`
 
 ### 3.2 可选：AI 客服的语言模型层
 
