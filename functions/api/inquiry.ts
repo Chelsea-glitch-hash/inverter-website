@@ -98,17 +98,25 @@ async function verifyTurnstile(
   secret: string,
   ip: string | null
 ): Promise<boolean> {
+  /* Same guard as the Resend call below: headers AND body read must both
+     finish inside the abort window, or the Worker hangs past the runtime
+     limits and Cloudflare serves its own HTML error page. */
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
   try {
     const body = new URLSearchParams({ secret, response: token });
     if (ip) body.set('remoteip', ip);
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       body,
+      signal: controller.signal,
     });
     const data = (await res.json()) as { success: boolean };
     return data.success === true;
   } catch {
     return false;
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -271,13 +279,16 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
 
     /* Never let a hanging upstream kill the Worker: without a timeout the
        runtime aborts the whole Function and Cloudflare substitutes its own
-       HTML 502 page (Content-Type: text/html + retry-after: 60), which is
-       exactly the failure mode this guard prevents. */
+       HTML 502 page, which is exactly the failure mode this guard prevents.
+       The abort window covers the FULL round trip - response headers AND
+       body. A fetch that resolves but stalls on the body read would
+       otherwise hang past the runtime limits (res.text() below rejects
+       when the abort fires because it reads via the same signal). */
+    const t0 = Date.now();
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
-    let res: Response;
     try {
-      res = await fetch('https://api.resend.com/emails', {
+      const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -292,26 +303,32 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
         }),
         signal: controller.signal,
       });
-    } catch (err) {
-      clearTimeout(timeout);
-      console.error('[inquiry] Resend request failed or timed out:', err);
-      return new Response(
-        JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
-        { status: 502, headers: jsonHeaders }
-      );
-    }
-    clearTimeout(timeout);
-
-    if (!res.ok) {
+      /* Body read happens INSIDE the abort window on purpose. */
       const detail = await res.text();
-      console.error('[inquiry] Resend rejected the request:', res.status, detail);
+      if (!res.ok) {
+        console.error(
+          '[inquiry] Resend rejected the request:',
+          res.status,
+          `${Date.now() - t0}ms`,
+          detail.slice(0, 500)
+        );
+        return new Response(
+          JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
+          { status: 502, headers: jsonHeaders }
+        );
+      }
+      console.log(`[inquiry] Resend accepted the message in ${Date.now() - t0}ms`);
+      return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
+    } catch (err) {
+      const aborted = controller.signal.aborted ? ' (aborted after 8s)' : '';
+      console.error(`[inquiry] Resend request failed${aborted}:`, err);
       return new Response(
         JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
         { status: 502, headers: jsonHeaders }
       );
+    } finally {
+      clearTimeout(timeout);
     }
-
-    return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
   } catch (err) {
     /* Last-resort guard: every failure path must emit JSON. If this handler
        ever throws past this point the runtime returns Cloudflare's own HTML
