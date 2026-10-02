@@ -24,7 +24,7 @@
  * contact details until /api/chat-lead confirms the lead was stored.
  *
  * Chat options come from src/config.ts (CHAT.*) and are injected as JSON below,
- * because an Astro-bundled <script> cannot see frontmatter values.
+ * because an Astro-bundled client script cannot read frontmatter values.
  */
 import { CHAT, SITE, TURNSTILE } from '../config';
 import { guidanceQuickReplies } from '../lib/chat-engine';

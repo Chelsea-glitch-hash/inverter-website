@@ -33,3 +33,4 @@ astro.config.verify.mjs
 .DS_Store
 Thumbs.db
 *.log
+.pdf-work/

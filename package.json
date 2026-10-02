@@ -5,6 +5,7 @@
   "private": true,
   "description": "B2B inverter manufacturer website - Astro SSG + Cloudflare Pages",
   "scripts": {
+    "start": "astro dev",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

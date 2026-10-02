@@ -56,8 +56,10 @@ export interface SpecRow {
  */
 export const SPEC_FIELDS: { key: keyof ProductSpecifications; label: string; group: string }[] = [
   { key: 'acOutput', label: 'AC Output', group: 'AC Output' },
+  { key: 'powerRating', label: 'Power Rating', group: 'AC Output' },
   { key: 'outputSockets', label: 'Output Sockets', group: 'AC Output' },
   { key: 'dcInputVoltage', label: 'DC Input Voltage', group: 'DC Input' },
+  { key: 'mpptRange', label: 'MPPT Range @ Operating Voltage', group: 'DC Input' },
   { key: 'display', label: 'Display', group: 'Display & Cooling' },
   { key: 'usb', label: 'USB', group: 'Interface' },
   { key: 'cooling', label: 'Cooling', group: 'Display & Cooling' },
@@ -203,6 +205,18 @@ export function getPowerRatings(category: string): number[] {
       PRODUCTS.filter((product) => product.category === category).map((product) => product.ratedPower)
     ),
   ].sort((a, b) => a - b);
+}
+
+/**
+ * Lowest and highest rated power across the WHOLE catalog.
+ *
+ * Derived, never typed by hand. The homepage and the catalog page both quote
+ * this range, and a hardcoded "900W to 5000W" silently went stale the moment
+ * the catalog grew past 5 kW — this is the single place it is read from.
+ */
+export function getCatalogPowerRange(): { min: number; max: number } {
+  const powers = PRODUCTS.map((product) => product.ratedPower);
+  return { min: Math.min(...powers), max: Math.max(...powers) };
 }
 
 /** Featured models (homepage); falls back to the top of the catalog. */

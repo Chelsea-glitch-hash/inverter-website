@@ -68,8 +68,16 @@ export interface ProductSpecifications {
    * display string for it, or the two values can drift apart.
    */
   acOutput?: string;
+  /**
+   * Full power rating in VA / W, only when the apparent power (VA) differs
+   * from the active power (W) — e.g. "3000VA / 2400W". Omitted when the two
+   * are equal, since the Rated Power row (from `ratedPower`) already shows it.
+   */
+  powerRating?: string;
   outputSockets?: string;
   dcInputVoltage?: string;
+  /** MPPT operating voltage range, e.g. "90Vdc–430Vdc". */
+  mpptRange?: string;
   display?: string;
   /** Only for USB-equipped models. */
   usb?: string;
@@ -141,7 +149,7 @@ export interface Product {
   /**
    * Image references. Either an optimised asset file name from
    * src/assets/products/, or a public path such as
-   * "images/products/off-grid-inverters/<slug>/01.webp".
+   * "images/products/<category>/<slug>/01.webp".
    * An empty array is valid — the gallery and cards render a placeholder.
    */
   images: string[];
@@ -866,5 +874,575 @@ export const PRODUCTS: Product[] = [
       title: "3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter",
       description: "3200W multi-voltage pure sine wave off-grid inverter supporting 48V / 60V / 72V DC input with voltage selector switch, LCD display and three AC output sockets. 220V AC output. Bulk supply on request.",
     },
+  },
+
+  /* ------------------------------------------------------------------
+   * Residential Off-Grid Solar Inverter Series
+   * Source: manufacturer series sheet (nibianqitupian.pdf, page 05/06),
+   * extracted 2026-10-01. 13 catalog cards → 23 SKU entries below.
+   * Card photos are shared between the two variants of each card,
+   * mirroring the source catalog.
+   * ------------------------------------------------------------------ */
+
+  {
+    id: "INV-013",
+    slug: "1500w-vm-series",
+    name: "VM 1.5K Off-Grid Solar Inverter",
+    shortDescription: "A 1500VA/1500W VM-series residential off-grid solar inverter with a 90Vdc–430Vdc MPPT operating range and 12V battery compatibility.",
+
+    overview: [
+      "The VM 1.5K is a residential off-grid solar inverter rated at 1500VA/1500W. It operates with an MPPT range of 90Vdc–430Vdc on a 12V battery bank, in a compact 348 × 270 × 95 mm, 4 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM",
+    ratedPower: 1500,
+
+    specifications: {
+      mpptRange: "90Vdc–430Vdc",
+      dcInputVoltage: "12V",
+      dimensions: "348 × 270 × 95 mm",
+      netWeight: "4 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/1500w-vm-series/main.jpg"],
+  },
+  {
+    id: "INV-014",
+    slug: "3000w-vm-series",
+    name: "VM 3K Off-Grid Solar Inverter",
+    shortDescription: "A 3000VA/3000W VM-series residential off-grid solar inverter with a 90Vdc–430Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VM 3K is a residential off-grid solar inverter rated at 3000VA/3000W. It shares the VM series platform with a 90Vdc–430Vdc MPPT operating range, a 24V battery bank and a 348 × 270 × 95 mm, 5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM",
+    ratedPower: 3000,
+
+    specifications: {
+      mpptRange: "90Vdc–430Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "348 × 270 × 95 mm",
+      netWeight: "5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3000w-vm-series/main.jpg"],
+  },
+  {
+    id: "INV-015",
+    slug: "3000w-sc-ps-series",
+    name: "SC-PS 3K Off-Grid Solar Inverter",
+    shortDescription: "A 3000VA/2400W SC-PS-series residential off-grid solar inverter with 24V battery compatibility.",
+
+    overview: [
+      "The SC-PS 3K is a residential off-grid solar inverter rated at 3000VA / 2400W with a 24V battery bank, in a 355 × 272 × 100 mm, 6.9 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-PS",
+    ratedPower: 3000,
+
+    specifications: {
+      // NOTE: source catalog prints "30Vdc~32Vdc" — likely a misprint.
+      // Verify with the factory before launch (the SCMK 3K-24V card prints
+      // 30Vdc~80Vdc for the same power class).
+      mpptRange: "30Vdc–32Vdc",
+      dcInputVoltage: "24V",
+      powerRating: "3000VA / 2400W",
+      dimensions: "355 × 272 × 100 mm",
+      netWeight: "6.9 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3000w-sc-ps-series/main.jpg"],
+  },
+  {
+    id: "INV-016",
+    slug: "5000w-mks-ii-series",
+    name: "MKS II 5K Off-Grid Solar Inverter",
+    shortDescription: "A 5000VA/5000W MKS II residential off-grid solar inverter with a 120Vdc–430Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The MKS II 5K is a residential off-grid solar inverter rated at 5000VA/5000W. It operates with an MPPT range of 120Vdc–430Vdc on a 48V battery bank, in a 480 × 310 × 125 mm, 11 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "MKS II",
+    ratedPower: 5000,
+
+    specifications: {
+      mpptRange: "120Vdc–430Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "480 × 310 × 125 mm",
+      netWeight: "11 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/5000w-mks-ii-series/main.jpg"],
+  },
+  {
+    id: "INV-017",
+    slug: "3000w-scmk-series",
+    name: "SCMK 3K-24V Off-Grid Solar Inverter",
+    shortDescription: "A 3000VA/2400W SCMK residential off-grid solar inverter with a 30Vdc–80Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The SCMK 3K-24V is a residential off-grid solar inverter rated at 3000VA / 2400W. It operates with an MPPT range of 30Vdc–80Vdc on a 24V battery bank, in a 468 × 295 × 120 mm, 11 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SCMK",
+    ratedPower: 3000,
+
+    specifications: {
+      mpptRange: "30Vdc–80Vdc",
+      dcInputVoltage: "24V",
+      powerRating: "3000VA / 2400W",
+      dimensions: "468 × 295 × 120 mm",
+      netWeight: "11 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3000w-scmk-series/main.jpg"],
+  },
+  {
+    id: "INV-018",
+    slug: "3500w-sc-vm-iii-series",
+    name: "SC-VM III 3.5KW Off-Grid Solar Inverter",
+    shortDescription: "A 3500VA/3500W SC-VM III residential off-grid solar inverter with a 120Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The SC-VM III 3.5KW is a residential off-grid solar inverter rated at 3500VA/3500W. It operates with an MPPT range of 120Vdc–450Vdc on a 24V battery bank, in a 465 × 305 × 110 mm, 9.5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-VM III",
+    ratedPower: 3500,
+
+    specifications: {
+      mpptRange: "120Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "465 × 305 × 110 mm",
+      netWeight: "9.5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3500w-sc-vm-iii-series/main.jpg"],
+  },
+  {
+    id: "INV-019",
+    slug: "5500w-sc-vm-iii-series",
+    name: "SC-VM III 5.5KW Off-Grid Solar Inverter",
+    shortDescription: "A 5500VA/5500W SC-VM III residential off-grid solar inverter with a 120Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The SC-VM III 5.5KW is a residential off-grid solar inverter rated at 5500VA/5500W. It shares the SC-VM III platform with a 120Vdc–450Vdc MPPT operating range, a 48V battery bank and a 465 × 305 × 110 mm, 10.5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-VM III",
+    ratedPower: 5500,
+
+    specifications: {
+      mpptRange: "120Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "465 × 305 × 110 mm",
+      netWeight: "10.5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/5500w-sc-vm-iii-series/main.jpg"],
+  },
+  {
+    id: "INV-020",
+    slug: "3600w-vmiv-series",
+    name: "VMIV 3.6KW Off-Grid Solar Inverter",
+    shortDescription: "A 3600VA/3600W VMIV residential off-grid solar inverter with a 120Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VMIV 3.6KW is a residential off-grid solar inverter rated at 3600VA/3600W. It operates with an MPPT range of 120Vdc–450Vdc on a 24V battery bank, in a 422.8 × 313.6 × 119 mm, 9.2 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMIV",
+    ratedPower: 3600,
+
+    specifications: {
+      mpptRange: "120Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "422.8 × 313.6 × 119 mm",
+      netWeight: "9.2 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3600w-vmiv-series/main.jpg"],
+  },
+  {
+    id: "INV-021",
+    slug: "5600w-vmiv-series",
+    name: "VMIV 5.6KW Off-Grid Solar Inverter",
+    shortDescription: "A 5600VA/5600W VMIV residential off-grid solar inverter with a 120Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VMIV 5.6KW is a residential off-grid solar inverter rated at 5600VA/5600W. It shares the VMIV platform with a 120Vdc–450Vdc MPPT operating range, a 48V battery bank and a 422.8 × 313.6 × 119 mm, 10.5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMIV",
+    ratedPower: 5600,
+
+    specifications: {
+      mpptRange: "120Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "422.8 × 313.6 × 119 mm",
+      netWeight: "10.5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/5600w-vmiv-series/main.jpg"],
+  },
+  {
+    id: "INV-022",
+    slug: "8000w-sc-max-series",
+    name: "SC-MAX 8KW Off-Grid Solar Inverter",
+    shortDescription: "An 8000VA/8000W SC-MAX residential off-grid solar inverter with an 80Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The SC-MAX 8KW is a residential off-grid solar inverter rated at 8000VA/8000W. It operates with an MPPT range of 80Vdc–450Vdc on a 48V battery bank, in a 600 × 425 × 150 mm, 19 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-MAX",
+    ratedPower: 8000,
+
+    specifications: {
+      mpptRange: "80Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "600 × 425 × 150 mm",
+      netWeight: "19 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/8000w-sc-max-series/main.jpg"],
+  },
+  {
+    id: "INV-023",
+    slug: "11000w-sc-max-series",
+    name: "SC-MAX 11KW Off-Grid Solar Inverter",
+    shortDescription: "An 11000VA/11000W SC-MAX residential off-grid solar inverter with an 80Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The SC-MAX 11KW is a residential off-grid solar inverter rated at 11000VA/11000W. It shares the SC-MAX platform with an 80Vdc–450Vdc MPPT operating range, a 48V battery bank and a 600 × 425 × 150 mm, 19 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-MAX",
+    ratedPower: 11000,
+
+    specifications: {
+      mpptRange: "80Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "600 × 425 × 150 mm",
+      netWeight: "19 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/11000w-sc-max-series/main.jpg"],
+  },
+  {
+    id: "INV-024",
+    slug: "4000w-vm-iv-box-series",
+    name: "VM IV 4K BOX Off-Grid Solar Inverter",
+    shortDescription: "A 4000VA/4000W VM IV BOX residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VM IV 4K BOX is a residential off-grid solar inverter rated at 4000VA/4000W. It operates with an MPPT range of 60Vdc–450Vdc on a 24V battery bank, in a 470 × 305 × 125 mm, 9 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM IV BOX",
+    ratedPower: 4000,
+
+    specifications: {
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "9 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/4000w-vm-iv-box-series/main.jpg"],
+  },
+  {
+    id: "INV-025",
+    slug: "6000w-vm-iv-box-series",
+    name: "VM IV 6K BOX Off-Grid Solar Inverter",
+    shortDescription: "A 6000VA/6000W VM IV BOX residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VM IV 6K BOX is a residential off-grid solar inverter rated at 6000VA/6000W. It shares the VM IV BOX platform with a 60Vdc–450Vdc MPPT operating range, a 48V battery bank and a 470 × 305 × 125 mm, 10 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM IV BOX",
+    ratedPower: 6000,
+
+    specifications: {
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "10 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/6000w-vm-iv-box-series/main.jpg"],
+  },
+  {
+    id: "INV-026",
+    slug: "4200w-vm-iv-series",
+    name: "VM IV 4.2KW Off-Grid Solar Inverter",
+    shortDescription: "A 4200VA/4200W VM IV residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VM IV 4.2KW is a residential off-grid solar inverter rated at 4200VA/4200W. It operates with an MPPT range of 60Vdc–450Vdc on a 24V battery bank, in a 470 × 305 × 125 mm, 9 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM IV",
+    ratedPower: 4200,
+
+    specifications: {
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "9 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/4200w-vm-iv-series/main.jpg"],
+  },
+  {
+    id: "INV-027",
+    slug: "6200w-vm-iv-series",
+    name: "VM IV 6.2KW Off-Grid Solar Inverter",
+    shortDescription: "A 6200VA/6200W VM IV residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VM IV 6.2KW is a residential off-grid solar inverter rated at 6200VA/6200W. It shares the VM IV platform with a 60Vdc–450Vdc MPPT operating range, a 48V battery bank and a 470 × 305 × 125 mm, 10 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VM IV",
+    ratedPower: 6200,
+
+    specifications: {
+      // NOTE: source catalog prints "62000VA/62000W" — an extra zero.
+      // Corrected to 6200VA/6200W per the "6.2KW" model designation printed
+      // on the same catalog card. Confirm with the factory.
+      powerRating: "6200VA / 6200W",
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "10 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/6200w-vm-iv-series/main.jpg"],
+  },
+  {
+    id: "INV-028",
+    slug: "5000w-vii-series",
+    name: "VII 5KW Off-Grid Solar Inverter",
+    shortDescription: "A 5000VA/5000W VII residential off-grid solar inverter with a 120Vdc–430Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VII 5KW is a residential off-grid solar inverter rated at 5000VA/5000W. It operates with an MPPT range of 120Vdc–430Vdc on a 48V battery bank, in a 480 × 310 × 125 mm, 12 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VII",
+    ratedPower: 5000,
+
+    specifications: {
+      mpptRange: "120Vdc–430Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "480 × 310 × 125 mm",
+      netWeight: "12 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/5000w-vii-series/main.jpg"],
+  },
+  {
+    id: "INV-029",
+    slug: "4000w-vmiv-series",
+    name: "VMIV 4KW Off-Grid Solar Inverter",
+    shortDescription: "A 4000VA/4000W VMIV residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VMIV 4KW is a residential off-grid solar inverter rated at 4000VA/4000W. It operates with an MPPT range of 60Vdc–450Vdc on a 24V battery bank, in a 470 × 305 × 125 mm, 9 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMIV",
+    ratedPower: 4000,
+
+    specifications: {
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "9 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/4000w-vmiv-series/main.jpg"],
+  },
+  {
+    id: "INV-030",
+    slug: "6000w-vmiv-series",
+    name: "VMIV 6KW Off-Grid Solar Inverter",
+    shortDescription: "A 6000VA/6000W VMIV residential off-grid solar inverter with a 60Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VMIV 6KW is a residential off-grid solar inverter rated at 6000VA/6000W. It shares the VMIV platform with a 60Vdc–450Vdc MPPT operating range, a 48V battery bank and a 470 × 305 × 125 mm, 10 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMIV",
+    ratedPower: 6000,
+
+    specifications: {
+      mpptRange: "60Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "470 × 305 × 125 mm",
+      netWeight: "10 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/6000w-vmiv-series/main.jpg"],
+  },
+  {
+    id: "INV-031",
+    slug: "10500w-vii-series",
+    name: "VII 10.5KW Off-Grid Solar Inverter",
+    shortDescription: "A 10500VA/10500W VII residential off-grid solar inverter with a 90Vdc–500Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VII 10.5KW is a residential off-grid solar inverter rated at 10500VA/10500W. It operates with an MPPT range of 90Vdc–500Vdc on a 48V battery bank, in a 537 × 390 × 130 mm, 14.45 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VII",
+    ratedPower: 10500,
+
+    specifications: {
+      mpptRange: "90Vdc–500Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "537 × 390 × 130 mm",
+      netWeight: "14.45 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/10500w-vii-series/main.jpg"],
+  },
+  {
+    id: "INV-032",
+    slug: "8000w-sc-max-ii-series",
+    name: "SC-MAX 8KWII Off-Grid Solar Inverter",
+    shortDescription: "An 8000VA/8000W SC-MAX II residential off-grid solar inverter with an 80Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The SC-MAX 8KWII is a residential off-grid solar inverter rated at 8000VA/8000W. It operates with an MPPT range of 80Vdc–450Vdc on a 48V battery bank, in a 600 × 425 × 150 mm, 20 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-MAX II",
+    ratedPower: 8000,
+
+    specifications: {
+      mpptRange: "80Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "600 × 425 × 150 mm",
+      netWeight: "20 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/8000w-sc-max-ii-series/main.jpg"],
+  },
+  {
+    id: "INV-033",
+    slug: "11000w-sc-max-ii-series",
+    name: "SC-MAX 11KWII Off-Grid Solar Inverter",
+    shortDescription: "An 11000VA/11000W SC-MAX II residential off-grid solar inverter with an 80Vdc–450Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The SC-MAX 11KWII is a residential off-grid solar inverter rated at 11000VA/11000W. It shares the SC-MAX II platform with an 80Vdc–450Vdc MPPT operating range, a 48V battery bank and a 600 × 425 × 150 mm, 21 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "SC-MAX II",
+    ratedPower: 11000,
+
+    specifications: {
+      mpptRange: "80Vdc–450Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "600 × 425 × 150 mm",
+      netWeight: "21 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/11000w-sc-max-ii-series/main.jpg"],
+  },
+  {
+    id: "INV-034",
+    slug: "3500w-vmii-plus-series",
+    name: "VMII Plus 3.5KW Off-Grid Solar Inverter",
+    shortDescription: "A 3500VA/3500W VMII Plus residential off-grid solar inverter with a 120Vdc–450Vdc MPPT operating range and 24V battery compatibility.",
+
+    overview: [
+      "The VMII Plus 3.5KW is a residential off-grid solar inverter rated at 3500VA/3500W. It operates with an MPPT range of 120Vdc–450Vdc on a 24V battery bank, in a 465 × 305 × 110 mm, 9.5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMII Plus",
+    ratedPower: 3500,
+
+    specifications: {
+      mpptRange: "120Vdc–450Vdc",
+      dcInputVoltage: "24V",
+      dimensions: "465 × 305 × 110 mm",
+      netWeight: "9.5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/3500w-vmii-plus-series/main.jpg"],
+  },
+  {
+    id: "INV-035",
+    slug: "5500w-vmii-plus-series",
+    name: "VMII Plus 5.5KW Off-Grid Solar Inverter",
+    shortDescription: "A 5500VA/5500W VMII Plus residential off-grid solar inverter with a 120Vdc–430Vdc MPPT operating range and 48V battery compatibility.",
+
+    overview: [
+      "The VMII Plus 5.5KW is a residential off-grid solar inverter rated at 5500VA/5500W. It shares the VMII Plus platform with a 120Vdc–430Vdc MPPT operating range, a 48V battery bank and a 465 × 305 × 110 mm, 10.5 kg enclosure.",
+    ],
+
+    category: "off-grid-solar-inverters",
+    productType: "Off-Grid Solar Inverter",
+    series: "VMII Plus",
+    ratedPower: 5500,
+
+    specifications: {
+      mpptRange: "120Vdc–430Vdc",
+      dcInputVoltage: "48V",
+      dimensions: "465 × 305 × 110 mm",
+      netWeight: "10.5 kg",
+    },
+
+    images: ["images/products/off-grid-solar-inverters/5500w-vmii-plus-series/main.jpg"],
   },
 ];
