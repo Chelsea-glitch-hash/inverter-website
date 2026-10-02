@@ -142,8 +142,12 @@ export const CHAT = {
 };
 
 /** Cloudflare Turnstile site key (public, client-side widget). */
+/* TEMPORARY DEBUG: official Turnstile test site key ("always passes", no
+   hostname binding). Paired with test secret 1x0000000000000000000000000000000AA
+   so the inquiry pipeline can be exercised end-to-end from the CLI while
+   diagnosing the Resend 422. REVERT to 0x4AAAAAAEow16pcFLjiXJag after testing. */
 export const TURNSTILE = {
-  siteKey: '0x4AAAAAAEow16pcFLjiXJag',
+  siteKey: '1x00000000000000000000AA',
 };
 
 export const SOCIAL = {
