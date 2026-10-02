@@ -1,0 +1,127 @@
+---
+/**
+ * Power-level collection page body, e.g. /products/off-grid-inverters/1800w/.
+ *
+ * Shared by every category that publishes power sub-pages — see
+ * POWER_CATEGORY_PARENTS in src/lib/power-categories.ts. Each parent category
+ * gets its own thin route file under src/pages/products/<parent>/[power].astro;
+ * all the markup lives here so the two ranges cannot drift apart.
+ *
+ * Route shape note: the parent segment is a STATIC folder rather than a
+ * [category] param on purpose — Astro resolves a static segment first, which is
+ * what keeps /products/{category}/{power}w/ (this page) and
+ * /products/{category}/{slug}/ (the product page) as separate built pages.
+ *
+ * Every category-specific string on this page is read from the category
+ * metadata; nothing here may hardcode "Off-Grid".
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from './Container.astro';
+import Section from './Section.astro';
+import CTABanner from './CTABanner.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import ProductGrid from './ProductGrid.astro';
+import { getCategory } from '../lib/categories';
+import {
+  getPowerCategories,
+  powerCategoryPath,
+  type PowerCategory,
+} from '../lib/power-categories';
+import { formatPower, getProductsByPower } from '../lib/products';
+
+interface Props {
+  /** Category slug this power level belongs to. */
+  parentCategory: string;
+  powerCategory: PowerCategory;
+}
+const { parentCategory, powerCategory } = Astro.props;
+
+const parentMeta = getCategory(parentCategory);
+const parentName = parentMeta?.name ?? 'Inverters';
+/* Lower-case form for use inside a sentence, e.g. "the full off-grid range". */
+const parentNoun = parentName.toLowerCase();
+
+const products = getProductsByPower(parentCategory, powerCategory.power);
+const modelCount = products.length;
+
+/* Sibling power ratings within the same category — the internal link cloud. */
+const siblingPowerCategories = getPowerCategories(parentCategory);
+---
+
+<BaseLayout
+  title={powerCategory.seoTitle}
+  description={powerCategory.seoDescription}
+  path={powerCategoryPath(parentCategory, powerCategory.slug)}
+>
+  <Container class="pt-8">
+    <Breadcrumb
+      crumbs={[
+        { label: 'Products', href: '/products/' },
+        { label: parentName, href: `/products/${parentCategory}/` },
+        { label: powerCategory.name },
+      ]}
+    />
+  </Container>
+
+  <Container class="pt-6 pb-4">
+    <p class="text-sm font-medium tracking-wide text-brand-600 uppercase">{parentName}</p>
+    <h1 class="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">{powerCategory.heading}</h1>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">
+      {powerCategory.description}
+    </p>
+    <p class="mt-4 text-sm text-slate-500">
+      {modelCount} {modelCount === 1 ? 'model' : 'models'} in this power rating
+    </p>
+  </Container>
+
+  <Section>
+    {
+      modelCount > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          Models for this power rating are being prepared. Contact us for the latest catalog.
+        </p>
+      )
+    }
+  </Section>
+
+  <!-- Power ratings: internal links across this category's range -->
+  <Section
+    class="bg-slate-50"
+    eyebrow={`${parentName} Range`}
+    title="Other Power Ratings"
+    subtitle={`Browse the full ${parentNoun} range by rated power.`}
+  >
+    <ul class="flex flex-wrap gap-2.5">
+      {
+        siblingPowerCategories.map((power) => {
+          const isCurrent = power.slug === powerCategory.slug;
+          return (
+            <li>
+              <a
+                href={powerCategoryPath(parentCategory, power.slug)}
+                aria-current={isCurrent ? 'page' : undefined}
+                class:list={[
+                  'inline-flex rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors',
+                  isCurrent
+                    ? 'border-brand-300 bg-white text-brand-700'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-brand-400 hover:text-brand-700',
+                ]}
+              >
+                {formatPower(power.power)}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Section>
+
+  <CTABanner
+    title={`Need a ${formatPower(powerCategory.power)} ${
+      parentMeta?.singularName ?? parentName
+    }?`}
+    subtitle="Tell us your target market, required DC input voltage and quantity — we reply with factory-direct pricing and lead time."
+  />
+</BaseLayout>

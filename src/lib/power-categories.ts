@@ -3,17 +3,21 @@
  *
  * Front-end navigation is organised by customer search intent (rated power),
  * NOT by the manufacturer's internal series names. Series (P-Series,
- * 1159-Series) stay in product metadata only.
+ * 1159-Series, VM, SC-MAX …) stay in product metadata only.
  *
  * These categories are DERIVED from the product data table: a rated power that
  * exists in src/data/products.ts gets a page, one that does not exist does not.
- * Adding a 6000W product is enough to publish /products/off-grid-inverters/6000w/.
+ * Adding a 6000W product is enough to publish its power page.
  *
- * URLs: /products/off-grid-inverters/{power}w/
+ * URLs: /products/{category}/{power}w/  — one power level is scoped to ONE
+ * parent category, so 3000W in the standalone range and 3000W in the solar
+ * range are two different pages with different models on them.
+ *
  * Changing a product's `ratedPower` therefore changes its power page URL —
  * treat published power ratings as stable.
  */
 import { PRODUCTS, type Product, type ProductSpecifications } from '../data/products';
+import { getCategory, type Category } from './categories';
 import { formatPower } from './products';
 
 export interface PowerCategory {
@@ -32,26 +36,43 @@ export interface PowerCategory {
   seoDescription: string;
 }
 
-/** Parent category that power sub-categories belong to. */
-export const POWER_CATEGORY_PARENT = 'off-grid-inverters';
+/**
+ * Parent categories that get power-rating sub-pages.
+ *
+ * Every entry here needs a matching route folder under
+ * src/pages/products/<parent>/[power].astro — the route is a STATIC segment on
+ * purpose: Astro resolves a static segment before the dynamic [category] one,
+ * which is what keeps /products/{category}/{power}w/ and
+ * /products/{category}/{slug}/ as separate built pages. Adding a category here
+ * without adding the route folder means its power pages are simply not emitted.
+ */
+export const POWER_CATEGORY_PARENTS = ['off-grid-inverters', 'off-grid-solar-inverters'] as const;
+
+export type PowerCategoryParent = (typeof POWER_CATEGORY_PARENTS)[number];
+
+/** Whether a category is published with power-rating sub-pages. */
+export function hasPowerPages(category: string): category is PowerCategoryParent {
+  return (POWER_CATEGORY_PARENTS as readonly string[]).includes(category);
+}
 
 /**
- * Optional editorial copy per power rating.
+ * Optional editorial copy per power rating, scoped to the parent category.
+ *
+ * Keyed by parent category first so a 3000W lead written for the standalone
+ * range can never leak onto the 3000W page of the solar range.
  *
  * Marketing framing only — no product facts. Anything factual (DC input
  * voltage, AC output, display, socket count, USB) is composed from the models
  * themselves by describeSpecs() below, so it lives in exactly one place:
  * src/data/products.ts.
  *
- * The entries that used to sit here restated spec facts — "48V / 60V / 72V DC
- * input", "LCD display", "three AC output sockets" — which made them a second
- * copy of the product data that could silently contradict it. They were
- * removed; every power page now gets its facts from the catalog.
- *
- * Add an entry here when you want a hand-written sentence in front of the
- * generated text, e.g. `1800: { lead: 'Widely specified for telecom sites.' }`.
+ * Add an entry when you want a hand-written sentence in front of the generated
+ * text, e.g. `'off-grid-inverters': { 1800: { lead: 'Widely specified for telecom sites.' } }`.
  */
-const POWER_COPY: Record<number, { lead?: string }> = {};
+const POWER_COPY: Record<string, Record<number, { lead?: string }>> = {
+  'off-grid-inverters': {},
+  'off-grid-solar-inverters': {},
+};
 
 /** Distinct, non-empty values of one specification field across a set of models. */
 function distinctSpecs(models: Product[], key: keyof ProductSpecifications): string[] {
@@ -90,6 +111,9 @@ function describeSpecs(models: Product[]): string[] {
 
   if (models.some((model) => model.specifications.usb)) facts.push('USB-equipped option');
 
+  const mppt = distinctSpecs(models, 'mpptRange');
+  if (mppt.length > 0) facts.push(`MPPT ${mppt.join(' / ')}`);
+
   return facts;
 }
 
@@ -98,16 +122,20 @@ function describeSpecs(models: Product[]): string[] {
  * there are, what type they are, the series when every model shares one, and
  * the specifications they declare.
  *
+ * The category noun comes from the category metadata (src/lib/categories.ts),
+ * never from a literal here — otherwise the solar range's power pages would
+ * announce themselves as plain "off-grid inverters".
+ *
  * This is what a brand-new power rating such as 6000W gets — a real page with
  * honest copy and no invented parameter. It can be framed with an entry in
  * POWER_COPY above, which is never required.
  */
 function generateCopy(
   power: number,
-  models: Product[]
+  models: Product[],
+  meta: Pick<Category, 'name' | 'singularName'>
 ): Omit<PowerCategory, 'slug' | 'power' | 'name' | 'heading'> {
   const label = formatPower(power);
-  const plural = models.length > 1 ? 's' : '';
   const types = [...new Set(models.map((model) => model.productType))].join(' / ');
 
   const series = [...new Set(models.map((model) => model.series))].filter(
@@ -118,33 +146,42 @@ function generateCopy(
   const specs = describeSpecs(models);
   const dcInput = distinctSpecs(models, 'dcInputVoltage');
 
+  /* Singular when the rating holds exactly one model, plural otherwise. */
+  const noun = models.length > 1 ? meta.name : (meta.singularName ?? meta.name);
+  const proseNoun = noun.toLowerCase();
+
   const specSentence = specs.length > 0 ? ` Key specs: ${specs.join('; ')}.` : '';
   const seriesNote = sharedSeries ? ` (${series[0]})` : '';
 
   return {
-    description: `${models.length} ${label} off-grid inverter${plural} available — ${types}${seriesNote}.${specSentence} Contact us for configurations, pricing and bulk supply.`,
-    seoTitle: `${label} Off-Grid Inverter${plural}${sharedSeries ? ` — ${series[0]}` : ''}`,
-    seoDescription: `${label} off-grid inverter${plural}: ${types}.${
+    description: `${models.length} ${label} ${proseNoun} available — ${types}${seriesNote}.${specSentence} Contact us for configurations, pricing and bulk supply.`,
+    seoTitle: `${label} ${noun}${sharedSeries ? ` — ${series[0]}` : ''}`,
+    seoDescription: `${label} ${proseNoun}: ${types}.${
       dcInput.length > 0 ? ` DC input ${dcInput.join(' / ')}.` : ''
     } Contact us for pricing and bulk supply.`,
   };
 }
 
 function buildPowerCategories(parentCategory: string): PowerCategory[] {
+  const meta = getCategory(parentCategory);
+
+  /* No metadata, no page: the category noun has to exist to write honest copy. */
+  if (!meta) return [];
+
   const models = PRODUCTS.filter((product) => product.category === parentCategory);
   const powers = [...new Set(models.map((product) => product.ratedPower))].sort((a, b) => a - b);
 
   return powers.map((power) => {
     const label = formatPower(power);
     const inPower = models.filter((product) => product.ratedPower === power);
-    const generated = generateCopy(power, inPower);
-    const lead = POWER_COPY[power]?.lead;
+    const generated = generateCopy(power, inPower, meta);
+    const lead = POWER_COPY[parentCategory]?.[power]?.lead;
 
     return {
       slug: `${power}w`,
       power,
-      name: `${label} Off-Grid Inverters`,
-      heading: `${label} Off-Grid Inverters`,
+      name: `${label} ${meta.name}`,
+      heading: `${label} ${meta.name}`,
       ...generated,
       // The optional editorial line is prepended, never substituted, so the
       // page always keeps the data-derived facts.

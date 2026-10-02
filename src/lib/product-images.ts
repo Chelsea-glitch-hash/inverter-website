@@ -6,8 +6,8 @@
  *   1. Optimised assets: a bare file name inside src/assets/products/
  *      (processed by astro:assets at build time).
  *   2. Public files: a path under public/, e.g.
- *      "images/products/off-grid-inverters/1800w-p-series/01.jpg" or
- *      "/images/products/off-grid-inverters/1800w-p-series/01.jpg".
+ *      "images/products/off-grid-solar-inverters/3000w-sc-ps-series/01.jpg" or
+ *      "/images/products/off-grid-solar-inverters/3000w-sc-ps-series/01.jpg".
  *
  * Returns undefined when the reference cannot be resolved — callers render a
  * placeholder instead of a broken <img>.

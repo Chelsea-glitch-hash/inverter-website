@@ -1,14 +1,15 @@
 ---
 /**
- * Power-level collection page for the STANDALONE off-grid range,
- * e.g. /products/off-grid-inverters/1800w/.
+ * Power-level collection page for the SOLAR off-grid range,
+ * e.g. /products/off-grid-solar-inverters/3000w/.
  *
  * The parent category is a static folder rather than a [category] param on
  * purpose: Astro resolves a static segment before the dynamic [category] route,
  * which is what keeps this page and the product page
- * /products/off-grid-inverters/{slug}/ as two separate built pages.
+ * /products/off-grid-solar-inverters/{slug}/ as two separate built pages.
  *
- * Body lives in src/components/PowerListing.astro — shared with the solar range.
+ * Body lives in src/components/PowerListing.astro — shared with the standalone
+ * range, so the two cannot drift apart.
  *
  * NOTE: the category slug is declared INSIDE getStaticPaths and passed through
  * props. Astro hoists getStaticPaths out of the frontmatter, so a module-level
@@ -18,7 +19,7 @@ import PowerListing from '../../../components/PowerListing.astro';
 import { getPowerCategories } from '../../../lib/power-categories';
 
 export function getStaticPaths() {
-  const parentCategory = 'off-grid-inverters';
+  const parentCategory = 'off-grid-solar-inverters';
   return getPowerCategories(parentCategory).map((powerCategory) => ({
     params: { power: powerCategory.slug },
     props: { parentCategory, powerCategory },
