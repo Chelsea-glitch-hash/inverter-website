@@ -1,21 +1,6 @@
 ---
-/**
- * Power-level collection page for the SOLAR off-grid range,
- * e.g. /products/off-grid-solar-inverters/3000w/.
- *
- * The parent category is a static folder rather than a [category] param on
- * purpose: Astro resolves a static segment before the dynamic [category] route,
- * which is what keeps this page and the product page
- * /products/off-grid-solar-inverters/{slug}/ as two separate built pages.
- *
- * Body lives in src/components/PowerListing.astro — shared with the standalone
- * range, so the two cannot drift apart.
- *
- * NOTE: the category slug is declared INSIDE getStaticPaths and passed through
- * props. Astro hoists getStaticPaths out of the frontmatter, so a module-level
- * `const` is not in scope when it runs.
- */
-import PowerListing from '../../../components/PowerListing.astro';
+/** English power-rating page — thin wrapper around the shared template. */
+import PowerPage from '../../../templates/PowerPage.astro';
 import { getPowerCategories } from '../../../lib/power-categories';
 
 export function getStaticPaths() {
@@ -29,4 +14,4 @@ export function getStaticPaths() {
 const { parentCategory, powerCategory } = Astro.props;
 ---
 
-<PowerListing parentCategory={parentCategory} powerCategory={powerCategory} />
+<PowerPage parentCategory={parentCategory} powerCategory={powerCategory} locale="en" />

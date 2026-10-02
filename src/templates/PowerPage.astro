@@ -11,12 +11,7 @@ import CTABanner from '../components/CTABanner.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import { getCategory } from '../lib/categories';
-import {
-  POWER_CATEGORY_PARENT,
-  getPowerCategories,
-  powerCategoryPath,
-  type PowerCategory,
-} from '../lib/power-categories';
+import { getPowerCategories, powerCategoryPath, type PowerCategory } from '../lib/power-categories';
 import { formatPower, getProductsByPower } from '../lib/products';
 import { localizedProduct } from '../i18n/product-content';
 import { localizedCategory } from '../i18n/category-content';
@@ -24,16 +19,18 @@ import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
 import { fill, getDict } from '../i18n';
 
 interface Props {
+  /** Category slug this power rating belongs to, e.g. "off-grid-solar-inverters". */
+  parentCategory: string;
   powerCategory: PowerCategory;
   locale?: Locale;
 }
-const { powerCategory, locale = DEFAULT_LOCALE } = Astro.props;
+const { parentCategory, powerCategory, locale = DEFAULT_LOCALE } = Astro.props;
 const t = getDict(locale);
 
-const parentMeta = localizedCategory(getCategory(POWER_CATEGORY_PARENT)!, locale);
-const siblingPowerCategories = getPowerCategories(POWER_CATEGORY_PARENT);
+const parentMeta = localizedCategory(getCategory(parentCategory)!, locale);
+const siblingPowerCategories = getPowerCategories(parentCategory);
 
-const products = getProductsByPower(POWER_CATEGORY_PARENT, powerCategory.power).map((p) =>
+const products = getProductsByPower(parentCategory, powerCategory.power).map((p) =>
   localizedProduct(p, locale)
 );
 const modelCount = products.length;
@@ -60,7 +57,7 @@ const copy = t.powerPage.copy({
 <BaseLayout
   title={copy.seoTitle}
   description={copy.seoDescription}
-  path={powerCategoryPath(POWER_CATEGORY_PARENT, powerCategory.slug)}
+  path={powerCategoryPath(parentCategory, powerCategory.slug)}
   locale={locale}
 >
   <Container class="pt-8">
@@ -69,7 +66,7 @@ const copy = t.powerPage.copy({
         { label: t.nav.products, href: localizedPath(locale, '/products/') },
         {
           label: parentMeta.name,
-          href: localizedPath(locale, `/products/${POWER_CATEGORY_PARENT}/`),
+          href: localizedPath(locale, `/products/${parentCategory}/`),
         },
         { label: powerCategory.name },
       ]}
@@ -116,7 +113,7 @@ const copy = t.powerPage.copy({
           return (
             <li>
               <a
-                href={localizedPath(locale, powerCategoryPath(POWER_CATEGORY_PARENT, power.slug))}
+                href={localizedPath(locale, powerCategoryPath(parentCategory, power.slug))}
                 aria-current={isCurrent ? 'page' : undefined}
                 class:list={[
                   'inline-flex rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors',

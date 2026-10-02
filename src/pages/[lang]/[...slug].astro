@@ -51,6 +51,7 @@ if (entry.kind === 'blogArticle') {
 {entry.kind === 'category' && <CategoryPage category={entry.data.category!} locale={entry.locale} />}
 {entry.kind === 'power' && (
   <PowerPage
+    parentCategory={entry.data.category!}
     powerCategory={getPowerCategory(entry.data.category!, entry.data.power!) as PowerCategory}
     locale={entry.locale}
   />

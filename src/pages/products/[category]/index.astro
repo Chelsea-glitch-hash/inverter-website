@@ -13,19 +13,6 @@ export function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-<<<<<<< HEAD
-=======
-const meta = getCategory(category!);
-const products = getProductsByCategory(category!);
-
-/* Power-level sub-categories, derived from the product data, for the categories
-   listed in POWER_CATEGORY_PARENTS. A power level with no models never links
-   anywhere, and a category without power pages simply renders no section. */
-const powerCategories = getPowerCategories(category!).map((power) => ({
-  ...power,
-  count: products.filter((p) => p.ratedPower === power.power).length,
-}));
->>>>>>> cyrustse
 ---
 
 <CategoryPage category={category!} locale="en" />

@@ -1,31 +1,7 @@
 ---
-<<<<<<< HEAD
 /** English power-rating page — thin wrapper around the shared template. */
 import PowerPage from '../../../templates/PowerPage.astro';
-import {
-  POWER_CATEGORY_PARENT,
-  getPowerCategories,
-  type PowerCategory,
-} from '../../../lib/power-categories';
-=======
-/**
- * Power-level collection page for the STANDALONE off-grid range,
- * e.g. /products/off-grid-inverters/1800w/.
- *
- * The parent category is a static folder rather than a [category] param on
- * purpose: Astro resolves a static segment before the dynamic [category] route,
- * which is what keeps this page and the product page
- * /products/off-grid-inverters/{slug}/ as two separate built pages.
- *
- * Body lives in src/components/PowerListing.astro — shared with the solar range.
- *
- * NOTE: the category slug is declared INSIDE getStaticPaths and passed through
- * props. Astro hoists getStaticPaths out of the frontmatter, so a module-level
- * `const` is not in scope when it runs.
- */
-import PowerListing from '../../../components/PowerListing.astro';
 import { getPowerCategories } from '../../../lib/power-categories';
->>>>>>> cyrustse
 
 export function getStaticPaths() {
   const parentCategory = 'off-grid-inverters';
@@ -35,17 +11,7 @@ export function getStaticPaths() {
   }));
 }
 
-<<<<<<< HEAD
-interface Props {
-  powerCategory: PowerCategory;
-}
-const { powerCategory } = Astro.props;
----
-
-<PowerPage powerCategory={powerCategory} locale="en" />
-=======
 const { parentCategory, powerCategory } = Astro.props;
 ---
 
-<PowerListing parentCategory={parentCategory} powerCategory={powerCategory} />
->>>>>>> cyrustse
+<PowerPage parentCategory={parentCategory} powerCategory={powerCategory} locale="en" />
