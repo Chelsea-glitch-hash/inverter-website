@@ -34,3 +34,4 @@ astro.config.verify.mjs
 Thumbs.db
 *.log
 .pdf-work/
+*-tmp.json
