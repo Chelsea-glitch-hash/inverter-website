@@ -276,14 +276,28 @@ const scriptStrings = {
 
       /* A gateway/runtime failure returns an HTML error page, not JSON.
          Read the body as text first so `res.json()` can never throw
-         "Unexpected token '<'" at the visitor. */
+         "Unexpected token '<'" at the visitor. Cloudflare's HTML error
+         pages embed their cause as "Error 1101" / "Error 1102" / etc.
+         deep inside the markup - extract it so the on-screen message and
+         the console both carry the code, no DevTools digging required. */
       const raw = await res.text();
       let result: { ok: boolean; error?: string };
       try {
         result = JSON.parse(raw) as { ok: boolean; error?: string };
       } catch {
-        console.error('[inquiry] Non-JSON response', res.status, raw.slice(0, 300));
-        throw new Error(i18n.submissionFailed);
+        const codeMatch = raw.match(/Error \d{3,4}/);
+        console.error(
+          '[inquiry] Non-JSON response',
+          res.status,
+          codeMatch ? codeMatch[0] : '(no error code found)',
+          'retry-after:', res.headers.get('retry-after'),
+          'cf-ray:', res.headers.get('cf-ray'),
+          raw.slice(0, 300)
+        );
+        throw new Error(
+          i18n.submissionFailed +
+            (codeMatch ? ` [${codeMatch[0]}]` : ` [HTTP ${res.status}]`)
+        );
       }
 
       if (res.ok && result.ok) {
