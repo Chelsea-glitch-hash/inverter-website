@@ -312,8 +312,16 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
           `${Date.now() - t0}ms`,
           detail.slice(0, 500)
         );
+        /* Surface Resend's own validation message (422/403/...) in the JSON
+           error - it names the exact rejected field (e.g. "Invalid `to`
+           field"), which maps straight to an env var or a form input.
+           Resend error bodies carry no secrets; length is capped anyway. */
+        const hint = detail.replace(/\s+/g, ' ').trim().slice(0, 160);
         return new Response(
-          JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
+          JSON.stringify({
+            ok: false,
+            error: `Email delivery failed (Resend ${res.status}): ${hint}`,
+          }),
           { status: 502, headers: jsonHeaders }
         );
       }
