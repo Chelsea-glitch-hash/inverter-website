@@ -18,8 +18,12 @@ export const SITE = {
   name: 'Zhongze Huasong',
   shortName: 'Zhongze Huasong',
   tagline: 'B2B Inverter Manufacturer',
-  /** TODO: must match astro.config.mjs `site`. */
-  url: 'https://zzpine.com',
+  /**
+   * Canonical host — `www` is the preferred form; the bare domain is 301
+   * redirected to it at the CDN edge (see docs/deployment-cloudflare.md).
+   * Must match astro.config.mjs `site` and the Sitemap line in robots.txt.
+   */
+  url: 'https://www.zzpine.com',
   /** Default SEO title suffix */
   titleSuffix: ' | Zhongze Huasong',
 };

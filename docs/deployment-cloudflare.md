@@ -157,10 +157,12 @@ Cloudflare 用 **Node 20** 构建。本地已验证 770 页产出正常，无需
 
 > **为什么推荐 `www` 作首选**：裸域无法使用 CNAME（除非用 CNAME flattening），
 > 且裸域与子域都进索引会造成重复内容。选定一个做 301 是 SEO 标准做法。
-> **注意**：本站 `astro.config.mjs` 里 `site` 现在写的是 **`https://zzpine.com`（裸域）**。
-> 如果你决定用 `www` 作首选，**必须同步改这一处**（连同 `src/config.ts` 的 `SITE.url`
-> 和 `public/robots.txt` 的 Sitemap 行），否则 canonical / sitemap 会指向非首选域名。
-> 告诉我最终选哪个，我来改这三处。
+>
+> ✅ **已确定：首选域名为 `www.zzpine.com`**（2026-10-02）。
+> 代码侧三处已同步为 `https://www.zzpine.com`：`astro.config.mjs` 的 `site`、
+> `src/config.ts` 的 `SITE.url`、`public/robots.txt` 的 Sitemap 行。
+> 构建产物已验证 canonical / hreflang / og:url / sitemap 全部指向 `www`。
+> **请务必按上面的 Redirect Rules 配置裸域 → www 的 301**，否则裸域会返回 404 或重复内容。
 
 ---
 

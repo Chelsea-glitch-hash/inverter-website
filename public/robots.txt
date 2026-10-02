@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-# TODO(launch): replace with the real domain
-Sitemap: https://zzpine.com/sitemap-index.xml
+Sitemap: https://www.zzpine.com/sitemap-index.xml
