@@ -1,0 +1,3041 @@
+{
+  "result": [
+    {
+      "id": "af396fe9-3e05-49ef-bda2-dbbb43a8cdc0",
+      "short_id": "af396fe9",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://af396fe9.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T18:49:32.909644Z",
+      "modified_on": "2026-10-02T18:50:17.481758Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T18:50:07.890177Z",
+        "ended_on": "2026-10-02T18:50:17.481758Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "35e4b42fde9ef6d7d01f73592fffd14ae97b9f44",
+          "commit_message": "debug: temporarily switch to Turnstile official test keys for CLI end-to-end diagnosis (will revert)",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T18:49:33.031797Z",
+          "ended_on": "2026-10-02T18:49:33.036318Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T18:49:33.036318Z",
+          "ended_on": "2026-10-02T18:49:35.585944Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T18:49:35.585944Z",
+          "ended_on": "2026-10-02T18:49:39.004977Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T18:49:39.004977Z",
+          "ended_on": "2026-10-02T18:50:07.890177Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T18:50:07.890177Z",
+          "ended_on": "2026-10-02T18:50:17.481758Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": [
+        "https://www.zzpine.com",
+        "https://zzpine.com"
+      ],
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "4f88c2b2-bd92-4f98-b5ab-3fb560e40288",
+      "short_id": "4f88c2b2",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://4f88c2b2.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T18:33:53.788313Z",
+      "modified_on": "2026-10-02T18:35:00.198839Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T18:34:50.798283Z",
+        "ended_on": "2026-10-02T18:35:00.198839Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "35e4b42fde9ef6d7d01f73592fffd14ae97b9f44",
+          "commit_message": "debug: temporarily switch to Turnstile official test keys for CLI end-to-end diagnosis (will revert)",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T18:33:53.897726Z",
+          "ended_on": "2026-10-02T18:33:53.903886Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T18:33:53.903886Z",
+          "ended_on": "2026-10-02T18:33:55.792501Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T18:33:55.792501Z",
+          "ended_on": "2026-10-02T18:33:59.117499Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T18:33:59.117499Z",
+          "ended_on": "2026-10-02T18:34:50.798283Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T18:34:50.798283Z",
+          "ended_on": "2026-10-02T18:35:00.198839Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "38a9d7ce-7e92-409f-a051-4f2a5123f27f",
+      "short_id": "38a9d7ce",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://38a9d7ce.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T18:30:46.273804Z",
+      "modified_on": "2026-10-02T18:31:38.02976Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T18:31:20.902682Z",
+        "ended_on": "2026-10-02T18:31:38.02976Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "35e4b42fde9ef6d7d01f73592fffd14ae97b9f44",
+          "commit_message": "debug: temporarily switch to Turnstile official test keys for CLI end-to-end diagnosis (will revert)",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T18:30:46.415929Z",
+          "ended_on": "2026-10-02T18:30:46.423369Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T18:30:46.423369Z",
+          "ended_on": "2026-10-02T18:30:48.938862Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T18:30:48.938862Z",
+          "ended_on": "2026-10-02T18:30:51.770122Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T18:30:51.770122Z",
+          "ended_on": "2026-10-02T18:31:20.902682Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T18:31:20.902682Z",
+          "ended_on": "2026-10-02T18:31:38.02976Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "b0d10a34-5fc7-4ec1-9e2c-da53cf5562bc",
+      "short_id": "b0d10a34",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://b0d10a34.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T18:14:12.582981Z",
+      "modified_on": "2026-10-02T18:14:59.236546Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T18:14:47.669582Z",
+        "ended_on": "2026-10-02T18:14:59.236546Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "d4b50207077d40da791ad2bcec36940bdf6e5db5",
+          "commit_message": "chore: extract Cloudflare error page title into inquiry failure marker",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T18:14:12.744116Z",
+          "ended_on": "2026-10-02T18:14:12.750323Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T18:14:12.750323Z",
+          "ended_on": "2026-10-02T18:14:15.057867Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T18:14:15.057867Z",
+          "ended_on": "2026-10-02T18:14:17.484276Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T18:14:17.484276Z",
+          "ended_on": "2026-10-02T18:14:47.669582Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T18:14:47.669582Z",
+          "ended_on": "2026-10-02T18:14:59.236546Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "25de9c24-908c-46b2-ae28-309036430bcd",
+      "short_id": "25de9c24",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://25de9c24.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T18:03:07.450585Z",
+      "modified_on": "2026-10-02T18:04:18.084112Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T18:04:03.939721Z",
+        "ended_on": "2026-10-02T18:04:18.084112Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "a4e07699099846315ca553cfbf02115ae9b8a5d8",
+          "commit_message": "chore: surface Resend rejection detail in inquiry JSON error",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T18:03:07.588527Z",
+          "ended_on": "2026-10-02T18:03:07.59386Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T18:03:07.59386Z",
+          "ended_on": "2026-10-02T18:03:09.479382Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T18:03:09.479382Z",
+          "ended_on": "2026-10-02T18:03:11.862204Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T18:03:11.862204Z",
+          "ended_on": "2026-10-02T18:04:03.939721Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T18:04:03.939721Z",
+          "ended_on": "2026-10-02T18:04:18.084112Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "7d69ca6c-f0ad-4431-ba63-6115327f8703",
+      "short_id": "7d69ca6c",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://7d69ca6c.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:48:47.518979Z",
+      "modified_on": "2026-10-02T17:50:47.431452Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:50:36.044379Z",
+        "ended_on": "2026-10-02T17:50:47.431452Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "4fb8978f4a0c879c0d3b81493518a30d47e553e1",
+          "commit_message": "chore: surface Cloudflare error code in inquiry form failure message",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:48:47.665453Z",
+          "ended_on": "2026-10-02T17:50:01.856419Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:50:01.856419Z",
+          "ended_on": "2026-10-02T17:50:03.808216Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:50:03.808216Z",
+          "ended_on": "2026-10-02T17:50:06.733537Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:50:06.733537Z",
+          "ended_on": "2026-10-02T17:50:36.044379Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:50:36.044379Z",
+          "ended_on": "2026-10-02T17:50:47.431452Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "9cfec4e0-3517-456a-9cc0-aefbf068cece",
+      "short_id": "9cfec4e0",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://9cfec4e0.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:47:59.930596Z",
+      "modified_on": "2026-10-02T17:50:03.547424Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:49:55.621759Z",
+        "ended_on": "2026-10-02T17:50:03.547424Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "2878d908d67406e64569cafd9295af4a25b47e7d",
+          "commit_message": "fix: pair Turnstile site key with configured secret and harden inquiry endpoint\n\nTwo independent faults kept the inquiry form broken:\n\n1. Wrong Turnstile widget. src/config.ts shipped a site key\n   (0x4AAAAAAEow16pcFLjiXJag) that did not belong to the widget whose\n   secret key is configured in Cloudflare Pages. The browser therefore\n   solved one widget while the server verified another, so every real\n   submission ended in \"Spam verification failed.\"\n\n2. No upstream timeout. A hanging fetch to Resend aborted the whole\n   Pages Function, and Cloudflare replaced the JSON error with its own\n   HTML 502 page (text/html + retry-after: 60). The browser then threw\n   \"Unexpected token '\u003c'\" while parsing it.\n\nChanges:\n- src/config.ts: point siteKey at the widget actually linked to the\n  configured secret (0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo)\n- functions/api/inquiry.ts:\n  * fail with 503 JSON when RESEND_API_KEY / INQUIRY_TO_EMAIL are missing\n    instead of logging and returning ok:true, which silently dropped leads\n  * abort the Resend request after 8s and report a JSON 502, so the\n    runtime never gets killed mid-request\n  * log the upstream status and body on rejection\n- src/components/InquiryForm.astro: read the response as text and parse\n  it, so a non-JSON gateway error can no longer surface as\n  \"Unexpected token '\u003c'\"\n- tools/test-inquiry.mjs: smoke test for the endpoint, runnable against\n  local wrangler or production via BASE=...\n- docs/deployment-cloudflare.md: updated site key, note that the site key\n  and secret key must come from the same widget",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:48:00.099058Z",
+          "ended_on": "2026-10-02T17:49:12.413802Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:49:12.413802Z",
+          "ended_on": "2026-10-02T17:49:15.208386Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:49:15.208386Z",
+          "ended_on": "2026-10-02T17:49:17.31158Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:49:17.31158Z",
+          "ended_on": "2026-10-02T17:49:55.621759Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:49:55.621759Z",
+          "ended_on": "2026-10-02T17:50:03.547424Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "4a2ff676-2585-4de3-99ea-ce8961288555",
+      "short_id": "4a2ff676",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://4a2ff676.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:47:47.439094Z",
+      "modified_on": "2026-10-02T17:49:14.235091Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:49:00.121206Z",
+        "ended_on": "2026-10-02T17:49:14.235091Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "33a57cc8d64f0cf0602f1267c7a3d55dc8f6df9e",
+          "commit_message": "fix: restore correct Turnstile site key (was confused with the secret key)\n\nThe previous commit swapped the widget's two keys. On the Turnstile\nwidget page:\n\n  Site key   = 0x4AAAAAAEow16pcFLjiXJag   (browser, public)  \u003c- original value\n  Secret key = 0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo (server-side)\n\nBoth start with \"0x\" and look nearly identical, so the secret was\nmistaken for the site key and shipped in src/config.ts. A browser\nwidget initialized with the secret generates tokens the siteverify\nendpoint always rejects.\n\nThis restores the original (correct) site key and documents the\nsite-key-vs-secret-key pitfall in the deployment guide. The server\nside expects TURNSTILE_SECRET_KEY to hold the widget's secret key.",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:47:47.852726Z",
+          "ended_on": "2026-10-02T17:47:48.294367Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:47:48.294367Z",
+          "ended_on": "2026-10-02T17:47:50.865395Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:47:50.865395Z",
+          "ended_on": "2026-10-02T17:47:53.566481Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:47:53.566481Z",
+          "ended_on": "2026-10-02T17:49:00.121206Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:49:00.121206Z",
+          "ended_on": "2026-10-02T17:49:14.235091Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "dd0d4c8e-a4fd-4e70-983e-915590cf7b8c",
+      "short_id": "dd0d4c8e",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://dd0d4c8e.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:47:02.022658Z",
+      "modified_on": "2026-10-02T17:47:50.262269Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:47:37.493102Z",
+        "ended_on": "2026-10-02T17:47:50.262269Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "94647367aa9b715b31eb1b068fa5f33465b8e94d",
+          "commit_message": "fix: cover response body reads inside the upstream abort windows\n\nThe previous hardening aborted the Resend fetch after 8s, but the timer\nwas cleared as soon as response HEADERS arrived - the body read\n(res.text()) ran unguarded afterwards, and verifyTurnstile had no\ntimeout at all. An upstream that sends headers and then stalls on the\nbody therefore hung the Worker past the runtime limits, and Cloudflare\nreplaced the JSON error with its own HTML 502 page. The browser side\nthen reported \"[inquiry] Non-JSON response 502\", i.e. \"Submission\nfailed\" - observed live today.\n\nChanges:\n- Resend call: fetch AND res.text() now run inside one try guarded by\n  the 8s AbortController; clearTimeout moved to a finally block\n- verifyTurnstile: same pattern with a 5s abort around siteverify,\n  covering its res.json() body read too\n- timing + abort markers added to the console diagnostics so a\n  wrangler tail shows exactly where and how fast an upstream failed",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:47:02.381996Z",
+          "ended_on": "2026-10-02T17:47:02.389225Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:47:02.389225Z",
+          "ended_on": "2026-10-02T17:47:04.142652Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:47:04.142652Z",
+          "ended_on": "2026-10-02T17:47:07.422261Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:47:07.422261Z",
+          "ended_on": "2026-10-02T17:47:37.493102Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:47:37.493102Z",
+          "ended_on": "2026-10-02T17:47:50.262269Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "f48e0ca8-1b6b-43f9-8d19-69abeafbd08a",
+      "short_id": "f48e0ca8",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://f48e0ca8.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:27:39.185111Z",
+      "modified_on": "2026-10-02T17:28:22.844225Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:28:14.868985Z",
+        "ended_on": "2026-10-02T17:28:22.844225Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "94647367aa9b715b31eb1b068fa5f33465b8e94d",
+          "commit_message": "fix: cover response body reads inside the upstream abort windows\n\nThe previous hardening aborted the Resend fetch after 8s, but the timer\nwas cleared as soon as response HEADERS arrived - the body read\n(res.text()) ran unguarded afterwards, and verifyTurnstile had no\ntimeout at all. An upstream that sends headers and then stalls on the\nbody therefore hung the Worker past the runtime limits, and Cloudflare\nreplaced the JSON error with its own HTML 502 page. The browser side\nthen reported \"[inquiry] Non-JSON response 502\", i.e. \"Submission\nfailed\" - observed live today.\n\nChanges:\n- Resend call: fetch AND res.text() now run inside one try guarded by\n  the 8s AbortController; clearTimeout moved to a finally block\n- verifyTurnstile: same pattern with a 5s abort around siteverify,\n  covering its res.json() body read too\n- timing + abort markers added to the console diagnostics so a\n  wrangler tail shows exactly where and how fast an upstream failed",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:27:39.339562Z",
+          "ended_on": "2026-10-02T17:27:39.342431Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:27:39.342431Z",
+          "ended_on": "2026-10-02T17:27:41.465713Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:27:41.465713Z",
+          "ended_on": "2026-10-02T17:27:43.781785Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:27:43.781785Z",
+          "ended_on": "2026-10-02T17:28:14.868985Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:28:14.868985Z",
+          "ended_on": "2026-10-02T17:28:22.844225Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "a159b16a-10f9-47a4-97d1-97316f094c2e",
+      "short_id": "a159b16a",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://a159b16a.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:25:31.519299Z",
+      "modified_on": "2026-10-02T17:26:26.63088Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:26:18.438101Z",
+        "ended_on": "2026-10-02T17:26:26.63088Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "4fb8978f4a0c879c0d3b81493518a30d47e553e1",
+          "commit_message": "chore: surface Cloudflare error code in inquiry form failure message",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:25:31.639245Z",
+          "ended_on": "2026-10-02T17:25:31.64415Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:25:31.64415Z",
+          "ended_on": "2026-10-02T17:25:33.491805Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:25:33.491805Z",
+          "ended_on": "2026-10-02T17:25:36.892916Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:25:36.892916Z",
+          "ended_on": "2026-10-02T17:26:18.438101Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:26:18.438101Z",
+          "ended_on": "2026-10-02T17:26:26.63088Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "a1e2f1e7-7ba8-4a4b-b58a-6e25cc279a61",
+      "short_id": "a1e2f1e7",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://a1e2f1e7.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:13:24.247537Z",
+      "modified_on": "2026-10-02T17:14:14.067884Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:14:00.38081Z",
+        "ended_on": "2026-10-02T17:14:14.067884Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "94647367aa9b715b31eb1b068fa5f33465b8e94d",
+          "commit_message": "fix: cover response body reads inside the upstream abort windows\n\nThe previous hardening aborted the Resend fetch after 8s, but the timer\nwas cleared as soon as response HEADERS arrived - the body read\n(res.text()) ran unguarded afterwards, and verifyTurnstile had no\ntimeout at all. An upstream that sends headers and then stalls on the\nbody therefore hung the Worker past the runtime limits, and Cloudflare\nreplaced the JSON error with its own HTML 502 page. The browser side\nthen reported \"[inquiry] Non-JSON response 502\", i.e. \"Submission\nfailed\" - observed live today.\n\nChanges:\n- Resend call: fetch AND res.text() now run inside one try guarded by\n  the 8s AbortController; clearTimeout moved to a finally block\n- verifyTurnstile: same pattern with a 5s abort around siteverify,\n  covering its res.json() body read too\n- timing + abort markers added to the console diagnostics so a\n  wrangler tail shows exactly where and how fast an upstream failed",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:13:24.63927Z",
+          "ended_on": "2026-10-02T17:13:24.645241Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:13:24.645241Z",
+          "ended_on": "2026-10-02T17:13:28.040484Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:13:28.040484Z",
+          "ended_on": "2026-10-02T17:13:30.717135Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:13:30.717135Z",
+          "ended_on": "2026-10-02T17:14:00.38081Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:14:00.38081Z",
+          "ended_on": "2026-10-02T17:14:14.067884Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "d283036d-c308-438d-9647-b857dd413661",
+      "short_id": "d283036d",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://d283036d.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T17:03:17.57787Z",
+      "modified_on": "2026-10-02T17:04:11.788474Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T17:04:03.474764Z",
+        "ended_on": "2026-10-02T17:04:11.788474Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "94647367aa9b715b31eb1b068fa5f33465b8e94d",
+          "commit_message": "fix: cover response body reads inside the upstream abort windows\n\nThe previous hardening aborted the Resend fetch after 8s, but the timer\nwas cleared as soon as response HEADERS arrived - the body read\n(res.text()) ran unguarded afterwards, and verifyTurnstile had no\ntimeout at all. An upstream that sends headers and then stalls on the\nbody therefore hung the Worker past the runtime limits, and Cloudflare\nreplaced the JSON error with its own HTML 502 page. The browser side\nthen reported \"[inquiry] Non-JSON response 502\", i.e. \"Submission\nfailed\" - observed live today.\n\nChanges:\n- Resend call: fetch AND res.text() now run inside one try guarded by\n  the 8s AbortController; clearTimeout moved to a finally block\n- verifyTurnstile: same pattern with a 5s abort around siteverify,\n  covering its res.json() body read too\n- timing + abort markers added to the console diagnostics so a\n  wrangler tail shows exactly where and how fast an upstream failed",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T17:03:18.003914Z",
+          "ended_on": "2026-10-02T17:03:18.008307Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T17:03:18.008307Z",
+          "ended_on": "2026-10-02T17:03:20.948563Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T17:03:20.948563Z",
+          "ended_on": "2026-10-02T17:03:23.953068Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T17:03:23.953068Z",
+          "ended_on": "2026-10-02T17:04:03.474764Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T17:04:03.474764Z",
+          "ended_on": "2026-10-02T17:04:11.788474Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "b28c1045-9fe4-4c9d-a476-303d8b87c542",
+      "short_id": "b28c1045",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://b28c1045.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T16:47:14.418191Z",
+      "modified_on": "2026-10-02T16:48:01.158734Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T16:47:48.14357Z",
+        "ended_on": "2026-10-02T16:48:01.158734Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "33a57cc8d64f0cf0602f1267c7a3d55dc8f6df9e",
+          "commit_message": "fix: restore correct Turnstile site key (was confused with the secret key)\n\nThe previous commit swapped the widget's two keys. On the Turnstile\nwidget page:\n\n  Site key   = 0x4AAAAAAEow16pcFLjiXJag   (browser, public)  \u003c- original value\n  Secret key = 0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo (server-side)\n\nBoth start with \"0x\" and look nearly identical, so the secret was\nmistaken for the site key and shipped in src/config.ts. A browser\nwidget initialized with the secret generates tokens the siteverify\nendpoint always rejects.\n\nThis restores the original (correct) site key and documents the\nsite-key-vs-secret-key pitfall in the deployment guide. The server\nside expects TURNSTILE_SECRET_KEY to hold the widget's secret key.",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T16:47:14.803888Z",
+          "ended_on": "2026-10-02T16:47:14.811769Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T16:47:14.811769Z",
+          "ended_on": "2026-10-02T16:47:17.028632Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T16:47:17.028632Z",
+          "ended_on": "2026-10-02T16:47:20.257857Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T16:47:20.257857Z",
+          "ended_on": "2026-10-02T16:47:48.14357Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T16:47:48.14357Z",
+          "ended_on": "2026-10-02T16:48:01.158734Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "2868713d-1a92-49db-a460-513790e8702e",
+      "short_id": "2868713d",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://2868713d.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T16:30:29.441146Z",
+      "modified_on": "2026-10-02T16:31:24.261642Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T16:31:12.144648Z",
+        "ended_on": "2026-10-02T16:31:24.261642Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "33a57cc8d64f0cf0602f1267c7a3d55dc8f6df9e",
+          "commit_message": "fix: restore correct Turnstile site key (was confused with the secret key)\n\nThe previous commit swapped the widget's two keys. On the Turnstile\nwidget page:\n\n  Site key   = 0x4AAAAAAEow16pcFLjiXJag   (browser, public)  \u003c- original value\n  Secret key = 0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo (server-side)\n\nBoth start with \"0x\" and look nearly identical, so the secret was\nmistaken for the site key and shipped in src/config.ts. A browser\nwidget initialized with the secret generates tokens the siteverify\nendpoint always rejects.\n\nThis restores the original (correct) site key and documents the\nsite-key-vs-secret-key pitfall in the deployment guide. The server\nside expects TURNSTILE_SECRET_KEY to hold the widget's secret key.",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T16:30:29.60691Z",
+          "ended_on": "2026-10-02T16:30:29.613672Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T16:30:29.613672Z",
+          "ended_on": "2026-10-02T16:30:31.729395Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T16:30:31.729395Z",
+          "ended_on": "2026-10-02T16:30:34.715223Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T16:30:34.715223Z",
+          "ended_on": "2026-10-02T16:31:12.144648Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T16:31:12.144648Z",
+          "ended_on": "2026-10-02T16:31:24.261642Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "5b2c2a46-f62c-4adf-8857-9e15e9dcaab3",
+      "short_id": "5b2c2a46",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://5b2c2a46.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T16:18:58.836408Z",
+      "modified_on": "2026-10-02T16:20:02.473758Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T16:19:44.796612Z",
+        "ended_on": "2026-10-02T16:20:02.473758Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "2878d908d67406e64569cafd9295af4a25b47e7d",
+          "commit_message": "fix: pair Turnstile site key with configured secret and harden inquiry endpoint\n\nTwo independent faults kept the inquiry form broken:\n\n1. Wrong Turnstile widget. src/config.ts shipped a site key\n   (0x4AAAAAAEow16pcFLjiXJag) that did not belong to the widget whose\n   secret key is configured in Cloudflare Pages. The browser therefore\n   solved one widget while the server verified another, so every real\n   submission ended in \"Spam verification failed.\"\n\n2. No upstream timeout. A hanging fetch to Resend aborted the whole\n   Pages Function, and Cloudflare replaced the JSON error with its own\n   HTML 502 page (text/html + retry-after: 60). The browser then threw\n   \"Unexpected token '\u003c'\" while parsing it.\n\nChanges:\n- src/config.ts: point siteKey at the widget actually linked to the\n  configured secret (0x4AAAAAAEow1zs0l4GoQsPEcCn29853OAo)\n- functions/api/inquiry.ts:\n  * fail with 503 JSON when RESEND_API_KEY / INQUIRY_TO_EMAIL are missing\n    instead of logging and returning ok:true, which silently dropped leads\n  * abort the Resend request after 8s and report a JSON 502, so the\n    runtime never gets killed mid-request\n  * log the upstream status and body on rejection\n- src/components/InquiryForm.astro: read the response as text and parse\n  it, so a non-JSON gateway error can no longer surface as\n  \"Unexpected token '\u003c'\"\n- tools/test-inquiry.mjs: smoke test for the endpoint, runnable against\n  local wrangler or production via BASE=...\n- docs/deployment-cloudflare.md: updated site key, note that the site key\n  and secret key must come from the same widget",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T16:18:59.130129Z",
+          "ended_on": "2026-10-02T16:18:59.137323Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T16:18:59.137323Z",
+          "ended_on": "2026-10-02T16:19:01.850382Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T16:19:01.850382Z",
+          "ended_on": "2026-10-02T16:19:04.386613Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T16:19:04.386613Z",
+          "ended_on": "2026-10-02T16:19:44.796612Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T16:19:44.796612Z",
+          "ended_on": "2026-10-02T16:20:02.473758Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "Website \u003conboarding@resend.dev"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "Songjuanzhu@gmail.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "99f2f420-c518-4b15-bdd8-abe49ae6bb19",
+      "short_id": "99f2f420",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://99f2f420.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T02:23:11.903727Z",
+      "modified_on": "2026-10-02T02:24:01.271609Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T02:23:50.530013Z",
+        "ended_on": "2026-10-02T02:24:01.271609Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "841e80c39b93a1c5e1970be740313082c835c229",
+          "commit_message": "fix: set preferred canonical host to www.zzpine.com\n\nThe bare domain was used everywhere, so canonical, hreflang, og:url and the\nsitemap all advertised zzpine.com while the site will be served with the bare\ndomain 301-redirecting to www. Better to settle this before launch than to\nre-point the canonical afterwards.\n\nUpdated: astro.config.mjs site, config.ts SITE.url, robots.txt Sitemap line,\nplus the deployment guide, which now records www as the decided host.\n\nVerified in the build output: canonical, hreflang alternates, og:url, sitemap\nentries and robots.txt all use https://www.zzpine.com; zero bare-domain\nreferences remain. Build: 770 pages.",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T02:23:12.018821Z",
+          "ended_on": "2026-10-02T02:23:12.022115Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T02:23:12.022115Z",
+          "ended_on": "2026-10-02T02:23:14.467531Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T02:23:14.467531Z",
+          "ended_on": "2026-10-02T02:23:16.624611Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T02:23:16.624611Z",
+          "ended_on": "2026-10-02T02:23:50.530013Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T02:23:50.530013Z",
+          "ended_on": "2026-10-02T02:24:01.271609Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "3feb9158-28d4-44d9-934b-db61e4c398c7",
+      "short_id": "3feb9158",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://3feb9158.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T02:13:40.238266Z",
+      "modified_on": "2026-10-02T02:14:25.678022Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T02:14:15.201539Z",
+        "ended_on": "2026-10-02T02:14:25.678022Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "fac728119ecbc6097253e3c48e942eea0c8c2867",
+          "commit_message": "docs: add Cloudflare Pages deployment guide (domain stays on Aliyun)",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T02:13:40.371194Z",
+          "ended_on": "2026-10-02T02:13:40.375798Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T02:13:40.375798Z",
+          "ended_on": "2026-10-02T02:13:42.521053Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T02:13:42.521053Z",
+          "ended_on": "2026-10-02T02:13:45.102911Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T02:13:45.102911Z",
+          "ended_on": "2026-10-02T02:14:15.201539Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T02:14:15.201539Z",
+          "ended_on": "2026-10-02T02:14:25.678022Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "57f9a9ce-accf-4cec-9364-d0694353a14f",
+      "short_id": "57f9a9ce",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://57f9a9ce.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T02:08:19.626976Z",
+      "modified_on": "2026-10-02T02:09:05.691345Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-10-02T02:08:57.182496Z",
+        "ended_on": "2026-10-02T02:09:05.691345Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "4894846a41e25a924ebf93747709eaee6709db4f",
+          "commit_message": "fix: resolve committed merge conflict markers and restore build\n\nThe merge commit fd201c3 landed with unresolved conflict markers inside\nseven source files, which broke 'astro build' outright. Both sides of\nevery conflict came from two architectures: HEAD carries the thin English\nwrappers plus the 11-language i18n system, while cyrustse carried the older\nsingle-language page bodies whose content was already absorbed into\nsrc/templates/. Took the HEAD side everywhere and dropped the dead bodies.\n\nFollow-on fixes the merge exposed:\n- templates/PowerPage.astro still referenced the removed singular\n  POWER_CATEGORY_PARENT; it now takes parentCategory through props, matching\n  PowerListing.astro and the route wrappers.\n- Both [power].astro wrappers and the [lang] dynamic route now pass\n  parentCategory down.\n- BaseLayout.astro lost the CONTACT import in the merge, but the\n  Organization contactPoint block reads CONTACT.phone/.email, so the import\n  is restored.\n\nBuild: 770 pages, no broken internal links, sitemap complete.",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T02:08:19.747886Z",
+          "ended_on": "2026-10-02T02:08:19.759853Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T02:08:19.759853Z",
+          "ended_on": "2026-10-02T02:08:22.562418Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T02:08:22.562418Z",
+          "ended_on": "2026-10-02T02:08:24.992589Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T02:08:24.992589Z",
+          "ended_on": "2026-10-02T02:08:57.182496Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-10-02T02:08:57.182496Z",
+          "ended_on": "2026-10-02T02:09:05.691345Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "ae0e2536-95a8-4314-ab30-539e683a5d8b",
+      "short_id": "ae0e2536",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://ae0e2536.inverter-website-ca2.pages.dev",
+      "created_on": "2026-10-02T01:51:21.876491Z",
+      "modified_on": "2026-10-02T01:51:45.965963Z",
+      "latest_stage": {
+        "name": "build",
+        "started_on": "2026-10-02T01:51:27.327847Z",
+        "ended_on": "2026-10-02T01:51:45.965963Z",
+        "status": "failure"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "fd201c3114b6455de1d84bd28e8a56e85bb45328",
+          "commit_message": "Merge branch cyrustse into main",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-02T01:51:22.021652Z",
+          "ended_on": "2026-10-02T01:51:22.026365Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-10-02T01:51:22.026365Z",
+          "ended_on": "2026-10-02T01:51:24.794402Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-10-02T01:51:24.794402Z",
+          "ended_on": "2026-10-02T01:51:27.327847Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-10-02T01:51:27.327847Z",
+          "ended_on": "2026-10-02T01:51:45.965963Z",
+          "status": "failure"
+        },
+        {
+          "name": "deploy",
+          "started_on": null,
+          "ended_on": null,
+          "status": "idle"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": null,
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": null
+    },
+    {
+      "id": "3e84469e-cb2f-444e-a92d-8715c174b725",
+      "short_id": "3e84469e",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://3e84469e.inverter-website-ca2.pages.dev",
+      "created_on": "2026-09-27T06:38:54.696236Z",
+      "modified_on": "2026-09-27T06:39:37.798381Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-09-27T06:39:30.484255Z",
+        "ended_on": "2026-09-27T06:39:37.798381Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "c41ac619fbf0442bb28c0608f2c5273a08295f89",
+          "commit_message": "fix: set production site domain to zzpine.com",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-09-27T06:38:54.811054Z",
+          "ended_on": "2026-09-27T06:38:54.814729Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-09-27T06:38:54.814729Z",
+          "ended_on": "2026-09-27T06:38:56.643168Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-09-27T06:38:56.643168Z",
+          "ended_on": "2026-09-27T06:38:59.00536Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-09-27T06:38:59.00536Z",
+          "ended_on": "2026-09-27T06:39:30.484255Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-09-27T06:39:30.484255Z",
+          "ended_on": "2026-09-27T06:39:37.798381Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "81bcd539-1b83-4236-87f3-7aa418b275d1",
+      "short_id": "81bcd539",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://81bcd539.inverter-website-ca2.pages.dev",
+      "created_on": "2026-09-27T01:49:53.373812Z",
+      "modified_on": "2026-09-27T01:50:36.045921Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-09-27T01:50:28.205341Z",
+        "ended_on": "2026-09-27T01:50:36.045921Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "e4d51101822a53ed19d2d8648c32e34d20a8b48f",
+          "commit_message": "feat: add multilingual inverter product system",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-09-27T01:49:53.520712Z",
+          "ended_on": "2026-09-27T01:49:53.525591Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-09-27T01:49:53.525591Z",
+          "ended_on": "2026-09-27T01:49:58.389454Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-09-27T01:49:58.389454Z",
+          "ended_on": "2026-09-27T01:50:01.121696Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-09-27T01:50:01.121696Z",
+          "ended_on": "2026-09-27T01:50:28.205341Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-09-27T01:50:28.205341Z",
+          "ended_on": "2026-09-27T01:50:36.045921Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "065a97c0-58aa-4ff4-bbab-d641b9edb7a0",
+      "short_id": "065a97c0",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://065a97c0.inverter-website-ca2.pages.dev",
+      "created_on": "2026-09-26T06:35:49.971715Z",
+      "modified_on": "2026-09-26T06:36:27.903989Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-09-26T06:36:20.577998Z",
+        "ended_on": "2026-09-26T06:36:27.903989Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "fd56b486992f9f93afb2dd81aff22054158b7c9b",
+          "commit_message": "content: improve homepage testimonials",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-09-26T06:35:50.09481Z",
+          "ended_on": "2026-09-26T06:35:50.098439Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-09-26T06:35:50.098439Z",
+          "ended_on": "2026-09-26T06:35:52.014756Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-09-26T06:35:52.014756Z",
+          "ended_on": "2026-09-26T06:35:53.991151Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-09-26T06:35:53.991151Z",
+          "ended_on": "2026-09-26T06:36:20.577998Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-09-26T06:36:20.577998Z",
+          "ended_on": "2026-09-26T06:36:27.903989Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "495b1ce1-0220-4203-8128-3095ec22a794",
+      "short_id": "495b1ce1",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://495b1ce1.inverter-website-ca2.pages.dev",
+      "created_on": "2026-09-24T09:44:18.112317Z",
+      "modified_on": "2026-09-24T09:45:04.540434Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-09-24T09:44:55.264663Z",
+        "ended_on": "2026-09-24T09:45:04.540434Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "1fac8a214892adbe0fd717eb602f54e2f9230f04",
+          "commit_message": "content: add certification documentation",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-09-24T09:44:18.2568Z",
+          "ended_on": "2026-09-24T09:44:18.262384Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-09-24T09:44:18.262384Z",
+          "ended_on": "2026-09-24T09:44:20.575806Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-09-24T09:44:20.575806Z",
+          "ended_on": "2026-09-24T09:44:22.696126Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-09-24T09:44:22.696126Z",
+          "ended_on": "2026-09-24T09:44:55.264663Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-09-24T09:44:55.264663Z",
+          "ended_on": "2026-09-24T09:45:04.540434Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    },
+    {
+      "id": "ee2edba4-f066-4445-9020-66938ac6c227",
+      "short_id": "ee2edba4",
+      "project_id": "645d554a-36f2-4e5f-8196-7bc5c25b7a0a",
+      "project_name": "inverter-website",
+      "environment": "production",
+      "url": "https://ee2edba4.inverter-website-ca2.pages.dev",
+      "created_on": "2026-09-24T05:58:08.018598Z",
+      "modified_on": "2026-09-24T05:58:44.635234Z",
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": "2026-09-24T05:58:37.778224Z",
+        "ended_on": "2026-09-24T05:58:44.635234Z",
+        "status": "success"
+      },
+      "deployment_trigger": {
+        "type": "github:push",
+        "metadata": {
+          "branch": "main",
+          "commit_hash": "072ef6b5facf43a8e85dead297678a7d98fc0af9",
+          "commit_message": "content: refine factory section messaging",
+          "commit_dirty": false
+        }
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-09-24T05:58:08.153838Z",
+          "ended_on": "2026-09-24T05:58:08.15734Z",
+          "status": "success"
+        },
+        {
+          "name": "initialize",
+          "started_on": "2026-09-24T05:58:08.15734Z",
+          "ended_on": "2026-09-24T05:58:09.656796Z",
+          "status": "success"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": "2026-09-24T05:58:09.656796Z",
+          "ended_on": "2026-09-24T05:58:11.447538Z",
+          "status": "success"
+        },
+        {
+          "name": "build",
+          "started_on": "2026-09-24T05:58:11.447538Z",
+          "ended_on": "2026-09-24T05:58:37.778224Z",
+          "status": "success"
+        },
+        {
+          "name": "deploy",
+          "started_on": "2026-09-24T05:58:37.778224Z",
+          "ended_on": "2026-09-24T05:58:44.635234Z",
+          "status": "success"
+        }
+      ],
+      "build_config": {
+        "build_command": "npm run build",
+        "destination_dir": "dist",
+        "build_caching": null,
+        "root_dir": "/",
+        "web_analytics_tag": null,
+        "web_analytics_token": null
+      },
+      "source": {
+        "type": "github",
+        "config": {
+          "owner": "Chelsea-glitch-hash",
+          "repo_name": "inverter-website",
+          "production_branch": "main",
+          "pr_comments_enabled": false
+        }
+      },
+      "env_vars": {
+        "CHAT_AI_ENABLED": {
+          "type": "plain_text",
+          "value": "false"
+        },
+        "CHAT_CONTACT_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "CHAT_CONTACT_WHATSAPP": {
+          "type": "plain_text",
+          "value": "+86 189 2309 4074"
+        },
+        "CHAT_MAX_TURNS": {
+          "type": "plain_text",
+          "value": "8"
+        },
+        "INQUIRY_FROM_EMAIL": {
+          "type": "plain_text",
+          "value": "info@zzpine.com"
+        },
+        "INQUIRY_TO_EMAIL": {
+          "type": "plain_text",
+          "value": "chelsea@zzpine.com"
+        },
+        "NODE_VERSION": {
+          "type": "plain_text",
+          "value": "22"
+        },
+        "RESEND_API_KEY": {
+          "type": "secret_text",
+          "value": ""
+        },
+        "TURNSTILE_SECRET_KEY": {
+          "type": "secret_text",
+          "value": ""
+        }
+      },
+      "compatibility_date": "2026-09-05",
+      "compatibility_flags": [],
+      "build_image_major_version": 3,
+      "usage_model": "bundled",
+      "aliases": null,
+      "is_skipped": false,
+      "production_branch": "main",
+      "uses_functions": true,
+      "framework": "astro"
+    }
+  ],
+  "success": true,
+  "errors": [],
+  "messages": [],
+  "result_info": {
+    "page": 1,
+    "per_page": 25,
+    "count": 25,
+    "total_count": 48,
+    "total_pages": 2
+  }
+}
