@@ -273,7 +273,18 @@ const scriptStrings = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      const result = (await res.json()) as { ok: boolean; error?: string };
+
+      /* A gateway/runtime failure returns an HTML error page, not JSON.
+         Read the body as text first so `res.json()` can never throw
+         "Unexpected token '<'" at the visitor. */
+      const raw = await res.text();
+      let result: { ok: boolean; error?: string };
+      try {
+        result = JSON.parse(raw) as { ok: boolean; error?: string };
+      } catch {
+        console.error('[inquiry] Non-JSON response', res.status, raw.slice(0, 300));
+        throw new Error(i18n.submissionFailed);
+      }
 
       if (res.ok && result.ok) {
         form.classList.add('hidden');

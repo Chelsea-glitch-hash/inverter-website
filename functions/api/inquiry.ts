@@ -251,8 +251,33 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
     const html = buildEmailHtml(data);
     const subject = `Inquiry: ${data['product'] || 'General'} — ${data['name']} (${data['country'] || 'unknown country'})`;
 
-    if (env.RESEND_API_KEY && env.INQUIRY_TO_EMAIL) {
-      const res = await fetch('https://api.resend.com/emails', {
+    /* Misconfiguration is an operator error, NOT a silent success. Previously
+       the else branch logged and returned {ok:true}, which silently dropped
+       every lead when the keys were missing. Fail loudly instead. */
+    if (!env.RESEND_API_KEY || !env.INQUIRY_TO_EMAIL) {
+      console.error(
+        '[inquiry] Email backend not configured. Missing:',
+        !env.RESEND_API_KEY ? 'RESEND_API_KEY ' : '',
+        !env.INQUIRY_TO_EMAIL ? 'INQUIRY_TO_EMAIL' : ''
+      );
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          error: 'Email service is not configured. Please contact us directly.',
+        }),
+        { status: 503, headers: jsonHeaders }
+      );
+    }
+
+    /* Never let a hanging upstream kill the Worker: without a timeout the
+       runtime aborts the whole Function and Cloudflare substitutes its own
+       HTML 502 page (Content-Type: text/html + retry-after: 60), which is
+       exactly the failure mode this guard prevents. */
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    let res: Response;
+    try {
+      res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -265,23 +290,32 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
           subject,
           html,
         }),
+        signal: controller.signal,
       });
-      if (!res.ok) {
-        const detail = await res.text();
-        console.error('Resend error:', detail);
-        return new Response(
-          JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
-          { status: 502, headers: jsonHeaders }
-        );
-      }
-    } else {
-      // Development mode: no keys configured. Log instead of sending.
-      console.log('[dev] Inquiry received (no RESEND_API_KEY configured):', subject);
-      console.log(html);
+    } catch (err) {
+      clearTimeout(timeout);
+      console.error('[inquiry] Resend request failed or timed out:', err);
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
+        { status: 502, headers: jsonHeaders }
+      );
+    }
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      const detail = await res.text();
+      console.error('[inquiry] Resend rejected the request:', res.status, detail);
+      return new Response(
+        JSON.stringify({ ok: false, error: 'Email delivery failed. Please contact us directly.' }),
+        { status: 502, headers: jsonHeaders }
+      );
     }
 
     return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
   } catch (err) {
+    /* Last-resort guard: every failure path must emit JSON. If this handler
+       ever throws past this point the runtime returns Cloudflare's own HTML
+       error page, which the browser then chokes on while parsing `res.json()`. */
     console.error('Inquiry handler error:', err);
     return new Response(
       JSON.stringify({ ok: false, error: 'Invalid request.' }),
