@@ -285,19 +285,29 @@ const scriptStrings = {
       try {
         result = JSON.parse(raw) as { ok: boolean; error?: string };
       } catch {
-        const codeMatch = raw.match(/Error \d{3,4}/);
+        /* Cloudflare HTML error pages describe their cause in the <title>
+           ("... | 502: Bad gateway", "Error 1101 ...", etc.) and sometimes
+           in an errorcode span - surface whichever is present so the
+           on-screen message identifies the failure without DevTools. */
+        const titleMatch = raw.match(/<title>([^<]{0,140})<\/title>/i);
+        const codeMatch =
+          raw.match(/Error \d{3,4}/) ||
+          raw.match(/errorcode[^>]*>\s*([0-9]{3,4})/i);
+        const marker = titleMatch
+          ? titleMatch[1].trim()
+          : codeMatch
+            ? codeMatch[0]
+            : `HTTP ${res.status}`;
         console.error(
           '[inquiry] Non-JSON response',
           res.status,
-          codeMatch ? codeMatch[0] : '(no error code found)',
+          marker,
+          'bytes:', raw.length,
           'retry-after:', res.headers.get('retry-after'),
           'cf-ray:', res.headers.get('cf-ray'),
-          raw.slice(0, 300)
+          raw.slice(0, 500)
         );
-        throw new Error(
-          i18n.submissionFailed +
-            (codeMatch ? ` [${codeMatch[0]}]` : ` [HTTP ${res.status}]`)
-        );
+        throw new Error(`${i18n.submissionFailed} [${marker}]`);
       }
 
       if (res.ok && result.ok) {
