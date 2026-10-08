@@ -694,10 +694,11 @@ const chatConfig = {
         if (turnstileWidgetId === null) {
           turnstileWidgetId = api.render(turnstileSlot, {
             sitekey: config.turnstileSiteKey,
-            // Cloudflare deprecated `size: "invisible"` — the accepted values are
-            // normal / flexible / compact. Invisible (no widget shown until a
-            // challenge is actually needed) is now `appearance: "interaction-only"`.
-            appearance: 'interaction-only',
+            // `size: "invisible"` was removed from the Turnstile API — the
+            // accepted values are only normal / flexible / compact. Omitting
+            // size and appearance keeps this identical to the (working) inquiry
+            // form: the widget renders hidden inside #chat-turnstile and only
+            // executes when turnstile.execute() is called below.
             execution: 'execute',
             callback: () => undefined,
           });
