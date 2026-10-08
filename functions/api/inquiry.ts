@@ -236,22 +236,20 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
       );
     }
 
-    /* 3. Turnstile verification (when configured) */
+    /* 3. Turnstile verification (when configured).
+          The widget is hidden on the inquiry form, so a missing token is
+          accepted — verification runs only when a token is present. */
     if (env.TURNSTILE_SECRET_KEY) {
       const token = data['cf-turnstile-response'] || '';
-      if (!token) {
-        return new Response(
-          JSON.stringify({ ok: false, error: 'Spam verification failed. Please refresh and try again.' }),
-          { status: 400, headers: jsonHeaders }
-        );
-      }
-      const ip = request.headers.get('CF-Connecting-IP');
-      const human = await verifyTurnstile(token, env.TURNSTILE_SECRET_KEY, ip);
-      if (!human) {
-        return new Response(
-          JSON.stringify({ ok: false, error: 'Spam verification failed.' }),
-          { status: 400, headers: jsonHeaders }
-        );
+      if (token) {
+        const ip = request.headers.get('CF-Connecting-IP');
+        const human = await verifyTurnstile(token, env.TURNSTILE_SECRET_KEY, ip);
+        if (!human) {
+          return new Response(
+            JSON.stringify({ ok: false, error: 'Spam verification failed.' }),
+            { status: 400, headers: jsonHeaders }
+          );
+        }
       }
     }
 

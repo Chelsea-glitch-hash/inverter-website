@@ -112,8 +112,9 @@ const scriptStrings = {
       </label>
     </div>
 
-    <!-- Cloudflare Turnstile (rendered when site key is configured) -->
-    {TURNSTILE.siteKey && <div class="cf-turnstile sm:col-span-2" data-sitekey={TURNSTILE.siteKey}></div>}
+    <!-- Cloudflare Turnstile widget hidden per user request — the anti-spam
+         verification box no longer shows on the inquiry form. -->
+    {false && TURNSTILE.siteKey && <div class="cf-turnstile sm:col-span-2" data-sitekey={TURNSTILE.siteKey}></div>}
 
     <!--
       Hidden attribution fields - 18 total.
