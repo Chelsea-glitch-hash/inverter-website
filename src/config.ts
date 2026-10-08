@@ -50,7 +50,7 @@ export const COMPANY = {
 
 export const CONTACT = {
   /** Sales inbox shown on the website. */
-  email: 'chelsea@zzpine.com',
+  email: 'keira@zzpine.com',
   /**
    * International format, digits only - no "+", spaces or dashes.
    * Used verbatim to build wa.me links: https://wa.me/<whatsapp>

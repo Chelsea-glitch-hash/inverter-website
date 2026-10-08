@@ -71,7 +71,7 @@ Cloudflare 用 **Node 20** 构建。本地已验证 770 页产出正常，无需
 | 变量 | 值 | 从哪拿 |
 |---|---|---|
 | `RESEND_API_KEY` | `re_xxxxxxxx` | https://resend.com/api-keys 免费注册后创建 |
-| `INQUIRY_TO_EMAIL` | 收询盘的邮箱，如 `chelsea@zzpine.com` | 你自己的销售邮箱 |
+| `INQUIRY_TO_EMAIL` | 收询盘的邮箱，如 `keira@zzpine.com` | 你自己的销售邮箱 |
 | `INQUIRY_FROM_EMAIL` | 发件人，如 `Website <inquiry@zzpine.com>` | 需在 Resend 验证该域名 |
 | `TURNSTILE_SECRET_KEY` | `0xXXXX...`（**secret**） | Cloudflare 控制台 → Turnstile |
 
