@@ -127,7 +127,7 @@ export const ANALYTICS = {
  */
 export const CHAT = {
   /** Master switch - set false to hide the widget site-wide. */
-  enabled: false,
+  enabled: true,
   /** Show the unconsumed badge and the proactive teaser before the first open. */
   proactive: true,
   /** Render tappable quick-reply chips under assistant messages. */
