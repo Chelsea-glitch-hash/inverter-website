@@ -220,17 +220,20 @@ const chatConfig = {
   )
 }
 
-<script
-  type="application/json"
-  id="chat-config"
-  is:inline
-  set:html={JSON.stringify(chatConfig)}
-/>
+{
+  CHAT.enabled && (
+    <>
+      <script
+        type="application/json"
+        id="chat-config"
+        is:inline
+        set:html={JSON.stringify(chatConfig)}
+      />
 
-<script>
-  import { trackEvent } from '../lib/analytics';
-  import { getAttribution } from '../lib/attribution';
-  import { detectContact } from '../lib/contact-detect';
+      <script>
+        import { trackEvent } from '../lib/analytics';
+        import { getAttribution } from '../lib/attribution';
+        import { detectContact } from '../lib/contact-detect';
   import type {
     ChatContact,
     ChatLeadResponse,
@@ -979,3 +982,6 @@ const chatConfig = {
 
   initChat();
 </script>
+    </>
+  )
+}
