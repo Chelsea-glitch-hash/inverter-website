@@ -17,14 +17,31 @@ interface Props {
   ogType?: 'website' | 'article' | 'product';
   noindex?: boolean;
   locale?: Locale;
+  /**
+   * Site-absolute path of the share image, e.g. "/images/og/products.jpg".
+   * Resolved against the site origin so the URL is absolute in the output
+   * (Open Graph and Twitter require absolute image URLs).
+   */
+  ogImage?: string;
 }
 
-const { title, description, path, ogType = 'website', noindex = false, locale = DEFAULT_LOCALE } =
-  Astro.props;
+const {
+  title,
+  description,
+  path,
+  ogType = 'website',
+  noindex = false,
+  locale = DEFAULT_LOCALE,
+  ogImage = '/images/og/default.jpg',
+} = Astro.props;
 
 const canonicalPath = localizedPath(locale, path);
 const canonical = new URL(canonicalPath, Astro.site);
 const ogUrl = canonical.toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
+/* Only the pre-rendered OG cards are exactly 1200x630; a product photo passed
+   as ogImage has its own dimensions, so the size hints are then omitted. */
+const isOgCard = ogImage.startsWith('/images/og/');
 
 /**
  * hreflang alternates: one per locale + x-default pointing at English.
@@ -50,6 +67,10 @@ const alternates = LOCALES.map((l) => ({
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={ogUrl} />
+<meta property="og:image" content={ogImageUrl} />
+{isOgCard && <meta property="og:image:width" content="1200" />}
+{isOgCard && <meta property="og:image:height" content="630" />}
+<meta property="og:image:alt" content={title} />
 <meta property="og:locale" content={LOCALE_META[locale].ogLocale} />
 {LOCALES.filter((l) => l !== locale).map((l) => (
   <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />
@@ -57,3 +78,4 @@ const alternates = LOCALES.map((l) => ({
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />

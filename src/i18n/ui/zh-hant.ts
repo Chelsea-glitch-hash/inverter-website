@@ -91,6 +91,8 @@ export const zhHant: Dictionary = {
     relatedProducts: '相關產品',
     relatedSameCategory: '{category} 的更多選擇',
     relatedMoreModels: '更多產品型號',
+    relatedGuides: '相關指南',
+    relatedGuidesSubtitle: '來自我們工程師團隊的技術文章',
     standard: '標準',
     product: '產品',
     viewCertificate: '查看證書',
@@ -466,7 +468,7 @@ export const zhHant: Dictionary = {
     certifications: {
       eyebrow: '認證',
       title: '法規符合性與認證',
-      note: 'TODO: 認證標誌與型號專屬證書 — 請與我們的業務團隊確認您的目標市場適用的認證組合。',
+      note: '認證供應情況因型號與目標市場而異，請聯絡我們的業務團隊，確認您的訂單適用的證書。',
     },
     cta: {
       title: '索取測試報告或樣品',

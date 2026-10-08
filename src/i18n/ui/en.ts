@@ -94,6 +94,8 @@ export const en = {
     relatedProducts: 'Related Products',
     relatedSameCategory: 'More options in {category}',
     relatedMoreModels: 'More models from our catalog',
+    relatedGuides: 'Related Guides',
+    relatedGuidesSubtitle: 'Technical articles from our engineering team',
     standard: 'Standard',
     product: 'Product',
     viewCertificate: 'View Certificate',
@@ -470,7 +472,7 @@ export const en = {
     certifications: {
       eyebrow: 'Certifications',
       title: 'Compliance & Certifications',
-      note: 'TODO: certification logos and model-specific certificates — confirm the applicable certification set for your target market with our sales team.',
+      note: 'Certification availability varies by model and destination market. Contact our sales team and we will confirm the applicable certificates for your order.',
     },
     cta: {
       title: 'Request Test Reports or a Sample',

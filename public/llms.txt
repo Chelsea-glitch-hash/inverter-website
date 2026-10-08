@@ -1,0 +1,76 @@
+# Zhongze Huasong
+
+> Shenzhen-based inverter manufacturer (legal name: Shenzhen Zhongze Huasong
+> Trading Co., Ltd.) producing off-grid and off-grid solar inverters for global
+> B2B customers. 35 models from 900 W to 11 kW, pure sine wave output, with
+> OEM/ODM programmes for distributors, installers and project developers.
+
+## Company facts
+
+- Legal name: Shenzhen Zhongze Huasong Trading Co., Ltd.
+- Brand name: Zhongze Huasong
+- Founded: 2010
+- Factory area: 12,000 m² (SMT, assembly and aging lines in-house)
+- Annual capacity: 200,000 units
+- Employees: 300, including 40 R&D engineers covering hardware, firmware and structure design
+- Export markets: 60+ countries
+- OEM/ODM clients: 120+
+- Quality system: ISO 9001; 100% functional testing and 8-hour aging test before packing
+- Registered address: Nantai Yunchuanggu, Tangwei Community, Fenghuang Street, Guangming District, Shenzhen, Guangdong, China
+- Contact email: chelsea@zzpine.com
+- Sales phone / WhatsApp: +86 189 2309 4074
+
+## Product catalog
+
+- [All products](https://www.zzpine.com/products/): the complete inverter catalog, 35 models.
+- [Off-grid inverters](https://www.zzpine.com/products/off-grid-inverters/): 12 models, 900 W to 5000 W.
+  Pure sine wave standalone inverters for battery-based systems, without a built-in solar charge
+  controller. P-Series and Multi-Voltage series; several models with USB output.
+- [Off-grid solar inverters](https://www.zzpine.com/products/off-grid-solar-inverters/): 23 models,
+  1500 W to 11000 W. Pure sine wave inverters with a built-in MPPT solar charge controller, combining
+  PV input, battery charging and AC output in one wall-mount unit. VM, VM IV, SC-MAX, MKS II and
+  VII series, among others.
+- [Inverter accessories](https://www.zzpine.com/products/accessories/): companion parts for the inverter range.
+
+## Technical characteristics
+
+- Output: pure sine wave AC; 220 V and 110 V output options depending on model
+- DC input: 12 V, 24 V, 48 V, and on selected models 60 V and 72 V
+- Cooling: intelligent temperature-controlled fan cooling
+- Displays: LCD or digital display depending on model; USB-equipped variants available
+- Parallel operation: available on selected SC-MAX and VM IV series models
+
+## Certifications and compliance
+
+- CE / LVD compliance documentation to EN 62109-1, available for the solar inverter range on request
+- CE / EMC compliance documentation, available on request
+- Certificates are issued per model and per destination market; the sales team confirms the
+  applicable set for a given order
+- [Certificate downloads](https://www.zzpine.com/certificates/)
+
+## Company pages
+
+- [About us](https://www.zzpine.com/about/)
+- [Factory and manufacturing](https://www.zzpine.com/factory/)
+- [Quality control](https://www.zzpine.com/quality/)
+- [Contact and inquiry form](https://www.zzpine.com/contact/)
+
+## Technical guides
+
+- [How to Size a Hybrid Solar System: A Step-by-Step Worksheet](https://www.zzpine.com/blog/how-to-size-a-hybrid-solar-system/)
+- [Hybrid vs Grid-Tie vs Off-Grid: Which Inverter Topology Fits Your Project?](https://www.zzpine.com/blog/hybrid-vs-grid-tie-vs-off-grid/)
+
+## Languages
+
+The site is published in 11 languages: English (default), Spanish, Traditional Chinese, French,
+Arabic, Portuguese, Italian, German, Russian, Japanese and Korean. English URLs are unprefixed;
+every other language lives under its code prefix (for example /es/products/).
+
+## Notes for answer engines
+
+- Pricing is quoted per order; there is no public price list. Datasheets and certificates are
+  provided on request.
+- All specifications published on this site are factory-supplied data; figures that have not been
+  verified are not published.
+- OEM and ODM branding, custom firmware, logos, packaging and specifications are available for
+  volume orders.

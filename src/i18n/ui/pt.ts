@@ -87,6 +87,8 @@ export const pt: Dictionary = {
     relatedProducts: 'Produtos Relacionados',
     relatedSameCategory: 'Mais opções em {category}',
     relatedMoreModels: 'Mais modelos do nosso catálogo',
+    relatedGuides: 'Guias relacionados',
+    relatedGuidesSubtitle: 'Artigos técnicos da nossa equipe de engenharia',
     standard: 'Padrão',
     product: 'Produto',
     viewCertificate: 'Ver Certificado',
@@ -465,7 +467,7 @@ export const pt: Dictionary = {
     certifications: {
       eyebrow: 'Certificações',
       title: 'Conformidade e Certificações',
-      note: 'TODO: logotipos de certificação e certificados específicos por modelo — confirme com nossa equipe de vendas o conjunto de certificações aplicável ao seu mercado de destino.',
+      note: 'A disponibilidade de certificações varia conforme o modelo e o mercado de destino. Entre em contato com nossa equipe de vendas para confirmar os certificados aplicáveis ao seu pedido.',
     },
     cta: {
       title: 'Solicite Relatórios de Teste ou uma Amostra',

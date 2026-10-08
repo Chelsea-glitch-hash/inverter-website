@@ -16,6 +16,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import { getBlogTranslation } from '../i18n/blog-content';
 import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
 import { formatDate, getDict } from '../i18n';
+import { SITE } from '../config';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -31,9 +32,36 @@ const title = bt.title ?? post.data.title;
 const description = bt.description ?? post.data.description;
 const tags = bt.tags ?? post.data.tags;
 const hasTranslatedBody = locale !== 'en' && Boolean(bt.bodyHtml);
+
+/**
+ * BlogPosting structured data.
+ *
+ * publisher references the site-wide Organization by @id so search engines
+ * and AI engines join the article into the existing brand entity rather than
+ * inventing a new one per page.
+ */
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: post.data.publishDate.toISOString(),
+  dateModified: post.data.publishDate.toISOString(),
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(localizedPath(locale, `/blog/${post.id}/`), SITE.url).href,
+  },
+  author: { '@type': 'Organization', name: post.data.author, url: SITE.url },
+  publisher: { '@id': `${SITE.url}/#organization` },
+  ...(tags.length > 0
+    ? { keywords: tags.join(', '), articleSection: tags[0] }
+    : {}),
+  inLanguage: locale === 'zh-hant' ? 'zh-Hant' : locale,
+};
 ---
 
 <BaseLayout title={title} description={description} path={`/blog/${post.id}/`} ogType="article" locale={locale}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <Container class="pt-8">
     <Breadcrumb crumbs={[{ label: t.blog.breadcrumb, href: localizedPath(locale, '/blog/') }, { label: title }]} locale={locale} />
   </Container>

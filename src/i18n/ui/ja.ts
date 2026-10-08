@@ -87,6 +87,8 @@ export const ja: Dictionary = {
     relatedProducts: '関連製品',
     relatedSameCategory: '{category}のその他の製品',
     relatedMoreModels: 'カタログのその他のモデル',
+    relatedGuides: '関連ガイド',
+    relatedGuidesSubtitle: 'エンジニアリングチームによる技術記事',
     standard: '標準',
     product: '製品',
     viewCertificate: '証明書を見る',
@@ -462,7 +464,7 @@ export const ja: Dictionary = {
     certifications: {
       eyebrow: '認証',
       title: 'コンプライアンス・認証',
-      note: 'TODO: 認証ロゴおよびモデル別証明書 — 対象市場に適用される認証セットについては、営業チームまでご確認ください。',
+      note: '認証の適用範囲はモデルと対象市場によって異なります。ご注文に適用される証明書については、営業チームまでお問い合わせください。',
     },
     cta: {
       title: '試験報告書またはサンプルのご請求',

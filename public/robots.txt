@@ -2,4 +2,48 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# ---------------------------------------------------------------------------
+# Explicitly welcome AI / answer engines (GEO).
+#
+# These are the crawlers behind ChatGPT, Perplexity, Claude, Gemini, Copilot
+# and Apple Intelligence. `User-agent: *` already allows them, so listing
+# them changes no behaviour — but it keeps them allowed if a broader rule is
+# ever added above, and some engines read their own section first.
+#
+# NOTE: robots.txt is not access control. Cloudflare's Bot Fight Mode, the
+# "AI Scrapers and Crawlers" block toggle and any WAF rule can still return
+# 403 to these agents. Verify with:
+#   curl -s -o /dev/null -w "%{http_code}" -A "GPTBot/1.2 (+https://openai.com/gptbot)" https://www.zzpine.com/
+# A 200 means the crawler really gets through.
+# ---------------------------------------------------------------------------
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://www.zzpine.com/sitemap-index.xml

@@ -9,11 +9,12 @@ import Button from '../components/Button.astro';
 import CTABanner from '../components/CTABanner.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ProductGrid from '../components/ProductGrid.astro';
-import { countProductsByCategory, getCategoriesWithProducts, getProductsByCategory } from '../lib/products';
+import { countProductsByCategory, getCategoriesWithProducts, getProductsByCategory, getAllProducts, productPath } from '../lib/products';
 import { localizedProduct } from '../i18n/product-content';
 import { localizedCategory } from '../i18n/category-content';
 import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
 import { getDict } from '../i18n';
+import { SITE } from '../config';
 
 interface Props {
   locale?: Locale;
@@ -22,6 +23,24 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
 const t = getDict(locale);
 
 const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, locale));
+
+/**
+ * ItemList of the whole catalog. Telling crawlers and AI engines "this page
+ * IS a product list" makes the catalog legible as an entity, not just a
+ * collection of links.
+ */
+const catalogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: t.seo.productsIndex.title,
+  numberOfItems: getAllProducts().length,
+  itemListElement: getAllProducts().map((p, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: new URL(localizedPath(locale, productPath(p)), SITE.url).href,
+    name: localizedProduct(p, locale).name,
+  })),
+};
 ---
 
 <BaseLayout
@@ -30,6 +49,7 @@ const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, l
   path="/products/"
   locale={locale}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(catalogJsonLd)} />
   <Container class="pt-8">
     <Breadcrumb crumbs={[{ label: t.nav.products }]} locale={locale} />
   </Container>

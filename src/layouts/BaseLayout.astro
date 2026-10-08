@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import ChatWidget from '../components/ChatWidget.astro';
-import { SITE, COMPANY, CONTACT, ANALYTICS } from '../config';
+import { SITE, COMPANY, CONTACT, ANALYTICS, SOCIAL } from '../config';
 import { DEFAULT_LOCALE, meta, type Locale } from '../i18n/config';
 import { getDict } from '../i18n';
 
@@ -20,6 +20,11 @@ interface Props {
   path: string;
   ogType?: 'website' | 'article' | 'product';
   noindex?: boolean;
+  /**
+   * Site-absolute share image path, e.g. "/images/og/products.jpg".
+   * Defaults to the site-wide OG card.
+   */
+  ogImage?: string;
   /** body data attributes for analytics */
   pageType?: string;
   productSku?: string;
@@ -34,6 +39,7 @@ const {
   path,
   ogType = 'website',
   noindex = false,
+  ogImage,
   pageType,
   productSku,
   productCategory,
@@ -43,12 +49,32 @@ const {
 const t = getDict(locale);
 const localeMeta = meta(locale);
 
-/* Organization structured data (site-wide) */
+/**
+ * Organization structured data (site-wide).
+ *
+ * `@id` matters for GEO: every other entity on the site (WebSite.publisher,
+ * Product.brand, BlogPosting.publisher) references the Organization by that
+ * id, so AI engines can join the scattered mentions into one brand entity.
+ */
+const ORG_ID = `${SITE.url}/#organization`;
+
+/* External profiles that corroborate the brand entity. SOCIAL entries stay
+   empty until real accounts exist, so sameAs is only emitted when non-empty. */
+const sameAs = [SOCIAL.linkedin, SOCIAL.youtube].filter(Boolean);
+
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': ORG_ID,
   name: COMPANY.legalName,
+  alternateName: SITE.name,
   url: SITE.url,
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/images/og/logo.png', SITE.url).href,
+    width: 512,
+    height: 512,
+  },
   description: `${COMPANY.legalName} is a professional inverter manufacturer providing OEM/ODM services for global B2B customers.`,
   foundingDate: String(COMPANY.foundedYear),
   address: {
@@ -65,6 +91,19 @@ const orgJsonLd = {
     email: CONTACT.email,
     availableLanguage: ['en', 'zh'],
   },
+  ...(sameAs.length > 0 ? { sameAs } : {}),
+};
+
+/** WebSite entity: declares the site name and ties it to the Organization. */
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  description: SITE.tagline,
+  publisher: { '@id': ORG_ID },
+  inLanguage: 'en',
 };
 ---
 
@@ -84,6 +123,7 @@ const orgJsonLd = {
       ogType={ogType}
       noindex={noindex}
       locale={locale}
+      ogImage={ogImage}
     />
 
     <!-- GA4 with Consent Mode v2: all marketing/analytics storage denied until consent -->
@@ -117,6 +157,7 @@ const orgJsonLd = {
     }
 
     <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
   </head>
 
   <body

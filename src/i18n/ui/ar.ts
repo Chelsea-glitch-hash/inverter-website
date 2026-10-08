@@ -88,6 +88,8 @@ export const ar: Dictionary = {
     relatedProducts: 'منتجات ذات صلة',
     relatedSameCategory: 'خيارات أخرى في {category}',
     relatedMoreModels: 'طرازات أخرى من كتالوجنا',
+    relatedGuides: 'أدلة ذات صلة',
+    relatedGuidesSubtitle: 'مقالات تقنية من فريقنا الهندسي',
     standard: 'قياسي',
     product: 'المنتج',
     viewCertificate: 'عرض الشهادة',
@@ -463,7 +465,7 @@ export const ar: Dictionary = {
     certifications: {
       eyebrow: 'الشهادات',
       title: 'الامتثال والشهادات',
-      note: 'TODO: شعارات الشهادات وشهادات الطرازات المحددة — أكِّد مجموعة الشهادات المنطبقة على سوقك المستهدف مع فريق المبيعات لدينا.',
+      note: 'يختلف توفر الشهادات حسب الطراز وسوق الوجهة. تواصل مع فريق المبيعات لدينا لتأكيد الشهادات المنطبقة على طلبك.',
     },
     cta: {
       title: 'اطلب تقارير الاختبار أو عينة',

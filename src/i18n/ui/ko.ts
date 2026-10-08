@@ -89,6 +89,8 @@ export const ko: Dictionary = {
     relatedProducts: '관련 제품',
     relatedSameCategory: '{category}의 다른 옵션',
     relatedMoreModels: '카탈로그의 다른 모델',
+    relatedGuides: '관련 가이드',
+    relatedGuidesSubtitle: '엔지니어링 팀의 기술 아티클',
     standard: '표준',
     product: '제품',
     viewCertificate: '인증서 보기',
@@ -464,7 +466,7 @@ export const ko: Dictionary = {
     certifications: {
       eyebrow: '인증',
       title: '적합성 및 인증',
-      note: 'TODO: 인증 로고 및 모델별 인증서 — 목표 시장에 적용되는 인증 세트는 영업팀에 확인해 주세요.',
+      note: '인증 적용 범위는 모델과 대상 시장에 따라 다릅니다. 주문에 적용되는 인증서는 영업팀에 문의하여 확인해 주세요.',
     },
     cta: {
       title: '테스트 보고서 또는 샘플 요청',

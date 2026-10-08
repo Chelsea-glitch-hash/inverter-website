@@ -87,6 +87,8 @@ export const de: Dictionary = {
     relatedProducts: 'Ähnliche Produkte',
     relatedSameCategory: 'Weitere Optionen in {category}',
     relatedMoreModels: 'Weitere Modelle aus unserem Katalog',
+    relatedGuides: 'Weiterführende Leitfäden',
+    relatedGuidesSubtitle: 'Technische Artikel unseres Ingenieursteams',
     standard: 'Standard',
     product: 'Produkt',
     viewCertificate: 'Zertifikat ansehen',
@@ -464,7 +466,7 @@ export const de: Dictionary = {
     certifications: {
       eyebrow: 'Zertifizierungen',
       title: 'Konformität & Zertifizierungen',
-      note: 'TODO: Zertifizierungslogos und modellspezifische Zertifikate — klären Sie den für Ihren Zielmarkt geltenden Zertifizierungsumfang mit unserem Vertriebsteam.',
+      note: 'Die Verfügbarkeit von Zertifizierungen variiert je nach Modell und Zielmarkt. Kontaktieren Sie unser Vertriebsteam, um die für Ihre Bestellung geltenden Zertifikate zu bestätigen.',
     },
     cta: {
       title: 'Testberichte oder ein Muster anfordern',
