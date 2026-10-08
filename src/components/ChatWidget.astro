@@ -57,6 +57,10 @@ const chatConfig = {
   proactive: CHAT.proactive,
   quickReplies: CHAT.quickReplies,
   startChips,
+  // The page locale is sent to /api/chat so the assistant replies in the
+  // language the visitor is browsing in — the widget must not answer English
+  // on a Spanish / Arabic / … page.
+  locale,
   turnstileSiteKey: TURNSTILE.siteKey,
   // Localized UI strings for the client script (English fallback applied there).
   ui: {
@@ -250,6 +254,7 @@ const chatConfig = {
     proactive: boolean;
     quickReplies: boolean;
     startChips: string[];
+    locale: string;
     turnstileSiteKey: string;
     ui: {
       inputPlaceholder: string;
@@ -311,6 +316,7 @@ const chatConfig = {
     proactive: false,
     quickReplies: true,
     startChips: [],
+    locale: 'en',
     turnstileSiteKey: '',
     ui: {
       inputPlaceholder: 'Type your message…',
@@ -767,6 +773,7 @@ const chatConfig = {
             sessionId,
             message,
             quickReply: isQuickReply,
+            locale: config.locale,
             state,
             context: context(),
             transcript: transcript(),

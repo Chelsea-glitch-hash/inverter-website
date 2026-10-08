@@ -309,6 +309,10 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
 
     const sessionId =
       typeof payload.sessionId === 'string' ? payload.sessionId.slice(0, 64) : 'anonymous';
+    /* The locale is the page the visitor is browsing in — the assistant uses
+       it to reply in that language. Falls back to English for unknown values. */
+    const locale =
+      typeof payload.locale === 'string' && payload.locale.length <= 16 ? payload.locale : 'en';
     const transcript = sanitizeTranscript(payload.transcript);
     const incomingState = payload.state ?? null;
 
@@ -351,7 +355,7 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
 
     /* 4. Deterministic engine — this is what actually decides the answer. */
     const maxTurns = parseMaxTurns(env.CHAT_MAX_TURNS);
-    const base = runRulesTurn(message, incomingState, { maxTurns });
+    const base = runRulesTurn(message, incomingState, { maxTurns, locale });
 
     /* 5. Optional model rewrite. */
     let reply = base.reply;
@@ -367,7 +371,7 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
           apiBase: (env.AI_API_BASE ?? '').trim(),
           model: (env.AI_MODEL ?? '').trim(),
         },
-        buildSystemPrompt(),
+        buildSystemPrompt(locale),
         buildUserPrompt({
           message: redactForModel(message),
           instruction: instructionFor(base),
@@ -377,6 +381,7 @@ export const onRequestPost = async ({ request, env }: Context): Promise<Response
             role: entry.role,
             text: redactForModel(entry.text),
           })),
+          locale,
         })
       );
 

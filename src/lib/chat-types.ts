@@ -76,6 +76,11 @@ export interface ChatHandoff {
 export interface ChatRequest {
   sessionId: string;
   message: string;
+  /**
+   * Page locale the visitor is browsing in (e.g. "de", "ar", "zh-hant").
+   * The assistant replies in this language. Defaults to "en" server-side.
+   */
+  locale?: string;
   /** True when the message came from a quick-reply chip (analytics only). */
   quickReply?: boolean;
   state?: Partial<ChatState> | null;

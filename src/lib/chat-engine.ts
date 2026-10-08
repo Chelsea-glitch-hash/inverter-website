@@ -34,6 +34,7 @@ import {
 } from './ai-catalog';
 import type { ChatHandoff, ChatProductCard, ChatStage, ChatState } from './chat-types';
 import { detectContact } from './contact-detect';
+import { chatStrings, type ChatStrings } from './chat-strings';
 
 /** Turns before the conversation is handed to a human, unless overridden. */
 export const DEFAULT_MAX_TURNS = 8;
@@ -517,9 +518,9 @@ function chips(list: string[]): string[] {
   return CHAT.quickReplies ? list : [];
 }
 
-export function askForPowerReply(): string {
+export function askForPowerReply(s: Required<ChatStrings>): string {
   const powers = getChatPowers();
-  return `${CHAT.greeting} Our off-grid line covers ${powers.join('W, ')}W — or just tell me roughly what you need to power.`;
+  return s.askForPower(powers, CHAT.greeting);
 }
 
 /**
@@ -527,27 +528,13 @@ export function askForPowerReply(): string {
  * rating. Offered whenever the customer does not name a power, so the
  * conversation never stalls waiting for a number they may not know.
  */
-function askForApplicationReply(): string {
-  return 'No problem — tell me what you need to power (for example a fridge, a pump, lights, or a whole cabin) and I can help narrow down the right size.';
+function askForApplicationReply(s: Required<ChatStrings>): string {
+  return s.askForApplication();
 }
 
 /** Prompt for a description of the application, with the real ratings still on offer. */
-function offerApplicationHelp(): string {
-  return `Happy to help you work it out. ${askForApplicationReply()}\n\nIf you already have a figure in mind, our off-grid line covers ${getChatPowers().join('W, ')}W.`;
-}
-
-/**
- * The real range as a span — "900W to 5000W" — never a rundown of every rating.
- *
- * Derived from the catalog (a hand-written list is how a rating we do not build
- * ends up being offered), and phrased as a range so a greeting stays a greeting
- * instead of turning into the product menu.
- */
-function powerRangeProse(): string {
-  const powers = getChatPowers().map((power) => `${power}W`);
-  if (powers.length === 0) return 'our off-grid range';
-  if (powers.length === 1) return powers[0];
-  return `${powers[0]} to ${powers[powers.length - 1]}`;
+function offerApplicationHelp(s: Required<ChatStrings>): string {
+  return s.offerApplication(getChatPowers());
 }
 
 /**
@@ -559,14 +546,8 @@ function powerRangeProse(): string {
  * back at them. Putting a model, or the whole catalogue, in front of them here
  * is precisely the behaviour this branch exists to remove.
  */
-function smallTalkReply(kind: ChatIntent): string {
-  if (kind === 'thanks') {
-    return "You're welcome. If you would like a recommendation, just tell me the power you need, or describe what you want to power.";
-  }
-  if (kind === 'general_help') {
-    return `Sure, I can help. Our off-grid line runs from ${powerRangeProse()}. Tell me the power you need, or describe what you want to power and I can suggest a size.`;
-  }
-  return `Hello! How can I help you with our off-grid inverters? Our off-grid line runs from ${powerRangeProse()}. If you already know the power you need, just say it — or tell me what you want to power and I will help you work out the size.`;
+function smallTalkReply(kind: ChatIntent, s: Required<ChatStrings>): string {
+  return s.smallTalk(kind === 'thanks' ? 'thanks' : kind === 'general_help' ? 'general_help' : 'greeting', getChatPowers());
 }
 
 /**
@@ -576,14 +557,10 @@ function smallTalkReply(kind: ChatIntent): string {
  * clause is derived from the models themselves — so the reply can never invent
  * a variant to fill out the sentence.
  */
-function otherModelsReply(rated: number, models: AiProduct[]): string {
+function otherModelsReply(rated: number, models: AiProduct[], s: Required<ChatStrings>): string {
   const hasStandard = models.some((model) => !model.usb);
   const hasUsb = models.some((model) => model.usb);
-  const described =
-    models.length === 2 && hasStandard && hasUsb
-      ? 'a standard (no USB) version and a USB-equipped version'
-      : `${models.length} versions`;
-  return `We build ${described} at ${rated}W. Which one would you like to see?`;
+  return s.otherModels(rated, hasStandard, hasUsb, models.length);
 }
 
 /**
@@ -593,43 +570,35 @@ function otherModelsReply(rated: number, models: AiProduct[]): string {
  * never does — so the reply states the fact and moves the visitor to a choice
  * they can actually make.
  */
-function singleModelReply(rated: number): string {
-  return `${rated}W is a single model in our off-grid range — there is no second version at that rating. Would you like to look at another power instead?`;
+function singleModelReply(rated: number, s: Required<ChatStrings>): string {
+  return s.singleModel(rated);
 }
 
 /** The nearest real ratings in the direction the customer asked for. */
-function directionReply(ref: number, candidates: number[], smaller: boolean): string {
-  const labels = candidates.map((power) => `${power}W`);
-  const listed =
-    labels.length === 1 ? labels[0] : `${labels.slice(0, -1).join(', ')} or ${labels[labels.length - 1]}`;
-  const noun = labels.length === 1 ? 'rating' : 'ratings';
-  const verb = labels.length === 1 ? 'is' : 'are';
-  const question = labels.length === 1 ? 'Would that work?' : 'Would either of those work?';
-  return `Of course — the closest ${noun} ${smaller ? 'below' : 'above'} ${ref}W ${verb} ${listed}. ${question}`;
+function directionReply(ref: number, candidates: number[], smaller: boolean, s: Required<ChatStrings>): string {
+  return s.direction(ref, candidates, smaller);
 }
 
 /** Asked to go past the end of the range. The edge value comes from the catalog. */
-function boundaryReply(smaller: boolean): string {
+function boundaryReply(smaller: boolean, s: Required<ChatStrings>): string {
   const powers = getChatPowers();
-  if (powers.length === 0) return `${askForContactFirstReply()}`;
+  if (powers.length === 0) return s.askForContactFirst();
   const edge = smaller ? powers[0] : powers[powers.length - 1];
-  return smaller
-    ? `We don't build anything smaller than ${edge}W — that is the bottom of our off-grid range. If you need something different, our sales team can take a look.`
-    : `We don't build anything above ${edge}W — that is the top of our off-grid range. If you need something different, our sales team can take a look.`;
+  return s.boundary(smaller, edge, true);
 }
 
 /** An explicit request for a person, made by clicking the chip. */
-function salesHandoffReply(): string {
-  return `Of course — let me put you in touch with our sales team.\n\n${askForContactReply()}`;
+function salesHandoffReply(s: Required<ChatStrings>): string {
+  return s.salesHandoff();
 }
 
-function askForContactReply(): string {
-  return 'Please share an email address or a WhatsApp number and our sales team will send you the specifications and quotation.';
+function askForContactReply(s: Required<ChatStrings>): string {
+  return s.askForContact();
 }
 
 /** Natural contact request used when a buying signal arrives before a model is chosen. */
-function askForContactFirstReply(): string {
-  return 'Please share your email or WhatsApp number and our sales team will follow up with you directly.';
+function askForContactFirstReply(s: Required<ChatStrings>): string {
+  return s.askForContactFirst();
 }
 
 /**
@@ -640,8 +609,9 @@ function askForContactFirstReply(): string {
  * either channel and never asks the customer to pick one first — an email, a
  * WhatsApp number, or both are all accepted by /api/chat-lead.
  */
-export const CONTACT_ASK =
-  'Could you share your email or WhatsApp so our sales team can follow up with you?';
+function contactAsk(s: Required<ChatStrings>): string {
+  return s.contactAsk();
+}
 
 /**
  * Show a model without turning the turn into a sales moment.
@@ -655,7 +625,8 @@ export const CONTACT_ASK =
 function showProduct(
   product: AiProduct,
   state: ChatState,
-  note: string | null
+  note: string | null,
+  s: Required<ChatStrings>
 ): ChatTurnResult {
   state.stage = 'recommend';
   state.sku = product.sku;
@@ -663,7 +634,7 @@ function showProduct(
 
   return done(
     state,
-    recommendReply(product, note, false),
+    recommendReply(product, note, false, s),
     chips([OTHER_MODELS_CHIP]),
     [toProductCard(product)],
     false
@@ -685,8 +656,8 @@ function needsHumanOnSupply(reason: string | null): boolean {
   return reason !== null && SUPPLY_REASONS.has(reason);
 }
 
-function supplyHandoffReply(): string {
-  return `That one depends on our current schedule, so let me put you in touch with the sales team.\n\n${askForContactFirstReply()}`;
+function supplyHandoffReply(s: Required<ChatStrings>): string {
+  return s.supplyHandoff();
 }
 
 /**
@@ -698,12 +669,8 @@ function supplyHandoffReply(): string {
  * (askForContact would be true while the text never asked), so it is decided
  * once here.
  */
-function recommendReply(product: AiProduct, note: string | null, askForContact: boolean): string {
-  const extra = note ? `\n\n${note}` : '';
-  const closing = askForContact
-    ? '\n\nWould you like the full specifications and a quotation? Leave your email or WhatsApp number here and our sales team will follow up with you.'
-    : '';
-  return `We have a ${product.name} that may suit your requirement.${extra}${closing}`;
+function recommendReply(product: AiProduct, note: string | null, askForContact: boolean, s: Required<ChatStrings>): string {
+  return s.recommend(product, note, askForContact);
 }
 
 /**
@@ -717,12 +684,10 @@ function usbVariantOf(product: AiProduct): AiProduct | undefined {
 }
 
 /** "A USB-equipped version of this 3000W model is also available." */
-function mentionVariant(product: AiProduct): string | null {
+function mentionVariant(product: AiProduct, s: Required<ChatStrings>): string | null {
   const variant = usbVariantOf(product);
   if (!variant) return null;
-  return variant.usb
-    ? `A USB-equipped version of this ${product.powerLabel} model is also available — tell me if you would rather have that one.`
-    : `A standard (no USB) version of this ${product.powerLabel} model is also available — tell me if you would rather have that one.`;
+  return s.mentionVariant(product, variant.usb);
 }
 
 /* ------------------------------------------------------------------ *
@@ -733,6 +698,8 @@ interface RunOptions {
   maxTurns?: number;
   /** Handoff reason decided outside the engine (rate limits, abuse). */
   handoffReason?: string | null;
+  /** Page locale — deterministic replies are written in this language. */
+  locale?: string;
 }
 
 /**
@@ -747,7 +714,8 @@ export function runRulesTurn(
   rawState: unknown,
   options: RunOptions = {}
 ): ChatTurnResult {
-  return enforceContactCapture(decideTurn(message, rawState, options), message);
+  const s = chatStrings(options.locale);
+  return enforceContactCapture(decideTurn(message, rawState, options, s), message, s);
 }
 
 /**
@@ -773,7 +741,7 @@ export function runRulesTurn(
  */
 export const CONTACT_FROM_TURN = 2;
 
-function enforceContactCapture(result: ChatTurnResult, message: string): ChatTurnResult {
+function enforceContactCapture(result: ChatTurnResult, message: string, s: Required<ChatStrings>): ChatTurnResult {
   if (result.state.contactCaptured) return result;
   if (detectContact(message)) return result;
   if (result.state.turnCount < CONTACT_FROM_TURN) return result;
@@ -781,7 +749,7 @@ function enforceContactCapture(result: ChatTurnResult, message: string): ChatTur
 
   return {
     ...result,
-    reply: `${result.reply}\n\n${CONTACT_ASK}`,
+    reply: `${result.reply}\n\n${s.contactAsk()}`,
     askForContact: true,
   };
 }
@@ -796,7 +764,8 @@ function enforceContactCapture(result: ChatTurnResult, message: string): ChatTur
 function decideTurn(
   message: string,
   rawState: unknown,
-  options: RunOptions = {}
+  options: RunOptions = {},
+  s: Required<ChatStrings>
 ): ChatTurnResult {
   const maxTurns = options.maxTurns ?? DEFAULT_MAX_TURNS;
   const state = sanitizeState(rawState, maxTurns);
@@ -818,8 +787,7 @@ function decideTurn(
   if (state.contactCaptured) {
     state.stage = 'contact';
     return {
-      reply:
-        'Your details are already with our sales team — they will follow up with you. If you have another question about our off-grid inverters, ask away.',
+      reply: s.contactCaptured(),
       quickReplies: chips([OTHER_MODELS_CHIP]),
       products: [],
       askForContact: false,
@@ -835,7 +803,7 @@ function decideTurn(
   /* 4a. "Talk to Sales" — an explicit request for a person, from any state. */
   if (lower === TALK_TO_SALES_CHIP.toLowerCase()) {
     if (!state.handoffReason) state.handoffReason = 'customer_requested_human';
-    return done(state, salesHandoffReply(), chips([]), [], true, 'handoff');
+    return done(state, salesHandoffReply(s), chips([]), [], true, 'handoff');
   }
 
   /* 4b. "I know the power" / "Choose another power" — the visitor has opted
@@ -852,7 +820,7 @@ function decideTurn(
     state.usb = null;
     state.sku = null;
     state.fallbacks = 0;
-    return done(state, askForPowerReply(), chips(powerQuickReplies()), [], false, 'power_selection');
+    return done(state, askForPowerReply(s), chips(powerQuickReplies()), [], false, 'power_selection');
   }
 
   /* 4c. A chip naming one real model at a rating ("3000W USB"). The rating and
@@ -868,8 +836,8 @@ function decideTurn(
         state.power = rated;
         state.usb = wantUsb;
         state.sku = null;
-        if (state.handoffReason !== null) return recommend(wanted, state, null);
-        return showProduct(wanted, state, null);
+        if (state.handoffReason !== null) return recommend(wanted, state, null, true, s);
+        return showProduct(wanted, state, null, s);
       }
     }
   }
@@ -889,7 +857,7 @@ function decideTurn(
       state.sku = null;
       return done(
         state,
-        otherModelsReply(rated, models),
+        otherModelsReply(rated, models, s),
         chips([...variantChips(models), CHOOSE_ANOTHER_POWER_CHIP]),
         [],
         false,
@@ -900,7 +868,7 @@ function decideTurn(
     if (rated !== null) {
       return done(
         state,
-        singleModelReply(rated),
+        singleModelReply(rated, s),
         chips([CHOOSE_ANOTHER_POWER_CHIP, TALK_TO_SALES_CHIP]),
         [],
         false,
@@ -912,7 +880,7 @@ function decideTurn(
        list is the honest answer. */
     state.stage = 'power';
     state.sku = null;
-    return done(state, askForPowerReply(), chips(powerQuickReplies()), [], false, 'power_selection');
+    return done(state, askForPowerReply(s), chips(powerQuickReplies()), [], false, 'power_selection');
   }
 
   /* 5. Small talk — a greeting, a thank you, or "can you help me". None of
@@ -938,7 +906,7 @@ function decideTurn(
     // they left off. Only the chips are minimal: two ways forward instead of
     // one button per rating.
     return {
-      reply: smallTalkReply(smallTalk),
+      reply: smallTalkReply(smallTalk, s),
       quickReplies: chips(guidanceQuickReplies()),
       products: [],
       askForContact: false,
@@ -954,7 +922,7 @@ function decideTurn(
         "we don't build that" answer about a product nobody asked to buy. */
   const unmatched = detectUnmatchedPower(text);
   if (unmatched !== null && needsHumanOnSupply(state.handoffReason)) {
-    return done(state, supplyHandoffReply(), chips([]), [], true);
+    return done(state, supplyHandoffReply(s), chips([]), [], true);
   }
   if (unmatched !== null) {
     const nearest = nearestPowers(unmatched);
@@ -964,7 +932,7 @@ function decideTurn(
     state.fallbacks = 0;
     return done(
       state,
-      `We don't build a ${unmatched}W off-grid inverter. The closest ratings we do have are ${listed} — would either of those work?`,
+      s.unmatchedPower(unmatched, listed),
       chips(nearest.map((value) => `${value}W`)),
       [],
       false
@@ -1005,8 +973,8 @@ function decideTurn(
 
         const ratings = candidates.map((rating) => `${rating}W`);
         return candidates.length === 0
-          ? done(state, boundaryReply(smaller), chips([TALK_TO_SALES_CHIP]), [], false, 'power_change')
-          : done(state, directionReply(ref, candidates, smaller), chips(ratings), [], false, 'power_change');
+          ? done(state, boundaryReply(smaller, s), chips([TALK_TO_SALES_CHIP]), [], false, 'power_change')
+          : done(state, directionReply(ref, candidates, smaller, s), chips(ratings), [], false, 'power_change');
       }
     }
   }
@@ -1054,15 +1022,17 @@ function decideTurn(
         return recommend(
           models[0],
           state,
-          `There is no USB version at ${rated}W — this is the model at this rating.`
+          s.noUsbAtRating(rated),
+          true,
+          s
         );
       }
-      if (models[0].usb) return recommend(models[0], state, null, false);
+      if (models[0].usb) return recommend(models[0], state, null, false, s);
       // Nothing to decide. With a buying signal the usual recommendation is
       // right; without one this is a plain information turn — show the model
       // but do not demand contact details from someone just browsing a rating.
-      if (state.handoffReason !== null) return recommend(models[0], state, null);
-      return showProduct(models[0], state, null);
+      if (state.handoffReason !== null) return recommend(models[0], state, null, true, s);
+      return showProduct(models[0], state, null, s);
     }
 
     /* Two models exist at this rating and they differ only in USB. A stated
@@ -1078,9 +1048,9 @@ function decideTurn(
         // preference merely remembered from an earlier turn does not, so a
         // returning visitor re-asking a question is not nagged for contact.
         if (statedPreference || state.handoffReason !== null) {
-          return recommend(wanted, state, null);
+          return recommend(wanted, state, null, true, s);
         }
-        return showProduct(wanted, state, null);
+        return showProduct(wanted, state, null, s);
       }
     }
 
@@ -1090,17 +1060,17 @@ function decideTurn(
     if (needsHumanOnSupply(state.handoffReason)) {
       // A question the catalog cannot answer (stock, lead time, an order size)
       // is not made more accurate by naming a model — go to the sales team.
-      return done(state, supplyHandoffReply(), chips([]), [], true);
+      return done(state, supplyHandoffReply(s), chips([]), [], true);
     }
 
     // Nothing was decided in this message and no buying signal arrived, so this
     // is an information turn: show the standard model without pressing for
     // contact details. The variant is still mentioned in passing.
     if (state.handoffReason === null && !statedPreference && !mentionsUsb && !answerLike) {
-      return showProduct(standard, state, mention ? mentionVariant(standard) : null);
+      return showProduct(standard, state, mention ? mentionVariant(standard, s) : null, s);
     }
 
-    return recommend(standard, state, mention ? mentionVariant(standard) : null);
+    return recommend(standard, state, mention ? mentionVariant(standard, s) : null, true, s);
   }
 
   /* 8. "Not sure" — help them choose instead of pushing a model. The answer is
@@ -1111,7 +1081,7 @@ function decideTurn(
     state.fallbacks = 0;
     return done(
       state,
-      `${offerApplicationHelp()}\n\nA useful rule of thumb: add up the wattage of everything you want to run at the same time, then allow about 30% headroom for motor starting.`,
+      `${offerApplicationHelp(s)}\n\n${s.ruleOfThumb()}`,
       chips(powerQuickReplies().filter((chip) => chip !== NOT_SURE_CHIP)),
       [],
       false
@@ -1124,17 +1094,15 @@ function decideTurn(
     state.stage = 'power';
     state.sku = null;
     state.fallbacks = 0;
-    return done(state, offerApplicationHelp(), chips(powerQuickReplies()), [], false);
+    return done(state, offerApplicationHelp(s), chips(powerQuickReplies()), [], false);
   }
 
   /* 10. A model is already on the table — keep the thread going and lean gently
          towards contact details. */
   if (state.stage === 'recommend' && state.sku) {
     const product = matchBySku(state.sku);
-    const lead = product
-      ? `Happy to keep going on the ${product.powerLabel}${product.usb ? ' USB-equipped' : ''} model.`
-      : 'Happy to keep going.';
-    return done(state, `${lead}\n\n${askForContactReply()}`, chips([OTHER_MODELS_CHIP]), [], true);
+    const lead = product ? s.keepGoing(product.powerLabel, product.usb) : s.keepGoingGeneric();
+    return done(state, `${lead}\n\n${askForContactReply(s)}`, chips([OTHER_MODELS_CHIP]), [], true);
   }
 
   /* 11. Anything else. Naming a power is never a precondition for being helped:
@@ -1145,14 +1113,10 @@ function decideTurn(
 
   if (state.handoffReason) {
     const buyingSignal = BUYING_SIGNALS.has(state.handoffReason);
-    const reply = buyingSignal
-      ? `Let me get a sales engineer involved.\n\n${askForContactFirstReply()}`
-      : `Let me get a sales engineer involved so you get an accurate answer.\n\n${askForContactReply()}`;
-
-    return done(state, reply, chips([]), [], true);
+    return done(state, s.salesEngineer(buyingSignal), chips([]), [], true);
   }
 
-  return done(state, offerApplicationHelp(), chips(powerQuickReplies()), [], false);
+  return done(state, offerApplicationHelp(s), chips(powerQuickReplies()), [], false);
 }
 
 function handoffOf(state: ChatState): ChatHandoff {
@@ -1163,16 +1127,18 @@ function recommend(
   product: AiProduct,
   state: ChatState,
   note: string | null,
-  askForContact = true
+  askForContact = true,
+  s?: Required<ChatStrings>
 ): ChatTurnResult {
   state.stage = 'recommend';
   state.sku = product.sku;
   state.fallbacks = 0;
 
-  const prefix = state.handoffReason ? "Thanks — I've flagged this for our sales team.\n\n" : '';
+  const strings = s ?? chatStrings(undefined);
+  const prefix = state.handoffReason ? strings.flaggedForSales() + '\n\n' : '';
   return done(
     state,
-    `${prefix}${recommendReply(product, note, askForContact)}`,
+    `${prefix}${recommendReply(product, note, askForContact, strings)}`,
     chips([OTHER_MODELS_CHIP]),
     [toProductCard(product)],
     askForContact

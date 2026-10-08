@@ -149,6 +149,32 @@ export function parseModelJson(content: string): ModelReply | null {
  * ------------------------------------------------------------------ */
 
 /**
+ * The 11 site locales mapped to the instruction the model needs.
+ *
+ * `zh-hant` maps to Traditional Chinese ("中文（繁體）"), every other key is
+ * the language's own endonym so the model reliably picks the right language.
+ * Unknown locales fall back to English.
+ */
+const LOCALE_NAMES: Record<string, string> = {
+  en: 'English',
+  de: 'Deutsch (German)',
+  es: 'Español (Spanish)',
+  fr: 'Français (French)',
+  it: 'Italiano (Italian)',
+  ja: '日本語 (Japanese)',
+  ko: '한국어 (Korean)',
+  pt: 'Português (Portuguese)',
+  ru: 'Русский (Russian)',
+  ar: 'العربية (Arabic)',
+  'zh-hant': '繁體中文 (Traditional Chinese)',
+};
+
+/** Human-readable language instruction for the model, e.g. "Spanish". */
+export function localeName(locale: string): string {
+  return LOCALE_NAMES[locale] ?? 'English';
+}
+
+/**
  * System prompt.
  *
  * Deliberately short: it is sent on every turn, so it is the single biggest
@@ -161,12 +187,12 @@ export function parseModelJson(content: string): ModelReply | null {
  * Everything a reply may state about a product still comes from CANDIDATES;
  * see validateReply() for the enforcement.
  */
-export function buildSystemPrompt(): string {
+export function buildSystemPrompt(locale = 'en'): string {
   return [
     `You are the sales assistant on the website of ${COMPANY.legalName}, a Chinese manufacturer of off-grid pure sine wave inverters. You write short replies that a B2B buyer reads in a small chat widget.`,
     '',
     'HARD RULES',
-    '- English only. 1-3 short sentences, 60 words maximum. Plain prose: no markdown, no bullet lists, no "Dear customer".',
+    `- Reply in ${localeName(locale)} only. 1-3 short sentences, 60 words maximum. Plain prose: no markdown, no bullet lists, no "Dear customer".`,
     '- The CANDIDATES block below is the ONLY source of product facts. Never state a model, SKU, power rating, voltage, socket count, weight, dimension, certification, price, MOQ, lead time or stock level that is not written there.',
     '- If the customer asks for a fact that is not in CANDIDATES, say your sales team will confirm it. Never guess or approximate.',
     '- Never quote a price, discount, MOQ, lead time, warranty length or certification. Those are always "confirmed by our sales team".',
@@ -199,6 +225,8 @@ export interface UserPromptInput {
   /** Real rated powers, used only when no model has been shortlisted yet. */
   powerList: number[];
   transcript: { role: string; text: string }[];
+  /** Page locale — the reply must be written in this language. */
+  locale?: string;
 }
 
 export function buildUserPrompt(input: UserPromptInput): string {
@@ -233,7 +261,7 @@ export function buildUserPrompt(input: UserPromptInput): string {
     '',
     `CUSTOMER MESSAGE: ${input.message}`,
     '',
-    'Rewrite it as one short, natural sales reply. Do not add facts, do not ask for a rated power the customer has not asked about, and do not demand contact details unless the decision above says to.',
+    `Rewrite it as one short, natural sales reply — in ${localeName(input.locale ?? 'en')} only, matching the language of the customer's message. Do not add facts, do not ask for a rated power the customer has not asked about, and do not demand contact details unless the decision above says to.`,
   ].join('\n');
 }
 
