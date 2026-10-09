@@ -23,7 +23,7 @@ export const itCategories: CategoryTranslations = {
     name: 'Inverter off-grid',
     heading: 'Inverter di potenza off-grid',
     description:
-      'Inverter a onda sinusoidale pura per sistemi autonomi — stazioni radio base, elettrificazione rurale e alimentazione di riserva.',
+      'Inverter a onda sinusoidale pura per sistemi autonomi a batteria — ideali per aree remote, siti senza accesso alla rete e regioni con frequenti interruzioni. Conversione da CC a CA senza carico solare integrato; da abbinare a un caricatore o regolatore solare esterno.',
   },
   accessories: {
     name: 'Accessori per inverter',

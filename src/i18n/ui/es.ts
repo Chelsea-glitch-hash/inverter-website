@@ -12,6 +12,7 @@ export const es: Dictionary = {
     products: 'Productos',
     factory: 'Fábrica',
     quality: 'Calidad',
+    oemOdm: 'OEM / ODM',
     about: 'Sobre nosotros',
     blog: 'Blog',
     viewAllProducts: 'Ver todos los productos',
@@ -144,6 +145,11 @@ export const es: Dictionary = {
       description:
         'Guías técnicas y análisis del sector sobre inversores solares: híbrido frente a conectado a red frente a off-grid, dimensionamiento, certificaciones y fabricación OEM.',
     },
+    oemOdm: {
+      title: 'Fabricante de inversores OEM / ODM | Zhongze Huasong',
+      description:
+        'Fabricación de inversores solares OEM / ODM con marca privada, firmware y embalaje personalizados. Fábrica propia, capacidad anual de 200.000 unidades, ISO 9001. Presupuesto en 24 horas.',
+    },
   },
 
   home: {
@@ -151,7 +157,7 @@ export const es: Dictionary = {
       eyebrow: 'Fabricante de inversores desde {year}',
       title: 'Inversores solares directos de fábrica para partners B2B de todo el mundo',
       subtitle:
-        'Inversores híbridos, conectados a red y off-grid diseñados y fabricados en nuestra propia fábrica. Programas OEM / ODM, calidad certificada y precios competitivos directos de fábrica para distribuidores, instaladores y desarrolladores de proyectos.',
+        'Inversores híbridos, conectados a red y off-grid directos de fábrica, diseñados para regiones con redes débiles, tarifas eléctricas altas o suministro poco fiable. Pensados para autoconsumo, desplazamiento de picos de demanda y respaldo — con programas OEM / ODM, calidad ISO 9001 y respuesta en 24 horas para distribuidores, instaladores y desarrolladores de proyectos.',
       heroImageAria: 'Ilustración de un sistema de energía solar',
       bullets: ['OEM / ODM', 'ISO 9001', 'Respuesta en 24 h', 'Más de {countries} países de exportación'],
     },
@@ -567,5 +573,60 @@ export const es: Dictionary = {
     articleCtaTitle: '¿Necesitas ayuda para elegir un inversor?',
     articleCtaSubtitle: 'Nuestros ingenieros de ventas pueden recomendarte el modelo adecuado para tu proyecto, sin coste.',
     translatedNote: 'Este artículo está disponible actualmente en inglés.',
+  },
+  oemOdm: {
+    hero: {
+      eyebrow: 'Fabricación OEM / ODM',
+      title: 'Su inversor solar de marca propia, fabricado en nuestra propia fábrica',
+      intro:
+        'Fabricamos inversores para distribuidores, instaladores y desarrolladores de proyectos que venden con su propia marca. Desde embalaje y firmware de marca privada hasta especificaciones personalizadas: una fábrica, un socio responsable.',
+      primaryCta: 'Solicitar presupuesto OEM / ODM',
+      secondaryCta: 'Ver catálogo de productos',
+    },
+    stats: {
+      eyebrow: 'Capacidad de fábrica',
+      title: 'Un socio de fabricación verificable',
+      intro: 'Capacidad real, pruebas reales, trazabilidad real: cada afirmación respaldada por nuestras propias líneas de producción.',
+      items: [
+        { value: '12.000 m²', label: 'Superficie de fábrica (SMT, montaje, pruebas de envejecimiento)' },
+        { value: '200.000', label: 'Unidades de capacidad anual' },
+        { value: '120+', label: 'Clientes OEM / ODM' },
+        { value: 'ISO 9001', label: 'Sistema de calidad, 100% de pruebas + envejecimiento de 8 h' },
+      ],
+    },
+    services: {
+      eyebrow: 'Qué personalizamos',
+      title: 'Servicios OEM / ODM, de principio a fin',
+      subtitle: 'Lance su marca al mercado sin construir una fábrica. Nosotros nos encargamos del resto.',
+      items: [
+        { title: 'Marca privada y embalaje', text: 'Su logotipo, colores de marca, caja y manual: un producto que parece suyo.' },
+        { title: 'Firmware y software', text: 'Parámetros personalizados, protocolos de comunicación e idioma de pantalla adaptados a su mercado.' },
+        { title: 'Ajuste de especificaciones', text: 'Ajuste configuraciones de salida, rangos de entrada DC y tipos de enchufe para su región objetivo.' },
+        { title: 'Calidad y cumplimiento', text: 'Sistema ISO 9001, 100% de pruebas funcionales y envejecimiento de 8 horas antes de cada envío.' },
+      ],
+    },
+    process: {
+      eyebrow: 'Cómo funciona',
+      title: 'De la consulta al envío',
+      subtitle: 'Un proceso transparente con hitos claros para que el lanzamiento de su marca llegue a tiempo.',
+      steps: [
+        'Envíe sus requisitos (especificación, cantidad, mercado objetivo)',
+        'Reciba presupuesto, plan de muestras y cronograma',
+        'Apruebe muestras y el arte de la marca privada',
+        'Producción en masa con controles de calidad en línea',
+        'QC, prueba de envejecimiento, embalaje y envío',
+      ],
+    },
+    faq: {
+      eyebrow: 'Preguntas frecuentes',
+      title: 'Preguntas sobre OEM / ODM, respondidas',
+      items: [
+        { q: '¿Cuál es la cantidad mínima de pedido (MOQ)?', a: 'El MOQ depende del modelo y del nivel de personalización. Cuéntenos su plan y le confirmaremos un MOQ realista con precio.' },
+        { q: '¿Pueden poner mi marca en el inversor?', a: 'Sí: la marca privada cubre la carcasa, el embalaje, el manual y la pantalla. El firmware también puede llevar su marca cuando es compatible.' },
+        { q: '¿Pueden personalizar el firmware o los parámetros?', a: 'Sí. El voltaje de salida, la frecuencia, los protocolos de comunicación y el idioma de pantalla son personalizables dentro de los límites del hardware del modelo.' },
+        { q: '¿Qué certificaciones tienen sus inversores?', a: 'Nuestro sistema de calidad está certificado ISO 9001 y los productos llevan CE y RoHS. Certificaciones específicas para su mercado pueden discutirse por proyecto.' },
+        { q: '¿Cuánto tarda un pedido OEM?', a: 'Tras la aprobación de la muestra, las series de producción estándar suelen enviarse en 30–45 días según la cantidad y la personalización.' },
+      ],
+    },
   },
 };

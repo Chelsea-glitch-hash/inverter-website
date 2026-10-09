@@ -22,6 +22,7 @@ import FactoryPage from '../../templates/FactoryPage.astro';
 import QualityPage from '../../templates/QualityPage.astro';
 import ContactPage from '../../templates/ContactPage.astro';
 import PrivacyPage from '../../templates/PrivacyPage.astro';
+import OemOdmPage from '../../templates/OemOdmPage.astro';
 import BlogIndexPage from '../../templates/BlogIndexPage.astro';
 import BlogArticlePage from '../../templates/BlogArticlePage.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -67,5 +68,6 @@ if (entry.kind === 'blogArticle') {
 {entry.kind === 'quality' && <QualityPage locale={entry.locale} />}
 {entry.kind === 'contact' && <ContactPage locale={entry.locale} />}
 {entry.kind === 'privacy' && <PrivacyPage locale={entry.locale} />}
+{entry.kind === 'oemOdm' && <OemOdmPage locale={entry.locale} />}
 {entry.kind === 'blog' && <BlogIndexPage locale={entry.locale} />}
 {entry.kind === 'blogArticle' && post && <BlogArticlePage post={post} locale={entry.locale} />}

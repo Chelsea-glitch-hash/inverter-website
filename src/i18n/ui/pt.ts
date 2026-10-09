@@ -9,6 +9,7 @@ export const pt: Dictionary = {
     products: 'Produtos',
     factory: 'Fábrica',
     quality: 'Qualidade',
+    oemOdm: 'OEM / ODM',
     about: 'Sobre nós',
     blog: 'Blog',
     viewAllProducts: 'Ver todos os produtos',
@@ -141,6 +142,11 @@ export const pt: Dictionary = {
       description:
         'Guias técnicos e insights do setor sobre inversores solares: híbrido vs grid-tie vs off-grid, dimensionamento, certificações e manufatura OEM.',
     },
+    oemOdm: {
+      title: 'OEM / ODM Solar Inverter Manufacturer | Zhongze Huasong',
+      description:
+        'OEM / ODM solar inverter manufacturing with private label, custom firmware and packaging. Own factory, 200,000 units annual capacity, ISO 9001. Get a quote in 24 hours.',
+    },
   },
 
   home: {
@@ -148,7 +154,7 @@ export const pt: Dictionary = {
       eyebrow: 'Fabricante de Inversores desde {year}',
       title: 'Inversores Solares Diretos da Fábrica para Parceiros B2B Globais',
       subtitle:
-        'Inversores híbridos, grid-tie e off-grid projetados e fabricados em nossa própria fábrica. Programas OEM / ODM, qualidade certificada e preços competitivos diretos da fábrica para distribuidores, instaladores e desenvolvedores de projetos.',
+        'Inversores híbridos, grid-tie e off-grid diretos da fábrica, projetados para regiões com redes elétricas fracas, tarifas altas ou fornecimento pouco confiável. Feitos para autoconsumo, deslocamento de pico e energia de reserva — com programas OEM / ODM, qualidade ISO 9001 e resposta em 24 horas para distribuidores, instaladores e desenvolvedores de projetos.',
       heroImageAria: 'Ilustração de sistema de energia solar',
       bullets: ['OEM / ODM', 'ISO 9001', 'Resposta em 24h', '{countries}+ países de exportação'],
     },
@@ -566,5 +572,60 @@ export const pt: Dictionary = {
     articleCtaTitle: 'Precisa de Ajuda para Escolher um Inversor?',
     articleCtaSubtitle: 'Nossos engenheiros de vendas podem recomendar o modelo certo para o seu projeto — gratuitamente.',
     translatedNote: 'Este artigo está disponível atualmente em inglês.',
+  },
+  oemOdm: {
+    hero: {
+      eyebrow: 'OEM / ODM Manufacturing',
+      title: 'Your Private-Label Solar Inverter, Built in Our Own Factory',
+      intro:
+        'We manufacture inverters for distributors, installers and project developers who sell under their own brand. From private-label packaging and firmware to custom specifications — one factory, one accountable partner.',
+      primaryCta: 'Request OEM / ODM Quote',
+      secondaryCta: 'View Product Catalog',
+    },
+    stats: {
+      eyebrow: 'Factory Capability',
+      title: 'A Manufacturing Partner You Can Verify',
+      intro: 'Real capacity, real testing, real traceability — every claim backed by our own production lines.',
+      items: [
+        { value: '12,000 m²', label: 'Factory area (SMT, assembly, aging lines)' },
+        { value: '200,000', label: 'Units annual capacity' },
+        { value: '120+', label: 'OEM / ODM clients' },
+        { value: 'ISO 9001', label: 'Quality system, 100% testing + 8h aging' },
+      ],
+    },
+    services: {
+      eyebrow: 'What We Customize',
+      title: 'OEM / ODM Services, End to End',
+      subtitle: 'Bring your brand to market without building a factory. We handle the rest.',
+      items: [
+        { title: 'Private Label & Packaging', text: 'Your logo, brand colors, carton and manual — a product that looks like yours.' },
+        { title: 'Firmware & Software', text: 'Custom parameters, communication protocols and display language tailored to your market.' },
+        { title: 'Specification Tuning', text: 'Adjust output configurations, DC input ranges and socket types for your target region.' },
+        { title: 'Quality & Compliance', text: 'ISO 9001 system, 100% functional testing and 8-hour aging before every shipment.' },
+      ],
+    },
+    process: {
+      eyebrow: 'How It Works',
+      title: 'From Inquiry to Shipment',
+      subtitle: 'A transparent process with clear milestones, so your brand launch stays on schedule.',
+      steps: [
+        'Send your requirements (spec, quantity, target market)',
+        'Receive quotation, samples plan and timeline',
+        'Approve samples and private-label artwork',
+        'Mass production with in-line quality checks',
+        'QC, aging test, packing and shipment',
+      ],
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'OEM / ODM Questions, Answered',
+      items: [
+        { q: 'What is the minimum order quantity (MOQ)?', a: 'MOQ depends on the model and customization depth. Tell us your plan and we will confirm a realistic MOQ with pricing.' },
+        { q: 'Can you put my brand on the inverter?', a: 'Yes — private-label branding covers the enclosure, packaging, manual and display. Firmware can also carry your brand where supported.' },
+        { q: 'Can you customize the firmware or parameters?', a: "Yes. Output voltage, frequency, communication protocols and display language are customizable within the model's hardware limits." },
+        { q: 'What certifications do your inverters have?', a: 'Our quality system is ISO 9001 certified and products carry CE and RoHS. Specific certifications for your market can be discussed per project.' },
+        { q: 'How long does an OEM order take?', a: 'After sample approval, standard production runs typically ship within 30–45 days depending on quantity and customization.' },
+      ],
+    },
   },
 };

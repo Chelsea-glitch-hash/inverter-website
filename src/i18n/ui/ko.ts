@@ -11,6 +11,7 @@ export const ko: Dictionary = {
     products: '제품',
     factory: '공장',
     quality: '품질',
+    oemOdm: 'OEM / ODM',
     about: '회사 소개',
     blog: '블로그',
     viewAllProducts: '전체 제품 보기',
@@ -143,6 +144,11 @@ export const ko: Dictionary = {
       description:
         '태양광 인버터에 대한 기술 가이드 및 업계 인사이트: 하이브리드 vs 계통연계 vs 오프그리드, 용량 산정, 인증 및 OEM 제조.',
     },
+    oemOdm: {
+      title: 'OEM / ODM Solar Inverter Manufacturer | Zhongze Huasong',
+      description:
+        'OEM / ODM solar inverter manufacturing with private label, custom firmware and packaging. Own factory, 200,000 units annual capacity, ISO 9001. Get a quote in 24 hours.',
+    },
   },
 
   home: {
@@ -150,7 +156,7 @@ export const ko: Dictionary = {
       eyebrow: '{year}년부터의 인버터 제조업체',
       title: '글로벌 B2B 파트너를 위한 공장 직공 태양광 인버터',
       subtitle:
-        '자체 공장에서 설계·제조된 하이브리드, 계통연계 및 오프그리드 인버터. 유통사, 시공업체 및 프로젝트 개발사를 위한 OEM / ODM 프로그램, 인증된 품질, 경쟁력 있는 공장 직공 가격을 제공합니다.',
+        '전력망이 불안정하거나 전기요금이 높거나 전원 공급이 불안정한 지역을 위해 설계된 하이브리드, 계통연계 및 오프그리드 인버터를 공장 직송으로 제공합니다. 자가소비, 피크 부하 이동, 백업 전원에 최적화 — 유통사, 시공업체 및 프로젝트 개발사를 위한 OEM / ODM 프로그램, ISO 9001 품질, 24시간 응대를 갖추고 있습니다.',
       heroImageAria: '태양에너지 시스템 일러스트',
       bullets: ['OEM / ODM', 'ISO 9001', '24시간 내 응답', '{countries}개국 이상 수출'],
     },
@@ -565,5 +571,60 @@ export const ko: Dictionary = {
     articleCtaTitle: '인버터 선택에 도움이 필요하신가요?',
     articleCtaSubtitle: '영업 엔지니어가 프로젝트에 맞는 모델을 무료로 추천해 드립니다.',
     translatedNote: '이 기사는 현재 영어로 제공됩니다.',
+  },
+  oemOdm: {
+    hero: {
+      eyebrow: 'OEM / ODM Manufacturing',
+      title: 'Your Private-Label Solar Inverter, Built in Our Own Factory',
+      intro:
+        'We manufacture inverters for distributors, installers and project developers who sell under their own brand. From private-label packaging and firmware to custom specifications — one factory, one accountable partner.',
+      primaryCta: 'Request OEM / ODM Quote',
+      secondaryCta: 'View Product Catalog',
+    },
+    stats: {
+      eyebrow: 'Factory Capability',
+      title: 'A Manufacturing Partner You Can Verify',
+      intro: 'Real capacity, real testing, real traceability — every claim backed by our own production lines.',
+      items: [
+        { value: '12,000 m²', label: 'Factory area (SMT, assembly, aging lines)' },
+        { value: '200,000', label: 'Units annual capacity' },
+        { value: '120+', label: 'OEM / ODM clients' },
+        { value: 'ISO 9001', label: 'Quality system, 100% testing + 8h aging' },
+      ],
+    },
+    services: {
+      eyebrow: 'What We Customize',
+      title: 'OEM / ODM Services, End to End',
+      subtitle: 'Bring your brand to market without building a factory. We handle the rest.',
+      items: [
+        { title: 'Private Label & Packaging', text: 'Your logo, brand colors, carton and manual — a product that looks like yours.' },
+        { title: 'Firmware & Software', text: 'Custom parameters, communication protocols and display language tailored to your market.' },
+        { title: 'Specification Tuning', text: 'Adjust output configurations, DC input ranges and socket types for your target region.' },
+        { title: 'Quality & Compliance', text: 'ISO 9001 system, 100% functional testing and 8-hour aging before every shipment.' },
+      ],
+    },
+    process: {
+      eyebrow: 'How It Works',
+      title: 'From Inquiry to Shipment',
+      subtitle: 'A transparent process with clear milestones, so your brand launch stays on schedule.',
+      steps: [
+        'Send your requirements (spec, quantity, target market)',
+        'Receive quotation, samples plan and timeline',
+        'Approve samples and private-label artwork',
+        'Mass production with in-line quality checks',
+        'QC, aging test, packing and shipment',
+      ],
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'OEM / ODM Questions, Answered',
+      items: [
+        { q: 'What is the minimum order quantity (MOQ)?', a: 'MOQ depends on the model and customization depth. Tell us your plan and we will confirm a realistic MOQ with pricing.' },
+        { q: 'Can you put my brand on the inverter?', a: 'Yes — private-label branding covers the enclosure, packaging, manual and display. Firmware can also carry your brand where supported.' },
+        { q: 'Can you customize the firmware or parameters?', a: "Yes. Output voltage, frequency, communication protocols and display language are customizable within the model's hardware limits." },
+        { q: 'What certifications do your inverters have?', a: 'Our quality system is ISO 9001 certified and products carry CE and RoHS. Specific certifications for your market can be discussed per project.' },
+        { q: 'How long does an OEM order take?', a: 'After sample approval, standard production runs typically ship within 30–45 days depending on quantity and customization.' },
+      ],
+    },
   },
 };

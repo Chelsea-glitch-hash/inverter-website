@@ -23,7 +23,7 @@ export const esCategories: CategoryTranslations = {
     name: 'Inversores aislados (off-grid)',
     heading: 'Inversores de potencia aislados',
     description:
-      'Inversores de onda senoidal pura para sistemas autónomos: estaciones base de telecomunicaciones, electrificación rural y energía de respaldo.',
+      'Inversores de onda senoidal pura para sistemas autónomos con baterías — ideales para zonas remotas, lugares sin acceso a la red y regiones con cortes frecuentes. Conversión de CC a CA sin cargador solar integrado; combínelos con un cargador o controlador solar externo.',
   },
   accessories: {
     name: 'Accesorios para inversores',

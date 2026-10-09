@@ -25,6 +25,7 @@ export type PageKind =
   | 'quality'
   | 'contact'
   | 'privacy'
+  | 'oemOdm'
   | 'blog'
   | 'blogArticle';
 
@@ -90,6 +91,7 @@ export function buildLocalizedRoutes(posts: { id: string }[] = []): {
       { locale: 'en', enPath: '/quality/', kind: 'quality', data: {} },
       { locale: 'en', enPath: '/contact/', kind: 'contact', data: {} },
       { locale: 'en', enPath: '/privacy-policy/', kind: 'privacy', data: {} },
+      { locale: 'en', enPath: '/oem-odm/', kind: 'oemOdm', data: {} },
       { locale: 'en', enPath: '/blog/', kind: 'blog', data: {} },
     ] as RouteEntry[],
     posts.map(

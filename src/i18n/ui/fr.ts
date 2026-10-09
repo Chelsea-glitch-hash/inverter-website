@@ -12,6 +12,7 @@ export const fr: Dictionary = {
     products: 'Produits',
     factory: 'Usine',
     quality: 'Qualité',
+    oemOdm: 'OEM / ODM',
     about: 'À propos',
     blog: 'Blog',
     viewAllProducts: 'Voir tous les produits',
@@ -144,6 +145,11 @@ export const fr: Dictionary = {
       description:
         'Guides techniques et analyses du secteur sur les onduleurs solaires : hybride vs raccordé au réseau vs hors-réseau, dimensionnement, certifications et fabrication OEM.',
     },
+    oemOdm: {
+      title: "Fabricant d'onduleurs solaires OEM / ODM | Zhongze Huasong",
+      description:
+        "Fabrication d'onduleurs solaires OEM / ODM avec marque privée, firmware et emballage personnalisés. Usine propre, capacité annuelle de 200 000 unités, ISO 9001. Devis sous 24 h.",
+    },
   },
 
   home: {
@@ -151,7 +157,7 @@ export const fr: Dictionary = {
       eyebrow: 'Fabricant d’onduleurs depuis {year}',
       title: 'Onduleurs solaires au prix usine pour les partenaires B2B du monde entier',
       subtitle:
-        'Onduleurs hybrides, raccordés au réseau et hors-réseau, conçus et fabriqués dans notre propre usine. Programmes OEM / ODM, qualité certifiée et tarifs usine compétitifs en direct pour les distributeurs, installateurs et développeurs de projets.',
+        'Onduleurs hybrides, raccordés au réseau et hors-réseau, en direct d’usine, conçus pour les régions à réseau fragile, tarifs électriques élevés ou alimentation peu fiable. Pensés pour l’autoconsommation, l’écrêtage des pointes et le secours — avec programmes OEM / ODM, qualité ISO 9001 et réponse sous 24 h pour les distributeurs, installateurs et développeurs de projets.',
       heroImageAria: 'Illustration d’un système d’énergie solaire',
       bullets: ['OEM / ODM', 'ISO 9001', 'Réponse sous 24 h', 'Plus de {countries} pays d’export'],
     },
@@ -569,5 +575,60 @@ export const fr: Dictionary = {
     articleCtaTitle: 'Besoin d’aide pour choisir un onduleur ?',
     articleCtaSubtitle: 'Nos ingénieurs commerciaux peuvent recommander le modèle adapté à votre projet — gratuitement.',
     translatedNote: 'Cet article est actuellement disponible en anglais.',
+  },
+  oemOdm: {
+    hero: {
+      eyebrow: 'Fabrication OEM / ODM',
+      title: "Votre onduleur solaire à marque privée, fabriqué dans notre propre usine",
+      intro:
+        "Nous fabriquons des onduleurs pour les distributeurs, installateurs et développeurs de projets qui vendent sous leur propre marque. De l'emballage et du firmware de marque privée aux spécifications personnalisées — une usine, un partenaire responsable.",
+      primaryCta: 'Demander un devis OEM / ODM',
+      secondaryCta: 'Voir le catalogue produits',
+    },
+    stats: {
+      eyebrow: "Capacité de l'usine",
+      title: 'Un partenaire de fabrication vérifiable',
+      intro: "Capacité réelle, tests réels, traçabilité réelle — chaque affirmation est appuyée par nos propres lignes de production.",
+      items: [
+        { value: '12 000 m²', label: "Superficie d'usine (SMT, assemblage, tests de vieillissement)" },
+        { value: '200 000', label: "Unités de capacité annuelle" },
+        { value: '120+', label: 'Clients OEM / ODM' },
+        { value: 'ISO 9001', label: 'Système qualité, 100 % de tests + vieillissement 8 h' },
+      ],
+    },
+    services: {
+      eyebrow: 'Ce que nous personnalisons',
+      title: 'Services OEM / ODM, de bout en bout',
+      subtitle: "Lancez votre marque sans construire d'usine. Nous nous occupons du reste.",
+      items: [
+        { title: 'Marque privée et emballage', text: 'Votre logo, vos couleurs, carton et manuel — un produit qui vous ressemble.' },
+        { title: 'Firmware et logiciel', text: "Paramètres personnalisés, protocoles de communication et langue d'affichage adaptés à votre marché." },
+        { title: "Ajustement des spécifications", text: "Adaptez les configurations de sortie, les plages d'entrée DC et les types de prises à votre région cible." },
+        { title: 'Qualité et conformité', text: "Système ISO 9001, 100 % de tests fonctionnels et vieillissement de 8 heures avant chaque expédition." },
+      ],
+    },
+    process: {
+      eyebrow: "Comment ça marche",
+      title: 'De la demande au transport',
+      subtitle: "Un processus transparent avec des jalons clairs pour un lancement de marque dans les délais.",
+      steps: [
+        "Envoyez vos besoins (spécifications, quantité, marché cible)",
+        "Recevez devis, plan d'échantillons et calendrier",
+        "Approuvez les échantillons et la maquette de marque privée",
+        'Production en série avec contrôles qualité en ligne',
+        'QC, test de vieillissement, emballage et expédition',
+      ],
+    },
+    faq: {
+      eyebrow: 'Questions fréquentes',
+      title: 'Questions OEM / ODM, réponses',
+      items: [
+        { q: 'Quelle est la quantité minimale de commande (MOQ) ?', a: 'Le MOQ dépend du modèle et du niveau de personnalisation. Dites-nous votre projet et nous confirmerons un MOQ réaliste avec prix.' },
+        { q: "Pouvez-vous apposer ma marque sur l'onduleur ?", a: 'Oui — la marque privée couvre le boîtier, l\'emballage, le manuel et l\'écran. Le firmware peut aussi porter votre marque lorsque c\'est pris en charge.' },
+        { q: 'Pouvez-vous personnaliser le firmware ou les paramètres ?', a: 'Oui. Tension de sortie, fréquence, protocoles de communication et langue d\'affichage sont personnalisables dans les limites matérielles du modèle.' },
+        { q: 'Quelles certifications ont vos onduleurs ?', a: 'Notre système qualité est certifié ISO 9001 et les produits portent CE et RoHS. Des certifications spécifiques pour votre marché peuvent être discutées par projet.' },
+        { q: 'Combien de temps prend une commande OEM ?', a: "Après approbation de l'échantillon, les séries standard partent généralement en 30–45 jours selon la quantité et la personnalisation." },
+      ],
+    },
   },
 };

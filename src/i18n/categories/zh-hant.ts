@@ -23,7 +23,7 @@ export const zhHantCategories: CategoryTranslations = {
     name: '離網型逆變器',
     heading: '離網型電力逆變器',
     description:
-      '適用於獨立電力系統的純正弦波逆變器——電信基地台、偏鄉供電與備用電源。',
+      '適用於電池型獨立電力系統的純正弦波逆變器——非常適合偏遠地區、無電網地區與頻繁停電的區域。純直流轉交流，無內建太陽能充電控制器；可搭配外部充電器或太陽能控制器使用。',
   },
   accessories: {
     name: '逆變器配件',

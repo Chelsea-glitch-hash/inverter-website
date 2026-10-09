@@ -23,7 +23,7 @@ export const frCategories: CategoryTranslations = {
     name: 'Onduleurs hors réseau',
     heading: 'Onduleurs de puissance hors réseau',
     description:
-      'Onduleurs à onde sinusoïdale pure pour systèmes autonomes — stations de base télécom, électrification rurale et alimentation de secours.',
+      'Onduleurs à onde sinusoïdale pure pour systèmes autonomes sur batteries — idéals pour les zones reculées, les sites sans raccordement au réseau et les régions à coupures fréquentes. Conversion CC en CA sans chargeur solaire intégré ; à associer à un chargeur ou un régulateur solaire externe.',
   },
   accessories: {
     name: 'Accessoires pour onduleurs',

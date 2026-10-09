@@ -68,7 +68,7 @@ export const CATEGORIES: Category[] = [
     singularName: 'Off-Grid Inverter',
     heading: 'Off-Grid Power Inverters',
     description:
-      'Pure sine wave standalone inverters for battery-based off-grid systems. DC-to-AC conversion without a built-in solar charge controller — pair with an external charger or solar controller.',
+      'Pure sine wave standalone inverters for battery-based off-grid systems — ideal for remote areas, sites without grid access and regions with frequent outages. DC-to-AC conversion without a built-in solar charge controller — pair with an external charger or solar controller.',
     powerRange: '0.9–5 kW',
   },
   {
@@ -77,7 +77,7 @@ export const CATEGORIES: Category[] = [
     singularName: 'Off-Grid Solar Inverter',
     heading: 'Off-Grid Solar Inverters',
     description:
-      'Off-grid solar inverters with a built-in MPPT charge controller, combining PV input, battery charging and pure sine wave AC output in one wall-mount unit.',
+      'Off-grid solar inverters with a built-in MPPT charge controller, combining PV input, battery charging and pure sine wave AC output in one wall-mount unit — built for energy independence where the grid is absent or unreliable.',
     powerRange: '1.5–11 kW',
   },
   {

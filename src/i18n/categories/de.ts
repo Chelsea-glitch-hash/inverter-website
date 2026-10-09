@@ -23,7 +23,7 @@ export const deCategories: CategoryTranslations = {
     name: 'Off-Grid-Wechselrichter',
     heading: 'Off-Grid-Stromwechselrichter',
     description:
-      'Reine Sinuswellen-Wechselrichter für autarke Stromsysteme — Telekom-Basisstationen, ländliche Elektrifizierung und Notstromversorgung.',
+      'Reine Sinuswellen-Wechselrichter für batteriegestützte autarke Systeme — ideal für abgelegene Gebiete, Standorte ohne Netzzugang und Regionen mit häufigen Stromausfällen. DC/AC-Umwandlung ohne integrierten Solarladeregler; kombinierbar mit externem Ladegerät oder Solarregler.',
   },
   accessories: {
     name: 'Wechselrichter-Zubehör',
