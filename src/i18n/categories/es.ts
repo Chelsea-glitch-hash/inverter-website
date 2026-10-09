@@ -25,6 +25,12 @@ export const esCategories: CategoryTranslations = {
     description:
       'Inversores de onda senoidal pura para sistemas autónomos con baterías — ideales para zonas remotas, lugares sin acceso a la red y regiones con cortes frecuentes. Conversión de CC a CA sin cargador solar integrado; combínelos con un cargador o controlador solar externo.',
   },
+  'off-grid-solar-inverters': {
+    name: 'Inversores solares aislados (off-grid)',
+    heading: 'Inversores solares aislados',
+    description:
+      'Inversores solares aislados con regulador de carga MPPT integrado, que combinan la entrada fotovoltaica, la carga de baterías y la salida de onda senoidal pura en un único equipo de pared — diseñados para la independencia energética donde la red es inexistente o poco fiable.',
+  },
   accessories: {
     name: 'Accesorios para inversores',
     heading: 'Accesorios para inversores',

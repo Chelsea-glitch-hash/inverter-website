@@ -25,6 +25,12 @@ export const koCategories: CategoryTranslations = {
     description:
       '배터리 기반 독립 전원 시스템을 위한 순수 정현파 인버터 — 원격지, 전력망이 없는 지역, 정전이 잦은 지역에 적합합니다. 태양광 충전 컨트롤러가 내장되지 않은 DC/AC 변환 방식으로, 외부 충전기 또는 태양광 컨트롤러와 함께 사용하세요.',
   },
+  'off-grid-solar-inverters': {
+    name: '오프그리드 태양광 인버터',
+    heading: '오프그리드 태양광 인버터',
+    description:
+      'MPPT 충전 컨트롤러가 내장된 오프그리드 태양광 인버터로, 태양광 입력, 배터리 충전, 순수 정현파 AC 출력을 벽걸이형 단일 장치에 통합합니다 — 전력망이 없거나 불안정한 지역에서의 에너지 자립을 위해 설계되었습니다.',
+  },
   accessories: {
     name: '인버터 액세서리',
     heading: '인버터 액세서리',

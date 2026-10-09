@@ -25,6 +25,12 @@ export const frCategories: CategoryTranslations = {
     description:
       'Onduleurs à onde sinusoïdale pure pour systèmes autonomes sur batteries — idéals pour les zones reculées, les sites sans raccordement au réseau et les régions à coupures fréquentes. Conversion CC en CA sans chargeur solaire intégré ; à associer à un chargeur ou un régulateur solaire externe.',
   },
+  'off-grid-solar-inverters': {
+    name: 'Onduleurs solaires hors réseau',
+    heading: 'Onduleurs solaires hors réseau',
+    description:
+      'Onduleurs solaires hors réseau avec régulateur de charge MPPT intégré, combinant entrée photovoltaïque, charge des batteries et sortie à onde sinusoïdale pure dans un seul appareil mural — conçus pour l’indépendance énergétique là où le réseau est absent ou peu fiable.',
+  },
   accessories: {
     name: 'Accessoires pour onduleurs',
     heading: 'Accessoires pour onduleurs',

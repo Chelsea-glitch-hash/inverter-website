@@ -25,6 +25,12 @@ export const itCategories: CategoryTranslations = {
     description:
       'Inverter a onda sinusoidale pura per sistemi autonomi a batteria — ideali per aree remote, siti senza accesso alla rete e regioni con frequenti interruzioni. Conversione da CC a CA senza carico solare integrato; da abbinare a un caricatore o regolatore solare esterno.',
   },
+  'off-grid-solar-inverters': {
+    name: 'Inverter solari off-grid',
+    heading: 'Inverter solari off-grid',
+    description:
+      'Inverter solari off-grid con regolatore di carica MPPT integrato, che uniscono ingresso fotovoltaico, ricarica delle batterie e uscita a onda sinusoidale pura in un unico apparecchio da parete — progettati per l’indipendenza energetica dove la rete è assente o poco affidabile.',
+  },
   accessories: {
     name: 'Accessori per inverter',
     heading: 'Accessori per inverter',

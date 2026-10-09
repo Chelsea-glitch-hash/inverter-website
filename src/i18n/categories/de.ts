@@ -25,6 +25,12 @@ export const deCategories: CategoryTranslations = {
     description:
       'Reine Sinuswellen-Wechselrichter für batteriegestützte autarke Systeme — ideal für abgelegene Gebiete, Standorte ohne Netzzugang und Regionen mit häufigen Stromausfällen. DC/AC-Umwandlung ohne integrierten Solarladeregler; kombinierbar mit externem Ladegerät oder Solarregler.',
   },
+  'off-grid-solar-inverters': {
+    name: 'Off-Grid-Solarwechselrichter',
+    heading: 'Off-Grid-Solarwechselrichter',
+    description:
+      'Off-Grid-Solarwechselrichter mit integriertem MPPT-Laderegler, die PV-Einspeisung, Batterieladung und reine Sinuswellen-Wechselspannung in einem wandmontierten Gerät vereinen — gebaut für Energieunabhängigkeit dort, wo das Stromnetz fehlt oder unzuverlässig ist.',
+  },
   accessories: {
     name: 'Wechselrichter-Zubehör',
     heading: 'Wechselrichter-Zubehör',

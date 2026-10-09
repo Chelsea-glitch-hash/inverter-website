@@ -25,6 +25,12 @@ export const zhHantCategories: CategoryTranslations = {
     description:
       '適用於電池型獨立電力系統的純正弦波逆變器——非常適合偏遠地區、無電網地區與頻繁停電的區域。純直流轉交流，無內建太陽能充電控制器；可搭配外部充電器或太陽能控制器使用。',
   },
+  'off-grid-solar-inverters': {
+    name: '離網型太陽能逆變器',
+    heading: '離網型太陽能逆變器',
+    description:
+      '內建 MPPT 充電控制器的離網型太陽能逆變器，將太陽能輸入、電池充電與純正弦波交流輸出整合於單一壁掛式設備——專為電網不存在或不穩定的地區打造能源自主解決方案。',
+  },
   accessories: {
     name: '逆變器配件',
     heading: '逆變器配件',
