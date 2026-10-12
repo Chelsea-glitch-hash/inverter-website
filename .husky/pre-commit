@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+# Pre-commit i18n gate: any English content change MUST come with translation
+# updates. This blocks the common mistake "edited only en.ts and committed"
+# without blocking unrelated commits or historical STALE entries.
+#
+# Rules:
+#   - English source changed AND no locale file touched  -> BLOCK
+#   - English source changed AND locale files touched    -> allow (translation in progress)
+#   - Only locale files changed                          -> allow
+#   - Nothing English-related changed                    -> allow
+#
+# To skip this gate intentionally: git commit --no-verify
+
+# English content sources (en.ts UI dict, categories.ts, about/en.ts, blog MDX)
+STAGED_EN=$(git diff --cached --name-only | grep -E 'src/i18n/ui/en\.ts|src/lib/categories\.ts|src/i18n/about/en\.ts|src/content/blog/.*\.mdx' || true)
+
+# Any non-English locale file touched in this commit
+STAGED_I18N=$(git diff --cached --name-only | grep -E 'src/i18n/(ui|categories|about)/' | grep -v '/en\.ts$' || true)
+
+if [ -n "$STAGED_EN" ] && [ -z "$STAGED_I18N" ]; then
+  echo ""
+  echo "❌ i18n gate: English content changed but NO translation files updated."
+  echo "   Changed English content:"
+  echo "$STAGED_EN" | sed 's/^/     - /'
+  echo ""
+  echo "   The site ships 11 languages. Add translations for the 10 non-English"
+  echo "   locales (or run 'npm run i18n:update' with AI_API_* configured),"
+  echo "   then commit again."
+  echo ""
+  echo "   If this is intentionally English-only WIP, use: git commit --no-verify"
+  exit 1
+fi
