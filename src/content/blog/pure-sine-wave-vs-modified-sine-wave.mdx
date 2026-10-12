@@ -1,0 +1,64 @@
+---
+title: "Pure Sine Wave vs Modified Sine Wave Inverter: What's the Difference?"
+description: "How pure sine wave and modified sine wave inverters differ, which loads need a pure sine wave, and how to choose for off-grid and backup systems."
+publishDate: 2026-10-13
+author: "Zhongze Huasong"
+tags: ["Inverter Guide", "Solar Basics", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Pure sine wave and modified sine wave are the two output waveforms you will
+see on any inverter spec sheet. The difference looks technical, but it decides
+which appliances work correctly — and sometimes whether they work at all.
+
+## What each waveform means
+
+**Modified sine wave** (often called quasi-sine) is a stepped approximation
+of a sine wave. It is cheaper to produce and fine for resistive loads like
+incandescent lights, heaters and basic tools.
+
+**Pure sine wave** reproduces the smooth sinusoidal AC that comes from the
+utility grid. Motors, electronics with sensitive controllers, and anything
+with a transformer behave the way they were designed to.
+
+## Which loads need pure sine wave?
+
+| Load type | Modified sine | Pure sine |
+|---|---|---|
+| Incandescent lights, heaters | Works | Works |
+| Induction motors (fans, pumps) | May overheat, noisy, lower efficiency | Works normally |
+| Refrigerators / freezers | Risk of compressor damage | Recommended |
+| TVs, computers, chargers | May malfunction or run hot | Recommended |
+| Medical devices | Not recommended | Recommended |
+| Microwave ovens | Slower heating, reduced power | Works at full power |
+| Variable-speed / inverter appliances | Can damage electronics | Recommended |
+
+## Practical consequences
+
+- **Motors and compressors** run hotter and less efficiently on modified
+  sine wave because the stepped waveform adds harmonics and heat.
+- **Sensitive electronics** can reset, hum, or in the worst case fail — the
+  dirty waveform can interfere with control boards.
+- **Audio equipment** may carry audible mains hum.
+
+## What to choose
+
+For anything beyond simple resistive loads — fridges, pumps, computers, TVs,
+medical devices — a **pure sine wave inverter** is the safe default. The price
+difference has narrowed significantly in recent years, and the reliability
+difference on real projects is large.
+
+All of our [off-grid inverters](/products/off-grid-inverters/) and
+[off-grid solar inverters](/products/off-grid-solar-inverters/) output pure
+sine wave as standard, so the waveform question is already settled for
+distributors and installers sourcing from us.
+
+<FAQ
+  title="Waveform — FAQ"
+  faq={[
+    { question: "Can a modified sine wave inverter damage my appliances?", answer: "It can shorten the life of induction motors and some electronics by running them hotter. Damage is not immediate, but the risk is real for compressors and sensitive boards." },
+    { question: "Is pure sine wave worth the extra cost?", answer: "For systems powering fridges, pumps, computers or medical devices, yes. The premium is small relative to the cost of a failed appliance or a service call." },
+    { question: "Do all pure sine wave inverters perform the same?", answer: "No. Efficiency, surge capability, THD and reliability vary by design. Check the spec table and the manufacturer's testing practices before ordering." },
+  ]}
+/>

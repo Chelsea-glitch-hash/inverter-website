@@ -1,0 +1,69 @@
+---
+title: "Off-Grid Inverter Installation Guide: Wiring, Safety and Commissioning"
+description: "A practical installation walkthrough for off-grid inverters — wiring order, breaker sizing, grounding, battery connection and the commissioning checks before first power-up."
+publishDate: 2026-10-15
+author: "Zhongze Huasong"
+tags: ["Installation Guide", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+A clean, safe installation is the difference between years of reliable
+off-grid power and repeated service calls. This guide follows the sequence
+our own engineers use when commissioning systems.
+
+> **Safety first:** this guide is for qualified installers. Battery banks can
+> deliver very high currents — a short circuit at the terminals is dangerous.
+> Disconnect sources in the correct order and use insulated tools.
+
+## Wiring order that avoids surprises
+
+Connect in this order, and reverse it for disassembly:
+
+1. **Grounding first** — connect the system ground (inverter chassis, panels
+   and battery negative where the manual specifies) before any power wiring.
+2. **Battery to inverter** — connect the battery bank with the correct fuse or
+   breaker in line, observing polarity. Most inverters will not start until
+   the DC input is present.
+3. **PV array to the charge controller** — with panels covered or a breaker
+   open, wire the array to the MPPT input.
+4. **AC output** — connect the load side last, and keep it off until
+   commissioning.
+
+## Breaker and cable sizing
+
+- **DC battery cable** — sized for the inverter's max current plus margin;
+   too-small cable is the most common cause of voltage drop and heat.
+- **Battery fuse/breaker** — rated above continuous current, placed at the
+   battery terminal.
+- **PV breaker** — rated for the string current, with the correct DC rating.
+- **AC breaker** — matches the inverter's output rating and local code.
+
+## Commissioning checklist
+
+Before switching on:
+
+- [ ] Polarity verified on battery and PV connections
+- [ ] Torque on all power terminals per the manual
+- [ ] Ground continuity confirmed
+- [ ] Battery voltage within the inverter's input range
+- [ ] No exposed conductors near terminals
+
+Then power up in the same order as wiring: battery, then PV, then loads.
+Watch the display for the first minutes — error codes or abnormal voltage
+readings at this stage prevent much bigger problems later.
+
+## Documentation matters
+
+Record the wiring diagram, settings, and firmware version for each install.
+This makes warranty and future expansion straightforward — and it is the
+professional standard customers expect from a distributor's install team.
+
+<FAQ
+  title="Installation — FAQ"
+  faq={[
+    { question: "Can I connect the battery backwards?", answer: "Never — reverse polarity on the DC input can damage the inverter's input stage and voids warranty. Double-check polarity before connecting, and use a fused connection." },
+    { question: "What size cable do I need between battery and inverter?", answer: "Size for the inverter's maximum DC current with at least 25% margin, and keep the run short. Refer to the manual's cable table for the exact recommendation." },
+    { question: "Do off-grid inverters need a ground connection?", answer: "Yes. The chassis and system ground must be connected per the manual and local code. A missing ground is a safety hazard and a common cause of odd fault codes." },
+  ]}
+/>

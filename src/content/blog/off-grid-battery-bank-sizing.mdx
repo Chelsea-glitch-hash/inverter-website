@@ -1,0 +1,76 @@
+---
+title: "Off-Grid Battery Bank Sizing: A Step-by-Step Guide"
+description: "How to size the battery bank for an off-grid inverter system — daily capacity, depth of discharge, days of autonomy and a worked example for a typical home."
+publishDate: 2026-10-12
+author: "Zhongze Huasong"
+tags: ["Sizing Guide", "Off-Grid", "Battery"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Battery banks are the most expensive part of an off-grid system and the
+easiest to get wrong. Size them too small and the system cuts out early on
+cloudy days; too large and you pay for capacity you rarely use.
+
+## The sizing formula
+
+**Battery capacity (Ah) = daily energy (Wh) ÷ battery voltage (V) ÷ depth of discharge (%)**
+
+Three variables drive the result:
+
+1. **Daily energy use (Wh/day)** — from your load audit (see our
+   [solar panel sizing guide](/blog/how-many-solar-panels-for-off-grid/))
+2. **Battery voltage (V)** — 12 V, 24 V or 48 V, matching your inverter
+3. **Depth of discharge (DoD)** — the usable portion of the battery
+
+## Depth of discharge matters
+
+Different chemistries allow different discharge depth:
+
+| Battery type | Safe DoD | Notes |
+|---|---|---|
+| Lead-acid (flooded) | 50% | Regular topping charge needed |
+| Lead-acid (AGM / gel) | 50–60% | Maintenance-free, moderate cost |
+| LiFePO4 | 80–90% | Longer life, higher upfront cost |
+
+## Worked example
+
+Continuing the home from our [sizing guide](/blog/how-many-solar-panels-for-off-grid/):
+
+- Daily load: **2,160 Wh**
+- Inverter / system voltage: **48 V**
+- Battery type: **LiFePO4** at 85% DoD
+- Desired autonomy (no sun): **2 days**
+
+**Step 1 — energy per day the battery must store:**
+2,160 Wh ÷ 0.85 = **2,541 Wh of usable capacity**
+
+**Step 2 — with 2 days of autonomy:**
+2,541 × 2 = **5,082 Wh**
+
+**Step 3 — capacity in amp-hours at 48 V:**
+5,082 Wh ÷ 48 V = **106 Ah**
+
+A practical choice: a **48 V, 100 Ah (≈ 5 kWh)** LiFePO4 bank, or two parallel
+100 Ah packs if you want more margin.
+
+## Matching the inverter
+
+- Pick an inverter whose **DC input voltage** matches the bank (12/24/48 V).
+- Keep the bank's charge current within the MPPT controller's rating — a
+  5 kWh bank usually charges at 40–60 A comfortably.
+- LiFePO4 banks need a BMS with communication (CAN/RS485) where the inverter
+  supports it, so charging stops correctly.
+
+Our [off-grid inverters](/products/off-grid-inverters/) support 12 V, 24 V
+and 48 V banks (selected models also 60 V and 72 V) — the specification table
+on each product page lists the DC input range.
+
+<FAQ
+  title="Battery sizing — FAQ"
+  faq={[
+    { question: "How many days of autonomy should I design for?", answer: "Two to three days of autonomy is typical for a home with generator backup; three to five for remote sites where no backup exists. More autonomy means more batteries and more cost." },
+    { question: "Can I mix battery types in one bank?", answer: "No. Mixing chemistries or ages causes imbalance, uneven charging and premature failure. Replace the whole bank or expand with identical packs." },
+    { question: "Do I need a bigger battery for a bigger inverter?", answer: "Not directly. Inverter size follows peak load; battery size follows daily energy and autonomy. Match both to the same system voltage so they work together." },
+  ]}
+/>

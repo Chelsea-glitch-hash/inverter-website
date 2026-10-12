@@ -1,0 +1,61 @@
+---
+title: "12V, 24V or 48V Inverter: How to Choose the Right System Voltage"
+description: "How to pick between 12V, 24V and 48V off-grid systems — cable cost, efficiency, inverter availability and the practical rules for sizing your system voltage."
+publishDate: 2026-10-15
+author: "Zhongze Huasong"
+tags: ["Inverter Guide", "Off-Grid", "Solar Basics"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+The system voltage — 12 V, 24 V or 48 V — is decided early in an off-grid
+design and is hard to change later. It trades cable size and efficiency
+against component cost and availability.
+
+## The basic trade-off
+
+Power is voltage × current. At a fixed power level, **higher voltage means
+lower current**, and lower current means thinner, cheaper cable and less loss.
+
+| System | Typical battery | Inverter range | Cable size for same power |
+|---|---|---|---|
+| 12 V | Single battery | 300–1,500 W | Thick, expensive |
+| 24 V | Two batteries | 1–3 kW | Medium |
+| 48 V | Four batteries (or LiFePO4 pack) | 1–11 kW | Thinner, cheaper |
+
+## Practical rules of thumb
+
+- **12 V** — small loads under ~1 kW: cabins, camping, small boats, portable
+  setups. Component availability is broad, but cable must be heavy.
+- **24 V** — medium loads 1–3 kW: small homes, workshops, RVs. A good
+  middle ground for compact systems.
+- **48 V** — anything above ~3 kW: full homes, telecom, farms, businesses.
+  Cable costs stay manageable and higher-power inverters are abundant.
+
+## Why 48 V wins for bigger systems
+
+Above roughly 3 kW, a 12 V bank needs very heavy cable (often 2× 000 AWG for
+a 5 kW system) and wastes a meaningful share of energy in line losses. 48 V
+keeps currents low — a 5 kW inverter at 48 V draws about 104 A, which is
+comfortably handled by normal-size cable.
+
+## Matching your inverter
+
+Pick the inverter **first**, then build the bank to its DC input voltage —
+not the other way around. Every product page on this site lists the DC input
+range in the specification table, so the system voltage is confirmed before
+you quote batteries.
+
+Our [off-grid inverters](/products/off-grid-inverters/) cover 12 V, 24 V and
+48 V (selected models also 60 V and 72 V), and the
+[off-grid solar inverters](/products/off-grid-solar-inverters/) add a
+built-in MPPT controller for the same voltage range.
+
+<FAQ
+  title="System voltage — FAQ"
+  faq={[
+    { question: "Can I change system voltage later?", answer: "Not easily — the inverter, batteries, controller and wiring all follow the voltage. Decide at design time and stick with it." },
+    { question: "Is 48V more efficient than 12V?", answer: "For the same power, yes, because lower current means lower I²R losses in cables. The efficiency difference grows with system size." },
+    { question: "Are 12V components cheaper?", answer: "Some are, especially small accessories. But for larger systems, the extra cable cost and losses quickly outweigh the savings." },
+  ]}
+/>

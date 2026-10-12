@@ -1,0 +1,96 @@
+---
+title: "How Many Solar Panels Do You Need for an Off-Grid System?"
+description: "A practical worksheet for sizing the PV array of an off-grid inverter system — daily load, sun hours, derating and a worked example with the numbers our engineers use."
+publishDate: 2026-10-12
+author: "Zhongze Huasong"
+tags: ["Sizing Guide", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+The single most common sizing mistake we see in off-grid projects is an
+undersized solar array. Panels are cheaper than batteries and inverters to
+replace later, so getting this number right matters more than any other part
+of the design.
+
+## Step 1: Find your daily energy need (Wh/day)
+
+List every load, its power draw in watts, and the hours it runs per day.
+Multiply and add: watts × hours = watt-hours per day.
+
+**Worked example:**
+
+| Load | Watts | Hours/day | Wh/day |
+|---|---|---|---|
+| Lights | 40 | 5 | 200 |
+| Refrigerator | 150 | 8 | 1,200 |
+| TV | 100 | 4 | 400 |
+| Phone chargers | 15 | 4 | 60 |
+| Water pump | 300 | 1 | 300 |
+| **Total** | | | **2,160 Wh/day** |
+
+## Step 2: Adjust for system losses
+
+Off-grid systems lose energy to conversion, wiring and battery charging.
+A conservative design multiplies the load by **1.3** (a 30% derating) to get
+the energy the array must actually deliver:
+
+**2,160 Wh × 1.3 = 2,808 Wh/day needed from PV**
+
+## Step 3: Estimate your sun hours
+
+"Peak sun hours" is the daily equivalent of full-strength sunlight for your
+location. This is **not** the same as hours of daylight. Typical values:
+
+- Northern Europe: 2.5–3.5
+- Central Europe: 3.5–4.5
+- Mediterranean: 4.5–5.5
+- Middle East / North Africa: 5.5–6.5
+- Southeast Asia / equatorial: 4.5–5.5
+- US Southwest: 5.5–6.5
+
+Use a conservative figure — the worst month, not the annual average, unless
+you have a generator backup.
+
+## Step 4: Calculate the array size
+
+**Array watts = daily PV energy ÷ sun hours ÷ derating**
+
+With 2,808 Wh needed and, say, 4.5 sun hours:
+
+**2,808 ÷ 4.5 = 624 W minimum array**
+
+We recommend adding a margin of 10–20% on top for cloudy streaks and panel
+degradation, bringing the example to roughly **700–750 W** of panels.
+
+## Step 5: Match the array to the inverter / controller
+
+- Check the **MPPT operating voltage range** of your off-grid solar inverter
+  and size the string voltage to sit in the middle of that range.
+- Keep array power within the controller's maximum PV input rating.
+- Wire string current below the controller's rated input current.
+
+Our [off-grid solar inverters](/products/off-grid-solar-inverters/) include a
+built-in MPPT charge controller — you can read the PV input range directly
+from the specification table on each product page, so the array math above
+slots straight into the actual model you are quoting.
+
+## Quick reference: panels per inverter
+
+These figures assume ~550 W panels and 4.5 sun hours, with the 1.3 derating:
+
+| Inverter size | Typical array (W) | Panels (~550 W) |
+|---|---|---|
+| 1.5–2 kW | 900–1,200 | 2 |
+| 3 kW | 1,500–1,800 | 3 |
+| 5 kW | 2,400–3,000 | 5 |
+| 8 kW | 3,600–4,500 | 7–8 |
+
+<FAQ
+  title="Solar array sizing — FAQ"
+  faq={[
+    { question: "What happens if my array is undersized?", answer: "The batteries may not fully recharge on cloudy days, and the system relies on grid or generator backup more often. In off-grid systems this shows up as premature low-voltage cut-offs." },
+    { question: "Can I oversize the array safely?", answer: "Yes, within the MPPT input limits of the inverter. Oversizing helps winter production and keeps batteries full; the controller clamps excess power. Stay inside the rated PV input voltage and current." },
+    { question: "Do panels need to match the inverter wattage one-to-one?", answer: "No. The array is sized for daily energy, while the inverter is sized for peak load. A 3 kW inverter often runs with a 1.5–1.8 kW array in our sizing examples." },
+  ]}
+/>

@@ -1,0 +1,62 @@
+---
+title: "Low Frequency vs High Frequency Inverters: Which Is Right for Your Project?"
+description: "Low frequency and high frequency inverters compared — surge capability, weight, cost, reliability and the right choice for different off-grid applications."
+publishDate: 2026-10-13
+author: "Zhongze Huasong"
+tags: ["Inverter Guide", "Off-Grid", "Solar Basics"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Low frequency and high frequency describe how an inverter converts DC to AC,
+and the distinction decides surge handling, weight and long-term reliability.
+Both are sold for off-grid use — the right answer depends on your loads.
+
+## How they differ
+
+**Low frequency inverters** use a heavy copper-wound transformer at mains
+frequency. The transformer provides natural surge capacity and electrical
+isolation, and the units are built around a simple, proven topology.
+
+**High frequency inverters** use high-frequency switching with ferrite
+transformers. They are lighter, smaller and often more efficient at partial
+load, but their surge capability depends on the electronics rather than a
+physical transformer.
+
+## Comparison
+
+| Aspect | Low frequency | High frequency |
+|---|---|---|
+| Surge capacity | Excellent (5–8× rated briefly) | Moderate (2–3×) |
+| Weight | Heavy (transformer) | Light |
+| Cost | Higher | Lower |
+| Efficiency | Slightly lower at light load | Often higher |
+| Idle consumption | Higher | Lower |
+| Typical use | Pumps, tools, large motors | Home backup, electronics |
+
+## When surge matters
+
+Induction motors — water pumps, compressors, power tools — draw a large
+inrush current when starting, often 3–7 times their running watts. A low
+frequency inverter's transformer absorbs this surge more gracefully, which is
+why pumps and workshop equipment favor low frequency designs.
+
+For general home backup powering lights, computers and appliances, a high
+frequency inverter is lighter, cheaper and more efficient, and its surge
+rating is usually adequate.
+
+## How we help
+
+Our [off-grid solar inverters](/products/off-grid-solar-inverters/) and
+[off-grid inverters](/products/off-grid-inverters/) span both topologies.
+Tell our sales engineers your typical loads — especially pump and motor
+applications — and they will point you to the right series for your market.
+
+<FAQ
+  title="Topology — FAQ"
+  faq={[
+    { question: "Is a low frequency inverter always better?", answer: "No. It is better at surge handling but heavier, more expensive and less efficient at light load. For electronics-heavy home use, a high frequency inverter is often the better value." },
+    { question: "What surge capacity do I need for a water pump?", answer: "Aim for an inverter rated at least 3× the pump's running watts, ideally from a low frequency series. Check the actual locked-rotor current from the pump datasheet." },
+    { question: "Are high frequency inverters less reliable?", answer: "Not inherently. Reliability depends on component quality, thermal design and testing. Choose a manufacturer with documented testing and a real warranty." },
+  ]}
+/>

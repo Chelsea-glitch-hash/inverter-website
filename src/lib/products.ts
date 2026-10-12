@@ -20,6 +20,7 @@ import {
   type ProductSpecifications,
 } from '../data/products';
 import { CATEGORIES, CATEGORY_SLUGS, type Category } from './categories';
+import { SITE } from '../config';
 
 export type { Category, Product, ProductCategory, ProductPackaging, ProductSeo, ProductSpecifications };
 
@@ -131,7 +132,15 @@ export function resolveShortDescription(product: Product): string {
  * Authored `product.seo` always wins. Without it the two tags are composed from
  * the product's own real fields (name, product type, id, rated power) so a
  * product added with minimal data still ships valid, non-duplicated metadata.
+ *
+ * The brand suffix (LuxPowerTek-style "[type] [model] [power] — brand") is
+ * appended to every title that does not already carry the brand, so the
+ * brand keyword reaches every product page.
  */
+function withBrand(title: string): string {
+  return title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+}
+
 export function resolveSeo(product: Product): ProductSeo {
   const power = formatPower(product.ratedPower);
   const nameHasType = product.name.toLowerCase().includes(product.productType.toLowerCase());
@@ -139,7 +148,7 @@ export function resolveSeo(product: Product): ProductSeo {
   const lead = product.name.includes(product.id) ? product.name : `${product.id} — ${product.name}`;
 
   return {
-    title: product.seo?.title?.trim() || (nameHasType ? product.name : `${product.name} — ${product.productType}`),
+    title: withBrand(product.seo?.title?.trim() || (nameHasType ? product.name : `${product.name} — ${product.productType}`)),
     description:
       product.seo?.description?.trim() ||
       `${lead}: ${product.productType} with ${power} rated output. Contact us for specifications, pricing and OEM supply.`,
