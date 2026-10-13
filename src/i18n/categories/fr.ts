@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const frCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: 'Onduleurs hybrides',
-    heading: 'Onduleurs solaires hybrides',
-    description:
-      "Combinent conversion solaire, charge de batterie et interaction avec le réseau en un seul appareil. Idéaux pour le stockage d'énergie résidentiel et commercial.",
+  "hybrid-inverters": {
+    name: "Onduleurs hybrides",
+    heading: "Onduleurs solaires hybrides",
+    description: "Combinent conversion solaire, charge de batterie et interaction avec le réseau en un seul appareil. Idéaux pour le stockage d'énergie résidentiel et commercial.",
   },
-  'grid-tie-inverters': {
-    name: 'Onduleurs raccordés au réseau',
-    heading: 'Onduleurs solaires pour réseau',
-    description:
-      'Onduleurs de string à haute efficacité pour systèmes PV raccordés au réseau, des toitures résidentielles aux centrales solaires commerciales et industrielles.',
+  "grid-tie-inverters": {
+    name: "Onduleurs raccordés au réseau",
+    heading: "Onduleurs solaires pour réseau",
+    description: "Onduleurs de string à haute efficacité pour systèmes PV raccordés au réseau, des toitures résidentielles aux centrales solaires commerciales et industrielles.",
   },
-  'off-grid-inverters': {
-    name: 'Onduleurs hors réseau',
-    heading: 'Onduleurs de puissance hors réseau',
-    description:
-      'Onduleurs à onde sinusoïdale pure pour systèmes autonomes sur batteries — idéals pour les zones reculées, les sites sans raccordement au réseau et les régions à coupures fréquentes. Conversion CC en CA sans chargeur solaire intégré ; à associer à un chargeur ou un régulateur solaire externe.',
+  "off-grid-inverters": {
+    name: "Onduleurs hors réseau",
+    heading: "Onduleurs de puissance hors réseau",
+    description: "Onduleurs autonomes à onde sinusoïdale pure pour systèmes hors-réseau à batterie — idéals pour les zones isolées, les sites sans accès au réseau et les régions sujettes aux coupures fréquentes. Conversion CC/CA sans régulateur de charge solaire intégré — à associer à un chargeur externe ou à un régulateur solaire.",
   },
-  'off-grid-solar-inverters': {
-    name: 'Onduleurs solaires hors réseau',
-    heading: 'Onduleurs solaires hors réseau',
-    description:
-      'Onduleurs solaires hors réseau avec régulateur de charge MPPT intégré, combinant entrée photovoltaïque, charge des batteries et sortie à onde sinusoïdale pure dans un seul appareil mural — conçus pour l’indépendance énergétique là où le réseau est absent ou peu fiable.',
+  "off-grid-solar-inverters": {
+    name: "Onduleurs solaires hors réseau",
+    heading: "Onduleurs solaires hors réseau",
+    description: "Onduleurs solaires hors réseau avec régulateur de charge MPPT intégré, combinant entrée photovoltaïque, charge des batteries et sortie à onde sinusoïdale pure dans un seul appareil mural — conçus pour l’indépendance énergétique là où le réseau est absent ou peu fiable.",
   },
   accessories: {
-    name: 'Accessoires pour onduleurs',
-    heading: 'Accessoires pour onduleurs',
-    description:
-      "Clés Wi-Fi, modules de communication, câbles et kits de montage qui complètent l'installation de votre onduleur.",
+    name: "Accessoires pour onduleurs",
+    heading: "Accessoires pour onduleurs",
+    description: "Clés Wi-Fi, modules de communication, câbles et kits de montage qui complètent l'installation de votre onduleur.",
   },
 };

@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const koCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: '하이브리드 인버터',
-    heading: '하이브리드 태양광 인버터',
-    description:
-      '태양광 변환, 배터리 충전, 계통 연계를 한 대에 통합했습니다. 주거용 및 상업용 에너지 저장 시스템에 이상적입니다.',
+  "hybrid-inverters": {
+    name: "하이브리드 인버터",
+    heading: "하이브리드 태양광 인버터",
+    description: "태양광 변환, 배터리 충전, 계통 연계를 한 대에 통합했습니다. 주거용 및 상업용 에너지 저장 시스템에 이상적입니다.",
   },
-  'grid-tie-inverters': {
-    name: '계통 연계 인버터',
-    heading: '계통 연계 태양광 인버터',
-    description:
-      '주거용 옥상부터 상업·산업용 태양광 발전소까지, 계통 연계 태양광 발전 시스템을 위한 고효율 스트링 인버터입니다.',
+  "grid-tie-inverters": {
+    name: "계통 연계 인버터",
+    heading: "계통 연계 태양광 인버터",
+    description: "주거용 옥상부터 상업·산업용 태양광 발전소까지, 계통 연계 태양광 발전 시스템을 위한 고효율 스트링 인버터입니다.",
   },
-  'off-grid-inverters': {
-    name: '오프그리드 인버터',
-    heading: '오프그리드 전원 인버터',
-    description:
-      '배터리 기반 독립 전원 시스템을 위한 순수 정현파 인버터 — 원격지, 전력망이 없는 지역, 정전이 잦은 지역에 적합합니다. 태양광 충전 컨트롤러가 내장되지 않은 DC/AC 변환 방식으로, 외부 충전기 또는 태양광 컨트롤러와 함께 사용하세요.',
+  "off-grid-inverters": {
+    name: "오프그리드 인버터",
+    heading: "오프그리드 전원 인버터",
+    description: "배터리 기반 오프그리드 시스템용 순수 정현파 독립형 인버터 — 원격 지역, 계통 접근이 불가한 현장, 정전이 빈번한 지역에 이상적입니다. 내장 태양광 충전 컨트롤러 없이 DC-to-AC 변환 — 외부 충전기 또는 태양광 컨트롤러와 함께 사용하십시오.",
   },
-  'off-grid-solar-inverters': {
-    name: '오프그리드 태양광 인버터',
-    heading: '오프그리드 태양광 인버터',
-    description:
-      'MPPT 충전 컨트롤러가 내장된 오프그리드 태양광 인버터로, 태양광 입력, 배터리 충전, 순수 정현파 AC 출력을 벽걸이형 단일 장치에 통합합니다 — 전력망이 없거나 불안정한 지역에서의 에너지 자립을 위해 설계되었습니다.',
+  "off-grid-solar-inverters": {
+    name: "오프그리드 태양광 인버터",
+    heading: "오프그리드 태양광 인버터",
+    description: "MPPT 충전 컨트롤러가 내장된 오프그리드 태양광 인버터로, 태양광 입력, 배터리 충전, 순수 정현파 AC 출력을 벽걸이형 단일 장치에 통합합니다 — 전력망이 없거나 불안정한 지역에서의 에너지 자립을 위해 설계되었습니다.",
   },
   accessories: {
-    name: '인버터 액세서리',
-    heading: '인버터 액세서리',
-    description:
-      'Wi-Fi 모듈, 통신 모듈, 케이블, 설치 키트 등 인버터 설치를 완성하는 액세서리입니다.',
+    name: "인버터 액세서리",
+    heading: "인버터 액세서리",
+    description: "Wi-Fi 모듈, 통신 모듈, 케이블, 설치 키트 등 인버터 설치를 완성하는 액세서리입니다.",
   },
 };

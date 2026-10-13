@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const ptCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: 'Inversores híbridos',
-    heading: 'Inversores solares híbridos',
-    description:
-      'Combinam conversão solar, carregamento de baterias e interação com a rede em um único equipamento. Ideais para sistemas residenciais e comerciais de armazenamento de energia.',
+  "hybrid-inverters": {
+    name: "Inversores híbridos",
+    heading: "Inversores solares híbridos",
+    description: "Combinam conversão solar, carregamento de baterias e interação com a rede em um único equipamento. Ideais para sistemas residenciais e comerciais de armazenamento de energia.",
   },
-  'grid-tie-inverters': {
-    name: 'Inversores conectados à rede',
-    heading: 'Inversores solares conectados à rede',
-    description:
-      'Inversores string de alta eficiência para sistemas fotovoltaicos conectados à rede, de telhados residenciais a usinas solares comerciais e industriais.',
+  "grid-tie-inverters": {
+    name: "Inversores conectados à rede",
+    heading: "Inversores solares conectados à rede",
+    description: "Inversores string de alta eficiência para sistemas fotovoltaicos conectados à rede, de telhados residenciais a usinas solares comerciais e industriais.",
   },
-  'off-grid-inverters': {
-    name: 'Inversores off-grid',
-    heading: 'Inversores de potência off-grid',
-    description:
-      'Inversores de onda senoidal pura para sistemas autônomos com baterias — ideais para áreas remotas, locais sem acesso à rede e regiões com quedas frequentes. Conversão de CC para CA sem controlador de carga solar integrado; combine com um carregador ou controlador solar externo.',
+  "off-grid-inverters": {
+    name: "Inversores off-grid",
+    heading: "Inversores de potência off-grid",
+    description: "Inversores autônomos de onda senoidal pura para sistemas off-grid baseados em baterias — ideais para áreas remotas, locais sem acesso à rede elétrica e regiões com interrupções frequentes. Conversão CC-CA sem controlador de carga solar integrado — combine com um carregador externo ou controlador solar.",
   },
-  'off-grid-solar-inverters': {
-    name: 'Inversores solares off-grid',
-    heading: 'Inversores solares off-grid',
-    description:
-      'Inversores solares off-grid com controlador de carga MPPT integrado, unindo entrada fotovoltaica, carregamento de baterias e saída de onda senoidal pura em um único equipamento de parede — projetados para a independência energética onde a rede é inexistente ou pouco confiável.',
+  "off-grid-solar-inverters": {
+    name: "Inversores solares off-grid",
+    heading: "Inversores solares off-grid",
+    description: "Inversores solares off-grid com controlador de carga MPPT integrado, unindo entrada fotovoltaica, carregamento de baterias e saída de onda senoidal pura em um único equipamento de parede — projetados para a independência energética onde a rede é inexistente ou pouco confiável.",
   },
   accessories: {
-    name: 'Acessórios para inversores',
-    heading: 'Acessórios para inversores',
-    description:
-      'Módulos Wi-Fi, módulos de comunicação, cabos e kits de montagem que completam a instalação do seu inversor.',
+    name: "Acessórios para inversores",
+    heading: "Acessórios para inversores",
+    description: "Módulos Wi-Fi, módulos de comunicação, cabos e kits de montagem que completam a instalação do seu inversor.",
   },
 };

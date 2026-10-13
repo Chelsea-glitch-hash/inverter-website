@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const zhHantCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: '混合型逆變器',
-    heading: '混合型太陽能逆變器',
-    description:
-      '結合太陽能轉換、電池充電與電網互動於一體。適用於住宅與商業儲能系統。',
+  "hybrid-inverters": {
+    name: "混合型逆變器",
+    heading: "混合型太陽能逆變器",
+    description: "結合太陽能轉換、電池充電與電網互動於一體。適用於住宅與商業儲能系統。",
   },
-  'grid-tie-inverters': {
-    name: '併網型逆變器',
-    heading: '併網型太陽能逆變器',
-    description:
-      '適用於併網型太陽能光電系統的高效率組串型逆變器，涵蓋住宅屋頂到工商業太陽能電站。',
+  "grid-tie-inverters": {
+    name: "併網型逆變器",
+    heading: "併網型太陽能逆變器",
+    description: "適用於併網型太陽能光電系統的高效率組串型逆變器，涵蓋住宅屋頂到工商業太陽能電站。",
   },
-  'off-grid-inverters': {
-    name: '離網型逆變器',
-    heading: '離網型電力逆變器',
-    description:
-      '適用於電池型獨立電力系統的純正弦波逆變器——非常適合偏遠地區、無電網地區與頻繁停電的區域。純直流轉交流，無內建太陽能充電控制器；可搭配外部充電器或太陽能控制器使用。',
+  "off-grid-inverters": {
+    name: "離網型逆變器",
+    heading: "離網型電力逆變器",
+    description: "純正弦波獨立型逆變器，適用於以電池為基礎的離網系統——非常適合偏遠地區、無電網接入的場所及停電頻繁的地區。DC-AC 轉換，不內建太陽能充電控制器——搭配外部充電器或太陽能控制器使用。",
   },
-  'off-grid-solar-inverters': {
-    name: '離網型太陽能逆變器',
-    heading: '離網型太陽能逆變器',
-    description:
-      '內建 MPPT 充電控制器的離網型太陽能逆變器，將太陽能輸入、電池充電與純正弦波交流輸出整合於單一壁掛式設備——專為電網不存在或不穩定的地區打造能源自主解決方案。',
+  "off-grid-solar-inverters": {
+    name: "離網型太陽能逆變器",
+    heading: "離網型太陽能逆變器",
+    description: "內建 MPPT 充電控制器的離網型太陽能逆變器，將太陽能輸入、電池充電與純正弦波交流輸出整合於單一壁掛式設備——專為電網不存在或不穩定的地區打造能源自主解決方案。",
   },
   accessories: {
-    name: '逆變器配件',
-    heading: '逆變器配件',
-    description:
-      'Wi-Fi 模組、通訊模組、線材與安裝支架組，完善您的逆變器安裝。',
+    name: "逆變器配件",
+    heading: "逆變器配件",
+    description: "Wi-Fi 模組、通訊模組、線材與安裝支架組，完善您的逆變器安裝。",
   },
 };

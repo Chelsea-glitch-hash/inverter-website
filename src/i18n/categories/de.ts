@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const deCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: 'Hybrid-Wechselrichter',
-    heading: 'Hybride Solar-Wechselrichter',
-    description:
-      'Verbinden Solarwandlung, Batterieladung und Netzinteraktion in einem Gerät. Ideal für private und gewerbliche Energiespeichersysteme.',
+  "hybrid-inverters": {
+    name: "Hybrid-Wechselrichter",
+    heading: "Hybride Solar-Wechselrichter",
+    description: "Verbinden Solarwandlung, Batterieladung und Netzinteraktion in einem Gerät. Ideal für private und gewerbliche Energiespeichersysteme.",
   },
-  'grid-tie-inverters': {
-    name: 'Netzgekoppelte Wechselrichter',
-    heading: 'Solar-Wechselrichter für das Netz',
-    description:
-      'Hocheffiziente String-Wechselrichter für netzgekoppelte PV-Anlagen, von Wohngebäudedächern bis zu gewerblichen und industriellen Solarparks.',
+  "grid-tie-inverters": {
+    name: "Netzgekoppelte Wechselrichter",
+    heading: "Solar-Wechselrichter für das Netz",
+    description: "Hocheffiziente String-Wechselrichter für netzgekoppelte PV-Anlagen, von Wohngebäudedächern bis zu gewerblichen und industriellen Solarparks.",
   },
-  'off-grid-inverters': {
-    name: 'Off-Grid-Wechselrichter',
-    heading: 'Off-Grid-Stromwechselrichter',
-    description:
-      'Reine Sinuswellen-Wechselrichter für batteriegestützte autarke Systeme — ideal für abgelegene Gebiete, Standorte ohne Netzzugang und Regionen mit häufigen Stromausfällen. DC/AC-Umwandlung ohne integrierten Solarladeregler; kombinierbar mit externem Ladegerät oder Solarregler.',
+  "off-grid-inverters": {
+    name: "Off-Grid-Wechselrichter",
+    heading: "Off-Grid-Stromwechselrichter",
+    description: "Reine Sinuswelle Standalone-Wechselrichter für batteriebasierte Off-Grid-Systeme — ideal für abgelegene Gebiete, Standorte ohne Netzanschluss und Regionen mit häufigen Ausfällen. DC-zu-AC-Wandlung ohne integrierten Solarladeregler — mit einem externen Ladegerät oder Solarladeregler kombinieren.",
   },
-  'off-grid-solar-inverters': {
-    name: 'Off-Grid-Solarwechselrichter',
-    heading: 'Off-Grid-Solarwechselrichter',
-    description:
-      'Off-Grid-Solarwechselrichter mit integriertem MPPT-Laderegler, die PV-Einspeisung, Batterieladung und reine Sinuswellen-Wechselspannung in einem wandmontierten Gerät vereinen — gebaut für Energieunabhängigkeit dort, wo das Stromnetz fehlt oder unzuverlässig ist.',
+  "off-grid-solar-inverters": {
+    name: "Off-Grid-Solarwechselrichter",
+    heading: "Off-Grid-Solarwechselrichter",
+    description: "Off-Grid-Solarwechselrichter mit integriertem MPPT-Laderegler, die PV-Einspeisung, Batterieladung und reine Sinuswellen-Wechselspannung in einem wandmontierten Gerät vereinen — gebaut für Energieunabhängigkeit dort, wo das Stromnetz fehlt oder unzuverlässig ist.",
   },
   accessories: {
-    name: 'Wechselrichter-Zubehör',
-    heading: 'Wechselrichter-Zubehör',
-    description:
-      'WLAN-Sticks, Kommunikationsmodule, Kabel und Montagekits, die Ihre Wechselrichter-Installation vervollständigen.',
+    name: "Wechselrichter-Zubehör",
+    heading: "Wechselrichter-Zubehör",
+    description: "WLAN-Sticks, Kommunikationsmodule, Kabel und Montagekits, die Ihre Wechselrichter-Installation vervollständigen.",
   },
 };

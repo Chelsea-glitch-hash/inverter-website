@@ -7,34 +7,29 @@
 import type { CategoryTranslations } from '../category-content';
 
 export const itCategories: CategoryTranslations = {
-  'hybrid-inverters': {
-    name: 'Inverter ibridi',
-    heading: 'Inverter solari ibridi',
-    description:
-      "Combinano conversione solare, ricarica delle batterie e interazione con la rete in un'unica unità. Ideali per sistemi di accumulo residenziali e commerciali.",
+  "hybrid-inverters": {
+    name: "Inverter ibridi",
+    heading: "Inverter solari ibridi",
+    description: "Combinano conversione solare, ricarica delle batterie e interazione con la rete in un'unica unità. Ideali per sistemi di accumulo residenziali e commerciali.",
   },
-  'grid-tie-inverters': {
-    name: 'Inverter connessi alla rete',
-    heading: 'Inverter solari per rete',
-    description:
-      'Inverter string ad alta efficienza per impianti fotovoltaici collegati alla rete, dai tetti residenziali agli impianti solari commerciali e industriali.',
+  "grid-tie-inverters": {
+    name: "Inverter connessi alla rete",
+    heading: "Inverter solari per rete",
+    description: "Inverter string ad alta efficienza per impianti fotovoltaici collegati alla rete, dai tetti residenziali agli impianti solari commerciali e industriali.",
   },
-  'off-grid-inverters': {
-    name: 'Inverter off-grid',
-    heading: 'Inverter di potenza off-grid',
-    description:
-      'Inverter a onda sinusoidale pura per sistemi autonomi a batteria — ideali per aree remote, siti senza accesso alla rete e regioni con frequenti interruzioni. Conversione da CC a CA senza carico solare integrato; da abbinare a un caricatore o regolatore solare esterno.',
+  "off-grid-inverters": {
+    name: "Inverter off-grid",
+    heading: "Inverter di potenza off-grid",
+    description: "Inverter autonomi a onda sinusoidale pura per sistemi off-grid basati su batterie — ideali per aree remote, siti senza accesso alla rete e regioni con frequenti interruzioni di corrente. Conversione da DC ad AC senza regolatore di carica solare integrato — da abbinare a un caricabatterie esterno o a un regolatore solare.",
   },
-  'off-grid-solar-inverters': {
-    name: 'Inverter solari off-grid',
-    heading: 'Inverter solari off-grid',
-    description:
-      'Inverter solari off-grid con regolatore di carica MPPT integrato, che uniscono ingresso fotovoltaico, ricarica delle batterie e uscita a onda sinusoidale pura in un unico apparecchio da parete — progettati per l’indipendenza energetica dove la rete è assente o poco affidabile.',
+  "off-grid-solar-inverters": {
+    name: "Inverter solari off-grid",
+    heading: "Inverter solari off-grid",
+    description: "Inverter solari off-grid con regolatore di carica MPPT integrato, che uniscono ingresso fotovoltaico, ricarica delle batterie e uscita a onda sinusoidale pura in un unico apparecchio da parete — progettati per l’indipendenza energetica dove la rete è assente o poco affidabile.",
   },
   accessories: {
-    name: 'Accessori per inverter',
-    heading: 'Accessori per inverter',
-    description:
-      "Chiavette Wi-Fi, moduli di comunicazione, cavi e kit di montaggio che completano l'installazione del vostro inverter.",
+    name: "Accessori per inverter",
+    heading: "Accessori per inverter",
+    description: "Chiavette Wi-Fi, moduli di comunicazione, cavi e kit di montaggio che completano l'installazione del vostro inverter.",
   },
 };
