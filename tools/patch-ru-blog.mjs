@@ -3,12 +3,22 @@
  * Only invoked when `npm run i18n:update` repeatedly fails on the same locale.
  * Reads AI_API_* from .env, calls the OpenAI-compatible API, and inserts the
  * entry keeping the file's existing 2-space-indent, GENERATED header style.
+ *
+ * The translated body is rendered to STYLED HTML via scripts/blog-md-render.mjs
+ * before writing — never store raw Markdown in bodyHtml (the article template
+ * injects bodyHtml with set:html, which would show Markdown syntax as plain
+ * text).
+ *
+ * Usage: node tools/patch-ru-blog.mjs [<slug>]   (default: paralleling-off-grid-inverters)
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { renderTranslatedBody } from '../scripts/blog-md-render.mjs';
 
 const ROOT = process.cwd();
 const FILE = path.join(ROOT, 'src', 'i18n', 'blog', 'ru.ts');
+const slug = process.argv[2] || 'paralleling-off-grid-inverters';
+const MDX = path.join(ROOT, 'src', 'content', 'blog', `${slug}.mdx`);
 
 /* ---- load .env ---- */
 for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n/)) {
@@ -26,7 +36,7 @@ if (!cfg.apiKey || !cfg.apiBase || !cfg.model) {
 }
 
 /* ---- read English source (frontmatter + body) ---- */
-const mdx = fs.readFileSync(path.join(ROOT, 'src', 'content', 'blog', 'paralleling-off-grid-inverters.mdx'), 'utf8');
+const mdx = fs.readFileSync(MDX, 'utf8');
 const fmMatch = mdx.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
 const fm = {};
 for (const line of fmMatch[1].split(/\r?\n/)) {
@@ -88,6 +98,9 @@ for (const key of Object.keys(english)) {
   if (typeof english[key] === 'string' && typeof out[key] !== 'string') throw new Error(`field "${key}" not a string`);
 }
 
+/* ---- render the translated body (Markdown source) to styled HTML ---- */
+out.body = await renderTranslatedBody(out.body);
+
 /* ---- write into ru.ts ---- */
 const ser = (v, indent = 0) => {
   const pad = '  '.repeat(indent);
@@ -101,7 +114,7 @@ const ser = (v, indent = 0) => {
   return `{\n${keys.map((k) => `${padIn}${/^[A-Za-z_$][\w$]*$/.test(k) ? k : JSON.stringify(k)}: ${ser(v[k], indent + 1)},`).join('\n')}\n${pad}}`;
 };
 
-const entry = `  "paralleling-off-grid-inverters": ${ser({
+const entry = `  "${slug}": ${ser({
   title: out.title,
   description: out.description,
   tags: out.tags,
