@@ -14,8 +14,10 @@
 # English content sources (en.ts UI dict, categories.ts, about/en.ts, blog MDX)
 STAGED_EN=$(git diff --cached --name-only | grep -E 'src/i18n/ui/en\.ts|src/lib/categories\.ts|src/i18n/about/en\.ts|src/content/blog/.*\.mdx' || true)
 
-# Any non-English locale file touched in this commit
-STAGED_I18N=$(git diff --cached --name-only | grep -E 'src/i18n/(ui|categories|about)/' | grep -v '/en\.ts$' || true)
+# Any non-English locale file touched in this commit (ui / categories / about /
+# blog translation tables; products translations live in src/i18n/products/
+# and are regenerated wholesale by i18n:update, so they are not gated here)
+STAGED_I18N=$(git diff --cached --name-only | grep -E 'src/i18n/(ui|categories|about|blog)/' | grep -v '/en\.ts$' || true)
 
 if [ -n "$STAGED_EN" ] && [ -z "$STAGED_I18N" ]; then
   echo ""

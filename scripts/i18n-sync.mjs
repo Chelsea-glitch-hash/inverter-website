@@ -799,6 +799,13 @@ async function main() {
       if (dryRun) continue;
       try {
         const out = await translateFields(cfg, lang, wanted);
+        // Translated blog bodies arrive as MDX-style source text (import line +
+        // Markdown + <FAQ> JSX); render them to styled HTML so the article
+        // template's set:html shows real formatting instead of raw syntax.
+        if (out.body !== undefined) {
+          const { renderTranslatedBody } = await import('./blog-md-render.mjs');
+          out.body = await renderTranslatedBody(out.body);
+        }
         const entry = { ...(blogTrees[lang][id] ?? {}) };
         if (out.title !== undefined) entry.title = out.title;
         if (out.description !== undefined) entry.description = out.description;
