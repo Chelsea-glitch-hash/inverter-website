@@ -1,0 +1,172 @@
+---
+title: "How to Parallel Off-Grid Inverters: Doubling Capacity the Smart Way"
+description: "When one inverter is not enough, paralleling identical units can double or triple your off-grid capacity. How master-slave setups, wiring symmetry and commissioning actually work."
+publishDate: 2026-10-14
+author: "Zhongze Huasong"
+tags: ["Inverter Guide", "Off-Grid", "B2B"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+A single inverter only goes so far. When a project outgrows the biggest model in
+a series — or when the budget says "start smaller now, expand later" — the
+practical answer is often to run two or more identical inverters in parallel.
+Done properly, a parallel bank behaves like one much larger unit; done badly,
+it makes smoke, trips faults, and costs weeks of service time.
+
+This guide explains what paralleling really involves: the hardware that must
+match, how master–slave coordination works, the wiring rules that decide
+whether load is shared evenly, and a commissioning sequence that catches
+mistakes before they become failures.
+
+> **First, the honest caveat:** not every inverter supports paralleling, and
+> the limits differ per series. Always confirm with the manufacturer that a
+> given model supports parallel operation, the maximum number of units, and
+> the exact wiring and settings before you design around it. Nothing in this
+> article replaces the manual for your specific unit.
+
+## When paralleling makes sense
+
+Three scenarios come up again and again in B2B projects:
+
+- **Phased expansion.** The customer starts with one unit for today's load and
+  adds a second (or third) identical unit when demand grows. One cable and
+  communications link later, the bank is bigger — without replacing hardware.
+- **Inventory simplicity.** A distributor can stock a single power class and
+  cover 1×, 2× or 3× projects with the same SKU instead of warehousing several
+  different models.
+- **Service redundancy.** With a properly configured bank, a failed unit can
+  be isolated and replaced without taking the whole site offline (check your
+  platform's fault behavior — some stop the entire system on a unit fault).
+
+## What can and cannot be paralleled
+
+The single most common mistake is mixing hardware. A parallel bank works
+because every unit produces a waveform that stays locked to one shared
+reference; that only works when the units are electrically and logically
+identical.
+
+- **Same model, same series** — required. Mixing different models, power
+  classes or even hardware revisions is not supported on mainstream platforms.
+- **Same firmware version** — strongly recommended; a bank running mixed
+  firmware can fail the synchronization handshake or drift apart under load.
+- **Same DC system voltage** — all units must share the same battery bank
+  voltage (for example all 48V).
+- **A dedicated synchronisation link** — the master coordinates phase and
+  frequency over a communications cable between every unit. This is *not* the
+  battery communication cable; it is the heartbeat that keeps AC outputs in
+  phase. Missing or loose, the units refuse to parallel — or worse, attempt it
+  and circulate current between each other.
+
+The typical supported range for residential-class hybrid and off-grid
+platforms is between 2 and 16 units, with the practical ceiling usually set by
+battery current and busbar sizing rather than the electronics. Our own
+[off-grid inverter range](/products/off-grid-inverters/) spans 900W to 5000W,
+and the [off-grid solar inverter range](/products/off-grid-solar-inverters/)
+reaches 11kW — the parallel support, if any, is specific to each series and
+must be confirmed before quoting a multi-unit design.
+
+## Single-phase parallel vs split-phase stacking
+
+People use the word "paralleling" for two different topologies, and confusing
+them causes wiring mistakes:
+
+- **True paralleling** stacks units on the same phase to add power on that
+  phase — three 5kW units on the same output give a 15kW single-phase bank.
+- **Split-phase stacking** assigns two units to opposite legs (L1 and L2) to
+  build a 120/240V split-phase supply. Some platforms do both: two units per
+  leg across two legs for a high-power split-phase system.
+
+Decide which topology the project needs *before* wiring, because the phase
+assignment in the unit menu must match the physical wiring exactly. On a
+split-phase build, verify rotation and leg assignment with a meter before
+connecting any loads.
+
+## Master–slave coordination and addressing
+
+One unit is designated the **master**; the others follow. This is usually set
+in each unit's menu or with DIP switches, and the addressing rules are strict:
+
+1. Set every unit to the parallel-enabled mode.
+2. Assign exactly one master and give each unit a **unique address** —
+   typically the master is unit 1 and slaves are numbered 2, 3, 4…
+3. The master generates the reference waveform and broadcasts it over the
+   synchronisation link; slaves lock to it cycle by cycle.
+4. On many platforms the master also talks to the battery BMS and the energy
+   meter, so the measurement point lives in one place — do not wire metering
+   to every unit or the readings fight each other.
+
+Skip any of these steps and the bank either refuses to start or runs with
+uneven, unstable output.
+
+## DC side: one battery bus, wired symmetrically
+
+The DC side is where most parallel-system problems are born. Rule of thumb:
+**all units connect to one common battery bus, and every cable to every unit
+is the same length, type and cross-section.**
+
+Why symmetry matters: a battery cable carries the full bank current, and if
+unit A's cable is half a metre shorter than unit B's, its lower resistance
+lets it source more current and work harder. The fix is not thicker cable — it
+is *equal* cable to every unit, landed on a common busbar rather than
+daisy-chained unit to unit.
+
+A quick sanity number: a 5kW inverter on a 48V bank draws roughly 104A at
+full load, so a three-unit bank can pull more than 300A from the battery.
+Size the busbar and cables for the combined current, fuse each unit
+individually, and torque every lug to the manual's specification.
+
+Two battery strategies exist:
+
+- **Shared battery bank** — simplest, cheapest, one BMS conversation. The
+  whole bank draws from one pool of capacity.
+- **Independent banks per unit** — more redundancy (one bank's fault does not
+  take out the others) but more equipment and individual management. Only
+  valid if the platform supports disabling battery sharing.
+
+## AC side: common load bus, one ground bond
+
+On the AC side, backed-up loads connect to a **common load busbar**, with
+individual protection for each unit's output. The key safety rule for any
+multi-inverter site: **the neutral–earth bond exists in exactly one place.**
+With several units, confirm that only the master (or the transfer point) holds
+the bond — two bonds in a parallel bank create circulating ground currents and
+dangerous voltage imbalance.
+
+Generator input, where fitted, should be connected so every paralleled unit
+sees it, and phase rotation must match the inverter's programming.
+
+## The commissioning sequence that prevents smoke
+
+Bringing up a parallel bank adds steps to the normal startup:
+
+1. **Bring up each unit alone first** and confirm it runs solo without errors.
+2. Power everything down, connect the synchronisation cables, and set the
+   master/slave roles and addressing.
+3. Power up the **master first**, then the slaves.
+4. With the bank live and **no load**, verify every unit reports the same
+   frequency and voltage.
+5. Apply a test load and check the split — two units should each carry roughly
+   half, not 80/20. An uneven split points to a sync or settings problem, not
+   a healthy bank.
+6. Leave the site under observation for the first full day of real loads; an
+   imbalance that hides at idle often shows up when a workshop or household
+   hits its morning peak.
+
+## When not to parallel
+
+Paralleling adds cost, wiring and failure modes. If a single unit covers the
+load with headroom for surges, or if the project genuinely needs three-phase
+output, a properly sized single unit (or a three-phase platform) is usually
+the better call. Parallel banks earn their keep when the project is
+**future-scaling by design** — today one unit, tomorrow two or three.
+
+<FAQ
+  title="Paralleling — FAQ"
+  faq={[
+    { question: "Can I parallel two different inverter models?", answer: "No. Paralleled units must be the same model, ideally the same firmware version, and the same DC system voltage. Mismatched units can fail the sync handshake or drift apart under load and trip." },
+    { question: "How many inverters can be paralleled?", answer: "It depends on the platform — typical residential-class units support between 2 and 16 in parallel. The practical limit is usually set by the battery bank's continuous current rating and busbar sizing, which must handle all units at once." },
+    { question: "Do I need a special cable to parallel inverters?", answer: "Yes — a dedicated synchronisation cable (often RJ45/CAN) runs between every unit and carries the phase-and-frequency heartbeat from the master. It is separate from the battery communications cable." },
+    { question: "Does every inverter support paralleling?", answer: "No. Parallel support is a per-series feature. Confirm with the manufacturer that the exact model supports parallel operation, the maximum number of units, and the required settings before designing the system." },
+  ]}
+/>

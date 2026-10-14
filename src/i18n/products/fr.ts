@@ -15,7 +15,7 @@ export const frProducts: ProductTranslations = {
       "Le SC-MAX 11KW est un onduleur hors-réseau compatible split-phase, conçu pour l'alimentation de secours de toute la maison dans les zones sans accès au réseau. Il dispose de deux trackers MPPT jusqu'à 18A par tracker, d'une entrée PV maximale fonctionnant dans une plage de 1500Vdc-450Vdc, et prend en charge les batteries lithium et plomb-acide de 48V.",
     ],
   },
- "INV-001": {
+  "INV-001": {
     name: "Onduleur Hors-Réseau à Onde Sinusoïdale Pure 900W",
     productType: "Onduleur hors-réseau à onde sinusoïdale pure",
     shortDescription: "Onduleur hors-réseau à onde sinusoïdale pure 900W, compact, avec affichage digital, une prise de sortie CA et refroidissement intelligent à température contrôlée.",
