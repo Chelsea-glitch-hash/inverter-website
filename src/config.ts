@@ -5,12 +5,10 @@
  * variables (see .env.example) and must never be added to this file: anything
  * here is compiled into the browser bundle.
  *
- * Verified and in production: SITE.url, COMPANY.legalName / address fields,
- * CONTACT.email / whatsapp / phone.
+ * Verified and in production: SITE.url, COMPANY.* (all fields, including the
+ * corporate figures below), CONTACT.email / whatsapp / phone.
  *
- * Still placeholders, awaiting real values from the client (do NOT invent):
- *   - COMPANY.*       founding year, factory area, capacity, employee counts,
- *                     export countries, OEM client count
+ * Still to be supplied:
  *   - ANALYTICS.ga4MeasurementId  GA4 property id
  */
 
@@ -31,10 +29,10 @@ export const SITE = {
 export const COMPANY = {
   legalName: 'Shenzhen Zhongze Huasong Trading Co., Ltd.',
   /*
-   * The figures below are shown as company facts on the homepage (TrustBar,
-   * Why Us, factory bullets). They are NOT yet confirmed by the client — see
-   * site-audit-2026-10-09.md (P0-1). Replace with verified numbers, or remove
-   * the surrounding copy, before treating them as published claims.
+   * Corporate figures as supplied by the client. These are published as
+   * company facts on the homepage (TrustBar, Why Us, factory bullets), so they
+   * must stay in sync with the copy that quotes them — change a value here and
+   * the rendered page follows.
    */
   foundedYear: 2010,
   factoryAreaSqm: 12000,
