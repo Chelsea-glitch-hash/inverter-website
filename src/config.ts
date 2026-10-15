@@ -154,7 +154,16 @@ export const TURNSTILE = {
   siteKey: '0x4AAAAAAEow16pcFLjiXJag',
 };
 
+/**
+ * External brand profiles. Every entry here is emitted into the Organization
+ * JSON-LD `sameAs` array (see BaseLayout.astro) and rendered as a footer link,
+ * so only add a URL once the account is real and public — a dead or wrong
+ * profile actively hurts entity corroboration.
+ *
+ * Leave the value empty to hide that link everywhere.
+ */
 export const SOCIAL = {
+  instagram: 'https://www.instagram.com/cyrus_zhongze/',
   linkedin: '',
   youtube: '',
 };

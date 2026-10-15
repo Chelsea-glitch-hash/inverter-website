@@ -561,6 +561,7 @@ export const de: Dictionary = {
       "Nennen Sie uns Ihr Zielland — Zertifizierungen unterscheiden sich je nach Markt.",
       "Großabnehmer: Fragen Sie nach OEM-Branding und Exklusivvertrieb.",
     ],
+    instagram: "Folgen Sie uns auf Instagram",
     linkedin: "Auf LinkedIn vernetzen",
   },
   form: {

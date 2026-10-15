@@ -49,6 +49,13 @@ const year = new Date().getFullYear();
         </p>
         <div class="mt-4 flex gap-4 text-sm">
           {
+            SOCIAL.instagram && (
+              <a href={SOCIAL.instagram} class="text-slate-400 hover:text-white" rel="noopener" target="_blank">
+                Instagram
+              </a>
+            )
+          }
+          {
             SOCIAL.linkedin && (
               <a href={SOCIAL.linkedin} class="text-slate-400 hover:text-white" rel="noopener" target="_blank">
                 LinkedIn

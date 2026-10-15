@@ -560,6 +560,7 @@ export const zhHant: Dictionary = {
       "告訴我們您的目標國家 — 各市場的認證要求不同。",
       "大量採購客戶：歡迎洽詢 OEM 品牌代工與獨家經銷。",
     ],
+    instagram: "在 Instagram 上追蹤我們",
     linkedin: "在 LinkedIn 上與我們聯繫",
   },
   form: {

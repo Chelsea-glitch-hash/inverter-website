@@ -75,10 +75,29 @@ const productOptions = getProductOptions();
             </li>
           </ul>
           {
-            SOCIAL.linkedin && (
-              <a href={SOCIAL.linkedin} class="mt-4 inline-block text-sm font-medium text-brand-700 hover:underline" rel="noopener" target="_blank">
-                {t.contact.linkedin} &rarr;
-              </a>
+            (SOCIAL.instagram || SOCIAL.linkedin) && (
+              <div class="mt-4 flex flex-col gap-1.5">
+                {SOCIAL.instagram && (
+                  <a
+                    href={SOCIAL.instagram}
+                    class="inline-block text-sm font-medium text-brand-700 hover:underline"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    {t.contact.instagram} &rarr;
+                  </a>
+                )}
+                {SOCIAL.linkedin && (
+                  <a
+                    href={SOCIAL.linkedin}
+                    class="inline-block text-sm font-medium text-brand-700 hover:underline"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    {t.contact.linkedin} &rarr;
+                  </a>
+                )}
+              </div>
             )
           }
         </div>

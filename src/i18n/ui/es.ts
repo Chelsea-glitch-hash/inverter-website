@@ -561,6 +561,7 @@ export const es: Dictionary = {
       "Indícanos el país de destino: las certificaciones varían según el mercado.",
       "Compradores de gran volumen: pregunta por la marca OEM y la distribución exclusiva.",
     ],
+    instagram: "Síguenos en Instagram",
     linkedin: "Conecta en LinkedIn",
   },
   form: {

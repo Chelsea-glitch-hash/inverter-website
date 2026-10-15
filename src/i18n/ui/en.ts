@@ -507,6 +507,7 @@ export const en = {
       'Tell us your destination country — certifications differ by market.',
       'Volume buyers: ask about OEM branding and exclusive distribution.',
     ],
+    instagram: 'Follow us on Instagram',
     linkedin: 'Connect on LinkedIn',
   },
 

@@ -563,6 +563,7 @@ export const pt: Dictionary = {
       "Informe o seu país de destino — as certificações variam por mercado.",
       "Compradores em volume: pergunte sobre marca OEM e distribuição exclusiva.",
     ],
+    instagram: "Siga-nos no Instagram",
     linkedin: "Conecte-se no LinkedIn",
   },
   form: {

@@ -560,6 +560,7 @@ export const ko: Dictionary = {
       "목적지 국가를 알려주세요 — 인증은 시장마다 다릅니다.",
       "대량 구매 고객: OEM 브랜딩 및 독점 유통을 문의해 보세요.",
     ],
+    instagram: "Instagram 팔로우하기",
     linkedin: "LinkedIn에서 연결하기",
   },
   form: {

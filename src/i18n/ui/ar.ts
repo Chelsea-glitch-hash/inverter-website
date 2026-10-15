@@ -560,6 +560,7 @@ export const ar: Dictionary = {
       "أخبرنا ببلد الوجهة — تختلف الشهادات حسب السوق.",
       "المشترون بالكميات: اسأل عن علامة OEM والتوزيع الحصري.",
     ],
+    instagram: "تابعنا على Instagram",
     linkedin: "تواصل عبر LinkedIn",
   },
   form: {

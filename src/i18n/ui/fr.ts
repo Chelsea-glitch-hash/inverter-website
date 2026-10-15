@@ -561,6 +561,7 @@ export const fr: Dictionary = {
       "Indiquez-nous votre pays de destination — les certifications varient selon les marchés.",
       "Acheteurs en volume : renseignez-vous sur le marquage OEM et la distribution exclusive.",
     ],
+    instagram: "Suivez-nous sur Instagram",
     linkedin: "Nous suivre sur LinkedIn",
   },
   form: {

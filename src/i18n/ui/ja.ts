@@ -560,6 +560,7 @@ export const ja: Dictionary = {
       "輸出先の国をお知らせください — 認証要件は市場ごとに異なります。",
       "大量購入をご検討の方：OEMブランディングや独占販売についてはお問い合わせください。",
     ],
+    instagram: "Instagramをフォロー",
     linkedin: "LinkedInでつながる",
   },
   form: {
