@@ -10,6 +10,11 @@
 /images/*
   Cache-Control: public, max-age=604800
 
+# RSS feed: stable URL, changes only when a post is published -> short TTL so
+# new articles surface within the hour without hammering the origin.
+/rss.xml
+  Cache-Control: public, max-age=3600
+
 # Everything else (HTML) revalidates, plus baseline security headers.
 #
 # CSP note: 'unsafe-inline' is required for scripts/styles because Astro inlines

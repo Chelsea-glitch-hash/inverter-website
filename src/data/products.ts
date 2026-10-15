@@ -232,6 +232,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for product details, available configurations and quotation.",
     },
 
+    applications: [
+      "Small off-grid solar power systems",
+      "Portable and backup power supplies",
+      "Rural electrification and remote sites",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 900W Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 900W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 900W Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 900W Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 900W Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides one AC output socket, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 900W Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with a digital display.",
+      },
+      {
+        question: "How is the 900W Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 900W Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 23 × 10.8 × 6.5 cm and the unit weighs 0.95 kg.",
+      },
+    ],
     seo: {
       title: "900W Pure Sine Wave Off-Grid Inverter",
       description: "900W pure sine wave off-grid inverter with digital display, one AC output socket and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output available. Contact us for configurations and quotation.",
@@ -291,6 +332,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss specifications, configurations and bulk supply requirements.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 1800W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 1800W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 1800W P-Series Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 1800W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 1800W P-Series Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides four AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 1800W P-Series Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "How is the 1800W P-Series Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 1800W P-Series Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 26 × 18.5 × 11.5 cm and the unit weighs 2.8 kg.",
+      },
+    ],
     seo: {
       title: "1800W P-Series Pure Sine Wave Off-Grid Inverter",
       description: "1800W P-Series pure sine wave off-grid inverter with LCD smart display, four AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk supply and configuration details on request.",
@@ -349,6 +431,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for configuration details, bulk pricing and supply information.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 2500W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 2500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 2500W P-Series Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 2500W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 2500W P-Series Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides four AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 2500W P-Series Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "How is the 2500W P-Series Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 2500W P-Series Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 30 × 18.5 × 11.5 cm and the unit weighs 3.4 kg.",
+      },
+    ],
     seo: {
       title: "2500W P-Series Pure Sine Wave Off-Grid Inverter",
       description: "2500W P-Series pure sine wave off-grid inverter with LCD smart display, four AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk pricing and configuration details on request.",
@@ -406,6 +529,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss available configurations and bulk supply options.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 3000W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 3000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 3000W P-Series Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 3000W P-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 3000W P-Series Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides four AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 3000W P-Series Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "How is the 3000W P-Series Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 3000W P-Series Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 35.5 × 18.5 × 11.5 cm and the unit weighs 4.2 kg.",
+      },
+    ],
     seo: {
       title: "3000W P-Series Pure Sine Wave Off-Grid Inverter",
       description: "3000W P-Series pure sine wave off-grid inverter with LCD smart display, four AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk supply on request.",
@@ -463,6 +627,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for detailed specifications, configuration options and quotation.",
     },
 
+    applications: [
+      "Residential and small commercial off-grid systems",
+      "Backup power for homes and workshops",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple AC loads",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 4000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides four AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "How is the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 4000W 1159-Series Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 42.5 × 18.5 × 11.5 cm and the unit weighs 4.9 kg.",
+      },
+    ],
     seo: {
       title: "4000W 1159-Series Pure Sine Wave Off-Grid Inverter",
       description: "4000W pure sine wave off-grid inverter with LCD smart display, four AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Configuration options and quotation on request.",
@@ -522,6 +727,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss product configuration, bulk orders and supply requirements.",
     },
 
+    applications: [
+      "Residential and small commercial off-grid systems",
+      "Backup power for homes and workshops",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple AC loads",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 5000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides two AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "How is the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 5000W 1159-Series Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 40.6 × 20.8 × 9.7 cm and the unit weighs 6.3 kg.",
+      },
+    ],
     seo: {
       title: "5000W 1159-Series Pure Sine Wave Off-Grid Inverter",
       description: "5000W pure sine wave off-grid inverter with LCD smart display, two AC output sockets and 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk orders and configuration details on request.",
@@ -581,6 +827,51 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for product details, available configurations and bulk supply information.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Off-grid sites needing direct USB charging",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is rated at 1800W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB have?",
+        answer: "It provides two AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "Does the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB have USB charging?",
+        answer: "Yes. This model includes a USB output; the supplied configuration is listed in the specification table above.",
+      },
+      {
+        question: "How is the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 1800W P-Series Pure Sine Wave Off-Grid Inverter with USB a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What is the unit weight?",
+        answer: "The unit weighs 3.0 kg.",
+      },
+    ],
     seo: {
       title: "1800W P-Series Pure Sine Wave Off-Grid Inverter with USB",
       description: "1800W P-Series pure sine wave off-grid inverter with USB, LCD smart display, two AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk supply on request.",
@@ -640,6 +931,51 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for specifications, configuration options and quotation.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Off-grid sites needing direct USB charging",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is rated at 2500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB have?",
+        answer: "It provides two AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "Does the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB have USB charging?",
+        answer: "Yes. This model includes a USB output; the supplied configuration is listed in the specification table above.",
+      },
+      {
+        question: "How is the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 2500W P-Series Pure Sine Wave Off-Grid Inverter with USB a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What is the unit weight?",
+        answer: "The unit weighs 3.54 kg.",
+      },
+    ],
     seo: {
       title: "2500W P-Series Pure Sine Wave Off-Grid Inverter with USB",
       description: "2500W P-Series pure sine wave off-grid inverter with USB, LCD smart display, two AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Quotation on request.",
@@ -699,6 +1035,51 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss product specifications, configurations and bulk supply.",
     },
 
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small offices",
+      "Off-grid sites needing direct USB charging",
+      "Caravan, RV and marine auxiliary power",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is rated at 3000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB use?",
+        answer: "It accepts 12V / 24V / 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB?",
+        answer: "It is available with 220V / 110V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB have?",
+        answer: "It provides two AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB have a display?",
+        answer: "Yes. It is fitted with an LCD smart display.",
+      },
+      {
+        question: "Does the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB have USB charging?",
+        answer: "Yes. This model includes a USB output; the supplied configuration is listed in the specification table above.",
+      },
+      {
+        question: "How is the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 3000W P-Series Pure Sine Wave Off-Grid Inverter with USB a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What is the unit weight?",
+        answer: "The unit weighs 4.25 kg.",
+      },
+    ],
     seo: {
       title: "3000W P-Series Pure Sine Wave Off-Grid Inverter with USB",
       description: "3000W P-Series pure sine wave off-grid inverter with USB, LCD smart display, two AC output sockets and 12V / 24V / 48V / 60V / 72V DC input options. 220V or 110V AC output. Bulk supply on request.",
@@ -754,6 +1135,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss voltage configurations, socket options and bulk supply.",
     },
 
+    applications: [
+      "Off-grid systems with mixed DC input requirements",
+      "Distribution and reseller product ranges",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 1900W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with a 220V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides three AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD display.",
+      },
+      {
+        question: "How is the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 25 × 16.2 × 8 cm and the unit weighs Approx. 2.2 kg.",
+      },
+    ],
     seo: {
       title: "1900W Multi-Voltage Pure Sine Wave Off-Grid Inverter",
       description: "1900W multi-voltage pure sine wave off-grid inverter supporting 48V / 60V / 72V DC input with voltage selector switch, LCD display and three AC output sockets. 220V AC output. Bulk supply on request.",
@@ -812,6 +1234,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us for configuration details, socket options and bulk quotation.",
     },
 
+    applications: [
+      "Off-grid systems with mixed DC input requirements",
+      "Distribution and reseller product ranges",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 2300W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with a 220V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides three AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD display.",
+      },
+      {
+        question: "How is the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 25.5 × 17.8 × 9.6 cm and the unit weighs Approx. 2.67 kg.",
+      },
+    ],
     seo: {
       title: "2300W Multi-Voltage Pure Sine Wave Off-Grid Inverter",
       description: "2300W multi-voltage pure sine wave off-grid inverter supporting 48V / 60V / 72V DC input with voltage selector switch, LCD display and three AC output sockets. 220V AC output. Bulk quotation on request.",
@@ -870,6 +1333,47 @@ export const PRODUCTS: Product[] = [
       text: "Contact us to discuss available configurations, socket options and bulk supply requirements.",
     },
 
+    applications: [
+      "Off-grid systems with mixed DC input requirements",
+      "Distribution and reseller product ranges",
+      "Backup power for homes and small offices",
+      "Rural electrification and remote sites",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is rated at 3200W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter use?",
+        answer: "It accepts 48V / 60V / 72V DC input, so it can be matched to different battery bank configurations.",
+      },
+      {
+        question: "Which AC output voltage is available for the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter?",
+        answer: "It is available with a 220V AC output; the required option is specified at order stage.",
+      },
+      {
+        question: "How many AC output sockets does the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter have?",
+        answer: "It provides three AC output sockets, as listed in the specification table above.",
+      },
+      {
+        question: "Does the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter have a display?",
+        answer: "Yes. It is fitted with an LCD display.",
+      },
+      {
+        question: "How is the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter cooled?",
+        answer: "It uses an intelligent temperature-controlled fan.",
+      },
+      {
+        question: "Is the output of the 3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 28.5 × 17.8 × 9.6 cm and the unit weighs Approx. 3.2 kg.",
+      },
+    ],
     seo: {
       title: "3200W Multi-Voltage Pure Sine Wave Off-Grid Inverter",
       description: "3200W multi-voltage pure sine wave off-grid inverter supporting 48V / 60V / 72V DC input with voltage selector switch, LCD display and three AC output sockets. 220V AC output. Bulk supply on request.",
@@ -907,6 +1411,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/1500w-vm-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM 1.5K Off-Grid Solar Inverter?",
+        answer: "It is rated at 1500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM 1.5K Off-Grid Solar Inverter use?",
+        answer: "It operates on a 12V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM 1.5K Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 90Vdc–430Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM 1.5K Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 348 × 270 × 95 mm and the unit weighs 4 kg.",
+      },
+    ],
   },
   {
     id: "INV-014",
@@ -931,6 +1465,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3000w-vm-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM 3K Off-Grid Solar Inverter?",
+        answer: "It is rated at 3000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM 3K Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM 3K Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 90Vdc–430Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM 3K Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 348 × 270 × 95 mm and the unit weighs 5 kg.",
+      },
+    ],
   },
   {
     id: "INV-015",
@@ -959,6 +1523,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3000w-sc-ps-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-PS 3K Off-Grid Solar Inverter?",
+        answer: "It is rated at 3000W (3000VA / 2400W). The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-PS 3K Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-PS 3K Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 30Vdc–32Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-PS 3K Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 355 × 272 × 100 mm and the unit weighs 6.9 kg.",
+      },
+    ],
   },
   {
     id: "INV-016",
@@ -983,6 +1577,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/5000w-mks-ii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the MKS II 5K Off-Grid Solar Inverter?",
+        answer: "It is rated at 5000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the MKS II 5K Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the MKS II 5K Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–430Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the MKS II 5K Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 480 × 310 × 125 mm and the unit weighs 11 kg.",
+      },
+    ],
   },
   {
     id: "INV-017",
@@ -1008,6 +1632,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3000w-scmk-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SCMK 3K-24V Off-Grid Solar Inverter?",
+        answer: "It is rated at 3000W (3000VA / 2400W). The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SCMK 3K-24V Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SCMK 3K-24V Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 30Vdc–80Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SCMK 3K-24V Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 468 × 295 × 120 mm and the unit weighs 11 kg.",
+      },
+    ],
   },
   {
     id: "INV-018",
@@ -1032,6 +1686,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3500w-sc-vm-iii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-VM III 3.5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 3500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-VM III 3.5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-VM III 3.5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-VM III 3.5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 9.5 kg.",
+      },
+    ],
   },
   {
     id: "INV-019",
@@ -1056,6 +1740,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/5500w-sc-vm-iii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-VM III 5.5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 5500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-VM III 5.5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-VM III 5.5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-VM III 5.5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 10.5 kg.",
+      },
+    ],
   },
   {
     id: "INV-020",
@@ -1080,6 +1794,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3600w-vmiv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMIV 3.6KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 3600W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMIV 3.6KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMIV 3.6KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMIV 3.6KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 422.8 × 313.6 × 119 mm and the unit weighs 9.2 kg.",
+      },
+    ],
   },
   {
     id: "INV-021",
@@ -1104,6 +1848,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/5600w-vmiv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMIV 5.6KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 5600W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMIV 5.6KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMIV 5.6KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMIV 5.6KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 422.8 × 313.6 × 119 mm and the unit weighs 10.5 kg.",
+      },
+    ],
   },
   {
     id: "INV-022",
@@ -1128,6 +1902,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/8000w-sc-max-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for larger homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple circuits",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-MAX 8KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 8000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-MAX 8KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-MAX 8KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 80Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-MAX 8KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 19 kg.",
+      },
+    ],
   },
   {
     id: "INV-023",
@@ -1152,6 +1956,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/11000w-sc-max-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for larger homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple circuits",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-MAX 11KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 11000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-MAX 11KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-MAX 11KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 80Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-MAX 11KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 19 kg.",
+      },
+    ],
   },
   {
     id: "INV-024",
@@ -1176,6 +2010,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/4000w-vm-iv-box-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM IV 4K BOX Off-Grid Solar Inverter?",
+        answer: "It is rated at 4000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM IV 4K BOX Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM IV 4K BOX Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM IV 4K BOX Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
+      },
+    ],
   },
   {
     id: "INV-025",
@@ -1200,6 +2064,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/6000w-vm-iv-box-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM IV 6K BOX Off-Grid Solar Inverter?",
+        answer: "It is rated at 6000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM IV 6K BOX Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM IV 6K BOX Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM IV 6K BOX Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
+      },
+    ],
   },
   {
     id: "INV-026",
@@ -1224,6 +2118,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/4200w-vm-iv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM IV 4.2KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 4200W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM IV 4.2KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM IV 4.2KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM IV 4.2KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
+      },
+    ],
   },
   {
     id: "INV-027",
@@ -1252,6 +2176,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/6200w-vm-iv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VM IV 6.2KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 6200W (6200VA / 6200W). The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VM IV 6.2KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VM IV 6.2KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VM IV 6.2KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
+      },
+    ],
   },
   {
     id: "INV-028",
@@ -1276,6 +2230,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/5000w-vii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VII 5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 5000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VII 5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VII 5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–430Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VII 5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 480 × 310 × 125 mm and the unit weighs 12 kg.",
+      },
+    ],
   },
   {
     id: "INV-029",
@@ -1300,6 +2284,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/4000w-vmiv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMIV 4KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 4000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMIV 4KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMIV 4KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMIV 4KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
+      },
+    ],
   },
   {
     id: "INV-030",
@@ -1324,6 +2338,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/6000w-vmiv-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMIV 6KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 6000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMIV 6KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMIV 6KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 60Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMIV 6KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
+      },
+    ],
   },
   {
     id: "INV-031",
@@ -1348,6 +2392,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/10500w-vii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for larger homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple circuits",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VII 10.5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 10500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VII 10.5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VII 10.5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 90Vdc–500Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VII 10.5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 537 × 390 × 130 mm and the unit weighs 14.45 kg.",
+      },
+    ],
   },
   {
     id: "INV-032",
@@ -1372,6 +2446,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/8000w-sc-max-ii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for larger homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple circuits",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-MAX 8KWII Off-Grid Solar Inverter?",
+        answer: "It is rated at 8000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-MAX 8KWII Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-MAX 8KWII Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 80Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-MAX 8KWII Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 20 kg.",
+      },
+    ],
   },
   {
     id: "INV-033",
@@ -1396,6 +2500,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/11000w-sc-max-ii-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for larger homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems supporting multiple circuits",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the SC-MAX 11KWII Off-Grid Solar Inverter?",
+        answer: "It is rated at 11000W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the SC-MAX 11KWII Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the SC-MAX 11KWII Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 80Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the SC-MAX 11KWII Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 21 kg.",
+      },
+    ],
   },
   {
     id: "INV-034",
@@ -1420,6 +2554,36 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/3500w-vmii-plus-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMII Plus 3.5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 3500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMII Plus 3.5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 24V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMII Plus 3.5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–450Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMII Plus 3.5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 9.5 kg.",
+      },
+    ],
   },
   {
     id: "INV-035",
@@ -1444,5 +2608,35 @@ export const PRODUCTS: Product[] = [
     },
 
     images: ["images/products/off-grid-solar-inverters/5500w-vmii-plus-series/main.jpg"],
+
+    applications: [
+      "Residential off-grid solar power systems",
+      "Backup power for homes and small businesses",
+      "Rural electrification and remote sites",
+      "Off-grid systems with battery storage",
+    ],
+
+    faq: [
+      {
+        question: "What is the rated power of the VMII Plus 5.5KW Off-Grid Solar Inverter?",
+        answer: "It is rated at 5500W. The same rating appears in the specification table above.",
+      },
+      {
+        question: "What DC input voltage does the VMII Plus 5.5KW Off-Grid Solar Inverter use?",
+        answer: "It operates on a 48V battery bank, as listed in the specification table above.",
+      },
+      {
+        question: "What is the MPPT operating range of the VMII Plus 5.5KW Off-Grid Solar Inverter?",
+        answer: "The MPPT operating range is 120Vdc–430Vdc. The array voltage should be designed to fall inside this window under normal operating conditions.",
+      },
+      {
+        question: "Is the output of the VMII Plus 5.5KW Off-Grid Solar Inverter a pure sine wave?",
+        answer: "Yes. The output is a pure sine wave, which suits equipment that requires a stable, clean AC waveform.",
+      },
+      {
+        question: "What are the dimensions and weight?",
+        answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 10.5 kg.",
+      },
+    ],
   },
 ];
