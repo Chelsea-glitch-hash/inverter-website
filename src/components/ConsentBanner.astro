@@ -10,7 +10,7 @@
  *    not gated - it serves the inquiry the user actively submits
  */
 import { ANALYTICS } from '../config';
-import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
 import { getDict } from '../i18n';
 
 interface Props {
@@ -32,7 +32,7 @@ const t = getDict(locale).consent;
       <div class="mx-auto flex max-w-7xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-sm leading-relaxed text-slate-600">
           {t.text}
-          <a href="/privacy-policy/" class="font-medium text-brand-700 underline">{t.privacyLink}</a>.
+          <a href={localizedPath(locale, '/privacy-policy/')} class="font-medium text-brand-700 underline">{t.privacyLink}</a>.
         </p>
         <div class="flex shrink-0 gap-3">
           <button

@@ -154,6 +154,11 @@ export const en = {
       description:
         'OEM / ODM solar inverter manufacturing with private label, custom firmware and packaging. Own factory, 200,000 units annual capacity, ISO 9001. Get a quote in 24 hours.',
     },
+    privacy: {
+      title: "Privacy Policy — How We Handle Your Data",
+      description:
+        "How we collect, use and protect your personal data when you use our website, submit an inquiry or subscribe to our newsletter. GDPR-aligned disclosure of processors and your rights.",
+    },
   },
 
   home: {

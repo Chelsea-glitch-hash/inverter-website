@@ -135,6 +135,11 @@ export const zhHant: Dictionary = {
       title: "OEM / ODM 太陽能逆變器製造商 | Zhongze Huasong",
       description: "OEM / ODM 太陽能逆變器製造，支援自有品牌、客製韌體與包裝。自有工廠、年產能 20 萬台、ISO 9001。24 小時內報價。",
     },
+    privacy: {
+      title: "隱私權政策 — 我們如何處理您的資料",
+      description:
+        "說明當您使用本網站、提交詢問或訂閱電子報時，我們如何收集、使用與保護您的個人資料。",
+    },
   },
   home: {
     hero: {

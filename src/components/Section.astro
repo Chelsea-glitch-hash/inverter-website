@@ -8,8 +8,16 @@ interface Props {
   subtitle?: string;
   class?: string;
   id?: string;
+  /**
+   * Heading level for `title`. Defaults to "h2" (the correct level for a
+   * section nested under a page <h1>). Set to "h1" on the FIRST section of
+   * pages whose main heading is rendered through this component, so every
+   * page exposes exactly one <h1> (accessibility + SEO).
+   */
+  titleAs?: 'h1' | 'h2';
 }
-const { eyebrow, title, subtitle, class: className = '', id } = Astro.props;
+const { eyebrow, title, subtitle, class: className = '', id, titleAs = 'h2' } = Astro.props;
+const TitleTag = titleAs;
 ---
 
 <section id={id} class:list={['py-16 sm:py-20', className]}>
@@ -23,7 +31,7 @@ const { eyebrow, title, subtitle, class: className = '', id } = Astro.props;
             </p>
           )}
           {title && (
-            <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">{title}</h2>
+            <TitleTag class="text-2xl font-semibold text-slate-900 sm:text-3xl">{title}</TitleTag>
           )}
           {subtitle && <p class="mt-4 text-base text-slate-600">{subtitle}</p>}
         </div>

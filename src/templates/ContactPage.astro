@@ -29,7 +29,7 @@ const productOptions = getProductOptions();
     <Breadcrumb crumbs={[{ label: t.contact.title }]} locale={locale} />
   </Container>
 
-  <Section eyebrow={t.contact.eyebrow} title={t.contact.title} subtitle={t.contact.subtitle}>
+  <Section eyebrow={t.contact.eyebrow} title={t.contact.title} subtitle={t.contact.subtitle} titleAs="h1">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-5">
       <div class="lg:col-span-3">
         <InquiryForm productOptions={productOptions} locale={locale} />

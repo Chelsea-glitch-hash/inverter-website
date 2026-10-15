@@ -18,7 +18,7 @@ const seo = getDict(locale).seo.quality;
 ---
 
 <BaseLayout title={seo.title} description={seo.description} path="/quality/" locale={locale}>
-  <Section eyebrow={t.intro.eyebrow} title={t.intro.title}>
+  <Section eyebrow={t.intro.eyebrow} title={t.intro.title} titleAs="h1">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
       {
         t.intro.items.map((item) => (

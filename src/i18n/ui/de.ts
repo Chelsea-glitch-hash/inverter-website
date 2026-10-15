@@ -135,6 +135,11 @@ export const de: Dictionary = {
       title: "OEM / ODM Solarwechselrichter Hersteller | Zhongze Huasong",
       description: "OEM / ODM-Solarwechselrichter mit Eigenmarke, kundenspezifischer Firmware und Verpackung. Eigene Fabrik, 200.000 Einheiten Jahreskapazität, ISO 9001. Angebot in 24 Stunden.",
     },
+    privacy: {
+      title: "Datenschutzerklärung — Umgang mit Ihren Daten",
+      description:
+        "Wie wir Ihre personenbezogenen Daten erheben, nutzen und schützen, wenn Sie unsere Website nutzen, eine Anfrage senden oder unseren Newsletter abonnieren.",
+    },
   },
   home: {
     hero: {

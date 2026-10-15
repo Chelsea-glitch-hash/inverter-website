@@ -135,6 +135,11 @@ export const ko: Dictionary = {
       title: "OEM / ODM 태양광 인버터 제조업체 | Zhongze Huasong",
       description: "프라이빗 라벨, 커스텀 펌웨어 및 패키징을 지원하는 OEM / ODM 태양광 인버터 제조. 자체 공장, 연간 생산 능력 200,000대, ISO 9001. 24시간 내 견적 제공.",
     },
+    privacy: {
+      title: "개인정보 처리방침 — 귀하의 데이터 처리 방식",
+      description:
+        "당사 웹사이트 이용, 문의 제출 또는 뉴스레터 구독 시 귀하의 개인정보를 어떻게 수집·이용·보호하는지 설명합니다.",
+    },
   },
   home: {
     hero: {

@@ -5,12 +5,12 @@
  * variables (see .env.example) and must never be added to this file: anything
  * here is compiled into the browser bundle.
  *
+ * Verified and in production: SITE.url, COMPANY.legalName / address fields,
+ * CONTACT.email / whatsapp / phone.
+ *
  * Still placeholders, awaiting real values from the client (do NOT invent):
- *   - SITE.url        production domain (also astro.config.mjs `site`
- *                     and the canonical URLs / sitemap)
  *   - COMPANY.*       founding year, factory area, capacity, employee counts,
- *                     export countries, OEM client count, registered address
- *   - CONTACT.phone   the phone number published on the contact page
+ *                     export countries, OEM client count
  *   - ANALYTICS.ga4MeasurementId  GA4 property id
  */
 
@@ -30,7 +30,12 @@ export const SITE = {
 
 export const COMPANY = {
   legalName: 'Shenzhen Zhongze Huasong Trading Co., Ltd.',
-  /** TODO: unverified — confirm before launch, these are shown as company facts. */
+  /*
+   * The figures below are shown as company facts on the homepage (TrustBar,
+   * Why Us, factory bullets). They are NOT yet confirmed by the client — see
+   * site-audit-2026-10-09.md (P0-1). Replace with verified numbers, or remove
+   * the surrounding copy, before treating them as published claims.
+   */
   foundedYear: 2010,
   factoryAreaSqm: 12000,
   annualCapacityUnits: 200000,
@@ -112,8 +117,14 @@ export function whatsappDisplay(digits: string): string {
 /** Analytics configuration */
 export const ANALYTICS = {
   /**
-   * TODO: GA4 Measurement ID, e.g. "G-XXXXXXXXXX".
-   * Leave empty to disable GA4 entirely (e.g. during development).
+   * GA4 Measurement ID, e.g. "G-XXXXXXXXXX".
+   *
+   * Still empty: no GA4 property has been provided. Two consequences while it
+   * stays empty — (1) no traffic/conversion data is collected at all, and
+   * (2) ConsentBanner renders NOTHING (it is gated on this value), so the
+   * cookie banner intended for GA4 never appears. The privacy policy already
+   * describes GA4, so filling this in (or removing that text) keeps the
+   * disclosure accurate.
    */
   ga4MeasurementId: '',
 };

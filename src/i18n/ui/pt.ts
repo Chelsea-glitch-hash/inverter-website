@@ -135,6 +135,11 @@ export const pt: Dictionary = {
       title: "Fabricante de Inversores Solares OEM / ODM | Zhongze Huasong",
       description: "Fabricação de inversores solares OEM / ODM com marca própria, firmware e embalagem personalizados. Fábrica própria, capacidade anual de 200.000 unidades, ISO 9001. Orçamento em 24 horas.",
     },
+    privacy: {
+      title: "Política de Privacidade — Tratamento dos seus Dados",
+      description:
+        "Como recolhemos, utilizamos e protegemos os seus dados pessoais quando utiliza o nosso site, envia um pedido ou subscreve a nossa newsletter.",
+    },
   },
   home: {
     hero: {

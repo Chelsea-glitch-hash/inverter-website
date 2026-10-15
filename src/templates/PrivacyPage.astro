@@ -12,28 +12,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import { COMPANY, CONTACT } from '../config';
 import { DEFAULT_LOCALE, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
 
 interface Props {
   locale?: Locale;
 }
 const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getDict(locale);
+/* The legal BODY stays in English on purpose (pending legal review), but the
+   <title>/description are localized so each language version has a unique
+   title instead of 11 identical ones. */
+const seo = t.seo.privacy;
 ---
 
 <BaseLayout
-  title="Privacy Policy"
-  description="How we collect, use and protect your data when you use our website, submit an inquiry or subscribe to our newsletter."
+  title={seo.title}
+  description={seo.description}
   path="/privacy-policy/"
   locale={locale}
 >
-  <Section title="Privacy Policy">
+  <Section title={t.footer.privacyPolicy} titleAs="h1">
     <div class="max-w-3xl space-y-6 text-sm leading-relaxed text-slate-700 [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-slate-900">
       <p class="text-xs text-slate-500">Last updated: September 2026</p>
 
-      <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-800">
-        <strong>Note:</strong> This is a technical placeholder. Have the final text
-        reviewed by a legal professional before launch, especially for EU visitors
-        (GDPR) and other regulated markets.
-      </div>
+      {/* INTERNAL NOTE (not rendered): this policy still needs review by a
+          legal professional before it is treated as final — especially for EU
+          visitors (GDPR) and other regulated markets. See
+          site-audit-2026-10-09.md (P0-3). Keep this as a code comment, never
+          as a visible banner on the public page. */}
 
       <h2>1. Who we are</h2>
       <p>

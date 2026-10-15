@@ -4,8 +4,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO(launch): Replace with the real production domain.
-// This value drives canonical URLs and the XML sitemap.
+// Canonical production host (`www` is preferred; the bare domain 301s to it
+// at the CDN edge). This value drives canonical URLs and the XML sitemap, and
+// must stay in sync with SITE.url in src/config.ts and robots.txt.
 export default defineConfig({
   site: 'https://www.zzpine.com',
   integrations: [

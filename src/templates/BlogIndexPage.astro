@@ -35,7 +35,7 @@ const localized = (post: CollectionEntry<'blog'>) => {
     <Breadcrumb crumbs={[{ label: t.blog.breadcrumb }]} locale={locale} />
   </Container>
 
-  <Section eyebrow={t.blog.eyebrow} title={t.blog.title} subtitle={t.blog.subtitle}>
+  <Section eyebrow={t.blog.eyebrow} title={t.blog.title} subtitle={t.blog.subtitle} titleAs="h1">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
         posts.map((post) => {
@@ -45,9 +45,9 @@ const localized = (post: CollectionEntry<'blog'>) => {
               <time datetime={post.data.publishDate.toISOString()} class="text-xs text-slate-500">
                 {formatDate(post.data.publishDate, locale)}
               </time>
-              <h2 class="mt-2 text-base leading-snug font-semibold text-slate-900 group-hover:text-brand-700">
+              <h3 class="mt-2 text-base leading-snug font-semibold text-slate-900 group-hover:text-brand-700">
                 {bt.title ?? post.data.title}
-              </h2>
+              </h3>
               <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600">{bt.description ?? post.data.description}</p>
               <div class="mt-4 flex flex-wrap gap-1.5">
                 {(bt.tags ?? post.data.tags).map((tag) => (

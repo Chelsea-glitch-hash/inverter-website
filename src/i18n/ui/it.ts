@@ -135,6 +135,11 @@ export const it: Dictionary = {
       title: "Produttore di Inverter Solari OEM / ODM | Zhongze Huasong",
       description: "Produzione di inverter solari OEM / ODM con marchio privato, firmware e imballaggio personalizzati. Fabbrica propria, capacità annua di 200.000 unità, ISO 9001. Preventivo in 24 ore.",
     },
+    privacy: {
+      title: "Informativa sulla Privacy — Trattamento dei vostri Dati",
+      description:
+        "Come raccogliamo, utilizziamo e proteggiamo i vostri dati personali quando utilizzate il nostro sito, inviate una richiesta o vi iscrivete alla newsletter.",
+    },
   },
   home: {
     hero: {

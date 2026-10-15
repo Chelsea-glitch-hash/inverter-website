@@ -135,6 +135,11 @@ export const fr: Dictionary = {
       title: "Fabricant d'onduleurs solaires OEM / ODM | Zhongze Huasong",
       description: "Fabrication d'onduleurs solaires OEM / ODM avec marque privée, firmware et emballage personnalisés. Usine propre, capacité annuelle de 200 000 unités, ISO 9001. Devis sous 24 h.",
     },
+    privacy: {
+      title: "Politique de Confidentialité — Traitement de vos Données",
+      description:
+        "Comment nous collectons, utilisons et protégeons vos données personnelles lorsque vous utilisez notre site, envoyez une demande ou vous abonnez à notre newsletter.",
+    },
   },
   home: {
     hero: {
