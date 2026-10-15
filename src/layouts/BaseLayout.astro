@@ -152,6 +152,13 @@ const websiteJsonLd = {
           } catch (e) {}
           gtag('js', new Date());
           gtag('config', measurementId);
+          // Load the gtag.js library. The consent defaults above are queued in
+          // dataLayer first, so no storage is written before the visitor
+          // decides. Loaded async to keep it off the critical path.
+          var gtagScript = document.createElement('script');
+          gtagScript.async = true;
+          gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+          document.head.appendChild(gtagScript);
         </script>
       )
     }

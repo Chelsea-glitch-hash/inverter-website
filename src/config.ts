@@ -6,10 +6,8 @@
  * here is compiled into the browser bundle.
  *
  * Verified and in production: SITE.url, COMPANY.* (all fields, including the
- * corporate figures below), CONTACT.email / whatsapp / phone.
- *
- * Still to be supplied:
- *   - ANALYTICS.ga4MeasurementId  GA4 property id
+ * corporate figures below), CONTACT.email / whatsapp / phone, and
+ * ANALYTICS.ga4MeasurementId.
  */
 
 export const SITE = {
@@ -115,16 +113,17 @@ export function whatsappDisplay(digits: string): string {
 /** Analytics configuration */
 export const ANALYTICS = {
   /**
-   * GA4 Measurement ID, e.g. "G-XXXXXXXXXX".
+   * GA4 Measurement ID.
    *
-   * Still empty: no GA4 property has been provided. Two consequences while it
-   * stays empty — (1) no traffic/conversion data is collected at all, and
-   * (2) ConsentBanner renders NOTHING (it is gated on this value), so the
-   * cookie banner intended for GA4 never appears. The privacy policy already
-   * describes GA4, so filling this in (or removing that text) keeps the
-   * disclosure accurate.
+   * Setting this value does two things:
+   *   1. BaseLayout injects the gtag.js loader + `gtag('config', …)` with
+   *      Consent Mode v2 defaults (storage denied).
+   *   2. ConsentBanner renders, letting visitors grant/deny analytics storage.
+   *
+   * Leave it empty to disable GA4 entirely and suppress the consent banner
+   * (e.g. in a local/dev checkout).
    */
-  ga4MeasurementId: '',
+  ga4MeasurementId: 'G-NPXYSGRNDD',
 };
 
 /**
