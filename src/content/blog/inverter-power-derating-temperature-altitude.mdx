@@ -1,0 +1,203 @@
+---
+title: "Inverter Power Derating: Why Heat, Altitude and Airflow Shrink Your Rated Watts"
+description: "Rated watts are measured at 25°C at sea level. Real sites run hotter and higher. How temperature derating, altitude derating and cooling design actually cut available power — and how to size for reality."
+publishDate: 2026-10-15
+author: "Zhongze Huasong"
+tags: ["Inverter Guide", "Sizing Guide", "B2B"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Every inverter carries a number on the box: 3000W, 5000W, 11kW. But that
+number was measured under laboratory conditions — typically 25°C ambient, at
+sea level, with free airflow around the unit. Put the same inverter inside a
+ventilated telecom cabinet in a 45°C climate, or on a rooftop site at 3000 m
+elevation, and the honest answer to "how much power can it actually deliver
+all day?" is usually less than the nameplate says.
+
+This matters most for B2B buyers, because undersizing shows up in the field as
+tripped overloads, premature fan failures and angry end customers. This guide
+explains the three forces that shrink real power — temperature, altitude and
+airflow — how to read a derating curve, and how to size a system that still
+delivers its rated watts when the site gets hard.
+
+> **A note on numbers.** The derating figures below are typical industry
+> patterns drawn from common datasheet behavior, not specifications of any
+> single model. Always size from the actual derating curve printed in the
+> datasheet of the unit you intend to buy — if a manufacturer will not publish
+> one, treat that as a red flag.
+
+## Why nameplate watts are measured in a lab, not in your project
+
+Standards bodies define a reference condition for inverter ratings: 25°C
+ambient temperature, sea level, unobstructed air movement, and often a
+specific DC input voltage. At that reference point the unit can deliver its
+continuous rated output indefinitely.
+
+Field conditions diverge from that reference in predictable ways:
+
+- **Ambient heat** raises the temperature of the power semiconductors, which
+  shortens their life and forces the firmware to back off output to protect
+  them.
+- **Altitude** thins the air, so the heat sink and fans move less heat away per
+  second.
+- **Enclosed or stacked installation** blocks airflow and traps the inverter's
+  own waste heat.
+- **Low battery voltage or PV input near the edges of the window** also trims
+  deliverable power, though that is a separate derating axis from the thermal
+  ones this article covers.
+
+None of this means the manufacturer is cheating. It means a rating is a
+statement about a reference condition — and your job, as a buyer or designer,
+is to translate the nameplate number into a real-site number.
+
+## Temperature derating: the most common power loss
+
+Power semiconductors and magnetic components generate heat that scales roughly
+with output power. An inverter designed for a certain internal junction
+temperature simply cannot hold full output when the surrounding air is already
+hot, because there is less temperature difference left to push the waste heat
+out.
+
+A typical derating pattern seen across off-grid and residential hybrid
+inverters looks like this:
+
+| Ambient temperature | Available continuous output (typical pattern) |
+| ------------------- | ---------------------------------------------- |
+| 25°C (77°F)         | 100% of rated                                   |
+| 40°C (104°F)        | 85–95% of rated                                |
+| 45°C (113°F)        | 75–85% of rated                                |
+| 50°C (122°F)        | 60–75% of rated                                |
+| 55°C (131°F)        | 50–65% of rated                                |
+
+Two patterns are worth knowing so you can sanity-check any datasheet:
+
+1. **Full power up to a "thermal knee".** Many units hold 100% output up to
+   40°C and only start tapering above it. A datasheet that quotes
+   "continuous power at 40°C" is telling you where that knee is.
+2. **Linear taper above the knee.** Beyond the knee, output typically drops in
+   a straight line with temperature until the unit reaches its maximum rated
+   ambient and shuts down protectively. The slope tells you how much a hot
+   climate will cost you.
+
+For a tropical project — think Nigeria, India, Thailand or the Gulf — the
+relevant figure is usually the 40–45°C column, not the 25°C one.
+
+## Altitude derating: thin air carries less heat
+
+Heat sinks and fans cool by moving air. At higher elevation the air is less
+dense, so each cubic metre of airflow carries less heat away, and the fan does
+more work for less cooling. For that reason most inverters are certified and
+rated at or below 2000 m, and derate above it.
+
+The typical rule seen in datasheets: above 2000 m, expect roughly **0.5–1% of
+output lost per additional 100 m** of elevation. That translates to:
+
+- At 2500 m: roughly 97–100% of rated output.
+- At 3000 m: roughly 90–95% of rated output.
+- At 4000 m: roughly 80–90% of rated output — check the specific model.
+
+For high-altitude projects — Andean, Himalayan, East African or central
+Mexican sites — pair the altitude figure with the temperature figure, because
+mountain sites are often both high *and* hot during the day, and the two
+deratings compound multiplicatively rather than additively.
+
+## Cooling design: what the manufacturer does about all this heat
+
+Derating is a safety valve, but good thermal design pushes the knee higher so
+the valve rarely has to open. When you evaluate a unit, look at how the heat
+gets out:
+
+- **Fan-controlled cooling.** Most units use temperature-controlled fans that
+  stay off (or slow) at low load and speed up as the heatsink warms. Every
+  model in our [off-grid inverter](/products/off-grid-inverters/) line ships
+  with an intelligent temperature-controlled fan — it keeps idle noise down and
+  protects components during sustained output.
+- **Heatsink and housing material.** Aluminium housings spread heat across a
+  larger surface. Some of our [off-grid inverter](/products/off-grid-inverters/)
+  models use an aluminium alloy case explicitly for heat dissipation.
+- **Fan failure detection.** A unit that cannot tell you its fan has failed is
+  a unit that will silently derate — or overheat — until someone notices.
+  Prefer models with over-temperature protection and fault reporting.
+- **Derating curve published.** The single best procurement signal: the
+  manufacturer publishes a temperature/altitude derating table in the
+  datasheet. If it is missing, ask for it.
+
+Installation practice matters as much as hardware. Leave the manufacturer's
+recommended clearance around the unit, keep vents unobstructed, avoid stacking
+units directly above each other, and never mount an inverter so that its own
+exhaust blows into another unit's intake.
+
+## Continuous vs surge: two numbers, both real
+
+While we are on the subject of "which watts count", separate the two ratings
+an inverter actually has:
+
+- **Continuous rating** — the power the unit can deliver hour after hour at a
+  stated ambient temperature. This is the number that derates.
+- **Surge (peak) rating** — the power available for a few seconds to start
+  motors, compressors and pumps. Surge capability is largely independent of
+  thermal derating because it is short-lived, but it is also finite: check
+  both the multiple (often 2–3× continuous for high-frequency units, more for
+  low-frequency designs) and the duration.
+
+Size the continuous load against the *derated* continuous figure at your
+site's worst-case ambient, and the starting surge against the surge figure.
+Mixing the two up is how systems that "look fine on paper" trip on day one.
+
+## A quick worksheet: turning rated watts into site watts
+
+For a first-pass estimate, multiply the nameplate by the two thermal factors
+and any power-factor allowance:
+
+**Real continuous power ≈ Rated × temperature factor × altitude factor**
+
+Worked example — a 5000W off-grid inverter in a ventilated enclosure at a
+site that hits 45°C and sits at 2200 m:
+
+- Temperature factor at 45°C (typical mid-range pattern): ~0.80
+- Altitude factor at 2200 m (200 m above the 2000 m threshold, at ~1%/100 m):
+  ~0.98
+- Real continuous power ≈ 5000 × 0.80 × 0.98 ≈ **3920W**
+
+So the design should treat this unit as roughly a 4 kW continuous source on
+that site — even though the box says 5000W. If the project's peak continuous
+load is 4.5 kW, this unit is undersized, and the honest fix is a bigger model,
+a cooler location, or both.
+
+The same logic applies up the range: our [off-grid solar inverter
+line](/products/off-grid-solar-inverters/) tops out at 11kW at the reference
+condition, and a 10.5kW or 11kW model placed in a hot roof cavity will deliver
+meaningfully less during the hottest hours — size the array, the loads and the
+inverter so the *derated* number clears the load, not the nameplate number.
+
+## B2B checklist: questions to ask before you quote
+
+When you are buying inverters to resell or install at scale, add these to your
+qualification list:
+
+1. **What is the continuous output at 40°C and 45°C?** If the answer is "the
+   same as at 25°C", confirm that with a printed curve — some units genuinely
+   hold full power to 40°C, others simply omit the bad news.
+2. **What happens above the maximum ambient rating?** Clean thermal shutdown,
+   or repeated tripping that will frustrate end users?
+3. **At what altitude does derating start, and by how much per 100 m?**
+4. **What clearance and ventilation does the installation manual require?**
+5. **Is there a temperature sensor on the heatsink, and is there fan-fault
+   protection?**
+6. **Does the unit report its internal temperature** (via display or remote
+   monitoring) so a hot site can be caught before failures start?
+
+Buying on the nameplate alone is how distributor stock turns into field
+failures. Buying on the derating curve is how a project keeps its promises in
+July — and at 3000 m.
+
+<FAQ
+  title="Inverter power derating — FAQ"
+  faq={[
+    { question: "Does every inverter derate in hot weather?", answer: "Most do, because power semiconductors have a maximum junction temperature. Some units hold full output up to 40°C and only taper above it; the exact knee and slope are model-specific and should be read from the datasheet's derating curve." },
+    { question: "At what altitude do inverters start to derate?", answer: "The common certification threshold is 2000 m. Above it, expect roughly 0.5–1% output loss per additional 100 m of elevation, because thinner air carries less heat away from the heatsink and fans." },
+    { question: "Is surge power affected by temperature or altitude?", answer: "Surge ratings are largely independent of thermal derating because they are short-lived — the thermal mass absorbs the brief heat. But surge capability is still finite in both multiple and duration, so check both numbers against the worst starting load." },
+    { question: "How much should I oversize an inverter for a hot, high site?", answer: "There is no universal number. Multiply the nameplate by the temperature and altitude factors for your site's worst conditions, and choose a model whose derated continuous output clears your peak continuous load with margin. If the site is very hot, a bigger model or a cooler, better-ventilated mounting location usually beats relying on firmware protection." },
+  ]}
+/>

@@ -139,8 +139,16 @@ function extractFaqBlock(text) {
     }
     if (arrEnd !== -1) {
       const arrSrc = block.slice(arrStart, arrEnd);
-      // extract each { question: "...", answer: "..." } object
-      const objRe = /\{\s*question\s*:\s*(["'][^"']*["'])\s*,\s*answer\s*:\s*(["'][^"']*["'])\s*\}/g;
+      // extract each { question: "...", answer: "..." } object.
+      // The string pattern `"(?:[^"\\]|\\.)*"` permits apostrophes inside
+      // double-quoted values (e.g. French "jusqu'à 40°C"); the legacy
+      // `["'][^"']*["']` pattern broke on such text and silently dropped the
+      // whole FAQ. Backslash-escaped quotes are handled too.
+      const strRe = '"(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\'';
+      const objRe = new RegExp(
+        '\\{\\s*question\\s*:\\s*(' + strRe + ')\\s*,\\s*answer\\s*:\\s*(' + strRe + ')\\s*\\}',
+        'g'
+      );
       let m;
       while ((m = objRe.exec(arrSrc)) !== null) {
         faq.push({ question: parseJsxString(m[1]), answer: parseJsxString(m[2]) });
