@@ -1,0 +1,183 @@
+---
+title: "The MPPT Voltage Window: How to Match a Solar Array to an Off-Grid Inverter"
+description: "Max PV voltage, MPPT operating range and input power are three different limits. How to size strings so the array survives cold mornings and still tracks on hot afternoons."
+publishDate: 2026-10-18
+author: "Zhongze Huasong"
+tags: ["MPPT", "Sizing Guide", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Most off-grid inverters that "reject" a solar array are not rejecting the
+wattage. The array produces plenty of power on paper — but on the first cold,
+clear morning the open-circuit voltage creeps past the inverter's input
+ceiling, or the string voltage drops below the MPPT floor on a hot roof, and
+the charge stage simply stops working. PV input sizing is a voltage problem
+before it is a power problem.
+
+This guide explains the three limits every datasheet publishes, why cold
+weather moves the most dangerous one, and how to run the string math with a
+real example from our own platform.
+
+## Three limits, three different numbers
+
+A solar input on an off-grid inverter is governed by three separate figures,
+and mixing them up is the root cause of most sizing mistakes:
+
+| Limit | Which voltage it applies to | What happens if you cross it |
+|---|---|---|
+| Maximum PV input voltage | Open-circuit voltage (Voc) | Permanent damage to the input stage — not covered by warranty |
+| MPPT operating range | Operating voltage (Vmp) | Tracking degrades or shuts down; output drops sharply |
+| Maximum PV input power | Total array watts | Excess power is clipped; the inverter never uses it |
+
+The first limit is the one that destroys hardware. Open-circuit voltage is
+what the input stage sees *before* it starts drawing current — at dawn, or
+the moment a breaker closes. Nothing protects it except your string design.
+The second limit is an efficiency boundary: outside the window the tracker
+cannot find its operating point, and charging collapses even though no
+component is damaged. The third is the gentlest — an oversized array is
+wasted money, not broken hardware.
+
+Because each limit applies to a different number, a valid design has to pass
+three independent checks. Passing one proves nothing about the other two.
+
+## The cold-morning Voc trap
+
+Module datasheets quote Voc at 25 °C cell temperature. In real operation,
+open-circuit voltage rises as the cells get colder — typically by about
+0.25–0.30 % per degree. A panel rated at 49 V Voc can measure well above
+54 V on a frosty morning, and the highest voltage of the day arrives *before*
+the sun loads the array, exactly when the input stage is most exposed.
+
+The correction is simple arithmetic: multiply the nameplate Voc by a cold
+factor of `1 + 0.0027 × (25 − T_min)`, where `T_min` is the site's record
+low cell temperature in °C.
+
+For a site whose record low is −10 °C, the factor is about 1.09 — call it
+9–12 % for most freezing climates. Compare that corrected figure, not the
+nameplate, against the maximum PV input voltage. A useful desk check: keep
+the STC string Voc at or below roughly 90 % of the input ceiling for cold
+climates, and you will not be surprised in winter.
+
+This is also why "it worked at the warehouse" means nothing. The warehouse
+was never at −10 °C with no load on the tracker.
+
+## Inside the window: strings, floors and hot roofs
+
+The MPPT operating range is the voltage band the tracker works in — our
+[MKS II 5K](/products/off-grid-solar-inverters/), for example, lists
+120–430 Vdc on a 48 V bank. Modules in series push the string voltage up
+through this band; modules in parallel add only current. Two directions of
+failure exist, and the cold-morning trap has a mirror image on hot roofs:
+
+- **Above the ceiling.** Too many modules in series: Voc(cold) crosses the
+  maximum input voltage. Hardware damage, as above.
+- **Below the floor.** Too few modules in series: the string Vmp falls under
+  the bottom of the MPPT range. On a hot roof, Vmp also sinks by roughly
+  0.3–0.4 % per degree — a three-module string that just clears a 120 V
+  floor at 25 °C can drop below it when cells reach 60 °C, and tracking
+  stalls mid-afternoon.
+
+So the window cuts from both sides. The practical rule: design the string so
+Vmp sits comfortably above the floor *after* hot-weather derating, and Voc
+sits below the ceiling *after* cold-weather correction. Datasheets may also
+list a startup voltage slightly above the MPPT floor — treat that as the
+same check with a little less margin.
+
+## A worked example on a real 48 V platform
+
+Take a common 540 W module: Voc 49.4 V, Vmp 41.7 V at STC, Voc temperature
+coefficient −0.27 %/°C. The site sees −10 °C winters and 60 °C cell
+temperatures in summer. The inverter is a 48 V unit with a 120–430 Vdc MPPT
+range — the values match the
+[MKS II 5K](/products/off-grid-solar-inverters/) exactly.
+
+| Modules in series | Voc (STC) | Voc at −10 °C | Vmp at 60 °C cell | Verdict |
+|---|---|---|---|---|
+| 3 | 148 V | 162 V ✅ | 110 V ❌ below floor | Tracking stalls on hot afternoons |
+| 4 | 198 V | 216 V ✅ | 147 V ✅ | Passes both checks |
+| 7 | 346 V | 379 V ✅ | 256 V ✅ | Comfortable — the right answer |
+| 8 | 395 V | 433 V ❌ over ceiling | 293 V ✅ | Input stage at risk in winter |
+
+The table tells the whole story: three modules pass the voltage ceiling and
+fail the floor; eight modules track beautifully in summer and destroy the
+input on the first frost. Seven modules per string — about 3.8 kW of array —
+passes every check with margin on both sides. Total array power is then
+checked against the datasheet's maximum PV input power for the model, which
+for a 5 kW-class unit leaves headroom for a second MPPT input or a modest
+future expansion.
+
+## When the window is narrow on purpose
+
+Not every model wants a long string. Some platforms are built around
+specific array shapes, and their windows are correspondingly tight: our
+SC-PS 3K, for instance, specifies a 30–32 Vdc MPPT range — effectively one
+module per tracker, with no room for a two-module series string. A narrow
+window is not a defect; it is a signal that the model was engineered for a
+particular configuration. Read it before assuming any array will fit.
+
+The spread across a catalog matters for B2B buyers. Between the
+[off-grid solar inverter series](/products/off-grid-solar-inverters/) —
+whose MPPT windows span from that single-module 30–32 Vdc up to
+90–500 Vdc on 48 V platforms — and the
+[plain off-grid inverters](/products/off-grid-inverters/) with 12–72 V
+battery-side input options, most project configurations can be matched
+without custom work. The skill is reading the window first and designing the
+array second, not the reverse.
+
+## Parallel strings: current is the other limit
+
+Series voltage is only half of string design. When an array needs more
+current than one string delivers, strings are paralleled into a single MPPT
+input — and the input's short-circuit current rating becomes the binding
+constraint. Two checks:
+
+1. Sum the Isc of all paralleled strings and confirm it stays below the
+   input's maximum current rating, with margin for cold-bright days when
+   current also runs high.
+2. Confirm the paralleled strings are electrically symmetric — same module
+   model, same count, same orientation. Mixed strings in parallel waste
+   power at the tracker and can confuse partial-shading behavior.
+
+Many higher-power models expose two or more independent MPPT inputs. Where
+that is the case, assign one roof face or orientation per input instead of
+paralleling mismatched strings into one tracker.
+
+## A five-minute pre-order check
+
+Run this before committing a purchase order for an inverter-array pair:
+
+- String Voc at the site's record low temperature < maximum PV input voltage
+- String Vmp after hot-weather derating > MPPT range floor
+- String Vmp (any condition) < MPPT range ceiling
+- Total array watts ≤ datasheet maximum PV input power
+- Paralleled string Isc ≤ input current rating
+- One orientation per MPPT input; symmetric strings only
+
+Five minutes with the two datasheets prevents the most expensive class of
+PV-side failure — the kind that shows up months after commissioning, in
+winter, on a site nobody wants to visit twice.
+
+## How we help buyers get the window right
+
+PV input questions are a daily occurrence on our sales engineering desk,
+because most of our B2B customers design arrays for markets and module
+mixes we do not see in advance. Since 2010 we have built the
+[off-grid solar inverter line](/products/off-grid-solar-inverters/) around
+documented, wide MPPT windows — from single-module platforms to 450 Vdc and
+500 Vdc ceiling models — and every product page lists the exact range so
+string math can be done before an inquiry, not after.
+
+If your array design sits between two models, send the module datasheet and
+site temperature range through the [contact form](/contact/) and our
+engineers will confirm which window fits, in writing, before you order.
+
+<FAQ
+  title="MPPT window and PV input sizing — FAQ"
+  faq={[
+    { question: "Does the MPPT range limit apply to Voc or Vmp?", answer: "To Vmp — the voltage the string operates at while producing power. Voc is checked separately against the maximum PV input voltage, which is a hard, unforgiving ceiling. The two numbers on the same string differ by about 15–20%, and each has its own limit." },
+    { question: "What happens if my array exceeds the maximum PV input voltage?", answer: "The input stage can be permanently damaged, typically on a cold morning before the tracker starts drawing current. It fails without a fuse blowing or a breaker tripping, and over-voltage damage is not covered by warranty. This is the single most expensive PV-side sizing mistake." },
+    { question: "How many panels can I put in series on a 430 Vdc input?", answer: "Divide the maximum input voltage by the module's cold-corrected Voc, not its nameplate. For a 49.4 V module in a −10 °C climate, seven modules (about 379 V cold) pass with margin while eight (about 433 V cold) exceed the ceiling — so the answer is seven, even though eight fits on paper at 25 °C." },
+    { question: "Can I parallel two strings of different lengths into one MPPT input?", answer: "No. Paralleled strings must be identical — same module, same series count, same orientation. Mismatched strings in parallel let current flow backwards through the weaker string, wasting power and stressing the modules. Assign different orientations to separate MPPT inputs instead." },
+  ]}
+/>
