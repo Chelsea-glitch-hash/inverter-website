@@ -1,0 +1,153 @@
+---
+title: "Will Any Lithium Battery Work With Your Inverter? Voltage, Charging and BMS Communication Explained"
+description: "A lithium battery can match your inverter's voltage and still misbehave. How voltage windows, charge profiles and BMS communication (CAN/RS485) decide whether a battery-inverter pair actually works."
+publishDate: 2026-10-17
+author: "Zhongze Huasong"
+tags: ["Battery Compatibility", "BMS Communication", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+On paper, connecting a lithium battery to an inverter is simple: match the
+nominal voltage, size the cables, close the breaker. In practice, a battery
+that "fits" can still drain incorrectly, shut down mid-discharge, or report a
+state of charge that jumps around — because three separate layers of
+compatibility all have to line up at once.
+
+This guide walks through those three layers — voltage window, charge profile
+and BMS communication — so you can qualify a battery-inverter pair *before*
+it ships, not after it fails on a customer's wall.
+
+## Layer 1: the voltage window
+
+A "48 V" battery is not really 48 V. A 48 V LiFePO4 pack sweeps from roughly
+58.4 V at full charge down to about 40 V near empty, and a 12 V pack sweeps
+from 14.6 V to around 10 V. Your inverter's DC input window has to cover the
+*entire* sweep, not just the nominal point.
+
+Two failure modes show up when the window is wrong:
+
+- **Over-voltage cutoff.** If the pack charges above the inverter's maximum
+  DC input, the inverter trips or faults every time the battery reaches full
+  charge — right when the system should be quietest.
+- **Under-voltage shutdown.** If the inverter's low-DC cutoff sits above the
+  battery's own empty voltage, the inverter shuts down while usable energy
+  remains in the pack. The customer sees this as "the battery dies at 30%".
+
+The practical rule: read both datasheets and confirm the battery's full
+charge voltage sits below the inverter's maximum DC input, and the battery's
+protection cutoff sits above the inverter's minimum. Leave 1–2 V of margin on
+each side.
+
+Our [off-grid inverters](/products/off-grid-inverters/) accept wide DC input
+windows — 12 V / 24 V / 48 V / 60 V / 72 V across the series — so a single
+model can be matched to different bank configurations instead of forcing a
+new inverter purchase when the battery changes. The
+[off-grid solar inverter series](/products/off-grid-solar-inverters/) covers
+fixed 12 V, 24 V and 48 V banks with an integrated MPPT controller, and each
+product page lists the exact DC input range in the specification table.
+
+## Layer 2: the charge profile
+
+Voltage compatibility gets the system running; the charge profile decides
+whether the battery lives out its rated cycle life.
+
+| Parameter | Where it's set | What goes wrong if ignored |
+|---|---|---|
+| Absorption / charge voltage | Inverter charger menu | Set too high, the BMS disconnects on over-voltage; set too low, the bank never reaches 100% |
+| Charge current limit | Battery BMS → inverter | Current above the cell rating overheats the pack and ages it prematurely |
+| Float voltage | Inverter charger menu | Holding lithium at lead-acid float voltages keeps cells at high stress for nothing |
+| Temperature cutoff | Battery BMS | Charging below 0 °C plates lithium onto the anode — permanent capacity loss |
+
+The classic mistake is leaving the inverter's factory defaults, which are
+usually tuned for lead-acid: a 13.8 V float on a "12 V" bank, for example.
+LiFePO4 wants no float at all — it wants charge, then rest. If your inverter
+menu exposes a lithium battery type, select it; if not, set absorption and
+float to the values printed on the battery's datasheet and verify them with a
+meter after commissioning.
+
+## Layer 3: BMS communication
+
+Modern lithium packs carry a battery management system that monitors cell
+voltages, current and temperature, and that BMS can talk to the inverter over
+**CAN bus** or **RS485**. When the link is live, the inverter receives
+continuous instructions: the exact charge voltage, the current limits *right
+now* (which shrink when cells are cold or imbalanced), the true state of
+charge, and alarms.
+
+When the link is absent or mismatched, the inverter falls back to fixed
+manual settings — and four symptoms follow:
+
+1. **SOC drift.** The display shows 60% while the load dies, because the
+   inverter is guessing from voltage instead of reading the BMS.
+2. **Charge rejection.** The BMS limits current for a thermal reason; the
+   inverter, unaware, pushes full current until the BMS disconnects.
+3. **Mid-use shutdowns.** A protection event fires but never reaches the
+   inverter, so the system cuts out with no warning or logged fault.
+4. **Silent alarms.** High-temperature or over-current flags stay invisible
+   in the monitoring app.
+
+The subtle trap: a CAN plug that physically fits does not mean the protocols
+match. CAN defines how bits move on the wire; the *message map* — which
+register holds the SOC, which holds the charge limit — is where brands
+diverge. Always confirm the battery's protocol profile is explicitly
+supported by the inverter, and use the manufacturer's pinout, not a
+visually identical off-the-shelf cable.
+
+### Communication vs. manual settings
+
+| Aspect | BMS communication | Manual voltage settings |
+|---|---|---|
+| State of charge | Read directly from BMS | Estimated from voltage |
+| Current limits | Dynamic, follows temperature | Fixed values |
+| Protection response | Coordinated warning then shutdown | Inverter trips blindly |
+| Warranty position | Normally required for lithium | Often excluded |
+
+For any customer-facing installation, treat communication as required, not
+optional. Manual settings are acceptable for bench testing or emergency
+substitution with conservative limits.
+
+## A pre-purchase checklist
+
+Run this list before issuing a purchase order for a battery-inverter
+combination:
+
+- [ ] Battery full-charge voltage < inverter maximum DC input (with ≥ 1 V margin)
+- [ ] Battery protection cutoff > inverter minimum DC input (with ≥ 1 V margin)
+- [ ] Inverter max charge current ≤ battery BMS continuous charge rating
+- [ ] Inverter max discharge current ≤ battery BMS continuous discharge rating
+- [ ] Protocol profile (CAN or RS485) explicitly listed as supported by both sides
+- [ ] Communication cable pinout per manufacturer documentation
+- [ ] Charge parameters available in writing (absorption, float, cutoffs)
+- [ ] One bench test: full charge, full discharge, SOC display tracked at both ends
+
+The last item costs an afternoon and prevents the most expensive class of
+field failure — a system that works at the warehouse and misbehaves on the
+customer's wall.
+
+## How we support battery pairing
+
+Battery compatibility questions arrive at our sales engineering desk daily,
+because most of our B2B customers integrate third-party battery brands into
+their projects. Two things make that easier on our platforms:
+
+- **Wide, documented DC input windows.** The
+  [off-grid inverter series](/products/off-grid-inverters/) spans 900 W to
+  5000 W with 12–72 V input options, and the
+  [solar inverter series with built-in MPPT](/products/off-grid-solar-inverters/)
+  covers 12 V, 24 V and 48 V banks up to 11 kW of PV input — so the inverter
+  adapts to the battery, not the other way around.
+- **Commissioning support.** Our engineers review charge parameters and
+  communication settings for your specific battery model before shipment.
+  Send your pairing through the [contact form](/contact/) and we will confirm
+  the settings in writing.
+
+<FAQ
+  title="Battery-inverter compatibility — FAQ"
+  faq={[
+    { question: "Can I connect a lithium battery to an inverter designed for lead-acid?", answer: "Often yes, if you manually set the charge voltages to the lithium datasheet values and the DC input window covers the pack's full charge voltage. But without BMS communication you lose accurate SOC, dynamic current limits and coordinated alarms, so treat it as a fallback rather than a first choice." },
+    { question: "What happens if the CAN cable fits but the protocols differ?", answer: "The physical link may even pass an initial handshake, then fail silently — SOC stays frozen, charge limits never update, or a firmware update breaks the link later. The message map inside the protocol, not the connector, decides compatibility." },
+    { question: "Does the BMS replace a fuse or breaker?", answer: "No. The BMS protects the cells electronically; external fusing and a DC breaker protect the cables and disconnect fault current. A compliant installation needs both." },
+    { question: "Can I mix battery brands in one bank and talk to the inverter?", answer: "No. Parallel batteries must be the same model, firmware and age so their BMS units share load evenly. Mixed banks show up as circulating currents, SOC disagreement and premature BMS disconnects." },
+  ]}
+/>
