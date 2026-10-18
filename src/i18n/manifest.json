@@ -2433,6 +2433,52 @@
         "ko": "e56ac1a3781769a3c0e67a5b70b04ed19c04b901dbcd796e18b4f9764b9d2683"
       }
     },
+    "inverter-surge-power-motor-starting": {
+      "title": {
+        "es": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "zh-hant": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "fr": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "ar": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "pt": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "it": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "ru": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "ja": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "ko": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49"
+      },
+      "description": {
+        "es": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "zh-hant": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "fr": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "ar": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "pt": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "it": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "ru": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "ja": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "ko": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32"
+      },
+      "tags": {
+        "es": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "zh-hant": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "fr": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "ar": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "pt": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "it": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "ru": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "ja": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "ko": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd"
+      },
+      "body": {
+        "es": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "zh-hant": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "fr": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "ar": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "pt": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "it": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "ru": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "ja": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "ko": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894"
+      }
+    },
     "lithium-battery-inverter-compatibility": {
       "title": {
         "es": "30a67a826a304e1261a8443ce4ff6938fd70871790a7a8827fb9207e1d73797e",
