@@ -1,0 +1,205 @@
+---
+title: "Backup Generator Integration: Sizing and Configuring a Generator with Your Off-Grid Inverter"
+description: "A generator turns a weather-dependent off-grid system into an all-season one. How to size the genset, set AC input limits and auto-start thresholds, wire a single neutral-ground bond and commission the pair."
+publishDate: 2026-10-20
+author: "Zhongze Huasong"
+tags: ["Generator Integration", "Off-Grid", "System Design"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Solar and batteries carry an off-grid system most days, but every serious
+off-grid design still assumes a generator is somewhere in the picture. A
+week of monsoon cloud, a winter of short days, or a load that grew after
+handover — the generator is what converts those from "system failure" into
+"fuel cost". Yet generator integration is also where many otherwise good
+installs go wrong: an undersized genset that stalls when the charger kicks
+in, auto-start logic that short-cycles the engine to death, or a grounding
+arrangement that trips every RCD in the building. This guide covers the
+sizing, configuration and commissioning decisions that make the pairing
+work.
+
+## What the inverter's AC input actually does
+
+A pure DC-AC inverter has no generator input at all — it only converts
+battery power outward. An off-grid **solar inverter** (inverter-charger)
+has an AC input terminal that does two things when it detects a valid
+source:
+
+1. **Passes the AC through** (or closes an internal transfer relay) so the
+   generator powers the load panel directly, and
+2. **Charges the battery bank** from that same source through the internal
+   charger.
+
+This dual role drives every sizing rule below, because the generator is
+never just powering the loads and never just charging — it is doing both at
+once, at whatever power the charger has been configured to draw.
+
+## Sizing rule: charger demand plus concurrent loads
+
+The most common integration failure is pairing a small generator with a
+large inverter-charger at default settings. The charger is configured to
+pull, say, 60A AC — and a 3 kW genset stalls on the first charge cycle.
+
+Work the number honestly:
+
+`generator kW ≥ (charger AC watts ÷ power factor) + concurrent AC loads + 20% headroom`
+
+A worked example: a 48V battery bank charged at 40A DC during bulk phase
+draws roughly `48 × 40 = 1920W`, plus charger losses gives about 2100W of
+generator output consumed by charging alone. If the evening loads —
+lighting, a refrigerator, a water pump — run 1000W while the generator is
+on, the genset must deliver at least `2100 + 1000 = 3100W` continuous. With
+20% headroom, the honest spec is a **4 kW continuous** generator, not the
+"4 kVA peak" sticker on a machine that sustains 3 kW.
+
+Two habits that prevent chronic undersizing:
+
+- **Use the continuous rating, never the peak.** A "7 kVA" generator that
+  sustains 5.5 kW is a 5.5 kW generator for this purpose.
+- **Account for loads running during charging.** In practice the generator
+  is most often started in the evening when loads are on. Sizing for
+  "charging only" guarantees overload trips at exactly the wrong hour.
+
+There is a second, quieter benefit to adequate size: a well-loaded
+generator runs efficiently, but a heavily *over*loaded one sags in voltage
+and frequency. If the AC input drifts outside the inverter's acceptance
+window, the inverter rejects the source and the system oscillates between
+generator and battery — the classic "genset runs but nothing charges"
+complaint.
+
+## Choosing the generator type
+
+| Generator type | Output quality | Best fit | Watch out for |
+|---|---|---|---|
+| Inverter (variable-speed) genset | Clean sine wave, tight frequency regulation | Small systems, top-up charging, noise-sensitive sites | Usually capped at 2–4 kW continuous |
+| Conventional petrol | Acceptable, but voltage/frequency vary with load | Mid-size installs, cost-driven markets | Higher THD; keep sensitive electronics on the inverter side |
+| Diesel | Stable under sustained load, best fuel economy per kWh | 5 kW+ systems, daily or heavy seasonal runtime | Weight, servicing, fuel storage rules |
+
+Two electrical facts matter more than brand. First, **frequency stability**:
+the inverter's AC input typically accepts a narrow window around nominal
+frequency (roughly ±2 Hz on many units), and a conventional genset under a
+sudden load step can swing wider than that, triggering rejection. Second,
+**waveform quality**: high total harmonic distortion from a cheap genset
+can confuse the inverter's input detection just as thoroughly as a frequency
+drift. Inverter-type gensets sidestep both issues, which is why they dominate
+small installs despite their price.
+
+## Configure the AC input current limit
+
+Every serious inverter-charger lets you set an **AC input current limit** —
+the maximum the unit will draw from the generator for charging plus
+passthrough loads. This is not an optional trim; it is the mechanism that
+matches the charger to whatever genset is actually on site:
+
+- A 4 kW continuous generator at 230V single phase delivers about
+  `4000 × 0.8 ÷ 230 ≈ 14A` safely usable after the 80% continuous-load
+  derating.
+- With 1000W of expected concurrent loads (`1000 ÷ 230 ≈ 4A`), set the
+  input limit near `14 − 4 = 10A`, leaving roughly 2.3 kW for the charger.
+
+If the charger's maximum setting exceeds that, the inverter simply charges
+more slowly — which is exactly the right behavior. The alternative (no
+limit) is a stalled or tripping genset every bulk-charge cycle.
+
+Also set the **charger's charge profile** to match the battery bank — the
+voltage and current limits for lithium (usually communicated over BMS
+link) differ from sealed lead-acid three-stage charging. The generator
+integration is a good moment to verify this, because charging from a
+genset happens at higher, sustained currents than a cloudy-day solar
+trickle.
+
+## Auto-start: thresholds that keep the engine healthy
+
+Most off-grid solar inverters and system controllers can start the
+generator automatically through a dry-contact or CAN/RS485 command when the
+battery runs low, and stop it when the charge is done. Sensible defaults:
+
+- **Start trigger** — state of charge around **20–30%** (raise to 35% in
+  cold climates, where usable capacity shrinks), or the low-DC voltage
+  equivalent.
+- **Stop trigger** — **80–90% SoC**. Do not chase 100% with the generator:
+  the last 10% of a charge cycle is the slowest, and letting the sun finish
+  the bulk-to-absorption tail is free.
+- **Minimum run time** — **30–60 minutes**. Without it, a battery that
+  crosses the start threshold briefly causes start/stop/start churn that
+  wears the starter motor and never completes a full charge stage.
+- **Quiet hours** — block auto-start overnight where noise rules or sleeping
+  occupants apply, unless the battery genuinely cannot hold until morning.
+
+One wiring note that saves hours of debugging: run the generator start
+signal wire (typically low-voltage twisted pair) **separately from the AC
+power conductors**. Shared conduit couples switching noise into the start
+circuit and produces phantom start attempts.
+
+## One neutral-ground bond, only one
+
+Grounding is the most misunderstood part of generator integration, and the
+failure mode is loud: every RCD/GFCI in the building trips the moment the
+generator takes over.
+
+The rule: **an AC system must have exactly one neutral-to-ground bond, at
+the active source.** Many generators are shipped with their neutral bonded
+to the frame. Many inverter-chargers contain an internal transfer relay
+that bonds neutral to ground while inverting from battery, and opens that
+bond while passing external AC through. If both bonds are active at once,
+load current splits between the neutral conductor and the ground conductor,
+and the RCD reads the difference as a ground fault.
+
+Three workable arrangements:
+
+1. **Floating-neutral generator** feeding an inverter-charger whose internal
+   bond relay handles the transfer — the cleanest default, and the standard
+   configuration for systems designed around an inverter-charger.
+2. **Bonded generator + inverter with the internal relay configurable** —
+   disable the inverter's bond while external AC is present, so the
+   generator's bond becomes the single reference during generator hours.
+3. **A transfer scheme that switches the neutral** — necessary when neither
+   device manages the bond dynamically.
+
+Whichever arrangement applies, verify it rather than assume it: with the
+system running from the generator, measure between neutral and ground at an
+outlet. Expect roughly 0V. A reading of tens of volts indicates a floating
+neutral (no active bond); RCD trips indicate a double bond. Both are
+wiring fixes, not equipment faults — and both are far cheaper to fix during
+commissioning than during a warranty call. Local electrical code governs
+the details; treat the above as engineering practice, not a code citation.
+
+## Commissioning checklist for the pair
+
+- [ ] Generator continuous output documented, AC input current limit set to match
+- [ ] Charge profile matches the installed battery chemistry
+- [ ] Full-load test: generator carries charging *and* expected concurrent loads for 30+ minutes without tripping
+- [ ] Auto-start trigger verified by forcing the SoC/voltage condition
+- [ ] Minimum run time set; start/stop cycle observed once end to end
+- [ ] Neutral-ground bond present exactly once in each source mode (inverter mode *and* generator mode)
+- [ ] RCDs hold under both sources
+- [ ] Frequency/voltage acceptance window respected at the genset's worst load step
+
+The full-load test is the one that finds real problems. A genset that runs
+clean at no load and stalls at 80% load is a sizing error the customer
+would otherwise discover during the first rainstorm.
+
+## How we help
+
+Our [off-grid solar inverters](/products/off-grid-solar-inverters/) in the
+1.5–11 kVA range are inverter-chargers with an AC input built for
+generator or utility charging, with 12V to 48V battery bank options across
+the series — see models such as the [VM 3K on a 24V bank](/products/off-grid-solar-inverters/)
+or the [MKS II 5K on 48V](/products/off-grid-solar-inverters/). For
+systems without a solar charge stage, the standalone
+[off-grid inverters](/products/off-grid-inverters/) cover 0.9–5 kW with
+12V to 72V DC input. Browse the [full catalog](/products/), or send our
+sales engineers your battery bank voltage, charger requirements and
+generator size — we will confirm the input current limit and charge
+settings before you ship.
+
+<FAQ
+  title="Generator Integration — FAQ"
+  faq={[
+    { question: "How big should the generator be relative to the inverter-charger?", answer: "Size from the charger demand plus concurrent loads, not from the inverter's rated output. As a working rule, a generator with continuous output equal to the charger's AC draw at bulk current plus the evening loads, plus 20% headroom. A 5 kVA-class inverter-charger charging at moderate current typically pairs with a 4–6 kW continuous generator." },
+    { question: "Can I run the system without a generator at all?", answer: "Yes — the AC input is optional. The system runs from PV and battery alone, and the generator simply raises availability during extended poor weather. Many minimum-budget installs leave generator integration uninstalled but design the wiring so one can be added later." },
+    { question: "Why does my RCD trip only when the generator is running?", answer: "Almost always a double neutral-ground bond: the generator bonds neutral to its frame while the inverter-charger's internal bond is also active during passthrough. Load current leaks onto the ground conductor and the RCD sees an imbalance. Resolve it with a floating-neutral generator or by configuring the inverter's ground relay behavior, and verify only one bond exists in each source mode." },
+    { question: "What SoC thresholds should auto-start use?", answer: "A common starting point is start at 20–30% SoC and stop at 80–90%, with a 30–60 minute minimum run time to prevent short-cycling. Raise the start threshold in cold climates and add quiet-hour restrictions where overnight noise is a concern." },
+  ]}
+/>

@@ -2441,6 +2441,7 @@
         "ar": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
         "pt": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
         "it": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
+        "de": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
         "ru": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
         "ja": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49",
         "ko": "97f4da7a8e3bbb20cfabed19d9c84e267e59b61b7104a4f173a45e55738bcf49"
@@ -2452,6 +2453,7 @@
         "ar": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
         "pt": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
         "it": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
+        "de": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
         "ru": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
         "ja": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32",
         "ko": "2b50be78b51a04198b8038ba90b82e101f553a18b5fa27be150ffea12f309f32"
@@ -2463,6 +2465,7 @@
         "ar": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
         "pt": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
         "it": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
+        "de": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
         "ru": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
         "ja": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd",
         "ko": "e9f2fbffee9de9731dc6694b94a912129b090468e414110fd179d92c2bb99dcd"
@@ -2474,6 +2477,7 @@
         "ar": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
         "pt": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
         "it": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
+        "de": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
         "ru": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
         "ja": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894",
         "ko": "fca4b485897eac568b1ea0ad298a22c2e1949aed5d539b86a7efd1aa6ce3f894"
@@ -2727,6 +2731,56 @@
         "ru": "b06e1edfffb8fc37c6725b561c06c9a2ad8e1e40b4dbd55bbbe93dd2cf3c1f94",
         "ja": "b06e1edfffb8fc37c6725b561c06c9a2ad8e1e40b4dbd55bbbe93dd2cf3c1f94",
         "ko": "b06e1edfffb8fc37c6725b561c06c9a2ad8e1e40b4dbd55bbbe93dd2cf3c1f94"
+      }
+    },
+    "off-grid-generator-integration": {
+      "title": {
+        "es": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "zh-hant": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "fr": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "ar": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "pt": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "it": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "de": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "ru": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "ja": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de",
+        "ko": "8cadc8198129329c44d2a7457acbc131d08de8b8621e67f4f2a46b36ccf754de"
+      },
+      "description": {
+        "es": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "zh-hant": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "fr": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "ar": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "pt": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "it": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "de": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "ru": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "ja": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2",
+        "ko": "53008d6776c018ae98696239e38696445ffacdf833bef02766795fa4ea4beaf2"
+      },
+      "tags": {
+        "es": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "zh-hant": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "fr": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "ar": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "pt": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "it": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "de": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "ru": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "ja": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6",
+        "ko": "64dab98f9e7b2bba7bd46ebeead605c66cada68dda50f937dfcbdfa4dc1210f6"
+      },
+      "body": {
+        "es": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "zh-hant": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "fr": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "ar": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "pt": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "it": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "de": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "ru": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "ja": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738",
+        "ko": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738"
       }
     },
     "off-grid-inverter-installation-guide": {
