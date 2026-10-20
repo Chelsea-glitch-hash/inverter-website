@@ -1,0 +1,133 @@
+---
+title: "Sizing a Solar Water Pumping System: Head, Flow and the Right Inverter for the Job"
+description: "Solar pumping fails on mismatched hydraulics, not on brand names. How to work out total dynamic head, daily water demand, pump and inverter sizing, array oversizing and the operating choices between a dedicated solar pump inverter, a VFD and a battery-based off-grid inverter."
+publishDate: 2026-10-21
+author: "Zhongze Huasong"
+tags: ["solar water pump", "off-grid", "system sizing"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Water is the load that off-grid solar gets wrong most often. A household that survived years on a modest battery bank can be brought to its knees by one borehole pump that draws more at startup than everything else in the house combined — or by an inverter that is electrically fine but hydraulically undersized, delivering a trickle where the well was supposed to yield a river.
+
+Pumping is also one of the best fits for solar there is. Demand for water rises when the sun shines, storage is cheap if you store water instead of electricity, and the load tolerates variable output. But getting there requires sizing the system as a hydraulic chain first and an electrical one second. This guide walks through that chain: head, flow, pump choice, inverter choice, array sizing and the protection settings that keep a pump alive for a decade.
+
+## Start With Water, Not Watts
+
+Every sizing error we see in the field traces back to skipping this step. Before touching any inverter datasheet, write down two numbers:
+
+- **Daily water demand.** A household of five typically needs 3–5 m³ per day including cooking, washing and sanitation. Cattle need roughly 30–60 liters per head per day; drip-irrigated vegetables land in the range of 3–6 m³ per hectare per day depending on climate and crop stage.
+- **When the water is needed.** Water pumped at noon into a tank can be used at night. If storage covers one to two days of demand, the electrical system can coast through cloudy spells without a backup source — which changes everything about how big the battery (if any) needs to be.
+
+The tank is the quiet hero of solar pumping. Pumping into elevated or even ground-level storage converts a variable solar input into a constant supply, exactly the way a battery does for a household system — except a tank costs a fraction of the price per kWh of buffering it provides.
+
+## Total Dynamic Head: The Number That Decides Everything
+
+The single most common mistake in pump sizing is treating the well depth as the pumping height. The pump does not lift water from the bottom of the borehole; it lifts from the **water surface**, which sits somewhere above the pump intake and drops further while the pump runs.
+
+Total dynamic head (TDH) is the sum of four components, expressed in meters of vertical lift:
+
+1. **Static water level** — the vertical distance from the pump down to the water surface at rest.
+2. **Drawdown** — the additional drop of that water level once pumping starts. In a slow-recharging aquifer, drawdown alone can add 20–40 m of effective lift.
+3. **Delivery elevation** — the height from the wellhead up to the tank or the highest emission point.
+4. **Friction losses** — the pressure consumed by pipe walls, elbows, check valves and fittings, converted back into meters of equivalent lift. For a reasonably sized pipe this is typically 5–10% of the vertical components.
+
+Worked example: a borehole with a static water level of 35 m, drawdown of 10 m while pumping, and a tank on a small rise 8 m above the wellhead. Friction on a well-chosen riser pipe adds about 5 m. The pump is not fighting 35 m — it is fighting 35 + 10 + 8 + 5 = **58 m of TDH**.
+
+Hydraulic power then follows from flow and head:
+
+| Daily volume | TDH | Hydraulic energy |
+| --- | --- | --- |
+| 5 m³ | 58 m | ≈ 0.8 kWh |
+| 5 m³ | 30 m | ≈ 0.4 kWh |
+| 20 m³ | 58 m | ≈ 3.2 kWh |
+
+The conversion is roughly: hydraulic energy (kWh) = volume (m³) × TDH (m) × 2.725 ÷ 3600 ÷ pump efficiency. With a realistic wire-to-water efficiency of 40–55% for small submersibles, that 5 m³ / 58 m duty actually costs 1.5–2.0 kWh of electricity per day. That — not the nameplate kilowatts of the pump — is what the solar array must supply.
+
+## Choosing the Pump: Submersible vs Surface
+
+Once TDH and daily volume are known, pump selection becomes a lookup against manufacturer pump curves rather than guesswork:
+
+- **Submersible borehole pumps** suit deep wells where the static water level sits more than about 7–8 m below the pump location — beyond the suction lift of any surface pump. They push rather than pull, tolerate long riser pipes, and are the default for boreholes deeper than 15 m.
+- **Surface centrifugal pumps** suit shallow sources: rivers, ponds, shallow wells and transfer duties between tanks. They are cheaper, easier to service and easier to oversize for flow, but they cavitate and lose prime if asked to lift more than their suction limit.
+- **Helical rotor (progressive cavity) pumps** earn their place on low-flow, high-head duties — the combination where centrifugal impellers waste most of their energy.
+
+Match the pump so that its curve intersects your duty point (TDH on the vertical axis, required flow on the horizontal axis) near the middle of its efficiency island. A pump chosen far off its best-efficiency point either cavitates and dies young or burns electricity moving water inefficiently.
+
+## Three Electrical Architectures — and When Each Fits
+
+This is where inverter choice actually begins. Solar pumping can be wired three ways, and they are not interchangeable:
+
+**1. Dedicated solar pump inverter (VFD with MPPT).** The array connects to a drive that tracks maximum power and varies the motor speed with available sunlight. No batteries, no charge controller, no battery-based inverter. The pump simply slows down when clouds pass. This is the cheapest architecture per cubic meter pumped in sunny climates and the standard choice for irrigation and livestock duties where "water by sunset" is the requirement. Many such drives include dry-run protection that stops the pump when the well is pumped below its recharge rate — essential protection, because a submersible running dry cooks its seals in minutes.
+
+**2. Battery-based off-grid inverter.** The pump hangs off an AC-coupled inverter fed by a battery bank, as in any household system. This is the right answer when water must be available on demand at pressure — pressurized household plumbing, or a borehole that must also fill a pressure tank — or when the same system powers the house. The trade-off is cost: the battery must be sized to start and run the pump after dark or during cloudy weather, and motor starting surge must fit the inverter's surge rating.
+
+**3. Hybrid arrangement.** An off-grid solar inverter with a built-in MPPT charge controller powers household loads and the pump from battery and PV together, with a generator input as backup. For homesteads that combine domestic water with irrigation, this single-system approach often beats operating two separate systems.
+
+For deep-well submersible duties, one electrical subtlety matters regardless of architecture: many submersible motors are **three-phase** machines even at small power ratings, because three-phase motors are simpler, cheaper and more robust than single-phase ones at depth. Solar pump inverters output three-phase by design; a battery-based single-phase inverter would need a phase converter or a single-phase-rated pump. Check the motor nameplate before buying anything.
+
+## Sizing the Inverter: Current First, Kilowatts Second
+
+An electric motor is a ruthless customer. It draws locked-rotor current at startup — commonly 4–7 times its full-load current for a direct-on-line start — and a submersible motor, with tight mechanical tolerances and a column of water standing on its discharge, starts harder than a surface pump of the same rating.
+
+Two sizing rules keep you out of trouble:
+
+- **Size by full-load current (FLA), not nameplate kilowatts.** Submersible motors of the same kilowatts draw noticeably more current than surface motors — their power factor is lower (typically 0.7–0.8) and their efficiency a few points worse. A drive rated in kilowatts alone may carry the motor's watts but trip on its amps.
+- **Leave 20–25% current headroom.** If the motor nameplate states 17.5 A full load, the inverter's continuous output rating should be at least about 21 A. The buffer absorbs hot-afternoon thermal derating of the drive and the worst-case starting conditions of an aging pump.
+
+Then check the surge. A 750 W submersible pump with a direct-on-line start at six times full load briefly demands around 4.5 kVA. A battery-based inverter must supply that on top of whatever else is running. Two levers shrink the surge if it does not fit:
+
+- A **soft starter** or VFD ramp on the pump cuts starting current from 6× down to roughly 1.5–2× of full load — often the difference between a 3 kVA and a 6 kVA inverter.
+- A **staggered start** — interlock so the pump cannot start while other large loads run — costs almost nothing and removes the worst coincidence.
+
+For long cable runs between the drive and the pump, respect the physics of reflected waves: beyond roughly 100 m of drop cable, PWM voltage spikes can double at the motor terminals and stress winding insulation. An output reactor sized by the drive manufacturer is cheap insurance compared with fishing a burned pump out of a borehole.
+
+## Sizing the Array: Oversize Deliberately
+
+A pumping array is not sized to match the pump's nameplate. It is sized to wake up early, track through thin cloud, and still be filling the tank in the late afternoon. Field practice for dedicated solar pump drives:
+
+- **Array power ≈ 1.3–1.5 × pump input power** for reliable all-day pumping. A 1.5 kW pump duty typically pairs with a 2.0–2.2 kW array.
+- **Obey the voltage window.** The array's Vmp must sit inside the drive's MPPT range and its cold-weather Voc must stay below the drive's maximum DC input — the same discipline as sizing any MPPT system, which we cover in depth in [the MPPT voltage window guide](/blog/mppt-voltage-window-pv-string-sizing/).
+- **Expect a slow morning and a slow afternoon.** A fixed array without oversizing wakes the drive near mid-morning and releases it before late afternoon; the pump runs hard for only a few hours. The oversizing factor above is what buys the full pumping day.
+
+If the system is battery-based instead, the array is sized by daily energy: the 1.5–2.0 kWh daily duty from our worked example, divided by local sun hours and a system efficiency of about 0.7, needs roughly a 450–650 W array in a 4-sun-hour climate — the same arithmetic as any off-grid household, for which we have a [dedicated sizing worksheet](/blog/how-many-solar-panels-for-off-grid/).
+
+## Protection Settings That Keep the Pump Alive
+
+A correctly sized system still dies an early death if the protections are misconfigured. Four settings matter most:
+
+- **Dry-run protection.** Enable it on dedicated pump drives; emulate it on battery systems with a float switch or a level sensor in the well. A submersible that pumps its well below the recharge rate overheats within minutes — the single most common way solar pumps are killed.
+- **Under/over-voltage and frequency windows** on AC-coupled systems, so a failing generator or a browned-out grid connection cannot feed the motor bad power.
+- **Soft-start ramp time** — long enough to keep starting current civilized, short enough that the drive does not linger at low frequency where submersible thrust bearings and cooling flow are compromised. As a rule of thumb, do not let a borehole pump idle below roughly 30 Hz.
+- **Full-tank shutoff.** A float switch in the storage tank that stops the pump when the tank is full — or a drive feature that throttles to a trickle instead of hard-stopping — keeps the system productive instead of cycling.
+
+## Commissioning Checklist: One Afternoon, Ten Minutes
+
+Before handing over the system, run this sequence:
+
+1. Measure the static water level and confirm the calculated TDH against reality.
+2. Verify array Voc on a cool morning against the drive's maximum input rating — it must pass with margin.
+3. Start the pump at midday and log DC input, AC output current and frequency at three irradiance levels (morning, noon, late afternoon).
+4. Confirm dry-run stop by throttling the flow or testing the level sensor — deliberately, not accidentally.
+5. Check that the tank full-float stops the pump, and that the pump restarts automatically when the level drops.
+6. Record nameplate FLA against drive output setting, and leave the datasheets in the control cabinet.
+
+Ten minutes of measurements on commissioning day is the cheapest insurance the system will ever get.
+
+## Frequently Asked Questions
+
+<FAQ
+  title="Solar Water Pumping FAQ"
+  faq={[
+    { question: "Can I run a borehole pump directly from solar panels without batteries?", answer: "Yes — with a dedicated solar pump inverter (a VFD with MPPT input). This is the most common and most economical architecture for irrigation and livestock watering. The pump speed follows available sunlight, and an elevated storage tank provides buffering. Batteries are only needed when water must be delivered on demand at pressure, or when the pump shares a household backup system." },
+    { question: "Why does my pump trip the inverter at startup even though the wattage is well below the rating?", answer: "Starting current, not running watts, is what trips drives. A direct-on-line motor start draws 4–7 times full-load current for a second or two. Size the inverter by full-load current with 20–25% headroom, check its surge rating against the locked-rotor demand, or fit a soft starter to cut the starting current." },
+    { question: "How big should the solar array be compared to the pump?", answer: "For dedicated solar pump drives, plan on 1.3–1.5 times the pump's input power in array watts. The oversizing extends the pumping day into morning and afternoon instead of concentrating output at noon, and keeps the drive tracking through cloud transients. Always verify the array's Vmp sits inside the drive's MPPT window and that cold-weather Voc stays below the maximum DC input." },
+    { question: "What kills solar water pumps in practice?", answer: "Dry running. A submersible pumping its well below the recharge rate loses cooling and lubrication within minutes and burns its seals and windings. Enable the drive's dry-run protection or install a well level sensor, and set the full-tank float so the system throttles or stops rather than cycling against a closed head." },
+  ]}
+/>
+
+## Bringing It Together
+
+A solar pumping system succeeds or fails on three numbers established in order: **total dynamic head**, **daily water volume**, and **full-load current**. Get those three right and the pump, inverter and array practically select themselves; skip them and no amount of datasheet comparison will save the project.
+
+Our off-grid solar inverter lines — from the compact VM series with 90–430 Vdc MPPT windows for small household duties, through the MKS II 5K at 5 kVA with a 120–430 Vdc MPPT range, up to the SC-MAX 8 kW for combined household and pumping loads — cover the battery-based architectures described above. For dedicated irrigation pumping in sunny climates, the no-battery solar pump inverter route with an elevated tank remains the lowest cost per cubic meter. Either way, the hydraulic homework comes first: [browse our off-grid solar inverter range](/products/off-grid-solar-inverters/) or [contact our engineering team](/contact/) with your head and flow numbers, and we will help you match the drive to the duty.
