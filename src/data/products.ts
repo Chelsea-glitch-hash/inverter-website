@@ -1441,6 +1441,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 348 × 270 × 95 mm and the unit weighs 4 kg.",
       },
     ],
+    seo: {
+      title: "VM 1.5K Off-Grid Solar Inverter",
+      description: "VM 1.5K off-grid solar inverter rated at 1500VA / 1500W for 12V battery banks, with a 90Vdc–430Vdc MPPT range in a 4 kg housing. Specifications and quotation on request.",
+    },
   },
   {
     id: "INV-014",
@@ -1495,6 +1499,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 348 × 270 × 95 mm and the unit weighs 5 kg.",
       },
     ],
+    seo: {
+      title: "VM 3K Off-Grid Solar Inverter",
+      description: "VM 3K off-grid solar inverter: 3000VA / 3000W output for 24V battery banks, with the VM series 90Vdc–430Vdc MPPT window and a 5 kg enclosure. Bulk supply on request.",
+    },
   },
   {
     id: "INV-015",
@@ -1553,6 +1561,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 355 × 272 × 100 mm and the unit weighs 6.9 kg.",
       },
     ],
+    seo: {
+      title: "SC-PS 3K Off-Grid Solar Inverter",
+      description: "SC-PS 3K off-grid solar inverter rated at 3000VA / 2400W for 24V battery systems, in a 355 × 272 × 100 mm housing weighing 6.9 kg. Contact us for specifications and quotation.",
+    },
   },
   {
     id: "INV-016",
@@ -1607,6 +1619,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 480 × 310 × 125 mm and the unit weighs 11 kg.",
       },
     ],
+    seo: {
+      title: "MKS II 5K Off-Grid Solar Inverter",
+      description: "MKS II 5K off-grid solar inverter: 5000VA / 5000W on a 48V battery bank, with a 120Vdc–430Vdc MPPT range and an 11 kg enclosure. Bulk pricing on request.",
+    },
   },
   {
     id: "INV-017",
@@ -1662,6 +1678,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 468 × 295 × 120 mm and the unit weighs 11 kg.",
       },
     ],
+    seo: {
+      title: "SCMK 3K-24V Off-Grid Solar Inverter",
+      description: "SCMK 3K-24V off-grid solar inverter delivering 3000VA / 2400W on a 24V battery bank, with a 30Vdc–80Vdc MPPT range in an 11 kg enclosure. Wholesale pricing on request.",
+    },
   },
   {
     id: "INV-018",
@@ -1716,6 +1736,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 9.5 kg.",
       },
     ],
+    seo: {
+      title: "SC-VM III 3.5KW Off-Grid Solar Inverter",
+      description: "SC-VM III 3.5KW off-grid solar inverter rated at 3500VA / 3500W for 24V battery banks, pairing a 120Vdc–450Vdc MPPT range with a 9.5 kg enclosure. Configuration options on request.",
+    },
   },
   {
     id: "INV-019",
@@ -1770,6 +1794,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 10.5 kg.",
       },
     ],
+    seo: {
+      title: "SC-VM III 5.5KW Off-Grid Solar Inverter",
+      description: "SC-VM III 5.5KW: the 48V model of the SC-VM III series, rated at 5500VA / 5500W with a 120Vdc–450Vdc MPPT range and a 10.5 kg enclosure. Bulk orders and quotations on request.",
+    },
   },
   {
     id: "INV-020",
@@ -1824,6 +1852,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 422.8 × 313.6 × 119 mm and the unit weighs 9.2 kg.",
       },
     ],
+    seo: {
+      title: "VMIV 3.6KW Off-Grid Solar Inverter",
+      description: "VMIV 3.6KW off-grid solar inverter delivering 3600VA / 3600W from a 24V battery bank, with a 120Vdc–450Vdc MPPT range in a 9.2 kg enclosure. Bulk pricing on request.",
+    },
   },
   {
     id: "INV-021",
@@ -1878,6 +1910,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 422.8 × 313.6 × 119 mm and the unit weighs 10.5 kg.",
       },
     ],
+    seo: {
+      title: "VMIV 5.6KW Off-Grid Solar Inverter",
+      description: "VMIV 5.6KW off-grid solar inverter: 5600VA / 5600W for 48V battery banks, with a 120Vdc–450Vdc MPPT range. Weighs 10.5 kg. Wholesale quotation on request.",
+    },
   },
   {
     id: "INV-022",
@@ -1932,6 +1968,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 19 kg.",
       },
     ],
+    seo: {
+      title: "SC-MAX 8KW Off-Grid Solar Inverter",
+      description: "SC-MAX 8KW off-grid solar inverter rated at 8000VA / 8000W for 48V battery banks, with an 80Vdc–450Vdc MPPT range and a 19 kg enclosure. Bulk supply details on request.",
+    },
   },
   {
     id: "INV-023",
@@ -1986,6 +2026,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 19 kg.",
       },
     ],
+    seo: {
+      title: "SC-MAX 11KW Off-Grid Solar Inverter",
+      description: "SC-MAX 11KW: an 11000VA / 11000W off-grid solar inverter for 48V battery banks, sharing the SC-MAX platform and its 80Vdc–450Vdc MPPT range. Weighs 19 kg. Wholesale pricing on request.",
+    },
   },
   {
     id: "INV-024",
@@ -2040,6 +2084,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
       },
     ],
+    seo: {
+      title: "VM IV 4K BOX Off-Grid Solar Inverter",
+      description: "VM IV 4K BOX off-grid solar inverter: 4000VA / 4000W for 24V battery banks, with a 60Vdc–450Vdc MPPT range and a 9 kg enclosure. Configuration options on request.",
+    },
   },
   {
     id: "INV-025",
@@ -2094,6 +2142,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
       },
     ],
+    seo: {
+      title: "VM IV 6K BOX Off-Grid Solar Inverter",
+      description: "VM IV 6K BOX off-grid solar inverter: 6000VA / 6000W for 48V battery banks, with the BOX series 60Vdc–450Vdc MPPT range in a 10 kg enclosure. Contact us for a quotation.",
+    },
   },
   {
     id: "INV-026",
@@ -2148,6 +2200,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
       },
     ],
+    seo: {
+      title: "VM IV 4.2KW Off-Grid Solar Inverter",
+      description: "VM IV 4.2KW off-grid solar inverter rated at 4200VA / 4200W for 24V battery banks, with a 60Vdc–450Vdc MPPT range. Specifications and quotation on request.",
+    },
   },
   {
     id: "INV-027",
@@ -2206,6 +2262,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
       },
     ],
+    seo: {
+      title: "VM IV 6.2KW Off-Grid Solar Inverter",
+      description: "VM IV 6.2KW off-grid solar inverter: the higher-output VM IV model at 6200W for 48V battery banks, with a 60Vdc–450Vdc MPPT range. Specifications and pricing on request.",
+    },
   },
   {
     id: "INV-028",
@@ -2260,6 +2320,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 480 × 310 × 125 mm and the unit weighs 12 kg.",
       },
     ],
+    seo: {
+      title: "VII 5KW Off-Grid Solar Inverter",
+      description: "VII 5KW off-grid solar inverter rated at 5000VA / 5000W for 48V battery banks, with a 120Vdc–430Vdc MPPT range and a 12 kg enclosure. Bulk supply and pricing on request.",
+    },
   },
   {
     id: "INV-029",
@@ -2314,6 +2378,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 9 kg.",
       },
     ],
+    seo: {
+      title: "VMIV 4KW Off-Grid Solar Inverter",
+      description: "VMIV 4KW: a 4000VA / 4000W off-grid solar inverter on a 24V battery bank with a 60Vdc–450Vdc MPPT range, in a 9 kg enclosure. Contact us for a quotation and full specifications.",
+    },
   },
   {
     id: "INV-030",
@@ -2368,6 +2436,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 470 × 305 × 125 mm and the unit weighs 10 kg.",
       },
     ],
+    seo: {
+      title: "VMIV 6KW Off-Grid Solar Inverter",
+      description: "VMIV 6KW off-grid solar inverter rated at 6000VA / 6000W for 48V battery banks, with a 60Vdc–450Vdc MPPT range. Weighs 10 kg. Wholesale supply details on request.",
+    },
   },
   {
     id: "INV-031",
@@ -2422,6 +2494,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 537 × 390 × 130 mm and the unit weighs 14.45 kg.",
       },
     ],
+    seo: {
+      title: "VII 10.5KW Off-Grid Solar Inverter",
+      description: "VII 10.5KW off-grid solar inverter rated at 10500VA / 10500W on a 48V battery bank, with a 90Vdc–500Vdc MPPT range and a 14.45 kg enclosure. Bulk quotation on request.",
+    },
   },
   {
     id: "INV-032",
@@ -2476,6 +2552,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 20 kg.",
       },
     ],
+    seo: {
+      title: "SC-MAX 8KWII Off-Grid Solar Inverter",
+      description: "SC-MAX 8KWII off-grid solar inverter: 8000VA / 8000W output for 48V battery banks, with an 80Vdc–450Vdc MPPT range in a 20 kg enclosure. Configuration details on request.",
+    },
   },
   {
     id: "INV-033",
@@ -2530,6 +2610,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 600 × 425 × 150 mm and the unit weighs 21 kg.",
       },
     ],
+    seo: {
+      title: "SC-MAX 11KWII Off-Grid Solar Inverter",
+      description: "SC-MAX 11KWII off-grid solar inverter rated at 11000VA / 11000W for 48V battery banks, with an 80Vdc–450Vdc MPPT range. Weighs 21 kg. Wholesale supply on request.",
+    },
   },
   {
     id: "INV-034",
@@ -2584,6 +2668,10 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 9.5 kg.",
       },
     ],
+    seo: {
+      title: "VMII Plus 3.5KW Off-Grid Solar Inverter",
+      description: "VMII Plus 3.5KW off-grid solar inverter delivering 3500VA / 3500W on a 24V battery bank, with a 120Vdc–450Vdc MPPT range in a 9.5 kg enclosure. Specifications and quotation on request.",
+    },
   },
   {
     id: "INV-035",
@@ -2638,5 +2726,9 @@ export const PRODUCTS: Product[] = [
         answer: "The enclosure measures 465 × 305 × 110 mm and the unit weighs 10.5 kg.",
       },
     ],
+    seo: {
+      title: "VMII Plus 5.5KW Off-Grid Solar Inverter",
+      description: "VMII Plus 5.5KW: the 48V model of the VMII Plus series, rated at 5500VA / 5500W with a 120Vdc–430Vdc MPPT range and a 10.5 kg enclosure. Quotation on request.",
+    },
   },
 ];
