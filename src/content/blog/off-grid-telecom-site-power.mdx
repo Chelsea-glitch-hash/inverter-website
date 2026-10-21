@@ -1,0 +1,220 @@
+---
+title: "Powering Remote Telecom and Monitoring Sites with Solar Inverters: A Design Guide for 24/7 Unattended Loads"
+description: "A telecom site load is small but can never go dark. How to size PV, battery autonomy and inverter capacity for unattended off-grid sites — load audit, worst-month array sizing, recharge recovery, hybrid inverter selection and commissioning checks."
+publishDate: 2026-10-22
+author: "Zhongze Huasong"
+tags: ["Telecom Power", "Off-Grid", "System Design"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+A household off-grid system gets a second chance every morning: if the
+batteries run low, the family turns something off. A remote telecom tower,
+a microwave relay shelter, a pipeline monitoring station or a border
+surveillance cabinet has no such luxury. The load is modest — often just a
+few hundred watts of radio equipment, backhaul, controllers and security
+devices — but it must stay online around the clock, in every season, with
+nobody on site to shed demand or restart a tripped breaker. That single
+constraint changes the entire sizing methodology. This guide walks through
+the design decisions that separate a telecom power system that quietly runs
+for years from one that generates monthly site visits.
+
+## What makes an unattended site a different design problem
+
+Three properties distinguish telecom and monitoring loads from residential
+off-grid work:
+
+1. **The load is continuous, not schedule-based.** Radio equipment draws
+   its rated power 24 hours a day. There is no "evening peak" to design
+   around because the peak *is* the average, and the daily energy figure
+   is simply average watts × 24. A site averaging 600W consumes
+   `0.6 × 24 = 14.4 kWh` per day — every day, in December as in July.
+2. **Availability is contractual.** Operators typically specify uptime
+   targets of 99.9% or better. The power system, not the radio, is almost
+   always what breaches that number.
+3. **Failed energy means failed service, not discomfort.** An undersized
+   home system means candles; an undersized telecom site means dropped
+   links, missed alarms, and a truck roll over roads that may be washed
+   out precisely when the site is down.
+
+The design consequence: telecom sizing is driven by the **worst month** of
+solar resource and by **recharge recovery time**, not by annual averages.
+
+## Step 1 — Build the load inventory from real data
+
+For an existing site, log the load for at least a full week — longer if
+cooling or traffic-dependent demand varies seasonally. For a new site,
+build a 24-hour load plan from equipment datasheets:
+
+| Load | Typical draw | Duty | Notes |
+|---|---|---|---|
+| Radio / baseband unit | 100–400W | Continuous | Varies with traffic and temperature |
+| Microwave or fiber backhaul | 30–100W | Continuous | Include both ends' share if split |
+| Router / switch | 10–30W | Continuous | |
+| Security & lighting | 20–60W | Intermittent | Often DC, sometimes AC |
+| Cooling / cabinet fans | 50–300W | Seasonal, duty-cycled | The wild card — measure it |
+| Maintenance equipment | 500–2000W | Occasional | AC outlets for service visits |
+
+Two rules that save rework later:
+
+- **Keep DC and AC loads separate in the inventory.** Many telecom loads
+  are natively DC and can be fed from the battery bus directly, which
+  skips an inefficient conversion stage. The inverter only needs to carry
+  the genuinely AC loads — cooling, tools, AC-powered auxiliary equipment.
+- **Capture peak and inrush separately from energy.** Interval energy
+  logging misses short surges. If the site includes AC cooling
+  compressors or a pump, their starting surge sizes the inverter, not the
+  daily kWh figure. (We cover motor-start sizing in detail in
+  [our surge power guide](/blog/inverter-surge-power-motor-starting/).)
+
+## Step 2 — Size the array on the worst month, not the average
+
+The classic residential shortcut — annual average sun hours with a
+derating factor — fails on unattended sites, because the worst month is
+structurally worse than the average and there is no human load-shedding
+to absorb the deficit. Size the array month by month:
+
+`array kWp = daily energy kWh ÷ (worst-month peak sun hours × performance ratio)`
+
+Use a performance ratio of **0.6–0.7** for a first pass on unattended
+sites — it stacks temperature losses, dust and soiling, wiring and
+conversion losses, battery round-trip loss and, critically in cold
+climates, winter heating draw. Refine with site-specific data before
+final design.
+
+Worked example: a 600W continuous site needs 14.4 kWh/day. In a region
+with a worst-month (December) plane-of-array figure of 3.5 peak sun hours:
+
+`14.4 ÷ (3.5 × 0.65) ≈ 6.3 kWp`
+
+Compare that with sizing on the annual average of 4.8 sun hours, which
+would suggest only 4.6 kWp — a system that performs beautifully for nine
+months and drops the link every December. If the site serves a latitudinal
+or monsoon climate, checking every month's balance (not just the darkest)
+is essential, because heating loads and snow soiling shift which month is
+actually the constraint.
+
+## Step 3 — Battery autonomy and the recharge window
+
+Autonomy for a telecom site is not a comfort preference; it is the
+difference between a cloudy week and an outage ticket. Sizing:
+
+`bank kWh = daily energy × autonomy days ÷ (usable DoD × discharge-path efficiency)`
+
+For the 14.4 kWh/day example with **3 days autonomy** at 80% depth of
+discharge and 95% discharge efficiency:
+
+`14.4 × 3 ÷ (0.8 × 0.95) ≈ 57 kWh`
+
+Three telecom-specific considerations:
+
+- **Autonomy replaces the generator on many sites.** Where fuel logistics
+  are expensive or access is seasonal, extending autonomy from 2 to 3–5
+  days of lithium storage often beats adding a genset — no fuel to haul,
+  no engine to service, nothing to fail at 3 a.m.
+- **Recharge recovery matters as much as autonomy.** After a deficit
+  event, the array must both carry the load *and* replace the missing
+  charge within one (at most two) good sun days. Verify the worst-month
+  array surplus covers the deficit plus recovery; otherwise the battery
+  slowly sinks into chronic undercharge and the BMS starts curtailing.
+- **Low-temperature charging limits** apply to lithium banks in cold
+  shelters. Either heat the battery compartment or let the BMS gate
+  charging — never count on charge current the cells cannot accept at
+  −10°C. (Battery-inverter pairing details are in
+  [our compatibility guide](/blog/lithium-battery-inverter-compatibility/).)
+
+## Step 4 — Choose the power architecture
+
+Unattended sites converge on three architectures:
+
+| Architecture | Fits | Strengths | Watch out for |
+|---|---|---|---|
+| Pure DC bus (no inverter) | All-DC loads, -48VDC equipment rooms | Fewest conversion stages, highest efficiency, standard telecom practice | AC maintenance loads need a small separate inverter |
+| Battery-based off-grid inverter | Mixed DC + AC loads, 12–48V banks | One integrated unit: inverter, charger, transfer | Size for AC load surge, verify low-load stability |
+| Solar pump/VFD-style dedicated units | Pumping or motor-dominant sites | Direct PV-to-motor efficiency | Not suited to mixed 24/7 loads |
+
+For mixed-load shelters, a **battery-based off-grid solar inverter**
+(our term for an inverter-charger with integrated MPPT) is the pragmatic
+default: it converts battery DC to clean AC, charges the bank from PV,
+and accepts a generator or weak grid on its AC input as a tertiary
+source. The transfer between sources must be fast and clean enough that
+radios and controllers ride through — which brings us to the
+specifications that matter.
+
+## Step 5 — Inverter specs that matter for unattended operation
+
+Beyond raw wattage, evaluate against these criteria:
+
+- **Continuous rating sized on the true AC load plus growth**, typically
+  with 25–30% headroom. A site with 800W of AC load justifies a 1.5–2 kW
+  inverter — not because it will ever run flat out, but because
+  sustained operation near rating means high internal temperatures, and
+  heat is the main aging mechanism in an enclosure that is visited twice
+  a year.
+- **Low-load efficiency and standby draw.** A 24/7 site spends most of
+  its life at 20–40% of inverter rating. Check the efficiency curve and
+  the no-load self-consumption; an inverter idling at 40W burns
+  nearly 1 kWh/day — about 7% of our example site's budget — before a
+  single radio watt is served.
+- **Wide DC input window.** Banks sag and recover; the inverter must
+  operate through the full charge and discharge voltage range of the
+  chosen chemistry without nuisance trips. Our
+  [multi-voltage off-grid inverters](/products/off-grid-inverters/)
+  accept 12V to 72V DC input across the series, which covers both
+  legacy 12/24V sites and modern 48V ones.
+- **Surge tolerance** for cooling compressors, tools and any motor loads,
+  per the motor-starting rules covered in
+  [the surge sizing article](/blog/inverter-surge-power-motor-starting/).
+- **Generator input acceptance** on narrow voltage/frequency windows for
+  sites with backup gensets, with a configurable AC input current limit
+  (see
+  [generator integration](/blog/off-grid-generator-integration/)).
+- **Environmental envelope.** Conformal-coated electronics, wide
+  temperature ratings and temperature-controlled forced cooling for
+  outdoor or shelter installs. Heat and humidity kill more remote-site
+  inverters than lightning does.
+- **Monitoring and remote alarms.** The site must report battery SoC,
+  source status and faults over RS485/CAN or network uplink. An
+  unmonitored off-grid site does not fail visibly — it fails on the day
+  someone notices the link is down.
+
+## Commissioning checklist for unattended sites
+
+- [ ] Worst-month energy balance verified with monthly (not annual) irradiation data
+- [ ] Recharge-from-deficit simulation: deficit forced, recovery time measured against target
+- [ ] Full AC load + surge test passed with the smallest expected battery voltage
+- [ ] Autonomy test: system holds load through a full simulated cloudy period
+- [ ] Low-temperature charge behavior verified for lithium banks
+- [ ] Standby draw measured and logged against the site energy budget
+- [ ] Remote monitoring confirms SoC, alarms and source transfers end-to-end
+- [ ] All protection and grounding per local code; SPDs installed on PV and AC sides
+- [ ] Documentation pack left on site: single-line diagram, settings record, escalation contacts
+
+The recharge test is the one most often skipped and most often needed.
+An array that balances the load in steady state but cannot climb out of a
+deficit turns the first bad weather week into a chronic brownout.
+
+## How we help
+
+For mixed-load shelters and monitoring stations, our
+[off-grid solar inverters](/products/off-grid-solar-inverters/) combine
+a pure sine wave inverter stage, an MPPT solar charger and a generator/AC
+input in one unit, in 1.5–11 kVA ratings with 12V to 48V battery bank
+options. For mostly-DC sites that only need service-power AC, the
+standalone [off-grid inverters](/products/off-grid-inverters/) cover
+0.9–5 kW with 12V to 72V DC input — including models purpose-built for
+vehicle and multi-voltage retrofits. Browse the
+[full catalog](/products/), or send our engineers the site's load
+inventory, worst-month irradiation and autonomy target — we will
+recommend an inverter class and verify the DC window and charging
+configuration against your battery specification before you commit.
+
+<FAQ
+  title="Telecom Site Power — FAQ"
+  faq={[
+    { question: "How many days of battery autonomy does an unattended site need?", answer: "Two days is a common minimum where a generator or serviceable access exists; three to five days is typical for sites that must ride out bad weather on storage alone. Autonomy replaces the generator where fuel logistics are costly, so the right number comes from site access economics as much as from weather statistics." },
+    { question: "Why can't I size the array on annual average sun hours?", answer: "Averages hide the deficit month. An unattended load runs identically in December and June, so the array must balance the worst month with margin for recovery. Sizing on the average produces a system that fails seasonally — usually in winter or monsoon, precisely when site access is hardest." },
+    { question: "Should telecom loads run on DC directly instead of through an inverter?", answer: "Where the equipment is natively DC, feeding it from the battery bus avoids the conversion loss of a DC-AC-DC round trip and removes a failure stage. The inverter then only serves genuinely AC loads such as cooling, tools and auxiliary equipment, which also lets you size it smaller." },
+    { question: "What kills off-grid inverters at remote sites most often?", answer: "Heat and humidity, undersized cooling clearance, and chronic battery undercharge that repeatedly deep-discharges the bank. Enclosure placement, temperature-controlled cooling and monitoring with low-SoC alarms address all three and cost far less than a single emergency site visit." },
+  ]}
+/>
