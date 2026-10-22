@@ -1,0 +1,160 @@
+---
+title: "AC-Coupled vs DC-Coupled Battery Storage: Which Architecture Fits Your Inverter Project?"
+description: "Adding batteries to existing solar, or building new? How AC coupling and DC coupling differ in conversion paths, efficiency, retrofit cost and off-grid control — and a decision checklist for choosing between them."
+publishDate: 2026-10-23
+author: "Zhongze Huasong"
+tags: ["Energy Storage", "System Design", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Every storage system answers one hidden question before a single wire is
+connected: at what point does the battery join the rest of the system? If
+it connects on the AC side — after the solar inverter, at the main AC bus —
+the design is **AC-coupled**. If it hangs directly off the DC bus shared
+with the panels and charge controller, it is **DC-coupled**. That single
+architectural choice ripples through conversion efficiency, retrofit cost,
+control complexity and how gracefully the system survives a blackout. This
+guide compares the two topologies honestly and gives you a checklist for
+deciding which one your project actually needs.
+
+## The two energy paths, in one picture
+
+In a DC-coupled system, solar panels feed a hybrid inverter's built-in MPPT
+charge controller, which charges the battery directly on the DC bus. Power
+to the loads passes through one inverter stage. An AC-coupled system, by
+contrast, keeps the existing grid-tied solar inverter in place and adds a
+battery inverter next to it; solar energy must be converted DC→AC by the
+PV inverter, then AC→DC by the battery inverter for charging, and back
+again DC→AC on discharge.
+
+Count the conversion stages and the efficiency difference follows
+arithmetic:
+
+| | DC-coupled (hybrid) | AC-coupled |
+|---|---|---|
+| PV → battery charging | 1 stage (DC to DC via MPPT) | 2 stages (DC→AC→DC) |
+| Battery → AC loads | 1 stage | 1 stage |
+| Typical round-trip efficiency | ~95–97% | ~88–92% |
+| Component count | Lower (one box) | Higher (two inverters minimum) |
+| Existing inverter reuse | No — usually replaced | Yes — left untouched |
+
+A 4–7 point round-trip gap sounds small until it compounds. In a daily-cycling
+self-consumption system storing 10 kWh per day, a 5% difference forfeits
+roughly 180 kWh per year — energy that must be replaced by a larger array or
+accepted as loss. Where the battery's job is backup and it sits full most of
+its life, that same gap is nearly irrelevant because the lossy path is rarely
+used.
+
+## Where AC coupling wins
+
+AC coupling is fundamentally a **retrofit and flexibility** architecture:
+
+1. **The existing solar system stays as-is.** A functioning grid-tied
+   inverter keeps operating; the battery inverter simply connects to the
+   AC bus beside it. Replacing a healthy inverter with a hybrid unit can
+   easily cost thousands in equipment and labor, and voids the original
+   warranty.
+2. **Microinverter and AC-module arrays have no DC bus to couple to.** If
+   the roof is covered in module-level inverters, AC coupling is not just
+   the better option — it is the only option.
+3. **Battery and solar can be sized independently.** A large array on an
+   existing PV inverter can pair with a smaller battery inverter, or vice
+   versa, because the two systems only meet at the AC bus.
+4. **Brand flexibility.** The PV inverter and battery inverter can come
+   from different manufacturers, as long as their interaction at the AC
+   bus is properly engineered.
+
+## Where DC coupling wins
+
+DC coupling is the natural choice for **new builds and true off-grid**:
+
+1. **Fewer conversion stages, higher efficiency.** PV-to-battery charging
+   crosses the MPPT stage once. For off-grid systems where every point of
+   efficiency loss must be repaid with more panels or more battery, this
+   compounds into real capital savings.
+2. **One integrated device.** A hybrid inverter combines the solar charge
+   controller, battery management and AC output in a single unit — fewer
+   failure points, less wiring, one monitoring interface, one warranty
+   conversation.
+3. **Simpler black-start behavior.** If the battery drains completely, a
+   DC-coupled hybrid can restart charging from PV alone. In an AC-coupled
+   off-grid system, the battery inverter must first energize the AC bus
+   before the PV inverter can wake up — a choreography that only works if
+   both units are explicitly designed to cooperate.
+4. **Clipping capture.** An oversized array that would clip at midday in a
+   pure PV system can divert the excess into the battery through the DC
+   bus — free energy an AC-coupled retrofit leaves on the table.
+
+## The off-grid control problem AC coupling must solve
+
+In a grid-tied AC-coupled system, the utility grid provides a stable
+frequency and voltage reference that both inverters synchronize to, and
+the grid absorbs any temporary energy surplus. Off-grid, the battery
+inverter must *create* that reference itself and manage every surplus
+itself. Two failure modes dominate:
+
+- **Frequency-shift dumping.** When the battery reaches full charge, the
+  battery inverter raises the AC bus frequency so the PV inverter ramps
+  down — but this only works with PV inverters that support the same
+  frequency-watt response. Mismatched units keep pushing power into a full
+  battery until protection trips.
+- **Islanding behavior.** A conventional grid-tied inverter is designed to
+  shut down when the grid disappears. If it cannot detect and follow the
+  battery inverter's islanded grid, the entire PV array goes offline
+  exactly when backup matters most.
+
+The practical rule: AC-coupled off-grid designs succeed or fail on
+**inverter compatibility lists**. Both devices must be documented to work
+together in islanded mode, ideally from the same or an explicitly
+compatible ecosystem. This coordination burden is the price of the retrofit
+convenience.
+
+## A decision checklist
+
+Work through these questions in order; the architecture usually picks
+itself:
+
+1. **Is there existing solar?** Yes → lean AC-coupled unless the inverter
+   is old, undersized or due for replacement anyway. No → lean DC-coupled.
+2. **Are the panels microinverters or AC modules?** Yes → AC-coupled, no
+   realistic alternative.
+3. **Is the system truly off-grid, with no grid and no other AC source?**
+   Yes → DC-coupled strongly preferred for control simplicity and
+   efficiency.
+4. **Is the battery's primary job daily self-consumption or rare backup?**
+   Daily cycling favors DC coupling's efficiency; rare backup makes the
+   efficiency gap nearly moot and shifts weight toward retrofit cost.
+5. **Is a generator part of the design?** Hybrid DC-coupled inverters
+   typically include a generator input with automatic start control;
+   AC-coupled retrofits need the battery inverter to provide this.
+6. **Do you need certified coordination?** Whatever the topology, verify
+   the inverter pair is listed or documented for islanded (or grid-tied)
+   operation together, and confirm the AC bus, breaker panel and
+   protection devices can accept both power sources under your local code.
+
+## How we help
+
+For new off-grid and self-consumption builds, our
+[off-grid solar inverters](/products/off-grid-solar-inverters/) are
+integrated DC-coupled hybrids — pure sine wave inverter stage, built-in
+MPPT solar charger and generator/AC input in one unit — from 1.5 kVA to
+11 kVA, with MPPT windows such as 120–430Vdc (MKS II 5K) and 80–450Vdc
+(SC-MAX 8K) on 24V or 48V battery banks. For mostly-DC systems, vehicle
+retrofits and AC-output-only applications where an existing setup stays in
+place, the standalone [off-grid inverters](/products/off-grid-inverters/)
+cover 0.9–5 kW with 12V to 72V DC input. Browse the
+[full catalog](/products/), or send our engineers your existing system
+single-line diagram (if any), array size and battery target — we will
+recommend the coupling architecture and verify the DC window and charging
+configuration against your equipment before you order.
+
+<FAQ
+  title="AC vs DC Coupling — FAQ"
+  faq={[
+    { question: "Can I add batteries to an existing grid-tied solar system without replacing the inverter?", answer: "Frequently yes, using AC coupling: a battery inverter connects to the AC bus beside the existing PV inverter. The caveats are compatibility — the two inverters must be documented to cooperate, especially for backup operation — and local code limits on how much backfed power your switchboard can host." },
+    { question: "Is DC coupling always more efficient?", answer: "For the PV-to-battery charging path, yes — one DC conversion instead of a DC-AC-DC round trip, typically worth several efficiency points. But if the battery sits full most of its life as pure backup, the lossy path is rarely exercised and the real-world difference shrinks to almost nothing. Match the decision to the duty cycle, not just the datasheet." },
+    { question: "Why is AC-coupled off-grid trickier than AC-coupled grid-tied?", answer: "On the grid, the utility supplies the frequency and voltage reference and absorbs surpluses. Off-grid, the battery inverter must generate that reference and signal the PV inverter to throttle when the battery fills — usually via frequency shift. If the PV inverter does not support that response, the system overcharges or trips. Compatibility lists are not optional here." },
+    { question: "Which architecture should a brand-new off-grid build use?", answer: "DC coupling with an integrated hybrid inverter, almost always: one device handles MPPT charging, battery management and AC output, delivers the highest round-trip efficiency, restarts from a fully discharged battery without external help, and simplifies permitting and monitoring. That is exactly how our off-grid solar inverter range is built." },
+  ]}
+/>
