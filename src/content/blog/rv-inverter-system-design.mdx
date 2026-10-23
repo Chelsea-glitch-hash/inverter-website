@@ -1,0 +1,229 @@
+---
+title: "Designing an RV Inverter System: Shore Power, House Batteries and the Right Inverter Size"
+description: "A motorhome or caravan inverter system has to work from three power sources at once. How to audit RV loads, size the inverter, survive the 12V current math and choose between a plain inverter and an inverter-charger with shore-power transfer."
+publishDate: 2026-10-24
+author: "Zhongze Huasong"
+tags: ["RV Power", "Inverter Sizing", "System Design"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+A cabin off-grid system lives in one place, gets sized once, and never
+moves. A motorhome, caravan or campervan system is a different animal:
+the "house" drives down the highway at 100 km/h, plugs into campground
+shore power on some nights and nothing on others, and carries its power
+sources with it — engine alternator, house batteries and a roof of solar
+panels that changes angle every time the vehicle parks. The inverter
+sits at the center of all of it, converting battery DC into the AC
+power that the microwave, the air conditioner and the coffee maker
+expect. Sizing and wiring that inverter for a moving vehicle is its own
+discipline, and the mistakes people make are predictable enough to
+write down. This guide walks through them in order.
+
+## What makes an RV system different from a cabin
+
+Four constraints shape every RV power decision:
+
+1. **Three power sources, one load panel.** Shore power, the alternator
+   and solar all feed the same house batteries. The inverter either has
+   to coexist with shore power (through a transfer switch) or be
+   switched out of the circuit when the campground pedestal is live.
+2. **Every kilogram and every cable is mobile.** Wiring that is fine in
+   a fixed house fails in a vehicle where vibration works connections
+   loose and thermal cycling flexes crimps. Heavy cable runs and
+   mounting quality matter more than in any static install.
+3. **The battery bank is small and cherished.** A typical RV bank holds
+   a few hundred amp-hours at most, so every watt the inverter burns
+   idling at night is a watt taken from the morning's coffee.
+4. **Loads are bursty.** An RV kitchen runs a microwave for 4 minutes,
+   a kettle for 3, then nothing for an hour. This actually favors
+   moderately sized inverters with strong surge ratings over one
+   oversized unit running at a trickle.
+
+## Step 1 — Audit the loads you actually run
+
+List what runs *simultaneously*, not what exists. A realistic RV
+inventory looks like this:
+
+| Load | Running watts | Starting surge | Typical duty |
+|---|---|---|---|
+| Residential 12V fridge (via inverter) | 60–150W | 400–900W | Duty-cycled, 24h |
+| Roof air conditioner (13,500 BTU) | 1,300–1,600W | 2,500–3,500W | Seasonal, hours at a time |
+| Microwave | 1,000–1,500W | Slight, brief | Minutes |
+| Coffee maker / kettle | 900–1,500W | None | Minutes |
+| Induction cooktop (single burner) | 1,200–1,800W | None | Minutes to hours |
+| Laptop, phones, router | 100–200W | None | Continuous |
+| Entertainment / TV | 60–150W | None | Evening |
+| Water pump (usually stays on DC) | DC load | DC load | Seconds at a time |
+
+Two inventory rules save rework later:
+
+- **Keep the vehicle's native 12V loads on DC.** Lights, water pump,
+  furnace fan, slide-outs and the fridge (most models) are designed for
+  the house battery directly. Running them through an inverter wastes
+  10–15% in double conversion for no benefit. The inverter exists for
+  the genuinely AC appliances only — this keeps it smaller and cheaper.
+- **Note which loads are optional at the same time.** Air conditioning
+  plus microwave plus kettle at once is a 4 kW+ demand; most RV owners
+  simply learn not to stack them, which lets a 2–3 kW inverter cover a
+  full-time lifestyle.
+
+## Step 2 — Size the inverter
+
+Add the running watts of everything on at once, then check the largest
+motor or compressor against the surge rating:
+
+`inverter watts = simultaneous running watts × 1.25 headroom`
+
+Worked example: a couple full-timing without roof air runs the fridge
+(150W), router and laptops (150W), TV (100W), and cooks dinner with an
+induction burner (1,500W) while the microwave is off. Simultaneous load
+≈ 1,900W, with headroom ≈ 2,400W — a **2,500W–3,000W** pure sine wave
+inverter covers it with margin, and surge demand from the fridge
+compressor starting against the other loads stays well within a typical
+2× surge rating.
+
+Adding a roof air conditioner changes the conversation: 1,600W running
+plus 3,000W+ startup surge pushes the requirement past 4 kW continuous,
+and — more importantly — past what most small battery banks can
+discharge. Air conditioning on battery power is as much a battery and
+current problem as an inverter problem.
+
+## Step 3 — Respect the 12V current math
+
+This is where most RV inverter plans break. The inverter's AC rating
+translates into brutal DC current at low battery voltage:
+
+`DC amps = AC watts ÷ battery volts ÷ inverter efficiency`
+
+| AC load | Current at 12V | Current at 24V | Current at 48V |
+|---|---|---|---|
+| 1,000W | ~93A | ~46A | ~23A |
+| 2,000W | ~185A | ~93A | ~46A |
+| 3,000W | ~278A | ~139A | ~70A |
+
+At 2 kW on a 12V bank you are pulling nearly 200 amps — that demands
+2/0 AWG or heavier cable, short runs, quality lugs and a fuse sized and
+located correctly at the battery. Every connection becomes a heat
+point. Practical thresholds, following the same logic as our
+[system voltage guide](/blog/12v-24v-48v-inverter-system/):
+
+- **Up to ~1,500W:** 12V is workable and matches the RV's native
+  lighting and pump circuits.
+- **1,500W–3,000W:** 24V halves the current and is the sensible choice
+  for larger rigs; a small DC-DC converter feeds the legacy 12V loads.
+- **Above 3,000W or with air conditioning:** 48V keeps cable cost and
+  heat manageable, which is why the larger
+  [off-grid solar inverters](/products/off-grid-solar-inverters/) in
+  our range start at 24V and 48V banks.
+
+Also verify the battery side: the BMS of each lithium battery has a
+maximum discharge current, and a 200A draw may exceed what a single
+100Ah unit can deliver. Pairing batteries and inverter is its own
+subject — see [our compatibility guide](/blog/lithium-battery-inverter-compatibility/).
+
+## Step 4 — Plain inverter or inverter-charger with transfer?
+
+When the RV plugs into shore power, what happens to the inverter?
+
+- **A plain inverter** must be switched off or isolated from the AC
+  panel before shore power is connected — back-feeding an inverter from
+  the grid destroys it. This suits small builds where the inverter
+  feeds one or two dedicated outlets.
+- **An inverter-charger with a built-in transfer switch** passes shore
+  power through to the AC panel when the pedestal is live, and
+  silently switches to battery mode when it is not. The same unit
+  charges the house batteries from shore power in between. For any
+  rig that visits campgrounds, this is the practical default — one
+  box replaces an inverter, a charger and a transfer relay, and the
+  switchover is fast enough that electronics ride through.
+
+The same architecture carries over from fixed off-grid homes, and it
+is exactly what our [off-grid solar inverter series](/products/off-grid-solar-inverters/)
+provides in a single chassis: pure sine wave output, an MPPT solar
+charger for the roof array, and an AC input that accepts shore or
+generator power. For RVs that only need occasional AC for a laptop and
+a TV, a standalone [pure sine wave inverter](/products/off-grid-inverters/)
+from 900W upward — several of which are explicitly built for caravan
+and marine auxiliary power — is the lighter, cheaper tool.
+
+## Step 5 — Solar on a moving roof
+
+Roof area is the hard limit: a typical van fits 400–600W of panels, a
+caravan 600–1,200W. Two sizing realities differ from a fixed roof:
+
+- **Orientation is never ideal.** Parked panels at random angles
+  deliver a fraction of their rated power; plan on 50–70% of nameplate
+  for a summer day and far less in winter or shade.
+- **Compact MPPT range matters.** A motorhome roof mixes series strings
+  constrained by clearance and shading from vents and air conditioners.
+  Choose a charge stage whose MPPT window actually fits the array —
+  our VM 1.5K, for instance, is a 12V-bank inverter-charger with a
+  90Vdc–430Vdc MPPT window, which tolerates long rooftop strings and
+  partial shading better than narrow-input units.
+
+Solar rarely runs the air conditioner; its real job is to replace the
+fridge, electronics and standby drain so the bank starts each evening
+full. That pairing — a 1.5–3 kW inverter-charger on a 12V or 24V bank
+with 400–1,000W of roof solar — covers the majority of real RV
+lifestyles without a generator.
+
+## Installation notes specific to vehicles
+
+A mobile install adds requirements a fixed building never sees:
+
+- **Mount on a rigid surface with vibration-rated fasteners**, thread
+ locker on the brackets, and strain relief on every cable within a few
+  centimeters of the terminal. Vibration loosens ring terminals slowly
+  and then suddenly.
+- **Ventilation clearance as specified by the manual**, and never in
+  the same sealed compartment as the batteries — chargers vent and
+  batteries must not share heat or stray gas.
+- **Fusing at the battery end of every DC run**, sized to the cable,
+  not the load. In a vehicle the fuse protects against chafed insulation
+  finding chassis ground, which happens on the road, not on the bench.
+- **GFCI protection on AC outlets**, especially in a galley or bathroom
+  zone, per the electrical code that applies in your market.
+- **Disconnects accessible without tools** — a battery switch between
+  the bank and the inverter lets you de-energize the whole DC side for
+  service or storage.
+
+## Commissioning checklist for an RV inverter system
+
+- [ ] Load audit documented; simultaneous-watts total within inverter rating with headroom
+- [ ] DC current at full load calculated; cable gauge, lugs and fuse verified against it
+- [ ] Battery BMS combined discharge current exceeds the worst-case inverter draw
+- [ ] Surge test: largest motor load starts against the other running loads
+- [ ] Shore-power transfer tested under load — no glitch that reboots electronics
+- [ ] Charger stage profile matches the installed battery chemistry
+- [ ] Solar: MPPT window verified against the actual roof string configuration
+- [ ] All terminals torqued, thread-locked and strain-relieved; recheck after the first 1,000 km
+- [ ] GFCI and disconnect operation verified
+- [ ] Standby draw of the inverter measured and accepted against the overnight budget
+
+That last item is easy to skip and worth doing: an inverter left on
+overnight at 20–30W of idle draw consumes more daily energy than the
+fridge it serves. If the unit has an eco or standby mode, learn when it
+wakes up — and whether your clock or router tolerates the delay.
+
+## How we help
+
+For RV and marine builds we supply standalone pure sine wave inverters
+from 900W to 5,000W with 12V/24V/48V DC input options — including
+multi-voltage models that adapt to different house banks — plus
+integrated [off-grid solar inverters](/products/off-grid-solar-inverters/)
+from 1.5 kVA to 11 kVA with MPPT charging and shore/generator AC input
+for the larger motorhomes. Browse the [full product range](/products/)
+or send us your load inventory, battery specification and roof panel
+plan, and our engineers will confirm the DC input window, transfer
+behavior and charging profile before you order.
+
+<FAQ
+  title="RV Inverter Systems — FAQ"
+  faq={[
+    { question: "What size inverter do I need for a campervan?", answer: "Add up the AC loads you would actually run at once rather than counting everything installed. A campervan without air conditioning is usually comfortable on a 1,000W to 2,000W pure sine wave unit, since the fridge, lights and water pump should stay on the native 12V circuits and the inverter only serves occasional kitchen and electronics loads." },
+    { question: "Can I run a rooftop air conditioner from my batteries?", answer: "Electrically it takes a 3,000W-plus inverter with a surge rating above 3.5 kW, but the binding constraint is the battery bank and its discharge current. A realistic battery-powered AC system needs a 48V lithium bank with sufficient BMS capacity, and even then runtime is measured in a couple of hours per kilowatt-hour of storage." },
+    { question: "Why do I need such heavy cable between the battery and inverter?", answer: "Power is conserved: 2,000W of AC at 90% efficiency pulls about 185 amps from a 12V bank. At that current, thin or long cable wastes voltage as heat and can trip the inverter's low-voltage alarm even with a full battery. Short runs, correctly sized gauge and a fuse at the battery end keep the voltage drop and fire risk under control." },
+    { question: "What is the difference between an inverter and an inverter-charger for RV use?", answer: "An inverter only converts battery DC to AC. An inverter-charger also accepts an AC input: it passes shore or generator power through to the outlets and charges the house batteries when plugged in, switching between sources automatically. For any vehicle that regularly visits shore power, the inverter-charger with a built-in transfer switch is the practical choice." },
+  ]}
+/>

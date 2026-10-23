@@ -3082,6 +3082,48 @@
         "ko": "26dc0fa11d4cd59cdd6b085df3d1c2a4760e436ab80a1588d591f51e0841ae87"
       }
     },
+    "rv-inverter-system-design": {
+      "title": {
+        "es": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "zh-hant": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "fr": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "ar": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "pt": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "de": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "ru": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "ko": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5"
+      },
+      "description": {
+        "es": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "zh-hant": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "fr": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "ar": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "pt": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "de": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "ru": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "ko": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613"
+      },
+      "tags": {
+        "es": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "zh-hant": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "fr": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "ar": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "pt": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "de": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "ru": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "ko": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583"
+      },
+      "body": {
+        "es": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "zh-hant": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "fr": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "ar": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "pt": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "de": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "ru": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "ko": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890"
+      }
+    },
     "solar-water-pump-system-sizing": {
       "title": {
         "es": "5aae07586138257fc58525bec48d61a19ee1b023900173f88cba8ee437db4745",
