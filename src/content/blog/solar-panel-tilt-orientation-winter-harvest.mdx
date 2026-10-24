@@ -1,0 +1,235 @@
+---
+title: "Solar Panel Tilt and Orientation: Getting Winter Harvest Out of an Off-Grid Array"
+description: "An off-grid array lives or dies on its worst month. How azimuth, tilt angle, row spacing and multi-direction mounting change winter harvest — with the angle rules and worked numbers our engineers use."
+publishDate: 2026-10-25
+author: "Zhongze Huasong"
+tags: ["Solar Array", "Sizing Guide", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Two off-grid systems can carry identical inverters, identical batteries and
+identical panel counts — and one of them runs the generator all December
+while the other barely notices winter. The difference is usually not the
+equipment. It is where the glass points. Electrical sizing gets the
+attention because it involves the expensive components, but the array's
+orientation and tilt decide how much of the sun's energy ever reaches the
+MPPT input in the first place. A mis-aimed array is a permanent, silent
+loss: no fault code, no alarm, just fewer amp-hours every single day for
+twenty-five years.
+
+This guide covers the four placement decisions that matter for off-grid
+and hybrid systems — azimuth, tilt, row spacing and multi-direction
+mounting — with the practical angle rules that matter most when the
+design goal is a reliable worst month, not a pretty annual total.
+
+## Why off-grid optimization is a winter problem
+
+A grid-tied array is judged on annual production: every kilowatt-hour is
+worth roughly the same, so the geometry that maximizes the yearly total
+wins. An off-grid system is judged differently. Energy produced in summer
+surplus is largely thrown away — the battery fills, the charge stage
+throttles back, and the extra harvest has nowhere to go. Energy produced
+in the worst month, by contrast, is the difference between autonomy and
+generator hours.
+
+That asymmetry has a direct design consequence: **optimize the array for
+the worst month, and accept the summer penalty.** The same logic drives
+worst-month array sizing (covered in
+[our telecom site design guide](/blog/off-grid-telecom-site-power/)),
+but sizing assumes the plane-of-array irradiation figure you feed it is
+actually achievable. Geometry is what makes that number real — or not.
+
+## Azimuth: point at true north or south, not the compass needle
+
+The first decision is direction. In the northern hemisphere the array
+should face true south; in the southern hemisphere, true north; within
+about 10° of the equator, the optimum drifts and tilt matters more than
+azimuth. The classic mistake is using an uncorrected compass: compass
+needles point at magnetic north, which can sit 10–20° away from true
+north depending on location. That error transfers straight into the
+array.
+
+How much does azimuth deviation actually cost? The losses are gentler
+than most buyers fear, which is worth knowing before rejecting a roof:
+
+| Azimuth deviation from due south | Typical annual yield retained |
+|---|---|
+| 15° | ~99% |
+| 30° | ~96–97% |
+| 45° | ~93–95% |
+| 60° | ~88–89% |
+| 90° (due east or west) | ~76–80% |
+
+Two practical readings of that table. First, a 20–30° azimuth compromise
+on an otherwise good roof is usually acceptable — spend the negotiation
+effort elsewhere. Second, the losses grow steeply past 60°, and they grow
+faster in winter than the annual figure suggests: the low winter sun
+spends its short day in a narrow arc around the due-south azimuth, so a
+west-facing array loses a disproportionate share of exactly the harvest
+the system depends on. For off-grid work, treat due east or west as a
+last resort, not a mild compromise.
+
+Fixing the compass problem is trivial: use any phone's GPS-based compass
+in true-north mode, or correct the magnetic declination for the site's
+latitude and longitude.
+
+## Tilt: the latitude rule and the winter adjustment
+
+Tilt is the angle between the panel surface and horizontal. The
+engineering shorthand is well established:
+
+- **Fixed, optimized for the year:** tilt ≈ site latitude.
+- **Optimized for winter:** tilt ≈ latitude + 15°.
+- **Optimized for summer:** tilt ≈ latitude − 15°.
+
+The annual optimum actually lands a few degrees below latitude in most
+sunny regions, because strong summer direct radiation rewards a flatter
+panel — but for an off-grid system the winter figure is the one that
+matters. At latitude 40°, that means panels standing at roughly 55°,
+which looks aggressive and works. The steeper tilt catches the low
+winter sun near-perpendicular while the flat-mounted neighbor reflects
+a large slice of it away as cosine loss.
+
+Three second-order effects push the winter number even steeper, and all
+of them favor the same adjustment:
+
+- **Snow shedding.** In snow country, a steep array clears itself; a
+  shallow one accumulates a white blanket that zero MPPT algorithms can
+  recover. Where snow is a design case, steep tilt is not optional.
+- **Dust and soiling.** The same self-cleaning logic applies in arid and
+  agricultural regions: rain rinses a steep panel, dust cakes a flat
+  one. Heavily soiled sites effectively add 2–5° to the optimum.
+- **Ground mounts vs roofs.** Adjustable-tilt racking on a ground mount
+  lets you run latitude + 15° in winter and latitude − 15° in summer,
+  worth roughly 5–10% of annual energy over a fixed compromise — most
+  valuable on small systems where a manual adjustment twice a year is
+  cheap labor. Roof pitch is what it is; do not over-optimize a tilt you
+  cannot change. The yield difference between a good and a perfect fixed
+  angle is usually under a few percent, while shading and wiring
+  decisions move the needle far more.
+
+A worked comparison. A cabin at latitude 40° with a worst-month (December)
+demand of 6 kWh/day needs, at 3.0 December peak sun hours and a 0.65
+performance ratio, an array of about `6 ÷ (3.0 × 0.65) ≈ 3.1 kWp` —
+*if* the irradiation figure is measured on the array plane. Feed the
+sizing math the horizontal-surface irradiation instead, or mount the
+array flat, and the same 3.1 kWp delivers maybe 2.2 kWh/day in December:
+a system that is nominally correct and functionally short by a third,
+with no component to blame. This is the failure mode that sends owners
+shopping for "underperforming" inverters that were never the problem.
+
+## Row spacing: the shading geometry nobody sketches
+
+For anything larger than a small cabin system, panels end up in rows —
+on a flat roof, a ground mount or a terraced hillside. Row spacing is a
+geometry problem with an unforgiving failure mode: the front row shades
+the back row precisely in the worst month, because the sun is lowest
+when the loss hurts most. A system that performs evenly through summer
+can lose half its December harvest to its own front row.
+
+The standard design rule: the back row must be shade-free for at least
+the hours around solar noon (typically 9 a.m. to 3 p.m.) on the winter
+solstice. In practice:
+
+`row spacing ≈ row height × shadow multiplier`
+
+where row height is the vertical rise from the front row's bottom edge
+to its top edge, and the shadow multiplier depends on winter sun
+elevation at the site — roughly 2–3× at mid-latitudes (35–45°), and
+larger further from the equator. Sketch it once with the solstice sun
+elevation, then add margin. Shading losses on a partially shaded string
+are not proportional: a shadow across a small corner of one module can
+cut a whole string's output dramatically, because modules in series
+share current. (Series behavior and its sizing consequences are covered
+in [the MPPT voltage window guide](/blog/mppt-voltage-window-pv-string-sizing/).)
+
+East-west mounting is the modern escape hatch for tight flat roofs: two
+low-tilt rows facing opposite directions pack 30–50% more capacity into
+the same area, nearly eliminate inter-row shading, and produce a flatter
+"breakfast-to-dinner" generation curve that suits daytime-heavy loads.
+The cost is 15–25% less total annual harvest per kilowatt compared with
+due-south mounting, and a lower midday peak. For off-grid systems the
+trade can still win — but verify it against the worst-month math, not
+just the annual one, because low-tilt east-west rows are the geometry
+most exposed to winter cosine loss.
+
+## Multi-direction arrays on one MPPT: what mixes and what doesn't
+
+Real roofs and real sites rarely offer one clean plane. The question
+becomes: can strings facing different directions share an MPPT input?
+
+The physics first. MPPT trackers find the operating voltage of whatever
+is wired across them. Strings in **parallel** on one MPPT must share a
+common operating voltage — which different orientations almost satisfy,
+since tilt and azimuth move *current* far more than voltage. Strings in
+**series** must share current, and mixed orientations in series drag
+every module down to the weakest one's output: never do it.
+
+So the rules that hold up in the field:
+
+- **Same orientation, same tilt, same module type per string** — the
+  non-negotiable baseline for parallel strings on one tracker.
+- **Mixed orientations on one MPPT are workable** if every string
+  satisfies the tracker's voltage window independently, because the
+  current mismatch simply sums at the input. Expect the MPPT to find a
+  compromise operating point slightly below the perfect-per-string
+  optimum; on modest mixes (e.g. a south plane plus a small west wing)
+  the penalty is usually a few percent.
+- **Seriously different planes deserve separate MPPT inputs or a
+  second charge controller.** An east-west pair, a ground array plus a
+  roof array, or any mix with different module counts per string should
+  each get its own tracker. Most mid-size hybrid and off-grid solar
+  inverters already provide two MPPT inputs for exactly this reason.
+- **Voltage windows still rule everything.** Each string, on each
+  orientation, must pass the cold-Voc and hot-Vmp checks against the
+  same MPPT range — a west-facing string sees different cell
+  temperatures than a south one at the same hour.
+
+## Commissioning checks for array geometry
+
+Geometry mistakes are free to fix on paper and expensive to fix after
+the racking ships. The checklist our engineers use before an array
+design is released:
+
+- [ ] Azimuth verified against true (not magnetic) north or south
+- [ ] Tilt chosen for the worst month, with snow/soiling adjustments where relevant
+- [ ] Sizing irradiation figures taken from the array plane (or corrected to it), not horizontal surface
+- [ ] Row spacing sketched against the winter solstice 9 a.m.–3 p.m. sun
+- [ ] Every string orientation passes cold-Voc and hot-Vmp against the MPPT window
+- [ ] No mixed orientations in series; parallel mixes reviewed for voltage-window compliance
+- [ ] Multi-plane arrays assigned to separate MPPT inputs where the mismatch is significant
+- [ ] As-built azimuth/tilt recorded in the commissioning report — future diagnostics depend on it
+
+The last item sounds administrative and is not. When a system
+underperforms two winters later, the first diagnostic question is
+"what is the array actually pointing at?" — and the answer should be in
+the paperwork, not a guess.
+
+## How we help
+
+Array geometry lives upstream of everything we build, but it sets the
+terms: the MPPT voltage window defines which string shapes are legal,
+and the worst-month harvest defines how much charge stage you need. Our
+[off-grid solar inverters](/products/off-grid-solar-inverters/) span
+1.5–11 kVA on 12V to 48V banks with MPPT ranges from the wide
+90–430 Vdc window on the [VM 1.5K](/products/off-grid-solar-inverters/)
+12V platform to the 120–430 Vdc window on the MKS II 5K 48V unit, and
+multi-tracker options for multi-plane roofs. If your array is
+orientation-constrained — an east-west roof, a terraced ground mount, a
+retrofit onto an existing plane — send us the site latitude, the
+available planes and the module datasheet, and we will confirm the
+string layout against each MPPT window before you order. For
+battery-only retrofit projects, the standalone
+[off-grid inverters](/products/off-grid-inverters/) cover 0.9–5 kW with
+12V to 72V DC input; the [full catalog](/products/) lists every variant.
+
+<FAQ
+  title="Solar Panel Tilt and Orientation — FAQ"
+  faq={[
+    { question: "Should I tilt my off-grid solar panels at latitude or latitude plus 15 degrees?", answer: "For a fixed array on an off-grid system, latitude plus roughly 15 degrees is the better default because it optimizes the worst month, when every harvested watt decides whether the batteries stay charged. The pure-latitude tilt maximizes annual total, which is the right goal for grid-tied systems — not for systems that must survive winter on their own array." },
+    { question: "How much energy do I lose if my roof faces east or west instead of south?", answer: "Roughly 20–24% of annual yield compared with due-south mounting, and proportionally more in winter when the low sun stays near the southern azimuth. For off-grid systems that loss lands exactly in the worst month, so east or west roofs should be treated as a last resort or paired with a steeper tilt and a larger array." },
+    { question: "Can solar panels with different orientations share one MPPT input?", answer: "Yes, if each string independently satisfies the tracker's voltage window and no mixed orientations are wired in series. The MPPT settles on a compromise operating point with a small efficiency penalty, so modest mixes work fine. Seriously different planes — east-west pairs, roof plus ground arrays — deserve separate MPPT inputs or a second charge controller." },
+    { question: "How far apart should solar panel rows be to avoid shading?", answer: "Space rows so the back row is shade-free from about 9 a.m. to 3 p.m. on the winter solstice. As a rule of thumb at mid-latitudes, the clear gap between rows is roughly two to three times the height difference between the front row's top and bottom edges, and the multiplier grows at higher latitudes. Sketch the solstice geometry once before ordering racking." },
+  ]}
+/>

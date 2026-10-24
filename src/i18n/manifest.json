@@ -3089,8 +3089,10 @@
         "fr": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
         "ar": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
         "pt": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "it": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
         "de": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
         "ru": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
+        "ja": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5",
         "ko": "9a442ff381bc4e8d65f391d67e4f08d66955d204e0efcac1075af8a6711ec2a5"
       },
       "description": {
@@ -3099,8 +3101,10 @@
         "fr": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
         "ar": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
         "pt": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "it": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
         "de": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
         "ru": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
+        "ja": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613",
         "ko": "b6ffb8619466c35314300b494d587f9e1bd6b41d05525b200e76fa32cd24a613"
       },
       "tags": {
@@ -3109,8 +3113,10 @@
         "fr": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
         "ar": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
         "pt": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "it": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
         "de": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
         "ru": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
+        "ja": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583",
         "ko": "6d7287451c33e0a0bda6793eff7668e8b7e7eb8bceb7f5be52824c4ee32a1583"
       },
       "body": {
@@ -3119,9 +3125,61 @@
         "fr": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
         "ar": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
         "pt": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "it": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
         "de": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
         "ru": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
+        "ja": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890",
         "ko": "6484234e8b93a6d3dbfde9b4b0747f6ae8467116d54c08cb0c3a205de0bf2890"
+      }
+    },
+    "solar-panel-tilt-orientation-winter-harvest": {
+      "title": {
+        "es": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "zh-hant": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "fr": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "ar": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "pt": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "it": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "de": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "ru": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "ja": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b",
+        "ko": "f83cf2411dcf40e0ba42b6667a3041845fb63907b228ff1eedc95019b693d94b"
+      },
+      "description": {
+        "es": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "zh-hant": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "fr": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "ar": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "pt": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "it": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "de": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "ru": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "ja": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9",
+        "ko": "648a0d6883c793df5b4ad57c01542c2923e5e0212b91aecb22ec27f055fe05a9"
+      },
+      "tags": {
+        "es": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "zh-hant": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "fr": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "ar": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "pt": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "it": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "de": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "ru": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "ja": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5",
+        "ko": "1a750b8d56dae6f11c7d1daccd348ffb2c85b81dbdd6d3a80f52d432cd5348b5"
+      },
+      "body": {
+        "es": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "zh-hant": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "fr": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "ar": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "pt": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "it": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "de": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "ru": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "ja": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824",
+        "ko": "0fccf72f8f58ac3d6f8bd6a0eb5783c5b35807f1f93440b8f045bc0a0cbc7824"
       }
     },
     "solar-water-pump-system-sizing": {
