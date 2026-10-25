@@ -1,0 +1,200 @@
+---
+title: "Inverter Alarms and Fault Codes: A Calm Troubleshooting Sequence for Off-Grid Systems"
+description: "An inverter alarm is a protection event, not a diagnosis. How to read the fault snapshot, sort alarms by family, run one safe restart and decide when the fault is real versus environmental."
+publishDate: 2026-10-26
+author: "Zhongze Huasong"
+tags: ["Troubleshooting", "Off-Grid", "O&M"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Every off-grid inverter will alarm eventually. A cold morning pushes the
+battery voltage low, a dusty fan saturates the heatsink, a pump start sags
+the output for half a second — and the display shows a code nobody wrote
+down. The units that come back to the dealer with five-star reviews are not
+the ones that never alarm; they are the ones whose owners recorded the code,
+checked the obvious external causes first, and performed one controlled
+restart instead of five panicked ones. This guide is that sequence,
+organized so a site operator or installer can work through it without
+guessing.
+
+## A fault code names a condition, not a broken part
+
+This is the single most useful thing to internalize: an inverter alarm
+reports a **protection condition the unit detected** — battery voltage
+outside a window, input frequency drifting, load current above a limit,
+temperature above a threshold. It does not confirm that any component has
+failed, and most alarms in the field resolve after correcting something
+*outside* the inverter.
+
+A battery-low alarm, for example, can trace to any of these:
+
+- the battery genuinely discharged (weather, added loads),
+- voltage sag across an undersized or corroded battery cable,
+- a BMS protection action on a lithium bank,
+- charge parameters set for the wrong battery chemistry.
+
+None of those is an inverter defect. Treating the code as a diagnosis
+instead of a symptom is what produces the classic support ticket: "inverter
+shows fault, replaced under warranty, new unit shows the same fault."
+
+Code numbers themselves are **not standardized across manufacturers or even
+product families**. Always read them against the manual for your exact
+model and firmware revision — the same two-digit code can sit in different
+families on different units.
+
+## Step 1: Record the fault snapshot before touching anything
+
+The snapshot is what turns a mysterious shutdown into a solvable event.
+Write down, or photograph the display for:
+
+- the exact code, any text beside it, the LED pattern and audible alarm;
+- time of day, weather, and whether PV was producing;
+- battery chemistry, displayed battery voltage, state of charge, and any
+  BMS indicator;
+- which loads were running — especially pumps, compressors, heaters and
+  chargers;
+- the state of PV input, AC/generator input, and external breakers;
+- anything that changed recently: new loads, rewiring, a storm, a service
+  visit.
+
+If the inverter has logging or a monitoring portal, preserve the alarm
+history before any power cycle. Repeated resets overwrite exactly the
+pattern a support engineer needs, and a unit that arrives at the dealer
+with its history wiped gets treated as a mystery fault.
+
+## Step 2: Sort the alarm by family
+
+Nearly every off-grid inverter alarm falls into one of six families. The
+family tells you where the first safe check goes:
+
+| Alarm family | Usually points to | First safe action |
+|---|---|---|
+| Battery / BMS | Discharged bank, voltage sag at a connection, wrong charge settings, BMS protection | Check displayed battery voltage and BMS status before any reset |
+| PV input | Array voltage out of range, wiring or polarity issue, low insulation | Do not reset; isolate PV and inspect, escalate suspected insulation or polarity faults |
+| AC output / load | Starting surge, sustained overload, a shorted appliance or branch circuit | Shed nonessential loads (motors and heaters first) before one permitted restart |
+| Temperature / cooling | Blocked airflow, high ambient, sustained heavy load | Let the unit cool; fix external ventilation and clearance |
+| AC input / generator | Source voltage or frequency outside the acceptance window, unstable source | Restore a stable source; verify input settings match the generator |
+| Internal / communication | Control-board or firmware-level condition | One restart if the manual allows; if it repeats, contact service — do not keep cycling |
+
+Two families deserve a hard rule of their own. Suspected **PV insulation
+or polarity faults** should stop at the isolate-and-escalate step: a wet,
+damaged or arcing DC array is a safety event, not a convenience reset. And
+**temperature alarms** are almost always an installation problem — the
+fix is clearance and airflow, not a fan upgrade or a "better" inverter.
+
+## Step 3: Inspect externally, safely
+
+Before attempting any reset, do a walk-around with your eyes and nose:
+
+- Look for smoke, burnt odor, melted insulation, water ingress, damaged
+  connectors, or a swollen battery case.
+- Check that ventilation openings are unobstructed and the unit has its
+  rated clearance.
+- Inspect accessible breakers, fuses, disconnects and cable lugs for trips,
+  corrosion or heat discoloration.
+- Confirm which protective devices have operated — an RCD or main breaker
+  that tripped is information about *where* to look.
+
+If you find visible damage, moisture inside an enclosure, exposed
+conductors, arcing marks, or an unexplained protective-device trip, stop
+here. Isolate the system and bring in qualified service. No restart
+sequence outranks a physical hazard.
+
+## Step 4: One controlled restart, loads shed
+
+If the external checks are clean and the manual permits a restart, do it
+once, deliberately, in this order:
+
+1. Switch off nonessential AC loads, starting with motors, heaters, pumps
+   and any appliance chargers.
+2. Isolate PV and AC/generator input at their disconnects if the manual
+   instructs it.
+3. Power the inverter down and wait out its internal discharge interval
+   (capacitors hold charge; the manual states the wait).
+4. Restore the battery first and confirm a normal startup indication.
+5. Restore PV and AC input, one source at a time where the design allows.
+6. Reconnect loads gradually — small steady loads first, high-inrush
+   equipment last.
+
+The point of shedding loads first is discrimination: if the unit starts
+clean and then alarms when a specific appliance comes on, you have found
+the trigger. If it alarms immediately with nothing connected, the fault is
+internal or in the DC side, and now you know that too.
+
+## When not to reset at all
+
+Repeated power-cycling is not troubleshooting; it is evidence destruction
+with a side of risk. Do not attempt a reset if:
+
+- there is any sign of burning, arcing, water ingress or battery swelling;
+- the alarm is a PV insulation, ground-fault or reverse-polarity condition;
+- the alarm has already recurred after one clean restart;
+- the battery repeatedly hits a protection threshold with no obvious cause
+  (a failing cell can hold displayed voltage but collapse under load);
+- the unit alarms during startup before any load is connected.
+
+These cases go to the supplier with the snapshot from Step 1 attached. The
+photo of the display and the list of active loads cut days off the
+diagnosis.
+
+## Reading intermittent alarms by pattern
+
+Intermittent faults are the hardest category, because the pattern itself is
+the diagnostic. Match what you observe to the likely direction:
+
+| Observed pattern | Likely investigation direction |
+|---|---|
+| Alarm appears after rain or heavy dew, clears by afternoon | Moisture entry: connector seals, cable low points, junction boxes |
+| Alarm coincides with a specific appliance starting | Inrush/surge on a marginal unit, or voltage sag from undersized wiring |
+| Alarm occurs only during generator hours | Source voltage/frequency drift outside the acceptance window |
+| Alarm follows sunrise on cold mornings | Cold-boost PV voltage near the maximum, or a low-SoC battery sagging |
+| Alarm migrates with a particular PV string | String-level insulation or connector problem |
+| Alarm recurs with no pattern at all | Log it longer, check firmware revision, escalate with the history |
+
+The rain pattern deserves emphasis because it is so common and so often
+misread as "the inverter is faulty." Insulation resistance that drops when
+everything is wet and recovers when dry is an array-side issue — find the
+wet path, do not reset through it.
+
+## Prevention: settings documentation and the alarm log
+
+Two habits prevent most repeat alarms and make the remaining ones cheap:
+
+- **Document the configuration.** Battery type and charge parameters, AC
+  input limits, low-voltage cutoff, generator acceptance settings — record
+  them at commissioning and keep the sheet with the unit. A large share of
+  "faults" traced by service teams are settings mismatches: a lithium bank
+  charged on a lead-acid profile, an input limit set above what the genset
+  sustains, a cutoff voltage tuned for the wrong battery count.
+- **Review the alarm history quarterly.** Trends show up before failures:
+  temperature alarms creeping earlier each summer, battery-low alarms
+  arriving sooner each winter. Both point at drift you can fix on a
+  scheduled visit instead of an emergency one.
+
+For installers handing systems to customers, add a one-page "what this code
+means, what to check, when to call us" card to the handover pack. It
+prevents the repeated-reset behavior that destroys the evidence trail.
+
+## How we help
+
+Our [off-grid inverters](/products/off-grid-inverters/) (0.9–5 kW, 12V to
+72V DC input) and [off-grid solar inverters](/products/off-grid-solar-inverters/)
+(1.5–11 kVA, 12V/24V/48V battery options with built-in MPPT) provide
+distinct display indications for battery, PV, overload and thermal
+protection conditions, so the family sorting above maps directly onto the
+front panel. We supply fault-code reference sheets with each shipment, and
+our engineers will review your alarm snapshot — code, loads, battery
+status, time pattern — before recommending parts or replacement. Browse the
+[full catalog](/products/), or send us the display photo and system
+configuration from your fault snapshot.
+
+<FAQ
+  title="Inverter Troubleshooting — FAQ"
+  faq={[
+    { question: "Is it safe to restart an inverter that showed a fault code?", answer: "Once, after external checks, if the manual permits it and there is no sign of damage, moisture, arcing or battery swelling. Shed nonessential loads first, restore the battery before the other sources, and reconnect loads gradually. Repeated resets are never a diagnostic method — they destroy the alarm history a support engineer needs." },
+    { question: "Why does the same fault code have different meanings on different inverters?", answer: "Fault code numbering is model- and firmware-specific; there is no industry-wide standard. Always read codes against the manual for your exact unit. When contacting a supplier, quote the model, firmware revision and the full display text, not just the number." },
+    { question: "The low-battery alarm keeps returning but the battery reads fine at rest. What is wrong?", answer: "Resting voltage hides sag under load. Measure the battery voltage while the loads run: if it collapses, the bank is undersized, a cell is failing, or the DC cables are undersized or corroded. On lithium systems, also check the BMS for a protection event and confirm the inverter's charge profile matches the chemistry." },
+    { question: "The unit alarms only after rain and clears in the afternoon sun. Should I be worried?", answer: "Yes — that pattern indicates moisture affecting DC insulation, typically a connector seal, junction box or cable low point. It is an array-side issue, not an inverter defect. Isolate the affected string, dry and inspect the wiring, and replace any degraded connectors. Do not keep resetting through a wet-weather ground fault." },
+  ]}
+/>

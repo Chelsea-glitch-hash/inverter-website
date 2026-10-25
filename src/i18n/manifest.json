@@ -2833,6 +2833,56 @@
         "ko": "ffaef0eac3733f703e5a6c2d381fedaf4a57c5c93d8739e0a1ecb81fa52f0738"
       }
     },
+    "off-grid-inverter-fault-troubleshooting": {
+      "title": {
+        "es": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "zh-hant": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "fr": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "ar": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "pt": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "it": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "de": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "ru": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "ja": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04",
+        "ko": "ac1dcb9fe831b8dc7e62030660a53ed3feb01bf723534088d6a773cbc8a5df04"
+      },
+      "description": {
+        "es": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "zh-hant": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "fr": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "ar": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "pt": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "it": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "de": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "ru": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "ja": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719",
+        "ko": "e27a6d3d8add3ca913b10f544947b32e66b098f86993f2133e2ff544fde73719"
+      },
+      "tags": {
+        "es": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "zh-hant": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "fr": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "ar": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "pt": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "it": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "de": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "ru": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "ja": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95",
+        "ko": "88aadeae0c255de587028be6f9c52dca70140cb9d11988a8cfb878c85c7bfb95"
+      },
+      "body": {
+        "es": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "zh-hant": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "fr": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "ar": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "pt": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "it": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "de": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "ru": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "ja": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21",
+        "ko": "3ba4db50b365cd2b01b2bd91ddef18b973e3322d6677f006615b2b230c627d21"
+      }
+    },
     "off-grid-inverter-installation-guide": {
       "title": {
         "es": "2288f1b16c3befe28b0a45cd18ffb508a368796871b64308b7aa6dcce6dbe0f7",
