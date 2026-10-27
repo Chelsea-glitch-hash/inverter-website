@@ -1,0 +1,181 @@
+---
+title: "Inverter Efficiency Curves and Self-Consumption: Reading the Numbers That Decide Real Runtime"
+description: "Peak efficiency is measured at one load point; your system runs across the whole curve. How to read part-load efficiency, idle and standby consumption, and conversion losses when comparing off-grid inverters."
+publishDate: 2026-10-28
+author: "Zhongze Huasong"
+tags: ["Inverter Selection", "Efficiency", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Two inverters can both claim 94% peak efficiency and deliver completely
+different runtime from the same battery bank. The peak figure is measured
+at one favorable load point, usually around half of rated capacity. A real
+off-grid system spends most of its life far below that point — overnight on
+a few hundred watts, idle for hours with nothing switched on — and that is
+exactly where the differences between designs are largest. Reading the
+efficiency curve and the idle consumption figure correctly is the
+difference between a battery bank that lasts the night and one that hits
+low-voltage cutoff before dawn.
+
+## One number is not a curve
+
+Every inverter datasheet lists a maximum efficiency, and many buyers treat
+it as a flat number. It is not. Conversion efficiency varies with the load
+the inverter is carrying, and the shape of that variation follows a
+consistent pattern across the industry:
+
+- **Below roughly 10% of rated load**, efficiency drops sharply, because
+  the inverter's own fixed overhead — control electronics, gate drivers,
+  displays, fans — becomes a large share of the total power flowing
+  through it.
+- **Between roughly 30% and 70% of rated load**, efficiency reaches its
+  plateau, typically 92–96% for a well-built unit.
+- **Above 90% of rated load**, losses climb again as conduction losses in
+  semiconductors and transformers grow with current.
+
+The practical consequence: an inverter sized far above its actual loads
+spends its whole life on the inefficient left end of the curve. A 5000W
+unit powering 300W of evening lighting is converting at maybe 80–85%
+effective efficiency — not the 94% on the datasheet.
+
+## The load profile decides, not the peak
+
+Compare two units serving the same 600W base load:
+
+| Unit | Rated power | Load as % of rating | Typical efficiency at that point |
+|---|---|---|---|
+| A | 5000W | 12% | ~88% |
+| B | 2000W | 30% | ~94% |
+
+For identical loads, the smaller unit converts measurably better. The 6
+point difference sounds abstract until you turn it into energy: at 600W
+continuous, unit A burns roughly 43Wh per hour as heat while unit B burns
+38Wh — and the gap widens further at lower loads, which is exactly where
+an off-grid system sits overnight.
+
+The right-sizing logic that follows from this is simple but often ignored:
+
+1. **Audit the load profile first** — how many hours at each power level,
+   not just the peak. A system whose overnight load is 300W should not be
+   sized so that 300W is 5% of the inverter rating.
+2. **Keep the dominant load band inside 30–70% of rating.** Short surge
+   events still need headroom (see our surge sizing guide), but the *bulk
+   of operating hours* should sit in the efficient middle of the curve.
+3. **Do not buy rated watts for future loads that never arrive.** Every
+   extra kilowatt of unused rating is paid for daily in idle draw and
+   part-load losses.
+
+## Idle and standby consumption: the load that never switches off
+
+Separate from conversion efficiency is the power the inverter consumes
+just to stay on. Datasheets call it idle draw, no-load consumption, tare
+loss or standby power — read all of them as the same thing. Typical
+figures:
+
+- Small units (under 1 kW): roughly 5–15W
+- Mid-range units (1–3 kW): roughly 10–30W
+- Large low-frequency units (5 kW and above): can reach 30–60W, since the
+  control and cooling overhead scales with the design
+
+The number looks trivial next to a 3000W microwave. The problem is that it
+runs 24 hours a day. The arithmetic:
+
+- 20W idle × 24h = **0.48 kWh per day** — about 175 kWh per year,
+  converted into nothing.
+- On a small system with a 5 kWh usable bank, idle draw alone can consume
+  close to 10% of daily generation before a single appliance runs.
+- Overnight is worse in relative terms: from 18:00 to 07:00, a 25W idle
+  draw plus 200W of phantom loads (standby electronics, chargers,
+  detectors) can exceed the entire productive load of the evening.
+
+This is one of the classic diagnoses behind "the batteries died overnight
+and nothing was on": the inverter's own idle draw plus phantom loads
+drained the bank while the household slept.
+
+## Managing idle losses in practice
+
+Idle consumption cannot be eliminated — the inverter must stay on to
+deliver power — but it can be managed:
+
+- **Right-size the unit.** The most reliable lever. A correctly sized
+  inverter spends its life in the efficient band *and* carries less fixed
+  overhead.
+- **Use power-saving or eco modes where available.** Many units can drop
+  into a low-consumption sleep state and wake on load detection. Verify
+  the wake threshold before relying on it: small continuous loads below
+  the threshold (a router, a freezer compressor on thermostat) may not
+  wake the unit, or may cause it to cycle annoyingly.
+- **Switch the inverter off when genuinely unused.** A weekend cabin or a
+  seasonal pump site has no reason to carry 24/7 idle draw. A remote
+  on/off switch makes the habit realistic; an inverter you have to walk
+  to the battery room to switch off stays on.
+- **Keep DC-native loads on DC.** A 12V/24V compressor fridge, USB
+  lighting and DC water pumps skip the conversion entirely. Every load
+  that never passes through the inverter is a load that costs no
+  conversion loss and no idle time.
+- **Audit phantom loads once with a meter.** Switch everything off and
+  read what still flows. In small systems, that reading is often the
+  single largest unexplained load in the energy budget.
+
+## What to ask a supplier before comparing datasheets
+
+When evaluating inverter offers, three questions separate honest
+efficiency data from marketing:
+
+1. **"What is the efficiency at 10%, 25% and 50% load?"** — not just the
+   peak. A supplier who can answer with a curve or a table is describing
+   a tested design; a supplier who repeats the headline number is
+   describing a datasheet.
+2. **"What is the idle or standby consumption in watts?"** — and whether
+   the figure is measured with the display, fans and communication ports
+   active.
+3. **"How does efficiency change with battery voltage?"** — the same unit
+   is measurably more efficient at 48V than at 12V for the same power,
+   because input current halves and with it the conduction losses. This
+   is one more argument for 48V on any system above roughly 2 kW (see our
+   system voltage guide).
+
+## A worked comparison
+
+Consider a cabin load profile: 500W average for 6 evening hours, 100W
+average overnight for 8 hours, inverter on 24 hours a day.
+
+- **Option A: a 5000W unit, 88% effective at light load, 30W idle.**
+  Evening conversion loss: 500W × 6h × 12% ≈ 360Wh. Overnight loss:
+  100W × 8h × 15% ≈ 120Wh. Idle: 30W × 24h = 720Wh. Total daily
+  conversion overhead ≈ 1.2 kWh.
+- **Option B: a 2500W unit, 92% effective at the same loads, 15W idle.**
+  Evening loss: 500W × 6h × 8% ≈ 240Wh. Overnight loss: 100W × 8h ×
+  12% ≈ 96Wh. Idle: 15W × 24h = 360Wh. Total ≈ 0.7 kWh.
+
+Same loads, same battery bank — the better-matched unit returns roughly
+0.5 kWh per day, about 180 kWh per year, to the loads instead of losing
+it as heat. On a winter array that is already marginal, that difference
+is frequently the difference between a system that runs and a system that
+shuts down on overload of the battery bank's lowest SoC in January.
+
+## How we help
+
+Our [off-grid solar inverters](/products/off-grid-solar-inverters/) cover
+1.5–11 kVA across 12V to 48V battery platforms, so a system can be
+matched to its real load band instead of forced onto an oversized
+platform — for example the [VM 1.5K on a 12V bank](/products/off-grid-solar-inverters/)
+for small systems, the [VM 3K on 24V](/products/off-grid-solar-inverters/)
+for mid-range homes, or the [MKS II 5K on 48V](/products/off-grid-solar-inverters/)
+for full-house systems. For DC-coupled small systems, the standalone
+[off-grid inverters](/products/off-grid-inverters/) from 0.9 to 5 kW with
+12V to 72V DC input pair directly with separate charge controllers. Send
+our sales engineers your load profile and battery bank voltage, and we
+will recommend the model whose operating band fits it — before you spend
+a winter finding out the hard way.
+
+<FAQ
+  title="Efficiency and Self-Consumption — FAQ"
+  faq={[
+    { question: "Is the peak efficiency figure on the datasheet useless?", answer: "No, but it is only one point. Peak efficiency is measured near mid-load and is useful for comparing build quality between units. Sizing decisions, however, should be made on part-load efficiency and idle consumption, because that is where the system actually operates most hours of the day." },
+    { question: "How much idle draw is acceptable?", answer: "A reasonable working ceiling is 1% of the inverter's rated power — roughly 20W on a 2000W unit, 40W on a 5000W unit. Below 1% the figure is competitive; far above it, the idle draw starts to meaningfully erode a small battery bank, especially in winter." },
+    { question: "Does a bigger battery bank solve idle draw?", answer: "It hides the symptom, not the loss. A larger bank will survive more nights, but the idle energy is still converted to heat every day of the year. Over a 10-year battery life, 0.5 kWh per day of avoidable losses is roughly 1,800 kWh — capacity you paid for and never used." },
+    { question: "Why is efficiency higher on a 48V bank than 12V?", answer: "For the same AC output power, the DC input current is four times lower at 48V than at 12V. Conduction losses in cables, busbars and semiconductors scale with current squared, so the lower-current design wastes less at every stage. This is the same physics behind our system voltage guide's recommendation to move to 48V above roughly 2 kW." },
+  ]}
+/>
