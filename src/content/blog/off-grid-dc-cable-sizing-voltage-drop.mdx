@@ -1,0 +1,226 @@
+---
+title: "DC Cable Sizing for Off-Grid Inverters: Voltage Drop, Ampacity and the 12V Math That Catches Everyone"
+description: "The battery-to-inverter cable is where undersized installs quietly fail. A worked method for sizing DC cables by voltage drop and ampacity, why low-voltage systems pay the heaviest price, and the termination details that matter as much as the copper."
+publishDate: 2026-10-30
+author: "Zhongze Huasong"
+tags: ["Cable Sizing", "Voltage Drop", "Off-Grid"]
+---
+
+import FAQ from '../../components/FAQ.astro';
+
+Ask an installer why a system underperforms and you will hear about panel
+orientation, battery age, or a shady afternoon. Ask the same question six
+months later, after the low-voltage alarms start, and the answer is often
+something far less glamorous: the battery-to-inverter cable was sized by
+guesswork. DC cable sizing is the least visible part of an off-grid design
+and one of the most consequential — the current on the DC side of a
+low-voltage inverter is enormous compared to its AC output, and a cable
+that is "probably fine" becomes a source of wasted energy, nuisance
+alarms, and in the worst cases, heat damage.
+
+This guide walks through the two checks every DC cable must pass — voltage
+drop and ampacity — with a worked example you can adapt, the voltage
+arithmetic that makes 12V systems uniquely demanding, and the
+termination details that decide whether a correctly-sized cable actually
+performs.
+
+## Why DC side current dwarfs the AC side
+
+An inverter moves power, not current. For a given output wattage, the DC
+input current is the output power divided by the battery voltage times
+the conversion efficiency — and at low battery voltages, that division
+produces brutal numbers:
+
+| Inverter output | At 48V DC | At 24V DC | At 12V DC |
+| --- | --- | --- | --- |
+| 1,000 W | ~23 A | ~46 A | ~93 A |
+| 3,000 W | ~69 A | ~139 A | ~278 A |
+| 5,000 W | ~116 A | ~231 A | ~463 A |
+
+The table assumes ~90% conversion efficiency. Two conclusions follow
+directly from it:
+
+1. **The same power moves with four times the current on a 12V bank than
+   on a 48V bank.** Current is what forces cable thickness, so a 12V
+   system pays four times the copper for the same watts at the same
+   voltage-drop target.
+2. **The battery-to-inverter run is usually the highest-current circuit
+   in the entire installation** — higher than any PV string, higher than
+   any DC load branch. It deserves the most sizing attention, not the
+   least.
+
+This is also why our previous [system voltage comparison](/blog/12v-24v-48v-inverter-system/)
+keeps returning to cable cost: at 3kW and above, the DC copper itself
+starts steering the voltage decision.
+
+## The two checks: voltage drop and ampacity
+
+Every DC cable must pass two independent tests. Passing one does not
+excuse failing the other.
+
+**Check 1 — Ampacity (heat).** The conductor must carry the continuous
+current without overheating its insulation. Rated ampacity depends on
+cable type, insulation temperature rating, installation method (free
+air, conduit, bundled with other cables) and ambient temperature. As a
+safety floor, many installers work to roughly 5–10 A per mm² of copper
+cross-section for short runs in free air, then derate for bundling and
+enclosure. If the cable cannot carry the current safely, no voltage-drop
+argument rescues it — undersized copper on a high-current circuit can
+progress to insulation melt.
+
+**Check 2 — Voltage drop (performance).** Current flowing through cable
+resistance lowers the voltage at the far end. On the battery-to-inverter
+link this matters twice: the inverter needs supply voltage to produce AC,
+and an inverter-charger pushing charge current back into the battery
+sees the same resistance in reverse. Practical drop targets:
+
+| DC link | Typical design target |
+| --- | --- |
+| Battery to inverter | ≤ 2% (some designers go tighter for inverter-chargers) |
+| PV string to charge controller | ≤ 2–3% |
+| DC load branches | 2–3% |
+| Non-critical lighting | up to 5% |
+
+The battery link gets the strictest target because it sits in both
+directions of energy flow — discharge and charging — and because the
+inverter's low-voltage protection sits right behind it.
+
+In practice, at low voltages and realistic run lengths, **voltage drop
+decides the cable size far more often than ampacity does**. Heat sets a
+floor; distance raises the bar.
+
+## The voltage drop formula, plainly
+
+For a copper cable, the round-trip drop in volts is:
+
+`V_drop = 2 × ρ × L × I / A`
+
+where `ρ` is copper resistivity (about 0.0175 Ω·mm²/m at 20 °C), `L` is
+the **one-way** cable length in meters, `I` the continuous DC current in
+amps, and `A` the conductor cross-section in mm². The factor of 2
+accounts for the return conductor — forgetting it is the classic sizing
+error, and it makes a cable appear half the size it needs to be.
+
+Rearranged for the required cross-section:
+
+`A = 2 × ρ × L × I / V_drop_allowed`
+
+Convert your allowed drop percentage to volts first: 2% of a 24V bank is
+0.48V; 2% of 12V is only 0.24V. That shrinking allowance is exactly why
+low-voltage systems demand disproportionate copper.
+
+Two temperature notes that matter in real enclosures: copper resistance
+rises roughly 20% from 20 °C to 70 °C, so a cable running warm drops
+more voltage than the cold number suggests; and sizing everything at
+room temperature quietly flatters the result. Add margin rather than
+pretending the cable will stay cool.
+
+## Worked example: 3,000 W inverter on a 24V bank
+
+A customer runs a 3,000 W inverter (continuous duty) from a 24V battery
+bank placed 2.5 m away. Design to 2% drop.
+
+1. **DC input current:** 3,000 W ÷ (24 V × 0.90) ≈ **139 A**
+2. **Allowed drop:** 2% × 24 V = **0.48 V**
+3. **Required area:** `2 × 0.0175 × 2.5 × 139 / 0.48` ≈ **25.3 mm²**
+4. **Round up** to the next standard size: **35 mm²** copper.
+
+Cross-check ampacity: 139 A on 35 mm² is about 4 A/mm² — comfortably
+inside the 5–10 A/mm² safety band for a short, well-ventilated run.
+Voltage drop drove the selection here, exactly as expected.
+
+Now run the same example on a 48V bank: current halves to ~69 A, the
+allowed drop doubles to 0.96V, and the required area falls to roughly
+6.3 mm² — a 10 mm² cable passes with margin. **Same inverter, same
+distance, about one-third of the copper.** That is the 48V dividend in
+a single calculation.
+
+And the cautionary variant: a builder runs the 12V version of this
+inverter and buys 35 mm² "to be safe". Current is ~278 A, allowed drop
+0.24V, required area ≈ **101 mm²**. The 35 mm² cable drops roughly 4.3%
+— double the target — and the inverter now sees battery voltage minus a
+half-volt under load. The symptoms downstream: low-voltage alarms during
+surges, chargers backing off early, and batteries that never quite reach
+full charge because the charge voltage at the battery terminals is
+depressed by cable loss on the way in.
+
+## Symptoms of an undersized DC cable
+
+The failure mode is insidious because every symptom looks like a
+different fault:
+
+- **Low-voltage alarms or shutdowns under heavy load** that never appear
+  at light load. The battery is fine; the voltage sag happens in the
+  cable, not the cells.
+- **Charging that stalls below target.** An inverter-charger regulating
+  to, say, 28.4V absorption will push that voltage through the same
+  cable resistance; the battery terminals see less, absorption ends
+  early, and the bank chronically undercharges.
+- **Warm or hot cables and lugs** under sustained load — the ampacity
+  check being violated in real time.
+- **Surge events that trip the inverter offline** even though the
+  battery bank has plenty of capacity. Motor-start current through
+  cable resistance magnifies the sag beyond the inverter's cutoff
+  (see our [surge power guide](/blog/inverter-surge-power-motor-starting/)
+  for the load side of this problem).
+
+The diagnostic is cheap: measure voltage directly at the inverter's DC
+terminals under full load and compare with the battery terminals. The
+difference is your real voltage drop — no math required. More than 2%
+under continuous rated load means the cable is the bottleneck.
+
+## Termination: where correctly-sized cables still fail
+
+Sizing the copper is half the job. The termination is where real
+installations lose the margin you just calculated:
+
+- **Match the terminal hardware to the conductor.** A 35 mm² cable
+  compressed into a lug sized for 25 mm², or a crimp made with the
+  wrong die, adds resistance precisely at the point of highest current.
+- **Torque the DC terminals properly.** Loose inverter DC terminals
+  heat, oxidize, and loosen further — a self-accelerating loop. Recheck
+  torque after the first weeks of thermal cycling.
+- **Equal-length battery interconnects.** In a series-parallel bank,
+  unequal interconnect lengths distribute current unequally between
+  parallel strings; keep every interconnect the same length and gauge.
+- **Fuse the cable at the battery, sized to the conductor.** The fuse
+  protects the cable, not the inverter — a 200A fuse on cable rated for
+  139 A continuous protects nothing.
+- **Respect the inverter's terminal range.** Our inverters specify
+  recommended cable cross-sections in their manuals for exactly this
+  reason; the DC input accepts 12V to 72V configurations across the
+  off-grid series, and the current at 12V is a different world from the
+  current at 48V for the same model.
+
+## Commissioning checklist
+
+- [ ] Cable size calculated from actual current (power ÷ voltage ÷ efficiency), not estimated from inverter model number
+- [ ] Voltage drop verified by measurement: battery terminals vs inverter DC terminals at continuous rated load, ≤ 2%
+- [ ] Ampacity confirmed for the installation method (bundled? conduit? ambient temperature?)
+- [ ] Correct lug size and crimp die for every DC termination
+- [ ] DC fuse or breaker at the battery end, rated to protect the conductor
+- [ ] Battery interconnects equal length and equal gauge
+- [ ] Terminal torque checked, then rechecked after first thermal cycle
+- [ ] Surge behavior verified: worst motor start does not trip the inverter's low-voltage cutoff
+
+## How we help
+
+Our [off-grid solar inverters](/products/off-grid-solar-inverters/) span
+1.5–11 kVA with 12V, 24V and 48V battery inputs, and the standalone
+[off-grid inverters](/products/off-grid-inverters/) cover 0.9–5 kW with
+12V / 24V / 48V / 60V / 72V DC input options. Every model's manual lists
+the recommended DC cable cross-section and torque values — sized for the
+real input current, not a marketing number. Browse the [full
+catalog](/products/), or send our engineers your inverter model, battery
+voltage and cable run length, and we will confirm the recommended
+conductor size before your goods ship.
+
+<FAQ
+  title="DC Cable Sizing — FAQ"
+  faq={[
+    { question: "How much voltage drop is acceptable on a battery-to-inverter cable?", answer: "Aim for 2% or less at continuous rated load. The battery-inverter link carries the highest current in the system and sits behind the inverter's low-voltage protection, so it deserves the tightest target in the installation. Inverter-chargers push charge current through the same cable in reverse, which is an argument for going tighter still." },
+    { question: "Can I use one large cable or two smaller ones in parallel?", answer: "Both work if done correctly. Parallel smaller cables must be the same length, same gauge and same routing, with the total ampacity of the set covering the full current and each conductor separately rated — most codes require each parallel conductor to carry the full fault current for protection purposes. Two properly-fused pairs are often easier to route than one very stiff cable." },
+    { question: "Why does my inverter show a low-voltage alarm when the battery is nearly full?", answer: "Measure voltage at the inverter's DC terminals while the load is running. If it reads noticeably below the battery terminal voltage, the alarm is cable drop, not battery state. A sag of 0.5V on a 12V system under load is enough to cross the alarm threshold — the fix is bigger copper, not a new battery." },
+    { question: "Does cable size matter for the AC output side too?", answer: "Yes, but far less critically. AC output runs at higher voltage and therefore lower current — a 3,000 W output at 230V AC is about 13 A, which a 2.5 mm² cable handles easily for typical distances. Size AC conductors to the inverter's continuous output rating plus the usual 25% continuous-load margin, and step up a size for long runs." },
+  ]}
+/>
