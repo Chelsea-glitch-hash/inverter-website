@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Patch a single blog article's Italian translation into src/i18n/blog/it.ts.
+/* Patch a single blog article's Arabic translation into src/i18n/blog/ar.ts.
  * Only invoked when `npm run i18n:update` repeatedly fails on the same locale.
  * Reads AI_API_* from .env, calls the OpenAI-compatible API, and inserts the
  * entry keeping the file's existing 2-space-indent, GENERATED header style.
@@ -9,7 +9,7 @@
  * injects bodyHtml with set:html, which would show Markdown syntax as plain
  * text).
  *
- * Usage: node tools/patch-it-blog.mjs [<slug>]
+ * Usage: node tools/patch-ar-blog.mjs [<slug>]   (default: paralleling-off-grid-inverters)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,7 +17,7 @@ import { renderTranslatedBody } from '../scripts/blog-md-render.mjs';
 
 const ROOT = process.cwd();
 const FILE = path.join(ROOT, 'src', 'i18n', 'blog', 'it.ts');
-const slug = process.argv[2] || 'inverter-surge-power-motor-starting';
+const slug = process.argv[2] || 'paralleling-off-grid-inverters';
 const MDX = path.join(ROOT, 'src', 'content', 'blog', `${slug}.mdx`);
 
 /* ---- load .env ---- */
@@ -62,9 +62,8 @@ const sys = [
   '- Keep numbers, units, voltages, wattages, model names, product ids (INV-xxx), certification names and markdown syntax (headings ##/###, tables, lists, links, FAQ props) unchanged.',
   '- Keep internal site links like /products/off-grid-inverters/ as they are.',
   '- Keep the exact structure of the body: headings, tables, lists, the FAQ component props (title + faq array of question/answer pairs).',
-  '- Preferred terms: inverter, tensione della batteria, potenza nominale, surge, pannello solare, batteria al litio.',
-  '- IMPORTANT: the JSON object MUST contain ALL of the keys title (string), description (string), tags (array of 3 strings), body (string). Never omit the title key.',
-  '- Reply with ONLY a valid JSON object, no markdown fences, no commentary.',
+  '- Preferred terms: inverter = inverter, off-grid = fuori rete, IP rating = grado di protezione IP, enclosure = involucro, derating = derating.',
+  '- Reply with ONLY a valid JSON object with keys title (string), description (string), tags (array of 3 strings), body (string), no markdown fences, no commentary.',
 ].join('\n');
 const user = JSON.stringify({ target_language: 'Italian', items: english });
 
@@ -102,7 +101,7 @@ for (const key of Object.keys(english)) {
 /* ---- render the translated body (Markdown source) to styled HTML ---- */
 out.body = await renderTranslatedBody(out.body);
 
-/* ---- write into it.ts ---- */
+/* ---- write into ru.ts ---- */
 const ser = (v, indent = 0) => {
   const pad = '  '.repeat(indent);
   const padIn = '  '.repeat(indent + 1);
@@ -123,7 +122,7 @@ const entry = `  "${slug}": ${ser({
 }, 1)},\n`;
 const raw = fs.readFileSync(FILE, 'utf8').replace(/\r\n/g, '\n');
 const insertAt = raw.lastIndexOf('};');
-if (insertAt === -1) throw new Error('cannot find closing "};" in it.ts');
+if (insertAt === -1) throw new Error('cannot find closing ";}" in it.ts');
 const next = raw.slice(0, insertAt) + entry + raw.slice(insertAt);
 fs.writeFileSync(FILE, next, 'utf8');
 console.log('patched it.ts');
