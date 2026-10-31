@@ -6,8 +6,9 @@ import { SITE, COMPANY, CONTACT, SOCIAL } from '../config';
 import { getCategoriesWithProducts } from '../lib/products';
 import { localizedCategory } from '../i18n/category-content';
 import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
-import { fill, getDict } from '../i18n';
+import { fill, formatDate, getDict } from '../i18n';
 import brandLogo from '../assets/brand/logo.png';
+import contentDates from '../data/content-dates.json';
 
 interface Props {
   locale?: Locale;
@@ -20,6 +21,12 @@ const t = getDict(locale);
 const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, locale));
 
 const year = new Date().getFullYear();
+
+/* Newest genuine content date, generated from git history by
+   tools/gen-content-dates.mjs — the same source the sitemap <lastmod> uses.
+   A build timestamp would claim the page changed on every deploy, which is
+   both false and useless as a freshness signal. */
+const contentLastUpdated = contentDates._generated;
 ---
 
 <footer class="border-t border-slate-200 bg-slate-900 text-slate-300">
@@ -97,6 +104,7 @@ const year = new Date().getFullYear();
           <li><a href={localizedPath(locale, '/factory/')} class="text-slate-400 hover:text-white">{t.footer.factoryAndManufacturing}</a></li>
           <li><a href={localizedPath(locale, '/quality/')} class="text-slate-400 hover:text-white">{t.footer.qualityControl}</a></li>
           <li><a href={localizedPath(locale, '/blog/')} class="text-slate-400 hover:text-white">{t.footer.blogInsights}</a></li>
+          <li><a href={localizedPath(locale, '/tools/sizing-calculator/')} class="text-slate-400 hover:text-white">{t.footer.sizingCalculator}</a></li>
           <li><a href={localizedPath(locale, '/contact/')} class="text-slate-400 hover:text-white">{t.footer.contactUs}</a></li>
           <li><a href={localizedPath(locale, '/privacy-policy/')} class="text-slate-400 hover:text-white">{t.footer.privacyPolicy}</a></li>
         </ul>
@@ -143,6 +151,31 @@ const year = new Date().getFullYear();
     <div class="flex flex-col items-center justify-between gap-3 border-t border-slate-800 py-6 text-xs text-slate-500 sm:flex-row">
       <p>&copy; {year} {COMPANY.legalName}. {t.footer.rights}</p>
       <p>{SITE.url.replace('https://', '')}</p>
+    </div>
+
+    <!-- Entity-verification block: registered name, street address and the
+         date the site content last changed. These are the three things a
+         buyer — or an answer engine deciding whether this is a real company —
+         looks for on the page itself rather than buried in structured data. -->
+    <div class="border-t border-slate-800 py-6 text-xs leading-relaxed text-slate-500">
+      <dl class="flex flex-col gap-1.5">
+        <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
+          <dt class="shrink-0 sm:w-40">{t.footer.legalNameLabel}</dt>
+          <dd class="text-slate-400">{COMPANY.legalName}</dd>
+        </div>
+        <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
+          <dt class="shrink-0 sm:w-40">{t.footer.registeredAddressLabel}</dt>
+          <dd class="text-slate-400">
+            {COMPANY.address}, {COMPANY.addressLocality}, {COMPANY.addressRegion}, {COMPANY.addressCountry}
+          </dd>
+        </div>
+        <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
+          <dt class="shrink-0 sm:w-40">{t.footer.lastUpdatedLabel}</dt>
+          <dd class="text-slate-400">
+            <time datetime={contentLastUpdated}>{formatDate(new Date(contentLastUpdated), locale)}</time>
+          </dd>
+        </div>
+      </dl>
     </div>
   </Container>
 </footer>

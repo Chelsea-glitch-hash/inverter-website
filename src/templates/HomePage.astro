@@ -15,8 +15,9 @@ import TrustBar from '../components/TrustBar.astro';
 import CTABanner from '../components/CTABanner.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import ApplicationCard from '../components/ApplicationCard.astro';
+import FAQ from '../components/FAQ.astro';
 import { getCollection } from 'astro:content';
-import { getCategoriesWithProducts, getFeaturedProducts } from '../lib/products';
+import { getCategoriesWithProducts, getFeaturedProducts, getAllProducts, formatPower } from '../lib/products';
 import { localizedProduct } from '../i18n/product-content';
 import { localizedCategory } from '../i18n/category-content';
 import { getBlogTranslation } from '../i18n/blog-content';
@@ -37,6 +38,32 @@ const featured = getFeaturedProducts(4).map((p) => localizedProduct(p, locale));
 /* Only categories that actually hold products are shown, so the homepage never
    advertises a range that has no models yet. */
 const categories = getCategoriesWithProducts().map((c) => localizedCategory(c, locale));
+
+/* Catalog figures for the answer summary and hero copy — derived from the
+   product table, never typed in by hand, so the page cannot drift from the
+   catalog it describes. */
+const catalogProducts = getAllProducts();
+const catalogCount = catalogProducts.length;
+const offGridCount = catalogProducts.filter((p) => p.category === 'off-grid-inverters').length;
+const solarCount = catalogCount - offGridCount;
+const catalogPowers = catalogProducts.map((p) => p.ratedPower);
+const minPower = catalogPowers.length > 0 ? Math.min(...catalogPowers) : 0;
+const maxPower = catalogPowers.length > 0 ? Math.max(...catalogPowers) : 0;
+
+/* Placeholders shared by the hero subtitle and the answer summary. */
+const catalogVars = {
+  models: catalogCount,
+  offGrid: offGridCount,
+  solar: solarCount,
+  minPower: formatPower(minPower),
+  maxPower: formatPower(maxPower),
+  area: COMPANY.factoryAreaSqm.toLocaleString('en-US'),
+  capacity: COMPANY.annualCapacityUnits.toLocaleString('en-US'),
+  employees: COMPANY.employees,
+  engineers: COMPANY.rdEngineers,
+  oemClients: COMPANY.oemClients,
+  countries: COMPANY.exportCountries,
+};
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
@@ -102,7 +129,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
             {t.home.hero.title}
           </h1>
           <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            {t.home.hero.subtitle}
+            {fill(t.home.hero.subtitle, catalogVars)}
           </p>
           <div class="mt-8 flex flex-wrap gap-4">
             <Button href={localizedPath(locale, '/contact/')} variant="primary" size="lg" track="click_request_quote">
@@ -160,10 +187,27 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </Container>
   </section>
 
-  <!-- 2. Trust / company facts -->
+  <!-- 2. Answer summary — the five questions a buyer asks first, each answered
+       as a standalone fact with its numbers. This is the block an answer
+       engine can lift whole, so every item is written to survive being read
+       with no surrounding context. -->
+  <Section title={t.home.summary.title} class="bg-slate-50">
+    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        t.home.summary.items.map((item) => (
+          <div class="rounded-xl border border-slate-200 bg-white p-5">
+            <dt class="text-xs font-semibold tracking-wide text-brand-700 uppercase">{item.label}</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-slate-700">{fill(item.text, catalogVars)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Section>
+
+  <!-- 3. Trust / company facts -->
   <TrustBar locale={locale} />
 
-  <!-- 3. Product categories -->
+  <!-- 4. Product categories -->
   <Section eyebrow={t.home.categories.eyebrow} title={t.home.categories.title} subtitle={t.home.categories.subtitle}>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
@@ -186,7 +230,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 4. Featured products -->
+  <!-- 5. Featured products -->
   <Section eyebrow={t.home.featured.eyebrow} title={t.home.featured.title} subtitle={t.home.featured.subtitle} class="bg-slate-50">
     <ProductGrid products={featured} locale={locale} />
     <div class="mt-10 text-center">
@@ -194,7 +238,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 5. Product advantages / technical strengths -->
+  <!-- 6. Product advantages / technical strengths -->
   <Section eyebrow={t.home.advantages.eyebrow} title={t.home.advantages.title} subtitle={t.home.advantages.subtitle}>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
@@ -209,7 +253,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 6. Why choose us -->
+  <!-- 7. Why choose us -->
   <Section eyebrow={t.home.whyUs.eyebrow} title={t.home.whyUs.title} subtitle={t.home.whyUs.subtitle}>
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
       {
@@ -224,7 +268,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 7. How we work (B2B cooperation process) -->
+  <!-- 8. How we work (B2B cooperation process) -->
   <Section eyebrow={t.home.process.eyebrow} title={t.home.process.title} subtitle={t.home.process.subtitle} class="bg-slate-50">
     <ol class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
@@ -243,8 +287,8 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </ol>
   </Section>
 
-  <!-- 8. Manufacturing / factory capability -->
-  <Section eyebrow={t.home.factory.eyebrow} title={t.home.factory.title} subtitle={t.home.factory.subtitle} class="bg-slate-50">
+  <!-- 9. Manufacturing / factory capability -->
+  <Section eyebrow={t.home.factory.eyebrow} title={t.home.factory.title} subtitle={fill(t.home.factory.subtitle, catalogVars)} class="bg-slate-50">
     <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {
@@ -275,14 +319,14 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 8. Applications -->
+  <!-- 10. Applications -->
   <Section eyebrow={t.home.applications.eyebrow} title={t.home.applications.title} subtitle={t.home.applications.subtitle}>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {applications.map((app) => <ApplicationCard title={app.title} description={app.description} icon={app.icon} />)}
     </div>
   </Section>
 
-  <!-- 9. Mid-page inquiry CTA -->
+  <!-- 11. Mid-page inquiry CTA -->
   <section aria-label={t.common.requestQuote}>
     <Container>
       <div class="my-4 flex flex-col items-center justify-between gap-5 rounded-xl border border-brand-200 bg-brand-50 px-6 py-8 sm:px-10 lg:flex-row">
@@ -299,7 +343,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </Container>
   </section>
 
-  <!-- 10. Certifications -->
+  <!-- 12. Certifications -->
   <Section
     eyebrow={t.home.certifications.eyebrow}
     title={t.home.certifications.title}
@@ -337,11 +381,61 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
       <p class="max-w-2xl text-center text-sm text-slate-500">
         {t.home.certifications.note}
       </p>
+
+      <!-- Standards ladder: each standard named with its exact designation and
+           year, linked to the issuing body's own catalogue page. This is the
+           external authority the compliance claims rest on — a buyer can
+           verify every one of them without taking our word for it. -->
+      <div class="mt-10 w-full max-w-3xl rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
+        <h3 class="text-base font-semibold text-slate-900">
+          {t.home.certifications.standards.heading}
+        </h3>
+        <dl class="mt-5 space-y-4">
+          {
+            t.home.certifications.standards.items.map((std) => (
+              <div class="border-l-2 border-brand-200 pl-4">
+                <dt class="text-sm font-semibold">
+                  <a
+                    href={std.url}
+                    class="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    {std.code}
+                  </a>
+                </dt>
+                <dd class="mt-1 text-sm leading-relaxed text-slate-600">
+                  {std.scope}
+                  <span class="mt-0.5 block text-xs text-slate-500">{std.publisher}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-5 text-xs leading-relaxed text-slate-500">
+          {t.home.certifications.standards.sourceNote}
+        </p>
+      </div>
+
       <Button href={localizedPath(locale, '/quality/')} variant="outline">{t.home.certifications.qualityButton}</Button>
     </div>
   </Section>
 
-  <!-- 11. Testimonials (illustrative placeholders — see the testimonials data) -->
+  <!-- 13. Buyer FAQ — the questions a purchasing manager asks before ordering.
+       The component renders its own <h2> and section wrapper and ships
+       FAQPage structured data, so answer engines can lift the Q&A pairs
+       directly. Wrapped only in Container (not Section) to avoid emitting a
+       second, identical heading. -->
+  <div class="bg-slate-50 py-16 sm:py-20">
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <FAQ
+        faq={t.home.faq.items.map((item) => ({ question: item.q, answer: item.a }))}
+        title={t.home.faq.title}
+      />
+    </div>
+  </div>
+
+  <!-- 14. Testimonials (illustrative placeholders — see the testimonials data) -->
   <Section title={t.home.testimonials.title}>
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
@@ -357,7 +451,7 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 12. Blog preview -->
+  <!-- 15. Blog preview -->
   <Section eyebrow={t.home.blog.eyebrow} title={t.home.blog.title} class="bg-slate-50">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
       {
@@ -382,6 +476,6 @@ const heroBullets = t.home.hero.bullets.map((b) => fill(b, { countries: COMPANY.
     </div>
   </Section>
 
-  <!-- 13. Request a quote -->
+  <!-- 16. Request a quote -->
   <CTABanner locale={locale} />
 </BaseLayout>

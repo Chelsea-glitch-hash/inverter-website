@@ -56,6 +56,62 @@
 - [OEM / ODM manufacturing](https://www.zzpine.com/oem-odm/)
 - [Contact and inquiry form](https://www.zzpine.com/contact/)
 
+## Answers to common buyer questions
+
+These are the questions purchasing managers ask most often, answered with the
+same figures used across the site.
+
+- **Are you a manufacturer or a trading company?** A manufacturer. Shenzhen
+  Zhongze Huasong Trading Co., Ltd. runs its own 12,000 m² facility with SMT,
+  assembly and aging lines in-house, shipping about 200,000 units a year.
+- **How many models, over what power range?** 35 models from 900 W to 11 kW:
+  12 off-grid inverters (900 W–5000 W, no built-in solar charge controller) and
+  23 off-grid solar inverters (1500 W–11 kW, with a built-in MPPT controller).
+- **Can you manufacture under my own brand?** Yes. The OEM/ODM programme covers
+  the enclosure, packaging, manual, display and — where the model supports it —
+  firmware branding. Output configuration, DC input range and socket types can
+  be adjusted for the destination market.
+- **What is the minimum order quantity?** MOQ depends on the model and the depth
+  of customization, because a private-label run needs its own artwork and
+  firmware setup. Confirmed per project with pricing.
+- **How long does an order take to ship?** Inquiries are answered within 24
+  hours. After sample approval, a standard production run typically ships in
+  30–45 days, depending on quantity and customization depth.
+- **How is quality verified before shipment?** An ISO 9001 quality system with
+  100% functional testing and an 8-hour aging test before packing. Third-party
+  pre-shipment inspection is welcome.
+- **What certifications apply?** CE-related LVD documentation assessed against
+  IEC 62109-1:2010, and EMC documentation, are available for the solar inverter
+  range on request. Certificates are issued per model and per destination market.
+- **Off-grid or off-grid solar — which do I need?** Choose off-grid when solar
+  charging is already handled by a separate charge controller. Choose off-grid
+  solar when PV input, battery charging and AC output should sit in one
+  wall-mount unit. Both output pure sine wave; the difference is the built-in
+  MPPT controller.
+
+## Standards referenced
+
+- IEC 62109-1:2010 — Safety of power converters for use in photovoltaic power
+  systems, Part 1: General requirements. Publisher: International
+  Electrotechnical Commission. https://webstore.iec.ch/en/publication/6470
+- IEC 62109-2:2011 — Safety of power converters for use in photovoltaic power
+  systems, Part 2: Particular requirements for inverters. Publisher:
+  International Electrotechnical Commission.
+  https://webstore.iec.ch/en/publication/6471
+- ISO 9001 — Quality management systems. Publisher: International Organization
+  for Standardization. https://www.iso.org/standard/62085.html
+  (Cited without a year: the 2015 edition was withdrawn in September 2026.)
+
+## Free engineering tools
+
+- [Off-grid system sizing calculator](https://www.zzpine.com/tools/sizing-calculator/): an interactive
+  calculator that returns a first-pass PV array size, inverter continuous rating and battery bank
+  capacity from four inputs (daily energy use, simultaneous peak load, system voltage and peak sun
+  hours). It then matches the result against real catalog models. Formulas: array watts = daily
+  energy × 1.3 ÷ peak sun hours; inverter watts = peak load × 1.25; battery Ah = daily energy ÷
+  depth of discharge × days of autonomy ÷ system voltage. Depth of discharge assumed: 50% flooded
+  lead-acid, 55% AGM / gel, 85% LiFePO4.
+
 ## Technical guides
 
 - [How to Size a Hybrid Solar System: A Step-by-Step Worksheet](https://www.zzpine.com/blog/how-to-size-a-hybrid-solar-system/)
