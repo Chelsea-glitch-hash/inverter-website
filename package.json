@@ -12,6 +12,8 @@
     "astro": "astro",
     "i18n:check": "node scripts/i18n-sync.mjs check",
     "i18n:update": "node scripts/i18n-sync.mjs update",
+    "seo:dates": "node tools/gen-content-dates.mjs",
+    "seo:verify": "node tools/verify-sitemap.mjs",
     "prepare": "husky"
   },
   "dependencies": {
@@ -22,6 +24,7 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+    "esbuild": "^0.27.7",
     "husky": "^9.1.7"
   }
 }

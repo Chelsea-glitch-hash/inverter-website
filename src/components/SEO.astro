@@ -23,6 +23,16 @@ interface Props {
    * (Open Graph and Twitter require absolute image URLs).
    */
   ogImage?: string;
+  /**
+   * Override the canonical URL with a site-absolute ENGLISH path.
+   *
+   * Used by pages that must consolidate onto a different URL than their own —
+   * a single-model power page, whose body duplicates its product page, points
+   * its canonical (and x-default) at that product page instead. The page keeps
+   * its own URL, its own title and its own hreflang set; only the two
+   * "preferred URL" signals move. Leave undefined for a normal self-canonical.
+   */
+  canonicalOverridePath?: string;
 }
 
 const {
@@ -33,9 +43,19 @@ const {
   noindex = false,
   locale = DEFAULT_LOCALE,
   ogImage = '/images/og/default.jpg',
+  canonicalOverridePath,
 } = Astro.props;
 
-const canonicalPath = localizedPath(locale, path);
+/* The page's own path, used for hreflang alternates — a localized page is
+   always the English path behind its prefix, even when it consolidates onto
+   another URL for canonical purposes. */
+const selfPath = localizedPath(locale, path);
+/* Canonical target. Defaults to the page itself; a consolidating page passes
+   an English path that is then localized the same way, so every locale of the
+   pair still points at the same-locale version of the target. */
+const canonicalPath = canonicalOverridePath
+  ? localizedPath(locale, canonicalOverridePath)
+  : selfPath;
 const canonical = new URL(canonicalPath, Astro.site);
 const ogUrl = canonical.toString();
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
@@ -47,10 +67,17 @@ const isOgCard = ogImage.startsWith('/images/og/');
  * hreflang alternates: one per locale + x-default pointing at English.
  * Every locale exposes the same English path behind its prefix, so all
  * alternates exist by construction.
+ *
+ * A consolidating page (canonicalOverridePath set) advertises the alternates
+ * of its TARGET, not of its own URL: hreflang and canonical must describe the
+ * same cluster, otherwise the pair sends Google two contradictory "preferred
+ * URL" signals. `alternatePath` is therefore the canonical target when set,
+ * and the page's own path otherwise.
  */
+const alternatePath = canonicalOverridePath ?? path;
 const alternates = LOCALES.map((l) => ({
   hrefLang: LOCALE_META[l].htmlLang,
-  href: new URL(localizedPath(l, path), Astro.site).toString(),
+  href: new URL(localizedPath(l, alternatePath), Astro.site).toString(),
 }));
 
 /* RSS autodiscovery — the English feed is the only one, so it is declared on
@@ -65,7 +92,7 @@ const rssUrl = new URL('/rss.xml', Astro.site).toString();
 
 <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — Technical Guides`} href={rssUrl} />
 {alternates.map((alt) => <link rel="alternate" hreflang={alt.hrefLang} href={alt.href} />)}
-<link rel="alternate" hreflang="x-default" href={new URL(path, Astro.site).toString()} />
+<link rel="alternate" hreflang="x-default" href={new URL(localizedPath(DEFAULT_LOCALE, alternatePath), Astro.site).toString()} />
 
 <meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={SITE.name} />

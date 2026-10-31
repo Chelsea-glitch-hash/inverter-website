@@ -18,7 +18,7 @@
  */
 import { PRODUCTS, type Product, type ProductSpecifications } from '../data/products';
 import { getCategory, type Category } from './categories';
-import { formatPower } from './products';
+import { formatPower, productPath } from './products';
 
 export interface PowerCategory {
   /** URL segment, e.g. "1800w" */
@@ -217,4 +217,63 @@ export function getPowerCategoryForProduct(
 /** Path helper keeps the URL shape in one place. */
 export function powerCategoryPath(parentCategory: string, slug: string): string {
   return `/products/${parentCategory}/${slug}/`;
+}
+
+/** The models published at one rated power within one parent category. */
+function modelsAtPower(parentCategory: string, power: number): Product[] {
+  return PRODUCTS.filter(
+    (product) => product.category === parentCategory && product.ratedPower === power
+  );
+}
+
+/**
+ * Whether a power-rating page is the canonical version of its own content.
+ *
+ * A rating that holds TWO OR MORE models IS the aggregation hub for those
+ * models — the only page where they are compared side by side — so it stays
+ * self-canonical and stays in the sitemap.
+ *
+ * A rating that holds EXACTLY ONE model has no aggregation value: its body is
+ * the single product page restated (measured at 101 of 119 content lines
+ * shared). Google treats that pair as near-duplicate and indexes only one, so
+ * a self-canonical thin page both wastes crawl budget and splits the signals
+ * of the product page it duplicates.
+ */
+export function isSelfCanonicalPowerCategory(
+  parentCategory: string,
+  power: number
+): boolean {
+  return modelsAtPower(parentCategory, power).length > 1;
+}
+
+/**
+ * Canonical target of a power-rating page.
+ *
+ * Multi-model ratings return their own path (self-canonical). Single-model
+ * ratings return the product page they duplicate, so the two URLs consolidate
+ * onto one instead of competing. The single-model page itself keeps its URL and
+ * stays in the on-site navigation — it is a legitimate browsing shortcut, just
+ * not a second indexable copy of the product.
+ */
+export function powerCategoryCanonicalPath(
+  parentCategory: string,
+  powerCategory: Pick<PowerCategory, 'slug' | 'power'>
+): string {
+  if (isSelfCanonicalPowerCategory(parentCategory, powerCategory.power)) {
+    return powerCategoryPath(parentCategory, powerCategory.slug);
+  }
+  return productPath(modelsAtPower(parentCategory, powerCategory.power)[0]);
+}
+
+/**
+ * English paths of every power page that is NOT self-canonical, i.e. the
+ * single-model duplicates. Drives the sitemap exclusion so a URL is never
+ * listed with a canonical that points somewhere else.
+ */
+export function nonCanonicalPowerCategoryPaths(): string[] {
+  return POWER_CATEGORY_PARENTS.flatMap((parent) =>
+    getPowerCategories(parent)
+      .filter((power) => !isSelfCanonicalPowerCategory(parent, power.power))
+      .map((power) => powerCategoryPath(parent, power.slug))
+  );
 }

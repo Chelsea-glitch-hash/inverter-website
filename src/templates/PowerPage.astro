@@ -11,7 +11,13 @@ import CTABanner from '../components/CTABanner.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import { getCategory } from '../lib/categories';
-import { getPowerCategories, powerCategoryPath, type PowerCategory } from '../lib/power-categories';
+import {
+  getPowerCategories,
+  isSelfCanonicalPowerCategory,
+  powerCategoryCanonicalPath,
+  powerCategoryPath,
+  type PowerCategory,
+} from '../lib/power-categories';
 import { formatPower, getProductsByPower } from '../lib/products';
 import { localizedProduct } from '../i18n/product-content';
 import { localizedCategory } from '../i18n/category-content';
@@ -52,6 +58,14 @@ const copy = t.powerPage.copy({
   dc: dcList || null,
   ac: acList || null,
 });
+
+/* A rating holding a single model restates that product page, so it points its
+   canonical at the product instead of at itself (see power-categories.ts).
+   Multi-model ratings are the aggregation hub and stay self-canonical. */
+const selfCanonical = isSelfCanonicalPowerCategory(parentCategory, powerCategory.power);
+const canonicalPath = selfCanonical
+  ? undefined
+  : powerCategoryCanonicalPath(parentCategory, powerCategory);
 ---
 
 <BaseLayout
@@ -59,6 +73,7 @@ const copy = t.powerPage.copy({
   description={copy.seoDescription}
   path={powerCategoryPath(parentCategory, powerCategory.slug)}
   locale={locale}
+  canonicalPath={canonicalPath}
 >
   <Container class="pt-8">
     <Breadcrumb

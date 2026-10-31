@@ -1,8 +1,93 @@
 // @ts-check
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+
+/**
+ * Real content dates, generated from git history by
+ * `node tools/gen-content-dates.mjs`. Read as JSON rather than imported as
+ * TypeScript because this config is plain ESM and Node cannot resolve a `.ts`
+ * specifier from here; keeping it a committed artefact also means the build
+ * never depends on git being present or unshallow on the CI runner.
+ */
+const contentDates = JSON.parse(
+  readFileSync(fileURLToPath(new URL('./src/data/content-dates.json', import.meta.url)), 'utf8')
+);
+
+/**
+ * English paths of power-rating pages that are NOT self-canonical, i.e. the
+ * single-model duplicates whose canonical points at their product page. They
+ * are excluded from the sitemap: listing a URL whose canonical points
+ * elsewhere asks a search engine to index two conflicting signals. The pages
+ * still exist and stay in the on-site navigation.
+ *
+ * Kept in sync with src/lib/power-categories.ts by scripts/verify-sitemap.mjs,
+ * which fails the check if the two lists drift.
+ */
+const NON_CANONICAL_POWER_PATHS = new Set(
+  JSON.parse(
+    readFileSync(
+      fileURLToPath(new URL('./src/data/non-canonical-paths.json', import.meta.url)),
+      'utf8'
+    )
+  )
+);
+
+/** Strip the origin and locale prefix, leaving the English path. */
+function toEnglishPath(url, locales) {
+  const { pathname } = new URL(url);
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length > 0 && locales.includes(segments[0])) segments.shift();
+  return '/' + segments.join('/') + (segments.length > 0 ? '/' : '');
+}
+
+/** The blog article slug in a path like /de/blog/some-slug/, else null. */
+function blogSlug(pathname) {
+  const match = pathname.match(/\/blog\/([^/]+)\/$/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Last-modified date for one sitemap URL, by page family. Returns a real
+ * content date or the newest genuine date on the site — never a build
+ * timestamp, which Google detects and then distrusts for the whole field.
+ */
+function lastmodFor(pathname) {
+  if (pathname === '/') return contentDates.home;
+  if (pathname === '/products/') return contentDates.productsIndex;
+  if (pathname === '/blog/') return contentDates.blogIndex;
+
+  const slug = blogSlug(pathname);
+  if (slug) return contentDates.blog?.[slug] ?? contentDates._generated;
+
+  const staticPages = {
+    '/about/': 'about',
+    '/factory/': 'factory',
+    '/quality/': 'quality',
+    '/contact/': 'contact',
+    '/privacy-policy/': 'privacy',
+    '/oem-odm/': 'oemOdm',
+    '/tools/sizing-calculator/': 'sizingCalculator',
+  };
+  if (staticPages[pathname]) return contentDates[staticPages[pathname]];
+
+  /* /products/<category>/<rest>/ — a <rest> of the form "1800w" is a power
+     page, anything else is a product page. */
+  if (pathname.startsWith('/products/')) {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length >= 3) {
+      return /^\d+w$/.test(segments[2]) ? contentDates.power : contentDates.product;
+    }
+    return contentDates.category;
+  }
+
+  return contentDates._generated;
+}
+
+const LOCALE_KEYS = ['en', 'es', 'zh-hant', 'fr', 'ar', 'pt', 'it', 'de', 'ru', 'ja', 'ko'];
 
 // Canonical production host (`www` is preferred; the bare domain 301s to it
 // at the CDN edge). This value drives canonical URLs and the XML sitemap, and
@@ -33,6 +118,29 @@ export default defineConfig({
           ja: 'ja',
           ko: 'ko',
         },
+      },
+      /**
+       * Drop the single-model power pages. Their canonical points at the
+       * product page they duplicate, so they must not also be offered for
+       * indexing. Every locale of the pair is dropped, not just English.
+       */
+      filter: (page) => {
+        const englishPath = toEnglishPath(page, LOCALE_KEYS);
+        return !NON_CANONICAL_POWER_PATHS.has(englishPath);
+      },
+      /**
+       * Attach a per-page lastmod. This is the sitemap field Google actually
+       * uses to decide what to recrawl; priority and changefreq are ignored.
+       *
+       * The `?? _generated` guard matters: a page family whose source files
+       * are not yet committed has no git date, and emitting a <lastmod>-less
+       * entry (or a null) for it would silently under-signal exactly the
+       * newest pages. The fallback is the newest genuine content date on the
+       * site — still real, never a build timestamp.
+       */
+      serialize: (item) => {
+        const englishPath = toEnglishPath(item.url, LOCALE_KEYS);
+        return { ...item, lastmod: lastmodFor(englishPath) ?? contentDates._generated };
       },
     }),
   ],

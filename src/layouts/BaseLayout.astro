@@ -31,6 +31,12 @@ interface Props {
   productCategory?: string;
   /** Current locale. English pages may omit it. */
   locale?: Locale;
+  /**
+   * Site-absolute ENGLISH path to point the canonical at, when this page must
+   * consolidate onto a different URL (see SEO.astro). Used by single-model
+   * power pages, whose body duplicates their product page.
+   */
+  canonicalPath?: string;
 }
 
 const {
@@ -44,6 +50,7 @@ const {
   productSku,
   productCategory,
   locale = DEFAULT_LOCALE,
+  canonicalPath,
 } = Astro.props;
 
 const t = getDict(locale);
@@ -124,6 +131,7 @@ const websiteJsonLd = {
       noindex={noindex}
       locale={locale}
       ogImage={ogImage}
+      canonicalOverridePath={canonicalPath}
     />
 
     <!-- GA4 with Consent Mode v2: all marketing/analytics storage denied until consent -->
