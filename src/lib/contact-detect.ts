@@ -60,9 +60,9 @@ export interface DetectContactOptions {
  * Pick the email address and phone number out of a message, if any.
  *
  * A number is accepted when either
- *   - it carries a country code ("+86 189 2309 4074"), or
+ *   - it carries a country code ("+86 190 6811 9697"), or
  *   - it has at least ten digits and the message says what it is
- *     ("WhatsApp 8618923094074", "reach me on 4155550134"), or
+ *     ("WhatsApp 8619068119697", "reach me on 4155550134"), or
  *   - the composer is waiting for details and the message is only that number.
  * Everything else is ordinary content: 3000W, 20 pcs, 48V, "3000 4000",
  * "15000 20000 USD", "20000 30000 pcs", "order 1234567890".

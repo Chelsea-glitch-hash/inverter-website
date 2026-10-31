@@ -11,7 +11,7 @@
 | 状态 | 项目 |
 |---|---|
 | ✅ 已完成 | 公司地址（结构化：streetAddress / locality / region / country）填入 `config.ts` |
-| ✅ 已完成 | 联系电话 `+86 189 2309 4074` 填入 `config.ts` 并在 contact 页展示 |
+| ✅ 已完成 | 联系电话 `+86 190 6811 9697` 填入 `config.ts` 并在 contact 页展示 |
 | ✅ 已完成 | `Organization` JSON-LD 补 `contactPoint`（sales / telephone / email / languages） |
 | ✅ 已完成 | factory 页地址补全城市/省份/国家 |
 | ✅ 已确认无问题 | 产品图均带 `width`/`height`（800×800、缩略图 160×160）→ CLS 已受控 |

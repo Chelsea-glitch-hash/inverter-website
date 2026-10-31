@@ -112,7 +112,7 @@ export interface ChatContact {
   email: string;
   /** Digits only, international format (no "+"). */
   whatsapp: string;
-  /** Display form, e.g. "+86 189 2309 4074". */
+  /** Display form, e.g. "+86 190 6811 9697". */
   whatsappDisplay: string;
   waLink: string;
   mailtoLink: string;

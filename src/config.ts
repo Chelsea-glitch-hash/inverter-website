@@ -51,19 +51,19 @@ export const COMPANY = {
 
 export const CONTACT = {
   /** Sales inbox shown on the website. */
-  email: 'keira@zzpine.com',
+  email: 'cyrus@zzpine.com',
   /**
    * International format, digits only - no "+", spaces or dashes.
    * Used verbatim to build wa.me links: https://wa.me/<whatsapp>
    */
-  whatsapp: '8618923094074',
+  whatsapp: '8619068119697',
   /** Published sales phone number, international format. */
-  phone: '+86 189 2309 4074',
+  phone: '+86 190 6811 9697',
 };
 
 /**
  * Human-readable form of a digits-only WhatsApp number, e.g.
- * "8618923094074" -> "+86 189 2309 4074".
+ * "8619068119697" -> "+86 190 6811 9697".
  *
  * Only a presentation helper — the digits-only value above stays the single
  * source of truth. Country codes are matched longest-first from a short list;
