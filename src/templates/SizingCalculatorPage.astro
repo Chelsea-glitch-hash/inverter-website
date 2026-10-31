@@ -1,0 +1,444 @@
+---
+/**
+ * Off-grid system sizing calculator — ONE template for all 11 languages.
+ *
+ * Why this page exists (GEO/SEO): a genuinely useful free tool is the one
+ * asset on a B2B site that other people choose to link to, and it answers a
+ * question buyers actually type ("what size inverter / battery / array do I
+ * need"). Everything it recommends comes from real data:
+ *
+ *   - formulas + constants  -> src/lib/sizing.ts (each one traced to the
+ *     published sizing guides, so the tool and the articles agree)
+ *   - recommended models    -> src/data/products.ts, filtered by the DC input
+ *     voltage the visitor selected and the rating the maths requires
+ *
+ * All copy lives in the UI dictionary (src/i18n/ui/en.ts -> sizing block).
+ * The calculation runs client-side in vanilla JS — the page ships no
+ * framework and works with JS disabled (it degrades to the static formulas
+ * and guides, no blank box).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABanner from '../components/CTABanner.astro';
+import FAQ from '../components/FAQ.astro';
+import { getAllProducts, formatPower, productPath } from '../lib/products';
+import {
+  ARRAY_DERATING,
+  CONTINUOUS_MARGIN,
+  BATTERY_CHEMISTRIES,
+  SUN_HOUR_REGIONS,
+  SYSTEM_VOLTAGES,
+  dodFor,
+} from '../lib/sizing';
+import { DEFAULT_LOCALE, localizedPath, type Locale } from '../i18n/config';
+import { getDict } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDict(locale);
+const t = dict.sizing;
+const seo = dict.seo.sizing;
+
+/**
+ * Catalog models the client-side matcher is allowed to recommend.
+ *
+ * Only off-grid categories qualify: a grid-tie or hybrid unit is not an
+ * off-grid inverter even when its DC voltage matches. `dcInputVoltage` is
+ * read raw — the matcher splits it, so nothing is pre-parsed here.
+ */
+const CANDIDATES = getAllProducts()
+  .filter((p) => p.category === 'off-grid-inverters' || p.category === 'off-grid-solar-inverters')
+  .map((p) => ({
+    id: p.id,
+    name: p.name,
+    path: localizedPath(locale, productPath(p)),
+    ratedPower: p.ratedPower,
+    ratedPowerLabel: formatPower(p.ratedPower),
+    dcInputVoltage: p.specifications.dcInputVoltage ?? '',
+    category: p.category,
+  }));
+
+/**
+ * Serialised config for the inline script. Built here (not in the browser) so
+ * the tool always reflects the same constants and catalog the build used.
+ */
+const clientConfig = {
+  arrayDerating: ARRAY_DERATING,
+  continuousMargin: CONTINUOUS_MARGIN,
+  voltages: [...SYSTEM_VOLTAGES],
+  chemistries: BATTERY_CHEMISTRIES.map((c) => ({ id: c.id, dod: c.dod })),
+  sunHours: SUN_HOUR_REGIONS.map((r) => ({ id: r.id, sunHours: r.sunHours })),
+  candidates: CANDIDATES,
+};
+
+/** Localized strings the inline script needs (it has no access to the dict). */
+const clientLabels = {
+  resultsEmpty: t.results.empty,
+  noModel: t.recommended.none,
+  batteryAtVoltage: t.results.batteryAtVoltage,
+};
+---
+
+<BaseLayout title={seo.title} description={seo.description} path="/tools/sizing-calculator/" locale={locale}>
+  <Container class="pt-8">
+    <Breadcrumb crumbs={[{ label: t.title }]} locale={locale} />
+  </Container>
+
+  <Section eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} titleAs="h1">
+    <p class="max-w-3xl text-sm leading-relaxed text-slate-600">{t.intro}</p>
+
+    <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <!-- Inputs -->
+      <form
+        id="sizing-form"
+        class="rounded-xl border border-slate-200 bg-white p-6"
+        novalidate
+        data-sizing-labels={JSON.stringify(clientLabels)}
+      >
+        <h2 class="text-lg font-semibold text-slate-900">{t.form.heading}</h2>
+
+        <div class="mt-5 space-y-5">
+          <div>
+            <label for="dailyEnergy" class="block text-sm font-medium text-slate-900">{t.form.dailyEnergy}</label>
+            <div class="mt-1.5 flex items-center gap-2">
+              <input
+                id="dailyEnergy"
+                name="dailyEnergy"
+                type="number"
+                min="1"
+                step="any"
+                inputmode="decimal"
+                value="2160"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+              />
+              <span class="shrink-0 text-sm text-slate-500">Wh</span>
+            </div>
+            <p class="mt-1.5 text-xs leading-relaxed text-slate-500">{t.form.dailyEnergyHelp}</p>
+          </div>
+
+          <div>
+            <label for="peakLoad" class="block text-sm font-medium text-slate-900">{t.form.peakLoad}</label>
+            <div class="mt-1.5 flex items-center gap-2">
+              <input
+                id="peakLoad"
+                name="peakLoad"
+                type="number"
+                min="1"
+                step="any"
+                inputmode="decimal"
+                value="1500"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+              />
+              <span class="shrink-0 text-sm text-slate-500">W</span>
+            </div>
+            <p class="mt-1.5 text-xs leading-relaxed text-slate-500">{t.form.peakLoadHelp}</p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label for="voltage" class="block text-sm font-medium text-slate-900">{t.form.voltage}</label>
+              <select
+                id="voltage"
+                name="voltage"
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+              >
+                {SYSTEM_VOLTAGES.map((v, i) => <option value={v} selected={i === 2}>{v} V</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label for="chemistry" class="block text-sm font-medium text-slate-900">{t.form.chemistry}</label>
+              <select
+                id="chemistry"
+                name="chemistry"
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+              >
+                {
+                  BATTERY_CHEMISTRIES.map((c, i) => (
+                    <option value={c.id} selected={i === 2}>
+                      {t.chemistry[c.id]}
+                    </option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="autonomy" class="block text-sm font-medium text-slate-900">{t.form.autonomy}</label>
+            <input
+              id="autonomy"
+              name="autonomy"
+              type="number"
+              min="1"
+              step="1"
+              inputmode="numeric"
+              value="2"
+              class="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+            />
+            <p class="mt-1.5 text-xs leading-relaxed text-slate-500">{t.form.autonomyHelp}</p>
+          </div>
+
+          <div>
+            <label for="sunRegion" class="block text-sm font-medium text-slate-900">{t.form.region}</label>
+            <select
+              id="sunRegion"
+              name="sunRegion"
+              class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+            >
+              {
+                SUN_HOUR_REGIONS.map((r) => (
+                  <option value={r.id} selected={r.id === 'central-europe'}>
+                    {t.region[r.id]} — {r.sunHours} h
+                  </option>
+                ))
+              }
+            </select>
+          </div>
+
+          <div>
+            <label for="sunHours" class="block text-sm font-medium text-slate-900">{t.form.sunHours}</label>
+            <div class="mt-1.5 flex items-center gap-2">
+              <input
+                id="sunHours"
+                name="sunHours"
+                type="number"
+                min="0.5"
+                step="0.1"
+                inputmode="decimal"
+                value="4"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none"
+              />
+              <span class="shrink-0 text-sm text-slate-500">h</span>
+            </div>
+            <p class="mt-1.5 text-xs leading-relaxed text-slate-500">{t.form.sunHoursHelp}</p>
+          </div>
+        </div>
+
+        <!-- Results. Rendered inside the form so a no-JS visitor still sees the
+             static headings; the values are filled by the script below. -->
+        <div id="sizing-results" class="mt-8 border-t border-slate-200 pt-6" aria-live="polite">
+          <h2 class="text-lg font-semibold text-slate-900">{t.results.heading}</h2>
+
+          <dl class="mt-4 space-y-4">
+            <div class="flex items-baseline justify-between gap-4">
+              <dt class="text-sm text-slate-600">{t.results.array}</dt>
+              <dd id="out-array" class="text-lg font-semibold text-slate-900">&mdash;</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-4">
+              <dt class="text-sm text-slate-600">{t.results.inverter}</dt>
+              <dd id="out-inverter" class="text-lg font-semibold text-slate-900">&mdash;</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-4">
+              <dt class="text-sm text-slate-600">
+                {t.results.battery}
+                <span id="out-battery-note" class="block text-xs text-slate-400"></span>
+              </dt>
+              <dd id="out-battery" class="text-lg font-semibold text-slate-900">&mdash;</dd>
+            </div>
+          </dl>
+
+          <p class="mt-5 rounded-lg bg-slate-50 p-3 text-xs leading-relaxed text-slate-500">
+            {t.results.disclaimer}
+          </p>
+        </div>
+      </form>
+
+      <!-- Recommendations -->
+      <div class="space-y-6">
+        <div class="rounded-xl border border-slate-200 bg-white p-6">
+          <h2 class="text-lg font-semibold text-slate-900">{t.recommended.heading}</h2>
+          <p class="mt-2 text-xs leading-relaxed text-slate-500">{t.recommended.note}</p>
+
+          <div id="sizing-models" class="mt-4 space-y-3">
+            <p class="text-sm text-slate-500">{t.results.empty}</p>
+          </div>
+
+          <a
+            href={localizedPath(locale, '/products/')}
+            class="mt-5 inline-block text-sm font-medium text-brand-700 hover:underline"
+          >
+            {t.recommended.viewAll} &rarr;
+          </a>
+        </div>
+
+        <!-- Static explanation: always visible, JS or not. -->
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+          <h2 class="text-lg font-semibold text-slate-900">{t.howItWorks.heading}</h2>
+          <div class="mt-4 space-y-5">
+            {
+              t.howItWorks.steps.map((step) => (
+                <div>
+                  <h3 class="text-sm font-semibold text-slate-900">{step.title}</h3>
+                  <code class="mt-1.5 block rounded bg-white px-2.5 py-1.5 font-mono text-xs text-brand-700">
+                    {step.formula}
+                  </code>
+                  <p class="mt-1.5 text-xs leading-relaxed text-slate-600">{step.text}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-6">
+          <h2 class="text-sm font-semibold text-slate-900">{t.guides.heading}</h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            {
+              t.guides.links.map((link) => (
+                <li>
+                  <a href={localizedPath(locale, link.href)} class="text-brand-700 hover:underline">
+                    {link.label} &rarr;
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section class="bg-slate-50">
+    <FAQ faq={t.faq.items.map((i) => ({ question: i.q, answer: i.a }))} title={t.faq.heading} />
+  </Section>
+
+  <CTABanner title={t.cta.title} subtitle={t.cta.subtitle} locale={locale} />
+
+  <!-- Build-time config for the inline script: constants and catalog come from
+       the same modules the build used, so the tool can never drift from the
+       data. is:inline keeps it in place instead of bundling it away. -->
+  <script type="application/json" id="sizing-config" is:inline set:html={JSON.stringify(clientConfig)} />
+
+  <script>
+    interface Candidate {
+      id: string;
+      name: string;
+      path: string;
+      ratedPower: number;
+      ratedPowerLabel: string;
+      dcInputVoltage: string;
+      category: string;
+    }
+    interface Config {
+      arrayDerating: number;
+      continuousMargin: number;
+      voltages: number[];
+      chemistries: { id: string; dod: number }[];
+      sunHours: { id: string; sunHours: number }[];
+      candidates: Candidate[];
+    }
+    interface Labels {
+      resultsEmpty: string;
+      noModel: string;
+      batteryAtVoltage: string;
+    }
+
+    const configEl = document.getElementById('sizing-config');
+    const form = document.getElementById('sizing-form');
+    const modelsEl = document.getElementById('sizing-models');
+
+    if (configEl && form && modelsEl) {
+      const cfg = JSON.parse(configEl.textContent || '{}') as Config;
+      const labels: Labels = form.dataset.sizingLabels
+        ? (JSON.parse(form.dataset.sizingLabels) as Labels)
+        : { resultsEmpty: '', noModel: '', batteryAtVoltage: 'at {voltage} V' };
+
+      const num = (id: string) =>
+        parseFloat((document.getElementById(id) as HTMLInputElement | null)?.value || '');
+      const pos = (n: number) => Number.isFinite(n) && n > 0;
+      const round = (n: number, step: number) => Math.ceil(n / step) * step;
+      const text = (id: string, value: string) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      /** Mirrors supportsVoltage() in src/lib/sizing.ts — exact token match, so
+       *  "48V" can never match inside "480V". */
+      const supportsVoltage = (spec: string, voltage: number) =>
+        spec
+          .split('/')
+          .map((p) => p.trim())
+          .includes(`${voltage}V`);
+
+      function render() {
+        const daily = num('dailyEnergy');
+        const peak = num('peakLoad');
+        const voltage = num('voltage');
+        const autonomy = num('autonomy');
+        const sun = num('sunHours');
+        const chemistry =
+          (document.getElementById('chemistry') as HTMLSelectElement | null)?.value || 'lifepo4';
+
+        if (![daily, peak, voltage, autonomy, sun].every(pos)) {
+          text('out-array', '\u2014');
+          text('out-inverter', '\u2014');
+          text('out-battery', '\u2014');
+          text('out-battery-note', '');
+          modelsEl.innerHTML = '<p class="text-sm text-slate-500">' + labels.resultsEmpty + '</p>';
+          return;
+        }
+
+        const dod = cfg.chemistries.find((c) => c.id === chemistry)?.dod ?? 0.85;
+        const arrayW = (daily * cfg.arrayDerating) / sun;
+        const inverterW = peak * cfg.continuousMargin;
+        const batteryWh = (daily / dod) * autonomy;
+        const batteryAh = batteryWh / voltage;
+
+        text('out-array', round(arrayW, 50).toLocaleString() + ' W');
+        text('out-inverter', round(inverterW, 100).toLocaleString() + ' W');
+        text('out-battery', round(batteryAh, 5).toLocaleString() + ' Ah');
+        text('out-battery-note', labels.batteryAtVoltage.replace('{voltage}', String(voltage)));
+
+        const matches = cfg.candidates
+          .filter((c) => supportsVoltage(c.dcInputVoltage, voltage))
+          .filter((c) => c.ratedPower >= inverterW)
+          .sort((a, b) => a.ratedPower - b.ratedPower)
+          .slice(0, 3);
+
+        if (matches.length === 0) {
+          modelsEl.innerHTML = '<p class="text-sm text-slate-500">' + labels.noModel + '</p>';
+          return;
+        }
+
+        modelsEl.innerHTML = matches
+          .map(
+            (m) =>
+              '<a href="' +
+              m.path +
+              '" class="flex items-center justify-between gap-3 rounded-lg border border-slate-200 px-4 py-3 transition-colors hover:border-brand-400 hover:bg-brand-50">' +
+              '<span><span class="block text-sm font-medium text-slate-900">' +
+              m.name +
+              '</span><span class="block font-mono text-xs text-slate-500">' +
+              m.id +
+              ' · ' +
+              m.dcInputVoltage +
+              '</span></span>' +
+              '<span class="shrink-0 text-sm font-semibold text-brand-700">' +
+              m.ratedPowerLabel +
+              '</span></a>'
+          )
+          .join('');
+      }
+
+      // The region picker only seeds a sensible sun-hour default; the visitor
+      // can override the number afterwards.
+      const regionEl = document.getElementById('sunRegion') as HTMLSelectElement | null;
+      const sunEl = document.getElementById('sunHours') as HTMLInputElement | null;
+      regionEl?.addEventListener('change', () => {
+        const region = cfg.sunHours.find((r) => r.id === regionEl.value);
+        if (region && sunEl) {
+          sunEl.value = String(region.sunHours);
+          render();
+        }
+      });
+
+      form.addEventListener('input', render);
+      form.addEventListener('change', render);
+      render();
+    }
+  </script>
+</BaseLayout>

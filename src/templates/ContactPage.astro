@@ -75,7 +75,7 @@ const productOptions = getProductOptions();
             </li>
           </ul>
           {
-            (SOCIAL.instagram || SOCIAL.linkedin) && (
+            (SOCIAL.instagram || SOCIAL.linkedin || SOCIAL.youtube) && (
               <div class="mt-4 flex flex-col gap-1.5">
                 {SOCIAL.instagram && (
                   <a
@@ -95,6 +95,16 @@ const productOptions = getProductOptions();
                     target="_blank"
                   >
                     {t.contact.linkedin} &rarr;
+                  </a>
+                )}
+                {SOCIAL.youtube && (
+                  <a
+                    href={SOCIAL.youtube}
+                    class="inline-block text-sm font-medium text-brand-700 hover:underline"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    {t.contact.youtube} &rarr;
                   </a>
                 )}
               </div>

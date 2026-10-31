@@ -13,6 +13,7 @@ export const de: Dictionary = {
     oemOdm: "OEM / ODM",
     about: "Über uns",
     blog: "Blog",
+    sizingCalculator: "Auslegungsrechner",
     viewAllProducts: "Alle Produkte ansehen",
     requestQuote: "Angebot anfordern",
     whatsappUs: "WhatsApp",
@@ -30,6 +31,7 @@ export const de: Dictionary = {
     factoryAndManufacturing: "Fabrik & Fertigung",
     qualityControl: "Qualitätskontrolle",
     blogInsights: "Blog & Insights",
+    sizingCalculator: "Auslegungsrechner",
     contactUs: "Kontakt",
     privacyPolicy: "Datenschutzerklärung",
     stayUpdated: "Bleiben Sie auf dem Laufenden",
@@ -40,6 +42,9 @@ export const de: Dictionary = {
     rights: "Alle Rechte vorbehalten.",
     productCategoriesAria: "Produktkategorien",
     companyNavAria: "Unternehmen",
+    legalNameLabel: "Registrierter Firmenname",
+    registeredAddressLabel: "Registrierte Adresse",
+    lastUpdatedLabel: "Zuletzt aktualisiert",
   },
   newsletter: {
     emailLabel: "E-Mail-Adresse",
@@ -137,21 +142,49 @@ export const de: Dictionary = {
     },
     privacy: {
       title: "Datenschutzerklärung — Umgang mit Ihren Daten",
-      description:
-        "Wie wir Ihre personenbezogenen Daten erheben, nutzen und schützen, wenn Sie unsere Website nutzen, eine Anfrage senden oder unseren Newsletter abonnieren.",
+      description: "Wie wir Ihre personenbezogenen Daten erheben, nutzen und schützen, wenn Sie unsere Website nutzen, eine Anfrage senden oder unseren Newsletter abonnieren.",
+    },
+    sizing: {
+      title: "Off-Grid-System-Auslegungsrechner — Wechselrichter, Batterie & PV-Generator",
+      description: "Kostenloser Off-Grid-Auslegungsrechner: Tagesenergie, Spitzenlast, Systemspannung und Sonnenstunden eingeben und eine empfohlene Wechselrichter-Nennleistung, Batteriebank-Kapazität und PV-Generatorgröße erhalten — anschließend das Ergebnis mit echten Katalogmodellen abgleichen.",
     },
   },
   home: {
     hero: {
       eyebrow: "Wechselrichterhersteller seit {year}",
       title: "Solar-Wechselrichter direkt ab Werk für globale B2B-Partner",
-      subtitle: "Hybrid-, Netz- und Off-Grid-Wechselrichter direkt ab Werk, entwickelt für Regionen mit schwachem Netz, hohen Stromkosten oder unzuverlässiger Stromversorgung. Ausgelegt für Eigenverbrauch, Lastverschiebung und Backup – mit OEM-/ODM-Programmen, ISO 9001-Qualität und 24-Stunden-Reaktion für Distributoren, Installateure und Projektentwickler.",
+      subtitle: "Zhongze Huasong ist ein Shenzhener Wechselrichter-Hersteller, der in seinem eigenen 12.000 m² großen Werk 35 Modelle von 900 W bis 11 kW produziert. Das Sortiment umfasst Off-Grid- und Off-Grid-Solar-Wechselrichter für Regionen mit schwachen Netzen, hohen Stromkosten oder unzuverlässiger Stromversorgung – direkt ab Werk verkauft, mit OEM-/ODM-Programmen, ISO 9001-Qualität und 24-Stunden-Reaktionszeit.",
       heroImageAria: "Illustration einer Solarenergieanlage",
       bullets: [
         "OEM / ODM",
         "ISO 9001",
         "Antwort in 24h",
         "{countries}+ Exportländer",
+      ],
+    },
+    summary: {
+      title: "Zhongze Huasong auf einen Blick",
+      items: [
+        {
+          label: "Was wir herstellen",
+          text: "{models} Wechselrichter-Modelle von {minPower} bis {maxPower} — {offGrid} Off-Grid-Geräte und {solar} Off-Grid-Solar-Geräte, alle mit reiner Sinuswelle.",
+        },
+        {
+          label: "Wo",
+          text: "Unsere eigene {area} m² große Fabrik in Shenzhen, China, mit SMT-, Montage- und Alterungslinien im eigenen Haus.",
+        },
+        {
+          label: "Wie viel",
+          text: "Etwa {capacity} Einheiten pro Jahr, gefertigt von {employees} Mitarbeitern, darunter {engineers} F&E-Ingenieure.",
+        },
+        {
+          label: "Wer kauft",
+          text: "{oemClients}+ OEM-/ODM-Kunden und Distributoren in {countries}+ Exportmärkten.",
+        },
+        {
+          label: "So starten Sie",
+          text: "Senden Sie Ihre Spezifikation und Menge — unsere Vertriebsingenieure antworten innerhalb von 24 Stunden, und eine Standard-Serienproduktion wird nach Musterfreigabe in 30–45 Tagen versandt.",
+        },
       ],
     },
     trust: {
@@ -164,17 +197,17 @@ export const de: Dictionary = {
     categories: {
       eyebrow: "Unsere Produkte",
       title: "Wechselrichter-Kategorien",
-      subtitle: "Entdecken Sie die Wechselrichter-Baureihen, die wir derzeit fertigen. Kategorien werden hier veröffentlicht, sobald ihr erstes Modell erschienen ist.",
+      subtitle: "Wir fertigen zwei Wechselrichter-Reihen: Off-Grid-Wechselrichter ohne integrierten Solarladeregler und Off-Grid-Solar-Wechselrichter mit integriertem Regler. Wählen Sie eine Reihe, um alle Modelle und die vollständige Spezifikationstabelle zu sehen.",
     },
     featured: {
       eyebrow: "Empfohlen",
       title: "Beliebte Modelle",
-      subtitle: "Bestverkaufte Wechselrichter aus unserem Katalog. Jedes Modell unterstützt OEM-Branding und Spezifikationsanpassungen.",
+      subtitle: "Dies sind die Modelle, die Übersee-Einkäufer am häufigsten bestellen. Jedes Modell kann Ihre eigene Marke tragen, wobei Ausgangskonfiguration, DC-Eingangsbereich und Steckdosentypen an Ihren Markt angepasst werden.",
     },
     advantages: {
       eyebrow: "Produktvorteile",
       title: "Produktvorteile & technische Stärke",
-      subtitle: "Zentrale Merkmale unserer Off-Grid-Wechselrichter-Baureihe — vom Ausgangstyp und DC-Eingangsoptionen bis zu Leistungsklassen und praxisnahen Produktkonfigurationen.",
+      subtitle: "Sechs Merkmale prägen die Off-Grid-Reihe: reine Sinuswelle am Ausgang, DC-Eingangsoptionen von 12 V bis 72 V, temperaturabhängige Kühlung, 220 V oder 110 V AC-Ausgang, Nennleistungen von 900 W bis 5000 W sowie LCD- oder Digitalanzeigen mit USB-Varianten.",
       items: [
         {
           title: "Reine Sinuswelle am Ausgang",
@@ -205,7 +238,7 @@ export const de: Dictionary = {
     whyUs: {
       eyebrow: "Warum wir",
       title: "Warum globale Käufer uns wählen",
-      subtitle: "Wir sind ein Hersteller, kein Handelsunternehmen — das bedeutet direkte Entwicklungsbegleitung, kontrollierte Qualität und bessere Margen.",
+      subtitle: "Wir sind das Werk, kein Handelsunternehmen: Ihre technischen Fragen erreichen die Menschen, die das Produkt entwickeln, und Ihre Kosten spiegeln die Fertigungslinie wider statt einer Händlermarge.",
       items: [
         {
           title: "Eigene F&E",
@@ -224,7 +257,7 @@ export const de: Dictionary = {
     process: {
       eyebrow: "So arbeiten wir",
       title: "Von der Anfrage bis zur Lieferung",
-      subtitle: "Ein transparenter Sechs-Schritte-Prozess für ausländische B2B-Partner — Sie wissen jederzeit, wo Ihr Auftrag steht.",
+      subtitle: "Ein Auftrag durchläuft sechs Schritte: Anfrage, Angebot, Musterbestätigung, Tests und Zertifizierung, Serienproduktion, dann Lieferung. Beim zweiten Schritt erhalten Sie innerhalb von 24 Stunden eine Antwort, und eine Standardproduktion wird 30–45 Tage nach Mustergenehmigung versandt.",
       steps: [
         {
           title: "Anfrage (RFQ)",
@@ -255,7 +288,7 @@ export const de: Dictionary = {
     factory: {
       eyebrow: "In unserer Fabrik",
       title: "Gebaut für gleichbleibende Qualität und zuverlässige Lieferfähigkeit",
-      subtitle: "Unser Fertigungsprozess vereint Produktion, Montage, Testung und Qualitätskontrolle, um gleichbleibende Produktqualität und eine zuverlässige Versorgung unserer globalen Kunden zu unterstützen.",
+      subtitle: "Eine {area} m² große Produktionsstätte mit eigenen SMT-, Montage- und Alterungslinien, besetzt mit {employees} Mitarbeitern und einer Kapazität von etwa {capacity} Einheiten pro Jahr. Jede Produktionscharge erhält 100 % Funktionstests und einen 8-stündigen Alterungstest, bevor sie verpackt wird.",
       capabilities: [
         {
           title: "Produktion & Montage",
@@ -286,7 +319,7 @@ export const de: Dictionary = {
     applications: {
       eyebrow: "Anwendungen",
       title: "Wo unsere Wechselrichter im Einsatz sind",
-      subtitle: "Bewährt in Wohn-, Gewerbe-, Telekommunikations- und Off-Grid-Projekten unter verschiedensten Klimazonen und Netzbedingungen.",
+      subtitle: "Sechs Anwendungsarten machen den Großteil unserer Aufträge aus: private Dachanlagen, gewerbliche und industrielle Anlagen, Batteriespeicher, Telekom-Basisstationen, ländliche Elektrifizierung und Notstromversorgung. Jede stützt sich auf einen anderen Teil des Sortiments.",
       items: [
         {
           title: "Wohngebäude-Solar",
@@ -317,7 +350,7 @@ export const de: Dictionary = {
     certifications: {
       eyebrow: "Zertifizierungen & Standards",
       title: "Konformitätsdokumentation für globale Märkte",
-      subtitle: "Unsere Konformitätsdokumentation für Solar-Wechselrichter unterstützt die Prüfung durch Kunden und Produktqualifizierungsanforderungen. Dokumentation ist auf Anfrage erhältlich.",
+      subtitle: "Für die Solar-Wechselrichter-Reihe sind zwei Dokumentensätze erhältlich: CE-bezogene LVD-Dokumentation, bewertet nach IEC 62109-1:2010, und EMC-Dokumentation. Zertifikate werden pro Modell und pro Zielmarkt ausgestellt, daher hängt der zutreffende Satz von Ihrer Bestellung ab.",
       items: [
         {
           title: "CE / LVD",
@@ -330,6 +363,30 @@ export const de: Dictionary = {
       ],
       note: "Die Verfügbarkeit von Zertifizierungen variiert je nach Modell und Zielmarkt. Nennen Sie uns Ihr Zielland, und wir bestätigen die für Ihre Bestellung geltenden Zertifizierungen.",
       qualityButton: "Mehr über unser Qualitätsmanagementsystem erfahren",
+      standards: {
+        heading: "Normen, anhand derer diese Dokumentation bewertet wird",
+        items: [
+          {
+            code: "IEC 62109-1:2010",
+            scope: "Sicherheit von Leistungsumrichtern für den Einsatz in Photovoltaik-Stromversorgungssystemen — Teil 1: Allgemeine Anforderungen.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6470",
+          },
+          {
+            code: "IEC 62109-2:2011",
+            scope: "Sicherheit von Leistungsumrichtern für den Einsatz in Photovoltaik-Stromversorgungssystemen — Teil 2: Besondere Anforderungen an Wechselrichter.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6471",
+          },
+          {
+            code: "ISO 9001",
+            scope: "Qualitätsmanagementsysteme — die Norm hinter unserem Werksqualitätssystem, 100 % Funktionsprüfung und 8-Stunden-Alterungstest.",
+            publisher: "ISO",
+            url: "https://www.iso.org/standard/62085.html",
+          },
+        ],
+        sourceNote: "Normbezeichnungen und Geltungsbereiche wie von den herausgebenden Stellen veröffentlicht. Folgen Sie einem Link, um die Norm an ihrer Quelle zu lesen.",
+      },
     },
     testimonials: {
       title: "Was unsere Partner sagen",
@@ -369,6 +426,44 @@ export const de: Dictionary = {
     blog: {
       eyebrow: "Insights",
       title: "Neues aus unserem Blog",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Fragen, die Käufer vor der Bestellung stellen",
+      items: [
+        {
+          q: "Sind Sie Hersteller oder Handelsunternehmen?",
+          a: "Wir sind Hersteller. Shenzhen Zhongze Huasong Trading Co., Ltd. betreibt eine eigene 12,000 m² große Anlage mit SMT-, Montage- und Alterungslinien im eigenen Haus und versendet etwa 200,000 Einheiten pro Jahr. Sie kaufen direkt ab Werk, nicht über eine Zwischenstufe.",
+        },
+        {
+          q: "Wie viele Wechselrichter-Modelle stellen Sie her, und über welchen Leistungsbereich?",
+          a: "Der aktuelle Katalog umfasst 35 Modelle von 900 W bis 11 kW. Er teilt sich in 12 Off-Grid-Wechselrichter (900 W–5000 W, ohne integrierten Solarladeregler) und 23 Off-Grid-Solar-Wechselrichter (1500 W–11 kW, mit integriertem MPPT-Regler).",
+        },
+        {
+          q: "Können Sie unter meiner eigenen Marke fertigen?",
+          a: "Ja. Unser OEM-/ODM-Programm umfasst Gehäuse, Verpackung, Handbuch und Display, und die Firmware kann Ihre Marke tragen, sofern das Modell dies unterstützt. Ausgangskonfiguration, DC-Eingangsbereich und Steckdosentypen können für Ihren Markt angepasst werden.",
+        },
+        {
+          q: "Wie hoch ist die Mindestbestellmenge?",
+          a: "Die Mindestbestellmenge hängt vom Modell und vom Umfang der Individualisierung ab, da eine Private-Label-Produktion eigene Druckvorlagen und Firmware-Einrichtung benötigt. Nennen Sie uns das gewünschte Modell und die Menge, und wir bestätigen eine realistische Mindestbestellmenge mit Preisangabe.",
+        },
+        {
+          q: "Wie lange dauert es, bis eine Bestellung versandt wird?",
+          a: "Unsere Vertriebsingenieure beantworten eine Anfrage innerhalb von 24 Stunden. Nach Musterfreigabe wird eine Standard-Serienproduktion in der Regel in 30–45 Tagen versandt, abhängig von Menge und Umfang der Individualisierung.",
+        },
+        {
+          q: "Wie wird die Produktqualität vor dem Versand geprüft?",
+          a: "Das Werk arbeitet mit einem ISO 9001-Qualitätssystem, 100 % Funktionstests und einem 8-stündigen Alterungstest vor der Verpackung. Eine Vorversandprüfung durch Dritte ist willkommen, und wir arbeiten mit dem von Ihnen benannten Prüfer zusammen.",
+        },
+        {
+          q: "Über welche Zertifizierungen verfügen Ihre Wechselrichter?",
+          a: "CE-bezogene LVD-Dokumentation nach EN 62109-1 und EMC-Dokumentation sind für die Solar-Wechselrichter-Reihe auf Anfrage erhältlich. Zertifikate werden pro Modell und pro Zielmarkt ausgestellt; nennen Sie uns Ihr Zielland, und wir bestätigen Ihnen den zutreffenden Satz.",
+        },
+        {
+          q: "Off-Grid oder Off-Grid Solar – welchen brauche ich?",
+          a: "Wählen Sie einen Off-Grid-Wechselrichter, wenn das Solarladen bereits von einem separaten Laderegler übernommen wird. Wählen Sie einen Off-Grid-Solar-Wechselrichter, wenn Sie PV-Eingang, Batterieladung und AC-Ausgang in einem Wandgerät wünschen. Beide liefern eine reine Sinuswelle; der Unterschied liegt darin, ob der MPPT-Regler integriert ist.",
+        },
+      ],
     },
   },
   productsIndex: {
@@ -563,6 +658,7 @@ export const de: Dictionary = {
     ],
     instagram: "Folgen Sie uns auf Instagram",
     linkedin: "Auf LinkedIn vernetzen",
+    youtube: "Auf YouTube ansehen",
   },
   form: {
     title: "Angebot anfordern",
@@ -725,6 +821,116 @@ export const de: Dictionary = {
           a: "Nach Musterfreigabe werden Standardproduktionen je nach Menge und Anpassung in der Regel in 30–45 Tagen versandt.",
         },
       ],
+    },
+  },
+  sizing: {
+    eyebrow: "Kostenloses Auslegungstool",
+    title: "Auslegungsrechner für Off-Grid-Systeme",
+    subtitle: "Geben Sie Ihre Lasten und Standortbedingungen ein und erhalten Sie eine erste Auslegung für PV-Generator, Wechselrichter und Batterie — und gleichen Sie das Ergebnis anschließend mit Modellen aus unserem Katalog ab.",
+    intro: "Dieser Rechner dimensioniert ein Off-Grid-System mit drei Formeln: PV-Generator-Leistung in Watt = Tagesenergie × 1,3 ÷ Spitzensonnenstunden; Wechselrichterleistung in Watt = gleichzeitige Spitzenlast × 1,25; Batteriekapazität = Tagesenergie ÷ Entladetiefe × Autonomietage ÷ Systemspannung. Alle drei sind dieselben Formeln, die auch in unseren Off-Grid-Auslegungsleitfäden durchgerechnet werden.",
+    form: {
+      heading: "Ihre Lasten und Ihr Standort",
+      dailyEnergy: "Täglicher Energieverbrauch",
+      dailyEnergyHelp: "Gesamte Wattstunden, die Ihre Lasten an einem Tag verbrauchen. Watt × Stunden pro Tag, über alle Lasten summiert.",
+      peakLoad: "Gleichzeitige Spitzenlast",
+      peakLoadHelp: "Die Watt, die im selben Moment anliegen — die Spitzenstunde, nicht der Tagesgesamtverbrauch.",
+      voltage: "Batterie- / Systemspannung",
+      chemistry: "Batterietyp",
+      autonomy: "Autonomietage",
+      autonomyHelp: "Wie viele sonnenlose Tage die Batteriebank überbrücken muss.",
+      region: "Region auswählen",
+      sunHours: "Spitzensonnenstunden",
+      sunHoursHelp: "Das tägliche Äquivalent an voller Sonneneinstrahlung — nicht die Tageslichtstunden. Verwenden Sie den ungünstigsten Monat.",
+    },
+    chemistry: {
+      flooded: "Blei-Säure (nass)",
+      agm: "Blei-Säure (AGM / Gel)",
+      lifepo4: "LiFePO4 (Lithium)",
+    },
+    region: {
+      "northern-europe": "Nordeuropa",
+      "central-europe": "Mitteleuropa",
+      mediterranean: "Mittelmeerraum",
+      "middle-east-africa": "Naher Osten / Nordafrika",
+      "southeast-asia": "Südostasien (äquatornah)",
+      "us-southwest": "Südwesten der USA",
+    },
+    results: {
+      heading: "Ihr empfohlenes System",
+      array: "PV-Generator",
+      inverter: "Dauerleistung des Wechselrichters",
+      battery: "Batteriebank",
+      batteryAtVoltage: "bei {voltage} V",
+      empty: "Füllen Sie die Felder oben aus, um ein empfohlenes System zu sehen.",
+      disclaimer: "Eine erste Schätzung für die Planung, basierend auf den Standardwerten für Derating und Entladetiefe, die in unseren Auslegungsleitfäden veröffentlicht sind. Motor-Anlaufstrom, Kabeldimensionierung, MPPT-Eingangsgrenzen und lokale Vorschriften müssen separat geprüft werden.",
+    },
+    recommended: {
+      heading: "Passende Modelle aus unserem Katalog",
+      note: "Kleinste Katalogmodelle, die die oben genannten Werte bei der gewählten Systemspannung erfüllen.",
+      none: "Kein einzelnes Katalogmodell deckt alle oben genannten Werte ab. Sprechen Sie mit unseren Ingenieuren — eine Mehrgeräte- oder kundenspezifische Konfiguration passt möglicherweise besser.",
+      viewAll: "Alle Wechselrichter ansehen",
+    },
+    howItWorks: {
+      heading: "Wie die drei Werte berechnet werden",
+      steps: [
+        {
+          title: "PV-Generator",
+          formula: "Tagesenergie (Wh) × 1.3 ÷ Spitzen-Sonnenstunden",
+          text: "Der Faktor 1.3 deckt Umwandlungs-, Verkabelungs- und Lade-/Entladeverluste der Batterie ab. Spitzen-Sonnenstunden sind der Tageswert bei voller Sonneneinstrahlung, nicht die Anzahl der Tageslichtstunden.",
+        },
+        {
+          title: "Wechselrichter",
+          formula: "gleichzeitige Spitzenlast (W) × 1.25",
+          text: "Ausgelegt wird auf die Last, die gleichzeitig läuft, niemals auf die Tagessumme. Der Motoranlauf wird separat geprüft – siehe unseren Leitfaden zur Anlaufleistung.",
+        },
+        {
+          title: "Batteriebank",
+          formula: "Tagesenergie (Wh) ÷ Entladetiefe × Autonomietage ÷ Spannung",
+          text: "Die Entladetiefe gibt an, welcher Anteil der Batterie sicher genutzt werden kann: etwa 50 % bei offenen Blei-Säure-Batterien, 55 % bei AGM / Gel und 85 % bei LiFePO4.",
+        },
+      ],
+    },
+    faq: {
+      heading: "Auslegungsrechner – FAQ",
+      items: [
+        {
+          q: "Ersetzt dieser Rechner eine technische Prüfung?",
+          a: "Nein. Er liefert eine erste Schätzung auf Basis der üblichen Derating- und Entladetiefe-Werte. Motoranlauf, Kabel- und Absicherungsauslegung, MPPT-Eingangsgrenzen, String-Spannung und Konformität mit dem Zielmarkt sind darin nicht enthalten – senden Sie uns Ihre Lastaufstellung, und unsere Ingenieure prüfen die Auslegung kostenlos.",
+        },
+        {
+          q: "Warum fragt der Rechner nach zwei verschiedenen Leistungswerten?",
+          a: "Tagesenergie und Spitzenlast dimensionieren unterschiedliche Teile des Systems. PV-Generator und Batterie richten sich nach der Tagesenergie, denn beide arbeiten über die Zeit mit Energie. Der Wechselrichter richtet sich nach der gleichzeitigen Spitzenlast, denn er muss diese Wattzahl auf einmal bereitstellen.",
+        },
+        {
+          q: "Was ist die Entladetiefe?",
+          a: "Die Entladetiefe ist der Anteil der Batteriekapazität, der vor dem Wiederaufladen sicher genutzt werden kann. Wird eine Blei-Säure-Batteriebank unter etwa 50 % entladen, verkürzt das ihre Lebensdauer deutlich; eine LiFePO4-Batteriebank verträgt rund 85 %. Deshalb benötigt dieselbe Tagesenergie bei Blei-Säure eine größere Nennkapazität als bei Lithium.",
+        },
+        {
+          q: "Funktioniert das auch für Hybrid- oder netzgekoppelte Systeme?",
+          a: "Die Formeln hier gelten für Off-Grid-Systeme mit Batteriebank. Ein netzgekoppeltes System hat keine Autonomieanforderung, und ein Hybridsystem bringt zusätzliche Regeln für Einspeisung und Netzladen mit – beide werden anders ausgelegt. Unsere Auslegungsleitfäden behandeln den Off-Grid-Fall; für die anderen Fälle kontaktieren Sie uns.",
+        },
+      ],
+    },
+    guides: {
+      heading: "Die Zahlen im Detail durchrechnen",
+      links: [
+        {
+          label: "Wie viele Solarmodule benötigen Sie?",
+          href: "/blog/how-many-solar-panels-for-off-grid/",
+        },
+        {
+          label: "Batteriebank-Auslegung Schritt für Schritt",
+          href: "/blog/off-grid-battery-bank-sizing/",
+        },
+        {
+          label: "Anlaufleistung und Motorstart",
+          href: "/blog/inverter-surge-power-motor-starting/",
+        },
+      ],
+    },
+    cta: {
+      title: "Sollen unsere Ingenieure Ihre Auslegung prüfen?",
+      subtitle: "Senden Sie uns Ihre Lastaufstellung und Ihren Zielmarkt – wir prüfen sie und empfehlen passende Modelle, kostenlos.",
     },
   },
 };

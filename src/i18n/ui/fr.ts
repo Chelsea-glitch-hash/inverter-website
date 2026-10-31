@@ -13,6 +13,7 @@ export const fr: Dictionary = {
     oemOdm: "OEM / ODM",
     about: "À propos",
     blog: "Blog",
+    sizingCalculator: "Calculateur de dimensionnement",
     viewAllProducts: "Voir tous les produits",
     requestQuote: "Demander un devis",
     whatsappUs: "Nous contacter sur WhatsApp",
@@ -30,6 +31,7 @@ export const fr: Dictionary = {
     factoryAndManufacturing: "Usine & Fabrication",
     qualityControl: "Contrôle qualité",
     blogInsights: "Blog & Analyses",
+    sizingCalculator: "Calculateur de dimensionnement",
     contactUs: "Nous contacter",
     privacyPolicy: "Politique de confidentialité",
     stayUpdated: "Restez informé",
@@ -40,6 +42,9 @@ export const fr: Dictionary = {
     rights: "Tous droits réservés.",
     productCategoriesAria: "Catégories de produits",
     companyNavAria: "Entreprise",
+    legalNameLabel: "Dénomination sociale",
+    registeredAddressLabel: "Adresse du siège social",
+    lastUpdatedLabel: "Dernière mise à jour",
   },
   newsletter: {
     emailLabel: "Adresse e-mail",
@@ -137,21 +142,49 @@ export const fr: Dictionary = {
     },
     privacy: {
       title: "Politique de Confidentialité — Traitement de vos Données",
-      description:
-        "Comment nous collectons, utilisons et protégeons vos données personnelles lorsque vous utilisez notre site, envoyez une demande ou vous abonnez à notre newsletter.",
+      description: "Comment nous collectons, utilisons et protégeons vos données personnelles lorsque vous utilisez notre site, envoyez une demande ou vous abonnez à notre newsletter.",
+    },
+    sizing: {
+      title: "Calculateur de dimensionnement de système hors-réseau — Onduleur, batterie et champ photovoltaïque",
+      description: "Calculateur de dimensionnement hors-réseau gratuit : saisissez l’énergie quotidienne, la charge de pointe, la tension du système et les heures d’ensoleillement pour obtenir une puissance d’onduleur, une capacité de parc de batteries et une taille de champ photovoltaïque recommandées — puis associez le résultat à des modèles réels du catalogue.",
     },
   },
   home: {
     hero: {
       eyebrow: "Fabricant d’onduleurs depuis {year}",
       title: "Onduleurs solaires au prix usine pour les partenaires B2B du monde entier",
-      subtitle: "Onduleurs hybrides, raccordés au réseau et hors réseau, en direct de l'usine, conçus pour les régions à réseau faible, coûts d'électricité élevés ou alimentation peu fiable. Pensés pour l'autoconsommation, le décalage des pics et l'alimentation de secours — avec des programmes OEM / ODM, une qualité ISO 9001 et une réponse en 24 heures pour les distributeurs, les installateurs et les développeurs de projets.",
+      subtitle: "Zhongze Huasong est un fabricant d'onduleurs de Shenzhen produisant 35 modèles de 900 W à 11 kW dans sa propre usine de 12 000 m². La gamme comprend des onduleurs hors-réseau et des onduleurs solaires hors-réseau pour les régions à réseau faible, coûts d'électricité élevés ou alimentation peu fiable — vendus en direct d'usine avec des programmes OEM / ODM, une qualité ISO 9001 et une réponse en 24 heures.",
       heroImageAria: "Illustration d’un système d’énergie solaire",
       bullets: [
         "OEM / ODM",
         "ISO 9001",
         "Réponse sous 24 h",
         "Plus de {countries} pays d’export",
+      ],
+    },
+    summary: {
+      title: "Zhongze Huasong en un coup d'œil",
+      items: [
+        {
+          label: "Ce que nous fabriquons",
+          text: "{models} modèles d'onduleurs de {minPower} à {maxPower} — {offGrid} unités hors-réseau et {solar} unités solaires hors-réseau, toutes à onde sinusoïdale pure.",
+        },
+        {
+          label: "Où",
+          text: "Notre propre usine de {area} m² à Shenzhen, en Chine, avec lignes SMT, assemblage et vieillissement en interne.",
+        },
+        {
+          label: "Combien",
+          text: "Environ {capacity} unités par an, fabriquées par {employees} collaborateurs, dont {engineers} ingénieurs R&D.",
+        },
+        {
+          label: "Qui achète",
+          text: "{oemClients}+ clients OEM / ODM et distributeurs sur {countries}+ marchés d'exportation.",
+        },
+        {
+          label: "Comment démarrer",
+          text: "Envoyez votre cahier des charges et votre quantité — nos ingénieurs commerciaux répondent sous 24 heures, et une production standard est expédiée en 30 à 45 jours après validation de l'échantillon.",
+        },
       ],
     },
     trust: {
@@ -164,17 +197,17 @@ export const fr: Dictionary = {
     categories: {
       eyebrow: "Nos produits",
       title: "Catégories d’onduleurs",
-      subtitle: "Explorez les gammes d’onduleurs que nous fabriquons actuellement. Les catégories sont ajoutées ici dès la publication de leur premier modèle.",
+      subtitle: "Nous fabriquons deux gammes d'onduleurs : les onduleurs hors-réseau sans régulateur solaire intégré, et les onduleurs solaires hors-réseau avec régulateur intégré. Choisissez une gamme pour voir chaque modèle et son tableau complet de spécifications.",
     },
     featured: {
       eyebrow: "En vedette",
       title: "Modèles populaires",
-      subtitle: "Onduleurs les plus vendus de notre catalogue. Chaque modèle prend en charge le marquage OEM et la personnalisation des caractéristiques.",
+      subtitle: "Voici les modèles les plus souvent commandés par les acheteurs étrangers. Chacun peut porter votre propre marque, avec la configuration de sortie, la plage d'entrée DC et les types de prises adaptés à votre marché.",
     },
     advantages: {
       eyebrow: "Avantages produits",
       title: "Avantages Produits & Expertise Technique",
-      subtitle: "Caractéristiques clés de notre gamme d’onduleurs hors-réseau — du type de sortie et des options d’entrée CC aux puissances nominales et aux configurations produits pratiques.",
+      subtitle: "Six caractéristiques définissent la gamme hors-réseau : sortie en onde sinusoïdale pure, options d'entrée DC de 12 V à 72 V, refroidissement à température contrôlée, sortie AC de 220 V ou 110 V, puissances nominales de 900 W à 5000 W, et écrans LCD ou numériques avec variantes USB.",
       items: [
         {
           title: "Sortie en onde sinusoïdale pure",
@@ -205,7 +238,7 @@ export const fr: Dictionary = {
     whyUs: {
       eyebrow: "Pourquoi nous",
       title: "Pourquoi les acheteurs internationaux nous choisissent",
-      subtitle: "Nous sommes un fabricant, pas une société de négoce — ce qui se traduit par un support d’ingénierie direct, une qualité maîtrisée et de meilleures marges.",
+      subtitle: "Nous sommes l'usine, pas une société de négoce : vos questions techniques parviennent directement aux personnes qui conçoivent le produit, et votre coût reflète la ligne de fabrication plutôt qu'une marge de revendeur.",
       items: [
         {
           title: "R&D intégrée",
@@ -224,7 +257,7 @@ export const fr: Dictionary = {
     process: {
       eyebrow: "Notre façon de travailler",
       title: "De la demande de devis à la livraison",
-      subtitle: "Un processus transparent en six étapes conçu pour les partenaires B2B internationaux — vous savez toujours où en est votre commande.",
+      subtitle: "Une commande passe par six étapes : RFQ, devis, confirmation de l'échantillon, tests et certification, production en série, puis livraison. Vous recevez une réponse sous 24 heures à l'étape deux, et une série standard est expédiée 30 à 45 jours après l'approbation des échantillons.",
       steps: [
         {
           title: "Demande de devis",
@@ -255,7 +288,7 @@ export const fr: Dictionary = {
     factory: {
       eyebrow: "Au cœur de notre usine",
       title: "Conçus pour une Qualité Constante et un Approvisionnement Fiable",
-      subtitle: "Notre processus de fabrication associe production, assemblage, tests et contrôle qualité pour garantir une qualité produit constante et un approvisionnement fiable pour nos clients du monde entier.",
+      subtitle: "Une installation de {area} m² avec lignes SMT, d'assemblage et de vieillissement en interne, employant {employees} personnes et capable de produire environ {capacity} unités par an. Chaque lot de production bénéficie de tests fonctionnels à 100 % et d'un test de vieillissement de 8 heures avant emballage.",
       capabilities: [
         {
           title: "Production & Assemblage",
@@ -286,7 +319,7 @@ export const fr: Dictionary = {
     applications: {
       eyebrow: "Applications",
       title: "Là où nos onduleurs sont utilisés",
-      subtitle: "Éprouvés dans des projets résidentiels, commerciaux, télécoms et hors-réseau sous des climats et des conditions de réseau variés.",
+      subtitle: "Six types d'applications génèrent la majorité de nos commandes : toitures résidentielles, installations commerciales et industrielles, stockage sur batteries, stations de base télécom, électrification rurale et alimentation de secours. Chacune fait appel à une partie différente de la gamme.",
       items: [
         {
           title: "Solaire résidentiel",
@@ -317,7 +350,7 @@ export const fr: Dictionary = {
     certifications: {
       eyebrow: "Certifications & Normes",
       title: "Documentation de Conformité pour les Marchés Internationaux",
-      subtitle: "La documentation de conformité de nos onduleurs solaires répond aux besoins d’examen des clients et de qualification des produits. Documentation disponible sur demande.",
+      subtitle: "Deux ensembles de documents sont disponibles pour la gamme d'onduleurs solaires : la documentation LVD liée à la CE évaluée selon l'IEC 62109-1:2010, et la documentation EMC. Les certificats sont délivrés par modèle et par marché de destination ; l'ensemble applicable dépend donc de votre commande.",
       items: [
         {
           title: "CE / LVD",
@@ -330,6 +363,30 @@ export const fr: Dictionary = {
       ],
       note: "La disponibilité des certifications varie selon le modèle et le marché de destination. Indiquez-nous votre pays de destination et nous confirmerons les certifications applicables à votre commande.",
       qualityButton: "Découvrir notre système qualité",
+      standards: {
+        heading: "Normes au regard desquelles cette documentation est évaluée",
+        items: [
+          {
+            code: "IEC 62109-1:2010",
+            scope: "Sécurité des convertisseurs de puissance pour systèmes photovoltaïques — Partie 1 : Exigences générales.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6470",
+          },
+          {
+            code: "IEC 62109-2:2011",
+            scope: "Sécurité des convertisseurs de puissance pour systèmes photovoltaïques — Partie 2 : Exigences particulières pour les onduleurs.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6471",
+          },
+          {
+            code: "ISO 9001",
+            scope: "Systèmes de management de la qualité — la norme qui sous-tend notre système qualité d'usine, les tests fonctionnels à 100 % et le test de vieillissement de 8 heures.",
+            publisher: "ISO",
+            url: "https://www.iso.org/standard/62085.html",
+          },
+        ],
+        sourceNote: "Désignations et domaines d'application des normes tels que publiés par les organismes émetteurs. Suivez un lien pour lire la norme à sa source.",
+      },
     },
     testimonials: {
       title: "Ce que disent nos partenaires",
@@ -369,6 +426,44 @@ export const fr: Dictionary = {
     blog: {
       eyebrow: "Analyses",
       title: "Les derniers articles de notre blog",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Questions que posent les acheteurs avant de commander",
+      items: [
+        {
+          q: "Êtes-vous un fabricant ou une société de négoce ?",
+          a: "Nous sommes un fabricant. Shenzhen Zhongze Huasong Trading Co., Ltd. exploite sa propre usine de 12 000 m² avec des lignes SMT, d'assemblage et de vieillissement en interne, et expédie environ 200 000 unités par an. Vous achetez directement à l'usine, sans intermédiaire.",
+        },
+        {
+          q: "Combien de modèles d'onduleurs fabriquez-vous, et sur quelle plage de puissance ?",
+          a: "Le catalogue actuel compte 35 modèles allant de 900 W à 11 kW. Il se répartit en 12 onduleurs hors-réseau (900 W–5000 W, sans régulateur de charge solaire intégré) et 23 onduleurs solaires hors-réseau (1500 W–11 kW, avec régulateur MPPT intégré).",
+        },
+        {
+          q: "Pouvez-vous fabriquer sous ma propre marque ?",
+          a: "Oui. Notre programme OEM/ODM couvre le boîtier, l'emballage, le manuel et l'écran, et le firmware peut porter votre marque lorsque le modèle le permet. La configuration de sortie, la plage d'entrée DC et les types de prises peuvent être adaptés à votre marché.",
+        },
+        {
+          q: "Quelle est la quantité minimale de commande ?",
+          a: "Le MOQ dépend du modèle et de l'ampleur de la personnalisation, car une production en marque propre nécessite ses propres éléments graphiques et une configuration du firmware. Indiquez-nous le modèle et la quantité envisagés et nous vous confirmerons un MOQ réaliste avec le tarif.",
+        },
+        {
+          q: "Quel est le délai d'expédition d'une commande ?",
+          a: "Nos ingénieurs commerciaux répondent à une demande sous 24 heures. Après validation de l'échantillon, une production standard est généralement expédiée en 30 à 45 jours, selon la quantité et le niveau de personnalisation.",
+        },
+        {
+          q: "Comment la qualité des produits est-elle vérifiée avant expédition ?",
+          a: "L'usine applique un système qualité ISO 9001 avec des tests fonctionnels à 100 % et un test de vieillissement de 8 heures avant emballage. Une inspection avant expédition par un tiers est la bienvenue, et nous collaborerons avec l'inspecteur que vous désignez.",
+        },
+        {
+          q: "Quelles certifications vos onduleurs détiennent-ils ?",
+          a: "La documentation LVD liée à la CE selon l'EN 62109-1 et la documentation EMC sont disponibles pour la gamme d'onduleurs solaires sur demande. Les certificats sont délivrés par modèle et par marché de destination ; indiquez-nous votre pays cible et nous confirmerons l'ensemble applicable.",
+        },
+        {
+          q: "Hors-réseau ou solaire hors-réseau — lequel me faut-il ?",
+          a: "Choisissez un onduleur hors-réseau lorsque la charge solaire est déjà assurée par un régulateur de charge séparé. Choisissez un onduleur solaire hors-réseau lorsque vous souhaitez une entrée PV, la charge de batterie et une sortie AC dans un seul appareil mural. Les deux offrent une sortie en onde sinusoïdale pure ; la différence réside dans la présence ou non d'un régulateur MPPT intégré.",
+        },
+      ],
     },
   },
   productsIndex: {
@@ -563,6 +658,7 @@ export const fr: Dictionary = {
     ],
     instagram: "Suivez-nous sur Instagram",
     linkedin: "Nous suivre sur LinkedIn",
+    youtube: "Suivez-nous sur YouTube",
   },
   form: {
     title: "Demander un devis",
@@ -725,6 +821,116 @@ export const fr: Dictionary = {
           a: "Après approbation de l'échantillon, les séries standard partent généralement en 30–45 jours selon la quantité et la personnalisation.",
         },
       ],
+    },
+  },
+  sizing: {
+    eyebrow: "Outil d’ingénierie gratuit",
+    title: "Calculateur de dimensionnement de système hors-réseau",
+    subtitle: "Saisissez vos charges et les conditions de votre site pour obtenir une première estimation du champ photovoltaïque, de l’onduleur et de la batterie — puis comparez le résultat aux modèles de notre catalogue.",
+    intro: "Ce calculateur dimensionne un système hors-réseau à l’aide de trois formules : puissance du champ photovoltaïque (W) = énergie quotidienne × 1.3 ÷ heures équivalentes de plein soleil ; puissance de l’onduleur (W) = charge de pointe simultanée × 1.25 ; capacité de batterie = énergie quotidienne ÷ profondeur de décharge × jours d’autonomie ÷ tension du système. Ces trois formules sont celles détaillées dans nos guides de dimensionnement hors-réseau.",
+    form: {
+      heading: "Vos charges et votre site",
+      dailyEnergy: "Consommation énergétique quotidienne",
+      dailyEnergyHelp: "Total en watt-heures consommé par vos charges sur une journée. watts × heures par jour, additionnés pour chaque charge.",
+      peakLoad: "Charge de pointe simultanée",
+      peakLoadHelp: "Les watts fonctionnant au même instant — l’heure la plus chargée, pas le total journalier.",
+      voltage: "Tension batterie / système",
+      chemistry: "Type de batterie",
+      autonomy: "Jours d’autonomie",
+      autonomyHelp: "Nombre de jours sans soleil que le parc de batteries doit couvrir.",
+      region: "Choisissez une région",
+      sunHours: "Heures équivalentes de plein soleil",
+      sunHoursHelp: "L’équivalent journalier de plein soleil — pas les heures de jour. Utilisez le mois le plus défavorable.",
+    },
+    chemistry: {
+      flooded: "Plomb-acide (à électrolyte liquide)",
+      agm: "Plomb-acide (AGM / gel)",
+      lifepo4: "LiFePO4 (lithium)",
+    },
+    region: {
+      "northern-europe": "Europe du Nord",
+      "central-europe": "Europe centrale",
+      mediterranean: "Méditerranée",
+      "middle-east-africa": "Moyen-Orient / Afrique du Nord",
+      "southeast-asia": "Asie du Sud-Est (équatoriale)",
+      "us-southwest": "Sud-Ouest des États-Unis",
+    },
+    results: {
+      heading: "Votre système recommandé",
+      array: "Champ photovoltaïque",
+      inverter: "Puissance continue de l’onduleur",
+      battery: "Parc de batteries",
+      batteryAtVoltage: "à {voltage} V",
+      empty: "Remplissez les champs ci-dessus pour voir un système recommandé.",
+      disclaimer: "Estimation préliminaire pour la planification, basée sur les coefficients de déclassement et les profondeurs de décharge standard publiés dans nos guides de dimensionnement. L’appel de courant au démarrage des moteurs, le dimensionnement des câbles, les limites d’entrée MPPT et la conformité locale doivent faire l’objet d’une vérification distincte.",
+    },
+    recommended: {
+      heading: "Modèles correspondants de notre catalogue",
+      note: "Plus petits modèles du catalogue qui répondent aux valeurs ci-dessus à la tension système sélectionnée.",
+      none: "Aucun modèle unique du catalogue ne couvre toutes les valeurs ci-dessus. Contactez nos ingénieurs — une configuration multi-unités ou personnalisée peut mieux convenir.",
+      viewAll: "Voir tous les onduleurs",
+    },
+    howItWorks: {
+      heading: "Comment les trois valeurs sont calculées",
+      steps: [
+        {
+          title: "Champ photovoltaïque",
+          formula: "énergie journalière (Wh) × 1.3 ÷ heures d'ensoleillement équivalent pleine puissance",
+          text: "Le coefficient 1.3 couvre les pertes de conversion, de câblage et les pertes aller-retour de la batterie. Les heures d'ensoleillement équivalent pleine puissance correspondent à l'équivalent journalier d'un ensoleillement à pleine puissance, et non au nombre d'heures de jour.",
+        },
+        {
+          title: "Onduleur",
+          formula: "charge de pointe simultanée (W) × 1.25",
+          text: "Le dimensionnement se fait sur la charge qui fonctionne en même temps, jamais sur le total journalier. Le pic de démarrage des moteurs fait l'objet d'une vérification distincte — voir notre guide sur la puissance de crête.",
+        },
+        {
+          title: "Parc de batteries",
+          formula: "énergie journalière (Wh) ÷ profondeur de décharge × jours d'autonomie ÷ tension",
+          text: "La profondeur de décharge correspond à la part de la batterie réellement utilisable en toute sécurité : environ 50 % pour le plomb-acide à électrolyte liquide, 55 % pour l'AGM / gel et 85 % pour le LiFePO4.",
+        },
+      ],
+    },
+    faq: {
+      heading: "Calculateur de dimensionnement — FAQ",
+      items: [
+        {
+          q: "Ce calculateur remplace-t-il une étude d'ingénierie ?",
+          a: "Non. Il fournit une première estimation à partir des coefficients de déclassement et des valeurs de profondeur de décharge standard. Le pic de démarrage des moteurs, le dimensionnement des câbles et des fusibles, les limites d'entrée MPPT, la tension des chaînes et la conformité au marché de destination n'en font pas partie — envoyez-nous votre bilan de charges et nos ingénieurs vérifieront le dimensionnement gratuitement.",
+        },
+        {
+          q: "Pourquoi le calculateur demande-t-il deux valeurs de puissance différentes ?",
+          a: "L'énergie journalière et la charge de pointe dimensionnent des parties différentes du système. Le champ photovoltaïque et la batterie sont dimensionnés sur l'énergie journalière, car tous deux travaillent sur une énergie dans le temps. L'onduleur est dimensionné sur la charge de pointe simultanée, car il doit fournir cette puissance en watts instantanément.",
+        },
+        {
+          q: "Qu'est-ce que la profondeur de décharge ?",
+          a: "La profondeur de décharge est la part de la capacité d'une batterie qui peut être utilisée en toute sécurité avant recharge. Décharger un parc plomb-acide au-delà d'environ 50 % réduit fortement sa durée de vie ; un parc LiFePO4 tolère environ 85 %. C'est pourquoi, pour une même énergie journalière, une capacité nominale plus élevée est nécessaire en plomb-acide qu'en lithium.",
+        },
+        {
+          q: "Cela fonctionne-t-il pour les systèmes hybrides ou raccordés au réseau ?",
+          a: "Les formules présentées ici concernent les systèmes hors-réseau avec parc de batteries. Un système raccordé au réseau n'a aucune exigence d'autonomie et un système hybride ajoute des règles d'exportation et de recharge depuis le réseau : leur dimensionnement est donc différent. Nos guides de dimensionnement couvrent le cas hors-réseau ; contactez-nous pour les autres.",
+        },
+      ],
+    },
+    guides: {
+      heading: "Reprendre les chiffres en détail",
+      links: [
+        {
+          label: "De combien de panneaux solaires avez-vous besoin ?",
+          href: "/blog/how-many-solar-panels-for-off-grid/",
+        },
+        {
+          label: "Dimensionnement du parc de batteries, étape par étape",
+          href: "/blog/off-grid-battery-bank-sizing/",
+        },
+        {
+          label: "Puissance de crête et démarrage des moteurs",
+          href: "/blog/inverter-surge-power-motor-starting/",
+        },
+      ],
+    },
+    cta: {
+      title: "Vous souhaitez que nos ingénieurs vérifient votre dimensionnement ?",
+      subtitle: "Envoyez-nous votre bilan de charges et votre marché cible — nous l'examinerons et vous recommanderons des modèles, gratuitement.",
     },
   },
 };

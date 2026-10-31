@@ -19,6 +19,7 @@ export const en = {
     oemOdm: 'OEM / ODM',
     about: 'About',
     blog: 'Blog',
+    sizingCalculator: 'Sizing Calculator',
     viewAllProducts: 'View all products',
     requestQuote: 'Request a Quote',
     whatsappUs: 'WhatsApp Us',
@@ -37,6 +38,7 @@ export const en = {
     factoryAndManufacturing: 'Factory & Manufacturing',
     qualityControl: 'Quality Control',
     blogInsights: 'Blog & Insights',
+    sizingCalculator: 'Sizing Calculator',
     contactUs: 'Contact us',
     privacyPolicy: 'Privacy policy',
     stayUpdated: 'Stay updated',
@@ -47,6 +49,13 @@ export const en = {
     rights: 'All rights reserved.',
     productCategoriesAria: 'Product categories',
     companyNavAria: 'Company',
+    /* Entity-verification block. A buyer (or an answer engine) checking
+       whether this is a real, traceable company needs the registered name,
+       the street address and a content date on the page itself — not only in
+       structured data. Values come from COMPANY in src/config.ts. */
+    legalNameLabel: 'Registered name',
+    registeredAddressLabel: 'Registered address',
+    lastUpdatedLabel: 'Last updated',
   },
 
   newsletter: {
@@ -159,16 +168,54 @@ export const en = {
       description:
         "How we collect, use and protect your personal data when you use our website, submit an inquiry or subscribe to our newsletter. GDPR-aligned disclosure of processors and your rights.",
     },
+    sizing: {
+      title: 'Off-Grid System Sizing Calculator — Inverter, Battery & PV Array',
+      description:
+        'Free off-grid sizing calculator: enter daily energy, peak load, system voltage and sun hours to get a recommended inverter rating, battery bank capacity and PV array size — then match the result to real catalog models.',
+    },
   },
 
   home: {
     hero: {
       eyebrow: 'Inverter Manufacturer since {year}',
       title: 'Factory-Direct Solar Inverters for Global B2B Partners',
+      /* Leads with a self-contained sentence carrying the facts a reader (or an
+         answer engine) needs to state who this is without further context:
+         what we make, over what range, and at what scale. The qualifying
+         sentence after it names where the range fits and where it does not. */
       subtitle:
-        'Factory-direct hybrid, grid-tie and off-grid inverters engineered for regions with weak grids, high electricity costs or unreliable power. Built for self-consumption, peak-shifting and backup — with OEM / ODM programs, ISO 9001 quality and 24-hour response for distributors, installers and project developers.',
+        'Zhongze Huasong is a Shenzhen inverter manufacturer producing 35 models from 900 W to 11 kW in its own 12,000 m² factory. The range covers off-grid and off-grid solar inverters for regions with weak grids, high electricity costs or unreliable power — sold factory-direct with OEM / ODM programs, ISO 9001 quality and a 24-hour response.',
       heroImageAria: 'Solar energy system illustration',
       bullets: ['OEM / ODM', 'ISO 9001', '24h response', '{countries}+ export countries'],
+    },
+    /* Answer summary: the five things a buyer asks first, each stated as a
+       standalone fact with its numbers. Placed directly under the hero so the
+       page answers "who is this, what do they make, how big, who buys, how do
+       I start" before any scrolling. */
+    summary: {
+      title: 'Zhongze Huasong at a glance',
+      items: [
+        {
+          label: 'What we make',
+          text: '{models} inverter models from {minPower} to {maxPower} — {offGrid} off-grid units and {solar} off-grid solar units, all pure sine wave.',
+        },
+        {
+          label: 'Where',
+          text: 'Our own {area} m² factory in Shenzhen, China, running SMT, assembly and aging lines in-house.',
+        },
+        {
+          label: 'How much',
+          text: 'About {capacity} units a year, built by {employees} staff including {engineers} R&D engineers.',
+        },
+        {
+          label: 'Who buys',
+          text: '{oemClients}+ OEM / ODM clients and distributors across {countries}+ export markets.',
+        },
+        {
+          label: 'How to start',
+          text: 'Send your specification and quantity — our sales engineers reply within 24 hours, and a standard production run ships in 30–45 days after sample approval.',
+        },
+      ],
     },
     trust: {
       manufacturer: 'Manufacturer',
@@ -180,17 +227,17 @@ export const en = {
     categories: {
       eyebrow: 'Our Products',
       title: 'Inverter Categories',
-      subtitle: 'Explore the inverter ranges we currently manufacture. Categories are added here as soon as their first model is published.',
+      subtitle: 'We manufacture two inverter ranges: off-grid inverters without a built-in solar controller, and off-grid solar inverters with one. Pick a range to see every model and its full specification table.',
     },
     featured: {
       eyebrow: 'Featured',
       title: 'Popular Models',
-      subtitle: 'Best-selling inverters from our catalog. Every model supports OEM branding and spec customization.',
+      subtitle: 'These are the models overseas buyers order most often. Every one can carry your own brand, with the output configuration, DC input range and socket types adjusted for your market.',
     },
     advantages: {
       eyebrow: 'Product Advantages',
       title: 'Product Advantages & Technical Strength',
-      subtitle: 'Key characteristics of our off-grid inverter range — from output type and DC input options to power ratings and practical product configurations.',
+      subtitle: 'Six characteristics define the off-grid range: pure sine wave output, DC input options from 12 V to 72 V, temperature-controlled cooling, 220 V or 110 V AC output, power ratings from 900 W to 5000 W, and LCD or digital displays with USB variants.',
       items: [
         {
           title: 'Pure Sine Wave Output',
@@ -221,7 +268,7 @@ export const en = {
     whyUs: {
       eyebrow: 'Why Us',
       title: 'Why Global Buyers Choose Us',
-      subtitle: 'We are a manufacturer, not a trading company — which means direct engineering support, controlled quality and better margins.',
+      subtitle: 'We are the factory, not a trading company: your engineering questions reach the people who design the product, and your cost reflects the manufacturing line rather than a reseller margin.',
       items: [
         {
           title: 'In-house R&D',
@@ -241,7 +288,7 @@ export const en = {
     process: {
       eyebrow: 'How We Work',
       title: 'From RFQ to Delivery',
-      subtitle: 'A transparent six-step process designed for overseas B2B partners — you always know where your order stands.',
+      subtitle: 'An order moves through six steps: RFQ, quotation, sample confirmation, testing and certification, batch production, then delivery. You get a reply within 24 hours at step two, and a standard run ships 30–45 days after samples are approved.',
       steps: [
         { title: 'RFQ', description: 'Send your requirements via the inquiry form, email or WhatsApp.' },
         { title: 'Solution & Quotation', description: 'Our sales engineers reply within 24 hours with a proposal and pricing.' },
@@ -254,7 +301,7 @@ export const en = {
     factory: {
       eyebrow: 'Inside Our Factory',
       title: 'Built for Consistent Quality and Reliable Supply',
-      subtitle: 'Our manufacturing process brings together production, assembly, testing and quality control to support consistent product quality and reliable supply for global customers.',
+      subtitle: 'A {area} m² facility with SMT, assembly and aging lines in-house, staffed by {employees} people and capable of about {capacity} units a year. Every production batch gets 100% functional testing and an 8-hour aging test before it is packed.',
       capabilities: [
         { title: 'Production & Assembly', description: 'Structured production and assembly processes support consistent manufacturing and reliable product supply.' },
         { title: 'Quality Testing', description: 'Quality control and functional testing are integrated into the manufacturing process to support consistent product quality.' },
@@ -273,7 +320,7 @@ export const en = {
     applications: {
       eyebrow: 'Applications',
       title: 'Where Our Inverters Work',
-      subtitle: 'Proven in residential, commercial, telecom and off-grid projects across diverse climates and grid conditions.',
+      subtitle: 'Six application types drive most of our orders: residential rooftop, commercial and industrial plants, battery storage, telecom base stations, rural electrification and backup power. Each one leans on a different part of the range.',
       items: [
         { title: 'Residential Solar', description: 'Home rooftop PV systems with battery backup and self-consumption optimization.' },
         { title: 'Commercial & Industrial', description: 'C&I rooftop and ground-mount plants with string inverters from 10 to 50 kW.' },
@@ -286,7 +333,7 @@ export const en = {
     certifications: {
       eyebrow: 'Certifications & Standards',
       title: 'Compliance Documentation for Global Markets',
-      subtitle: 'Our solar inverter compliance documentation supports customer review and product qualification requirements. Documentation is available on request.',
+      subtitle: 'Two document sets are available for the solar inverter range: CE-related LVD documentation assessed against IEC 62109-1:2010, and EMC documentation. Certificates are issued per model and per destination market, so the applicable set depends on your order.',
       items: [
         {
           title: 'CE / LVD',
@@ -299,6 +346,35 @@ export const en = {
       ],
       note: 'Certification availability varies by model and target market. Tell us your destination country and we will confirm applicable certifications for your order.',
       qualityButton: 'Learn about our quality system',
+      /* The standards this documentation is assessed against, quoted with
+         their exact designation and year so a buyer can look each one up at
+         the issuing body. Links go to the publisher's own catalogue page —
+         the primary source — not to a third-party summary. ISO 9001 is cited
+         without a year: the 2015 edition was withdrawn in September 2026. */
+      standards: {
+        heading: 'Standards this documentation is assessed against',
+        items: [
+          {
+            code: 'IEC 62109-1:2010',
+            scope: 'Safety of power converters for use in photovoltaic power systems — Part 1: General requirements.',
+            publisher: 'IEC',
+            url: 'https://webstore.iec.ch/en/publication/6470',
+          },
+          {
+            code: 'IEC 62109-2:2011',
+            scope: 'Safety of power converters for use in photovoltaic power systems — Part 2: Particular requirements for inverters.',
+            publisher: 'IEC',
+            url: 'https://webstore.iec.ch/en/publication/6471',
+          },
+          {
+            code: 'ISO 9001',
+            scope: 'Quality management systems — the standard behind our factory quality system, 100% functional testing and 8-hour aging test.',
+            publisher: 'ISO',
+            url: 'https://www.iso.org/standard/62085.html',
+          },
+        ],
+        sourceNote: 'Standard designations and scopes as published by the issuing bodies. Follow a link to read the standard at its source.',
+      },
     },
     testimonials: {
       title: 'What Our Partners Say',
@@ -314,6 +390,48 @@ export const en = {
     blog: {
       eyebrow: 'Insights',
       title: 'Latest From Our Blog',
+    },
+    /* Buyer questions, answered in the order a purchasing manager asks them.
+       Every figure here is one the site already states elsewhere (catalog
+       count, power range, factory data, lead time); nothing is introduced that
+       the rest of the site does not already stand behind. */
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'Questions Buyers Ask Before Ordering',
+      items: [
+        {
+          q: 'Are you a manufacturer or a trading company?',
+          a: 'We are a manufacturer. Shenzhen Zhongze Huasong Trading Co., Ltd. runs its own 12,000 m² facility with SMT, assembly and aging lines in-house, and ships about 200,000 units a year. You buy factory-direct, not through a middle layer.',
+        },
+        {
+          q: 'How many inverter models do you make, and over what power range?',
+          a: 'The current catalog holds 35 models spanning 900 W to 11 kW. It splits into 12 off-grid inverters (900 W–5000 W, no built-in solar charge controller) and 23 off-grid solar inverters (1500 W–11 kW, with a built-in MPPT controller).',
+        },
+        {
+          q: 'Can you manufacture under my own brand?',
+          a: 'Yes. Our OEM/ODM programme covers the enclosure, packaging, manual and display, and firmware can carry your brand where the model supports it. Output configuration, DC input range and socket types can be adjusted for your market.',
+        },
+        {
+          q: 'What is the minimum order quantity?',
+          a: 'MOQ depends on the model and how far the customization goes, because a private-label run needs its own artwork and firmware setup. Tell us the model and quantity you have in mind and we will confirm a realistic MOQ with pricing.',
+        },
+        {
+          q: 'How long does an order take to ship?',
+          a: 'Our sales engineers answer an inquiry within 24 hours. After sample approval, a standard production run typically ships in 30–45 days, depending on quantity and customization depth.',
+        },
+        {
+          q: 'How is product quality verified before shipment?',
+          a: 'The factory runs an ISO 9001 quality system with 100% functional testing and an 8-hour aging test before packing. Third-party pre-shipment inspection is welcome, and we will work with the inspector you appoint.',
+        },
+        {
+          q: 'What certifications do your inverters carry?',
+          a: 'CE-related LVD documentation to EN 62109-1 and EMC documentation are available for the solar inverter range on request. Certificates are issued per model and per destination market, so tell us your target country and we will confirm the applicable set.',
+        },
+        {
+          q: 'Off-grid or off-grid solar — which do I need?',
+          a: 'Choose an off-grid inverter when the solar charging is already handled by a separate charge controller. Choose an off-grid solar inverter when you want PV input, battery charging and AC output in one wall-mount unit. Both give pure sine wave output; the difference is whether the MPPT controller is built in.',
+        },
+      ],
     },
   },
 
@@ -509,6 +627,7 @@ export const en = {
     ],
     instagram: 'Follow us on Instagram',
     linkedin: 'Connect on LinkedIn',
+    youtube: 'Watch us on YouTube',
   },
 
   form: {
@@ -638,6 +757,111 @@ export const en = {
         { q: 'What certifications do your inverters have?', a: 'Our quality system is ISO 9001 certified and products carry CE and RoHS. Specific certifications for your market can be discussed per project.' },
         { q: 'How long does an OEM order take?', a: 'After sample approval, standard production runs typically ship within 30–45 days depending on quantity and customization.' },
       ],
+    },
+  },
+
+  sizing: {
+    eyebrow: 'Free Engineering Tool',
+    title: 'Off-Grid System Sizing Calculator',
+    subtitle:
+      'Enter your loads and site conditions to get a first-pass PV array, inverter and battery size — then match the result against models in our catalog.',
+    intro:
+      'This calculator sizes an off-grid system with three formulas: PV array watts = daily energy × 1.3 ÷ peak sun hours; inverter watts = simultaneous peak load × 1.25; battery capacity = daily energy ÷ depth of discharge × days of autonomy ÷ system voltage. All three are the same formulas worked through in our off-grid sizing guides.',
+    form: {
+      heading: 'Your loads and site',
+      dailyEnergy: 'Daily energy use',
+      dailyEnergyHelp: 'Total watt-hours your loads consume in a day. Watts × hours per day, added up across every load.',
+      peakLoad: 'Simultaneous peak load',
+      peakLoadHelp: 'The watts running at the same moment — the busiest hour, not the daily total.',
+      voltage: 'Battery / system voltage',
+      chemistry: 'Battery type',
+      autonomy: 'Days of autonomy',
+      autonomyHelp: 'How many sunless days the battery bank must cover.',
+      region: 'Pick a region',
+      sunHours: 'Peak sun hours',
+      sunHoursHelp: 'The daily equivalent of full-strength sunlight — not hours of daylight. Use the worst month.',
+    },
+    chemistry: {
+      flooded: 'Lead-acid (flooded)',
+      agm: 'Lead-acid (AGM / gel)',
+      lifepo4: 'LiFePO4 (lithium)',
+    },
+    region: {
+      'northern-europe': 'Northern Europe',
+      'central-europe': 'Central Europe',
+      mediterranean: 'Mediterranean',
+      'middle-east-africa': 'Middle East / North Africa',
+      'southeast-asia': 'Southeast Asia (equatorial)',
+      'us-southwest': 'US Southwest',
+    },
+    results: {
+      heading: 'Your recommended system',
+      array: 'PV array',
+      inverter: 'Inverter continuous rating',
+      battery: 'Battery bank',
+      batteryAtVoltage: 'at {voltage} V',
+      empty: 'Fill in the fields above to see a recommended system.',
+      disclaimer:
+        'A first-pass estimate for planning, based on the standard derating and depth-of-discharge figures published in our sizing guides. Motor starting surge, cable sizing, MPPT input limits and local compliance all need a separate check.',
+    },
+    recommended: {
+      heading: 'Matching models from our catalog',
+      note: 'Smallest catalog models that meet the numbers above at the selected system voltage.',
+      none: 'No single catalog model covers every number above. Contact our engineers — a multi-unit or custom configuration may fit better.',
+      viewAll: 'View all inverters',
+    },
+    howItWorks: {
+      heading: 'How the three numbers are calculated',
+      steps: [
+        {
+          title: 'PV array',
+          formula: 'daily energy (Wh) × 1.3 ÷ peak sun hours',
+          text: 'The 1.3 factor covers conversion, wiring and battery round-trip losses. Peak sun hours is the daily equivalent of full-strength sunlight, not hours of daylight.',
+        },
+        {
+          title: 'Inverter',
+          formula: 'simultaneous peak load (W) × 1.25',
+          text: 'Sized on the load that runs at the same time, never the daily total. Motor starting surge is a separate check — see our surge power guide.',
+        },
+        {
+          title: 'Battery bank',
+          formula: 'daily energy (Wh) ÷ depth of discharge × days of autonomy ÷ voltage',
+          text: 'Depth of discharge is how much of the battery is safely usable: about 50% for flooded lead-acid, 55% for AGM / gel and 85% for LiFePO4.',
+        },
+      ],
+    },
+    faq: {
+      heading: 'Sizing calculator — FAQ',
+      items: [
+        {
+          q: 'Does this calculator replace an engineering review?',
+          a: 'No. It returns a first-pass estimate from the standard derating and depth-of-discharge figures. Motor starting surge, cable and fuse sizing, MPPT input limits, string voltage and destination-market compliance all sit outside it — send us your load audit and our engineers will review the sizing free of charge.',
+        },
+        {
+          q: 'Why does the calculator ask for two different power numbers?',
+          a: 'Daily energy and peak load size different parts of the system. The array and battery follow daily energy, because both work on energy over time. The inverter follows the simultaneous peak load, because it has to supply that many watts at once.',
+        },
+        {
+          q: 'What is depth of discharge?',
+          a: 'Depth of discharge is the share of a battery\'s capacity that can safely be used before recharging. Drawing a lead-acid bank below about 50% shortens its life sharply; a LiFePO4 bank tolerates roughly 85%. This is why the same daily energy needs a larger nominal capacity in lead-acid than in lithium.',
+        },
+        {
+          q: 'Does this work for hybrid or grid-tie systems?',
+          a: 'The formulas here are for off-grid systems with a battery bank. A grid-tie system has no autonomy requirement and a hybrid system adds export and grid-charging rules, so both are sized differently. Our sizing guides cover the off-grid case; contact us for the others.',
+        },
+      ],
+    },
+    guides: {
+      heading: 'Work through the numbers in detail',
+      links: [
+        { label: 'How many solar panels do you need?', href: '/blog/how-many-solar-panels-for-off-grid/' },
+        { label: 'Battery bank sizing, step by step', href: '/blog/off-grid-battery-bank-sizing/' },
+        { label: 'Surge power and motor starting', href: '/blog/inverter-surge-power-motor-starting/' },
+      ],
+    },
+    cta: {
+      title: 'Want our engineers to check your sizing?',
+      subtitle: 'Send your load audit and target market — we will review it and recommend models, free of charge.',
     },
   },
 };

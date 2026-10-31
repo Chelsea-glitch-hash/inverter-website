@@ -13,6 +13,7 @@ export const zhHant: Dictionary = {
     oemOdm: "OEM / ODM",
     about: "關於我們",
     blog: "部落格",
+    sizingCalculator: "系統容量計算器",
     viewAllProducts: "查看全部產品",
     requestQuote: "索取報價",
     whatsappUs: "WhatsApp 聯絡我們",
@@ -30,6 +31,7 @@ export const zhHant: Dictionary = {
     factoryAndManufacturing: "工廠與製造",
     qualityControl: "品質管制",
     blogInsights: "部落格與洞察",
+    sizingCalculator: "系統容量計算器",
     contactUs: "聯絡我們",
     privacyPolicy: "隱私權政策",
     stayUpdated: "掌握最新動態",
@@ -40,6 +42,9 @@ export const zhHant: Dictionary = {
     rights: "版權所有。",
     productCategoriesAria: "產品類別",
     companyNavAria: "公司",
+    legalNameLabel: "註冊名稱",
+    registeredAddressLabel: "註冊地址",
+    lastUpdatedLabel: "最後更新",
   },
   newsletter: {
     emailLabel: "電子郵件地址",
@@ -137,21 +142,49 @@ export const zhHant: Dictionary = {
     },
     privacy: {
       title: "隱私權政策 — 我們如何處理您的資料",
-      description:
-        "說明當您使用本網站、提交詢問或訂閱電子報時，我們如何收集、使用與保護您的個人資料。",
+      description: "說明當您使用本網站、提交詢問或訂閱電子報時，我們如何收集、使用與保護您的個人資料。",
+    },
+    sizing: {
+      title: "離網系統容量計算器 — 逆變器、電池與太陽能陣列",
+      description: "免費離網容量計算器：輸入每日用電量、尖峰負載、系統電壓與日照時數，即可取得建議的逆變器額定功率、電池組容量與太陽能陣列規模 — 再將結果對應到實際產品型號。",
     },
   },
   home: {
     hero: {
       eyebrow: "自 {year} 年起的逆變器製造商",
       title: "工廠直營太陽能逆變器，服務全球 B2B 夥伴",
-      subtitle: "工廠直營的混合式、併網型與離網型逆變器，專為電網薄弱、電價高昂或供電不穩的地區設計。適合自發自用、尖峰轉移與備援應用——並提供 OEM / ODM 代工方案、ISO 9001 品質，以及為經銷商、安裝商與專案開發商提供的 24 小時回覆服務。",
+      subtitle: "Zhongze Huasong 是深圳逆變器製造商，在自有 12,000 m² 工廠生產從 900 W 到 11 kW 的 35 款型號。產品範圍涵蓋離網型和離網型太陽能逆變器，適用於電網薄弱、電價高昂或供電不穩定的地區 — 以工廠直銷方式銷售，提供 OEM / ODM 方案、ISO 9001 品質及 24 小時回覆。",
       heroImageAria: "太陽能系統示意圖",
       bullets: [
         "OEM / ODM",
         "ISO 9001",
         "24 小時回覆",
         "{countries}+ 個外銷國家",
+      ],
+    },
+    summary: {
+      title: "中澤華松概覽",
+      items: [
+        {
+          label: "我們製造的產品",
+          text: "{models} 款逆變器型號，功率從 {minPower} 到 {maxPower} — 其中 {offGrid} 款離網型逆變器，{solar} 款離網太陽能逆變器，全部為純正弦波。",
+        },
+        {
+          label: "地點",
+          text: "我們在中國深圳擁有自己的 {area} 平方米工廠，內部運行 SMT、組裝和老化線。",
+        },
+        {
+          label: "產能",
+          text: "年產約 {capacity} 台，由 {employees} 名員工（包括 {engineers} 名研發工程師）製造。",
+        },
+        {
+          label: "客戶",
+          text: "{oemClients}+ 家 OEM / ODM 客戶和經銷商，遍佈 {countries}+ 個出口市場。",
+        },
+        {
+          label: "如何開始",
+          text: "發送您的規格和數量 — 我們的銷售工程師將在 24 小時內回覆，樣品確認後，標準生產訂單將在 30–45 天內發貨。",
+        },
       ],
     },
     trust: {
@@ -164,17 +197,17 @@ export const zhHant: Dictionary = {
     categories: {
       eyebrow: "我們的產品",
       title: "逆變器產品類別",
-      subtitle: "探索我們目前生產的逆變器產品線。各類別的首款型號一經發布，即會在此列出。",
+      subtitle: "我們製造兩大逆變器系列：不內建太陽能控制器的離網型逆變器，以及內建太陽能控制器的離網型太陽能逆變器。選擇系列以查看每個型號及其完整規格表。",
     },
     featured: {
       eyebrow: "精選",
       title: "熱門型號",
-      subtitle: "產品目錄中的暢銷逆變器。每款型號皆支援 OEM 品牌代工與規格客製化。",
+      subtitle: "這些是海外買家最常訂購的型號。每個型號均可貼上您的品牌，並可依您的市場調整輸出配置、DC 輸入範圍和插座類型。",
     },
     advantages: {
       eyebrow: "產品優勢",
       title: "產品優勢與技術實力",
-      subtitle: "我們離網型逆變器產品線的主要特點 — 從輸出類型、直流輸入選項到功率等級與實用的產品配置。",
+      subtitle: "六大特點定義了離網型系列：純正弦波輸出、12 V 至 72 V 的 DC 輸入選項、溫控散熱、220 V 或 110 V AC 輸出、900 W 至 5000 W 的額定功率，以及具備 USB 版本的 LCD 或數位顯示器。",
       items: [
         {
           title: "純正弦波輸出",
@@ -205,7 +238,7 @@ export const zhHant: Dictionary = {
     whyUs: {
       eyebrow: "為何選擇我們",
       title: "全球買家選擇我們的原因",
-      subtitle: "我們是製造商，而非貿易公司 — 這代表直接的工程支援、可控的品質與更佳的利潤空間。",
+      subtitle: "我們是工廠，不是貿易公司：您的工程問題會直接傳達給產品設計人員，您的成本反映的是製造產線，而非經銷商利潤。",
       items: [
         {
           title: "自有研發",
@@ -224,7 +257,7 @@ export const zhHant: Dictionary = {
     process: {
       eyebrow: "合作流程",
       title: "從詢價到出貨",
-      subtitle: "專為海外 B2B 夥伴設計的透明六步流程 — 您隨時掌握訂單進度。",
+      subtitle: "訂單流程分為六個步驟：RFQ、報價、樣品確認、測試與認證、批量生產，然後交貨。您在第二步會在 24 小時內收到回覆，標準訂單在樣品獲批後 30–45 天出貨。",
       steps: [
         {
           title: "詢價（RFQ）",
@@ -255,7 +288,7 @@ export const zhHant: Dictionary = {
     factory: {
       eyebrow: "工廠實景",
       title: "為穩定品質與可靠供貨而建",
-      subtitle: "我們的製造流程整合生產、組裝、測試與品質管制，為全球客戶提供穩定的產品品質與可靠的供貨。",
+      subtitle: "佔地 {area} m² 的廠房，內部設有 SMT、組裝和老化線，擁有 {employees} 名員工，年產能約 {capacity} 台。每個生產批次在包裝前均經過 100% 功能測試和 8 小時老化測試。",
       capabilities: [
         {
           title: "生產與組裝",
@@ -286,7 +319,7 @@ export const zhHant: Dictionary = {
     applications: {
       eyebrow: "應用領域",
       title: "我們的逆變器應用場景",
-      subtitle: "在多種氣候與電網條件下，於住宅、商用、通訊與離網型專案中經過驗證。",
+      subtitle: "六大應用類型推動我們大部分訂單：住宅屋頂、商業和工業電廠、電池儲能、電信基地台、農村電氣化和備用電源。每種應用依賴系列中的不同部分。",
       items: [
         {
           title: "住宅太陽能",
@@ -317,7 +350,7 @@ export const zhHant: Dictionary = {
     certifications: {
       eyebrow: "認證與標準",
       title: "面向全球市場的法規文件",
-      subtitle: "我們的太陽能逆變器法規符合性文件可支援客戶審查與產品認證需求。文件依需求提供。",
+      subtitle: "太陽能逆變器系列提供兩套文件：依據 IEC 62109-1:2010 評估的 CE 相關 LVD 文件，以及 EMC 文件。證書依型號和目標市場分別核發，因此適用的文件取決於您的訂單。",
       items: [
         {
           title: "CE / LVD",
@@ -330,6 +363,30 @@ export const zhHant: Dictionary = {
       ],
       note: "認證的適用性因型號與目標市場而異。請告知您的目標國家，我們將為您的訂單確認適用的認證。",
       qualityButton: "了解我們的品質系統",
+      standards: {
+        heading: "本文件評估所依據的標準",
+        items: [
+          {
+            code: "IEC 62109-1:2010",
+            scope: "太陽光電系統用電力轉換器的安全 — 第 1 部分：一般要求。",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6470",
+          },
+          {
+            code: "IEC 62109-2:2011",
+            scope: "太陽光電系統用電力轉換器的安全 — 第 2 部分：逆變器的特殊要求。",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6471",
+          },
+          {
+            code: "ISO 9001",
+            scope: "品質管理系統 — 我們工廠品質系統、100% 功能測試和 8 小時老化測試所依據的標準。",
+            publisher: "ISO",
+            url: "https://www.iso.org/standard/62085.html",
+          },
+        ],
+        sourceNote: "標準名稱和範圍由發布機構發布。點擊連結以在來源處閱讀標準。",
+      },
     },
     testimonials: {
       title: "合作夥伴的評價",
@@ -369,6 +426,44 @@ export const zhHant: Dictionary = {
     blog: {
       eyebrow: "洞察",
       title: "部落格最新文章",
+    },
+    faq: {
+      eyebrow: "常見問題",
+      title: "買家在訂購前常問的問題",
+      items: [
+        {
+          q: "你們是製造商還是貿易公司？",
+          a: "我們是製造商。深圳市中澤華松貿易有限公司擁有自己的 12,000 平方米工廠，內部設有 SMT、組裝和老化線，年出貨量約 200,000 台。您直接從工廠購買，不經過中間環節。",
+        },
+        {
+          q: "你們生產多少種逆變器型號，功率範圍是多少？",
+          a: "目前的產品目錄有 35 種型號，功率從 900 W 到 11 kW。分為 12 款離網型逆變器（900 W–5000 W，無內置太陽能充電控制器）和 23 款離網太陽能逆變器（1500 W–11 kW，內置 MPPT 控制器）。",
+        },
+        {
+          q: "你們可以用我自己的品牌製造嗎？",
+          a: "可以。我們的 OEM/ODM 代工方案涵蓋外殼、包裝、手冊和顯示器，在型號支持的情況下，固件可以帶有您的品牌。輸出配置、直流輸入範圍和插座類型可以根據您的市場進行調整。",
+        },
+        {
+          q: "最小訂購量是多少？",
+          a: "MOQ 取決於型號和客製化程度，因為私有品牌生產需要自己的美術設計和固件設置。請告訴我們您考慮的型號和數量，我們將確認一個實際的 MOQ 和價格。",
+        },
+        {
+          q: "訂單需要多長時間才能發貨？",
+          a: "我們的銷售工程師會在 24 小時內回覆詢問。樣品確認後，標準生產訂單通常會在 30–45 天內發貨，具體取決於數量和客製化程度。",
+        },
+        {
+          q: "出貨前如何驗證產品品質？",
+          a: "工廠運行 ISO 9001 品質系統，出貨前進行 100% 功能測試與 8 小時老化測試。歡迎第三方出貨前檢驗，我們將配合您指定的檢驗員。",
+        },
+        {
+          q: "你們的逆變器有哪些認證？",
+          a: "太陽能逆變器系列可應要求提供符合 EN 62109-1 的 CE 相關 LVD 文件以及 EMC 文件。證書依型號與目標市場分別核發，因此請告知您的目標國家，我們將確認適用的證書組合。",
+        },
+        {
+          q: "離網型還是離網型太陽能 — 我需要哪一種？",
+          a: "當太陽能充電已由獨立的充電控制器處理時，請選擇離網型逆變器。當您希望將 PV 輸入、電池充電與 AC 輸出整合於一台壁掛式裝置時，請選擇離網型太陽能逆變器。兩者皆提供純正弦波輸出；差別在於是否內建 MPPT 控制器。",
+        },
+      ],
     },
   },
   productsIndex: {
@@ -562,6 +657,7 @@ export const zhHant: Dictionary = {
     ],
     instagram: "在 Instagram 上追蹤我們",
     linkedin: "在 LinkedIn 上與我們聯繫",
+    youtube: "在 YouTube 上觀看我們",
   },
   form: {
     title: "索取報價",
@@ -724,6 +820,116 @@ export const zhHant: Dictionary = {
           a: "樣品確認後，標準量產通常依數量與客製程度在 30–45 天內出貨。",
         },
       ],
+    },
+  },
+  sizing: {
+    eyebrow: "免費工程工具",
+    title: "離網系統容量計算器",
+    subtitle: "輸入您的負載與場址條件，即可取得初版的太陽能陣列、逆變器與電池容量建議 — 再將結果對應到我們產品目錄中的型號。",
+    intro: "本計算器以三個公式計算離網系統容量：太陽能陣列瓦數 = 每日用電量 × 1.3 ÷ 峰值日照時數；逆變器瓦數 = 同時尖峰負載 × 1.25；電池容量 = 每日用電量 ÷ 放電深度 × 自主天數 ÷ 系統電壓。這三個公式與我們離網容量指南中所採用的公式相同。",
+    form: {
+      heading: "您的負載與場址",
+      dailyEnergy: "每日用電量",
+      dailyEnergyHelp: "您的負載一天消耗的總瓦時。瓦數 × 每日使用時數，將所有負載加總。",
+      peakLoad: "同時尖峰負載",
+      peakLoadHelp: "同一時間正在運轉的瓦數 — 最繁忙的時段，而非每日總量。",
+      voltage: "電池／系統電壓",
+      chemistry: "電池類型",
+      autonomy: "自主天數",
+      autonomyHelp: "電池組必須支撐的無日照天數。",
+      region: "選擇地區",
+      sunHours: "峰值日照時數",
+      sunHoursHelp: "每日全強度日照的等效時數 — 並非白晝時數。請採用最差月份。",
+    },
+    chemistry: {
+      flooded: "鉛酸（富液式）",
+      agm: "鉛酸（AGM／膠體）",
+      lifepo4: "LiFePO4（鋰電池）",
+    },
+    region: {
+      "northern-europe": "北歐",
+      "central-europe": "中歐",
+      mediterranean: "地中海地區",
+      "middle-east-africa": "中東／北非",
+      "southeast-asia": "東南亞（赤道地區）",
+      "us-southwest": "美國西南部",
+    },
+    results: {
+      heading: "您的建議系統",
+      array: "太陽能陣列",
+      inverter: "逆變器連續額定功率",
+      battery: "電池組",
+      batteryAtVoltage: "於 {voltage} V",
+      empty: "請填寫上方欄位，即可查看建議系統。",
+      disclaimer: "此為規劃用的初版估算，根據我們容量指南中公布的標準降額與放電深度數據。馬達啟動突波、電纜選型、MPPT 輸入限制及當地法規遵循，均需另行確認。",
+    },
+    recommended: {
+      heading: "對應產品目錄中的型號",
+      note: "在所選系統電壓下，符合上述數據的最小產品目錄型號。",
+      none: "沒有單一產品目錄型號能涵蓋上述所有數據。請聯絡我們的工程師 — 多機或客製化配置可能更合適。",
+      viewAll: "查看所有逆變器",
+    },
+    howItWorks: {
+      heading: "三個數字如何計算",
+      steps: [
+        {
+          title: "太陽能陣列",
+          formula: "每日能量 (Wh) × 1.3 ÷ 峰值日照時數",
+          text: "1.3 係數涵蓋了轉換、線路及電池往返損耗。峰值日照時數是全強度日照的每日等效值，而非日照時數。",
+        },
+        {
+          title: "逆變器",
+          formula: "同時峰值負載 (W) × 1.25",
+          text: "根據同時運行的負載來決定規格，而非每日總量。馬達啟動突波是另一項檢查——請參閱我們的突波功率指南。",
+        },
+        {
+          title: "電池組",
+          formula: "每日能量 (Wh) ÷ 放電深度 × 自主天數 ÷ 電壓",
+          text: "放電深度是指電池可安全使用的比例：富液式鉛酸電池約 50%，AGM / 凝膠電池約 55%，LiFePO4 約 85%。",
+        },
+      ],
+    },
+    faq: {
+      heading: "選型計算器 — 常見問題",
+      items: [
+        {
+          q: "這個計算器能取代工程審查嗎？",
+          a: "不能。它根據標準降額和放電深度數據提供初步估算。馬達啟動突波、電纜與保險絲選型、MPPT 輸入限制、串列電壓及目標市場合規性都不在其範圍內——請將您的負載清單發送給我們，我們的工程師將免費審查選型。",
+        },
+        {
+          q: "為什麼計算器要求兩個不同的功率數值？",
+          a: "每日能量和峰值負載決定了系統的不同部分。太陽能陣列和電池取決於每日能量，因為兩者都隨時間處理能量。逆變器取決於同時峰值負載，因為它必須同時提供那麼多瓦數。",
+        },
+        {
+          q: "什麼是放電深度？",
+          a: "放電深度是指電池在充電前可安全使用的容量比例。將鉛酸電池組放電至低於約 50% 會大幅縮短其壽命；LiFePO4 電池組則可承受約 85%。這就是為什麼相同的每日能量，鉛酸電池需要比鋰電池更大的標稱容量。",
+        },
+        {
+          q: "這適用於混合型或併網型系統嗎？",
+          a: "這裡的公式適用於帶電池組的離網系統。併網型系統沒有自主天數要求，而混合型系統增加了饋電和電網充電規則，因此兩者的選型方式不同。我們的選型指南涵蓋離網情況；其他情況請聯繫我們。",
+        },
+      ],
+    },
+    guides: {
+      heading: "詳細計算這些數字",
+      links: [
+        {
+          label: "您需要多少太陽能板？",
+          href: "/blog/how-many-solar-panels-for-off-grid/",
+        },
+        {
+          label: "電池組選型，逐步說明",
+          href: "/blog/off-grid-battery-bank-sizing/",
+        },
+        {
+          label: "突波功率與馬達啟動",
+          href: "/blog/inverter-surge-power-motor-starting/",
+        },
+      ],
+    },
+    cta: {
+      title: "想讓我們的工程師檢查您的選型嗎？",
+      subtitle: "請發送您的負載清單和目標市場——我們將免費審查並推薦型號。",
     },
   },
 };

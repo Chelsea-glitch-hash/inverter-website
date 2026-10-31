@@ -13,6 +13,7 @@ export const pt: Dictionary = {
     oemOdm: "OEM / ODM",
     about: "Sobre nós",
     blog: "Blog",
+    sizingCalculator: "Calculadora de Dimensionamento",
     viewAllProducts: "Ver todos os produtos",
     requestQuote: "Solicitar Orçamento",
     whatsappUs: "Fale conosco no WhatsApp",
@@ -30,6 +31,7 @@ export const pt: Dictionary = {
     factoryAndManufacturing: "Fábrica e Manufatura",
     qualityControl: "Controle de Qualidade",
     blogInsights: "Blog e Insights",
+    sizingCalculator: "Calculadora de Dimensionamento",
     contactUs: "Fale conosco",
     privacyPolicy: "Política de Privacidade",
     stayUpdated: "Fique por dentro",
@@ -40,6 +42,9 @@ export const pt: Dictionary = {
     rights: "Todos os direitos reservados.",
     productCategoriesAria: "Categorias de produtos",
     companyNavAria: "Empresa",
+    legalNameLabel: "Razão social",
+    registeredAddressLabel: "Endereço registrado",
+    lastUpdatedLabel: "Última atualização",
   },
   newsletter: {
     emailLabel: "Endereço de e-mail",
@@ -137,21 +142,49 @@ export const pt: Dictionary = {
     },
     privacy: {
       title: "Política de Privacidade — Tratamento dos seus Dados",
-      description:
-        "Como recolhemos, utilizamos e protegemos os seus dados pessoais quando utiliza o nosso site, envia um pedido ou subscreve a nossa newsletter.",
+      description: "Como recolhemos, utilizamos e protegemos os seus dados pessoais quando utiliza o nosso site, envia um pedido ou subscreve a nossa newsletter.",
+    },
+    sizing: {
+      title: "Calculadora de Dimensionamento de Sistema Off-Grid — Inversor, Bateria e Arranjo FV",
+      description: "Calculadora gratuita de dimensionamento off-grid: informe energia diária, carga de pico, tensão do sistema e horas de sol para obter uma potência de inversor recomendada, capacidade do banco de baterias e tamanho do arranjo FV — e compare o resultado com modelos reais do catálogo.",
     },
   },
   home: {
     hero: {
       eyebrow: "Fabricante de Inversores desde {year}",
       title: "Inversores Solares Diretos da Fábrica para Parceiros B2B Globais",
-      subtitle: "Inversores híbridos, on-grid e off-grid direto da fábrica, projetados para regiões com redes elétricas fracas, altos custos de eletricidade ou energia não confiável. Desenvolvidos para autoconsumo, deslocamento de pico e backup — com programas OEM / ODM, qualidade ISO 9001 e resposta em 24 horas para distribuidores, instaladores e desenvolvedores de projetos.",
+      subtitle: "Zhongze Huasong é um fabricante de inversores de Shenzhen que produz 35 modelos de 900 W a 11 kW em sua própria fábrica de 12.000 m². A linha cobre inversores off-grid e off-grid solar para regiões com redes fracas, altos custos de eletricidade ou energia instável — vendidos direto da fábrica com programas OEM / ODM, qualidade ISO 9001 e resposta em 24 horas.",
       heroImageAria: "Ilustração de sistema de energia solar",
       bullets: [
         "OEM / ODM",
         "ISO 9001",
         "Resposta em 24h",
         "{countries}+ países de exportação",
+      ],
+    },
+    summary: {
+      title: "Zhongze Huasong em resumo",
+      items: [
+        {
+          label: "O que fabricamos",
+          text: "{models} modelos de inversor de {minPower} a {maxPower} — {offGrid} unidades off-grid e {solar} unidades solares off-grid, todas com onda senoidal pura.",
+        },
+        {
+          label: "Onde",
+          text: "Nossa própria fábrica de {area} m² em Shenzhen, China, com linhas de SMT, montagem e envelhecimento internas.",
+        },
+        {
+          label: "Quanto",
+          text: "Cerca de {capacity} unidades por ano, produzidas por {employees} funcionários, incluindo {engineers} engenheiros de P&D.",
+        },
+        {
+          label: "Quem compra",
+          text: "{oemClients}+ clientes OEM / ODM e distribuidores em {countries}+ mercados de exportação.",
+        },
+        {
+          label: "Como começar",
+          text: "Envie sua especificação e quantidade — nossos engenheiros de vendas respondem em até 24 horas, e um lote de produção padrão é enviado em 30–45 dias após a aprovação da amostra.",
+        },
       ],
     },
     trust: {
@@ -164,17 +197,17 @@ export const pt: Dictionary = {
     categories: {
       eyebrow: "Nossos Produtos",
       title: "Categorias de Inversores",
-      subtitle: "Explore as linhas de inversores que fabricamos atualmente. As categorias são adicionadas aqui assim que o primeiro modelo é publicado.",
+      subtitle: "Fabricamos duas linhas de inversores: inversores off-grid sem controlador solar integrado e inversores off-grid solar com controlador integrado. Escolha uma linha para ver cada modelo e sua tabela completa de especificações.",
     },
     featured: {
       eyebrow: "Destaques",
       title: "Modelos Populares",
-      subtitle: "Os inversores mais vendidos do nosso catálogo. Todos os modelos aceitam marca própria OEM e personalização de especificações.",
+      subtitle: "Estes são os modelos que compradores internacionais mais encomendam. Todos podem levar sua própria marca, com a configuração de saída, faixa de entrada DC e tipos de tomada ajustados para o seu mercado.",
     },
     advantages: {
       eyebrow: "Vantagens do Produto",
       title: "Vantagens do Produto e Força Técnica",
-      subtitle: "Características principais da nossa linha de inversores off-grid — do tipo de saída e opções de entrada CC às potências nominais e configurações práticas do produto.",
+      subtitle: "Seis características definem a linha off-grid: saída de onda senoidal pura, opções de entrada DC de 12 V a 72 V, resfriamento com controle de temperatura, saída AC de 220 V ou 110 V, potências nominais de 900 W a 5000 W e displays LCD ou digitais com variantes USB.",
       items: [
         {
           title: "Saída de Onda Senoidal Pura",
@@ -205,7 +238,7 @@ export const pt: Dictionary = {
     whyUs: {
       eyebrow: "Por Que Nós",
       title: "Por Que Compradores Globais nos Escolhem",
-      subtitle: "Somos um fabricante, não uma trading company — o que significa suporte direto de engenharia, qualidade controlada e melhores margens.",
+      subtitle: "Somos a fábrica, não uma trading: suas dúvidas de engenharia chegam às pessoas que projetam o produto, e seu custo reflete a linha de fabricação, não a margem de um revendedor.",
       items: [
         {
           title: "P&D Interno",
@@ -224,7 +257,7 @@ export const pt: Dictionary = {
     process: {
       eyebrow: "Como Trabalhamos",
       title: "Da RFQ à Entrega",
-      subtitle: "Um processo transparente de seis etapas, projetado para parceiros B2B no exterior — você sempre sabe em que etapa está o seu pedido.",
+      subtitle: "Um pedido passa por seis etapas: RFQ, cotação, confirmação de amostra, testes e certificação, produção em lote e, depois, entrega. Você recebe uma resposta em até 24 horas na etapa dois, e uma produção padrão é enviada 30–45 dias após a aprovação das amostras.",
       steps: [
         {
           title: "RFQ",
@@ -255,7 +288,7 @@ export const pt: Dictionary = {
     factory: {
       eyebrow: "Dentro da Nossa Fábrica",
       title: "Feito para Qualidade Consistente e Fornecimento Confiável",
-      subtitle: "Nosso processo de manufatura reúne produção, montagem, testes e controle de qualidade para garantir qualidade consistente dos produtos e fornecimento confiável para clientes globais.",
+      subtitle: "Uma instalação de {area} m² com linhas de SMT, montagem e envelhecimento internas, com {employees} funcionários e capacidade de cerca de {capacity} unidades por ano. Cada lote de produção passa por teste funcional de 100% e teste de envelhecimento de 8 horas antes de ser embalado.",
       capabilities: [
         {
           title: "Produção e Montagem",
@@ -286,7 +319,7 @@ export const pt: Dictionary = {
     applications: {
       eyebrow: "Aplicações",
       title: "Onde Nossos Inversores Funcionam",
-      subtitle: "Comprovados em projetos residenciais, comerciais, de telecomunicações e off-grid, em diversos climas e condições de rede.",
+      subtitle: "Seis tipos de aplicação impulsionam a maioria dos nossos pedidos: telhados residenciais, usinas comerciais e industriais, armazenamento em bateria, estações base de telecomunicações, eletrificação rural e energia de backup. Cada um depende de uma parte diferente da linha.",
       items: [
         {
           title: "Energia Solar Residencial",
@@ -317,7 +350,7 @@ export const pt: Dictionary = {
     certifications: {
       eyebrow: "Certificações e Normas",
       title: "Documentação de Conformidade para Mercados Globais",
-      subtitle: "Nossa documentação de conformidade de inversores solares apoia a análise do cliente e os requisitos de qualificação do produto. A documentação está disponível mediante solicitação.",
+      subtitle: "Dois conjuntos de documentos estão disponíveis para a linha de inversores solares: documentação LVD relacionada à CE avaliada conforme IEC 62109-1:2010, e documentação EMC. Os certificados são emitidos por modelo e por mercado de destino, então o conjunto aplicável depende do seu pedido.",
       items: [
         {
           title: "CE / LVD",
@@ -330,6 +363,30 @@ export const pt: Dictionary = {
       ],
       note: "A disponibilidade de certificações varia conforme o modelo e o mercado de destino. Informe-nos o país de destino e confirmaremos as certificações aplicáveis ao seu pedido.",
       qualityButton: "Conheça nosso sistema de qualidade",
+      standards: {
+        heading: "Normas em relação às quais esta documentação é avaliada",
+        items: [
+          {
+            code: "IEC 62109-1:2010",
+            scope: "Segurança de conversores de potência para uso em sistemas de energia fotovoltaica — Parte 1: Requisitos gerais.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6470",
+          },
+          {
+            code: "IEC 62109-2:2011",
+            scope: "Segurança de conversores de potência para uso em sistemas de energia fotovoltaica — Parte 2: Requisitos particulares para inversores.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6471",
+          },
+          {
+            code: "ISO 9001",
+            scope: "Sistemas de gestão da qualidade — a norma por trás do sistema de qualidade da nossa fábrica, teste funcional 100% e teste de envelhecimento de 8 horas.",
+            publisher: "ISO",
+            url: "https://www.iso.org/standard/62085.html",
+          },
+        ],
+        sourceNote: "Designações e escopos de normas conforme publicados pelos órgãos emissores. Acesse um link para ler a norma em sua fonte.",
+      },
     },
     testimonials: {
       title: "O Que Nossos Parceiros Dizem",
@@ -369,6 +426,44 @@ export const pt: Dictionary = {
     blog: {
       eyebrow: "Insights",
       title: "Últimas do Nosso Blog",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Perguntas que os compradores fazem antes de fazer o pedido",
+      items: [
+        {
+          q: "Vocês são um fabricante ou uma trading?",
+          a: "Somos um fabricante. A Shenzhen Zhongze Huasong Trading Co., Ltd. opera sua própria unidade fabril de 12.000 m² com linhas de SMT, montagem e envelhecimento internas, e envia cerca de 200.000 unidades por ano. Você compra direto da fábrica, sem intermediários.",
+        },
+        {
+          q: "Quantos modelos de inversor vocês fabricam e em qual faixa de potência?",
+          a: "O catálogo atual contém 35 modelos, de 900 W a 11 kW. Ele se divide em 12 inversores off-grid (900 W–5000 W, sem controlador de carga solar integrado) e 23 inversores solares off-grid (1500 W–11 kW, com controlador MPPT integrado).",
+        },
+        {
+          q: "Vocês podem fabricar sob a minha própria marca?",
+          a: "Sim. Nosso programa OEM/ODM abrange o gabinete, a embalagem, o manual e o display, e o firmware pode levar sua marca quando o modelo suportar. A configuração de saída, a faixa de entrada CC e os tipos de tomada podem ser ajustados para o seu mercado.",
+        },
+        {
+          q: "Qual é a quantidade mínima de pedido?",
+          a: "O MOQ depende do modelo e do nível de customização, porque uma produção com marca própria precisa de sua própria arte e configuração de firmware. Informe o modelo e a quantidade que você tem em mente e confirmaremos um MOQ realista com preços.",
+        },
+        {
+          q: "Quanto tempo leva para um pedido ser enviado?",
+          a: "Nossos engenheiros de vendas respondem a uma consulta em até 24 horas. Após a aprovação da amostra, um lote de produção padrão normalmente é enviado em 30–45 dias, dependendo da quantidade e do nível de customização.",
+        },
+        {
+          q: "Como a qualidade do produto é verificada antes do envio?",
+          a: "A fábrica opera um sistema de qualidade ISO 9001 com teste funcional de 100% e teste de envelhecimento de 8 horas antes da embalagem. Inspeção pré-embarque por terceiros é bem-vinda, e trabalharemos com o inspetor que você indicar.",
+        },
+        {
+          q: "Quais certificações os seus inversores possuem?",
+          a: "Documentação LVD relacionada à CE conforme EN 62109-1 e documentação EMC estão disponíveis para a linha de inversores solares sob solicitação. Os certificados são emitidos por modelo e por mercado de destino, então informe-nos o país de destino e confirmaremos o conjunto aplicável.",
+        },
+        {
+          q: "Off-grid ou off-grid solar — qual eu preciso?",
+          a: "Escolha um inversor off-grid quando o carregamento solar já é feito por um controlador de carga separado. Escolha um inversor off-grid solar quando você quer entrada PV, carregamento de bateria e saída AC em uma única unidade de montagem na parede. Ambos fornecem saída de onda senoidal pura; a diferença é se o controlador MPPT é integrado.",
+        },
+      ],
     },
   },
   productsIndex: {
@@ -565,6 +660,7 @@ export const pt: Dictionary = {
     ],
     instagram: "Siga-nos no Instagram",
     linkedin: "Conecte-se no LinkedIn",
+    youtube: "Assista-nos no YouTube",
   },
   form: {
     title: "Solicitar Orçamento",
@@ -727,6 +823,116 @@ export const pt: Dictionary = {
           a: "Após a aprovação da amostra, as execuções de produção padrão normalmente são enviadas em 30–45 dias, dependendo da quantidade e personalização.",
         },
       ],
+    },
+  },
+  sizing: {
+    eyebrow: "Ferramenta de Engenharia Gratuita",
+    title: "Calculadora de Dimensionamento de Sistema Off-Grid",
+    subtitle: "Informe suas cargas e condições do local para obter uma primeira estimativa de arranjo FV, inversor e banco de baterias — e compare o resultado com modelos do nosso catálogo.",
+    intro: "Esta calculadora dimensiona um sistema off-grid com três fórmulas: potência do arranjo FV (W) = energia diária × 1.3 ÷ horas de sol pleno; potência do inversor (W) = carga de pico simultânea × 1.25; capacidade do banco de baterias = energia diária ÷ profundidade de descarga × dias de autonomia ÷ tensão do sistema. As três são as mesmas fórmulas apresentadas nos nossos guias de dimensionamento off-grid.",
+    form: {
+      heading: "Suas cargas e local",
+      dailyEnergy: "Consumo diário de energia",
+      dailyEnergyHelp: "Total de watt-hora que suas cargas consomem em um dia. Watts × horas por dia, somados para cada carga.",
+      peakLoad: "Carga de pico simultânea",
+      peakLoadHelp: "Os watts em operação no mesmo momento — a hora de maior demanda, não o total diário.",
+      voltage: "Tensão da bateria / do sistema",
+      chemistry: "Tipo de bateria",
+      autonomy: "Dias de autonomia",
+      autonomyHelp: "Quantos dias sem sol o banco de baterias deve cobrir.",
+      region: "Escolha uma região",
+      sunHours: "Horas de sol pleno",
+      sunHoursHelp: "O equivalente diário de luz solar em intensidade plena — não horas de luz do dia. Use o mês mais desfavorável.",
+    },
+    chemistry: {
+      flooded: "Chumbo-ácido (inundada)",
+      agm: "Chumbo-ácido (AGM / gel)",
+      lifepo4: "LiFePO4 (lítio)",
+    },
+    region: {
+      "northern-europe": "Norte da Europa",
+      "central-europe": "Europa Central",
+      mediterranean: "Mediterrâneo",
+      "middle-east-africa": "Oriente Médio / Norte da África",
+      "southeast-asia": "Sudeste Asiático (equatorial)",
+      "us-southwest": "Sudoeste dos EUA",
+    },
+    results: {
+      heading: "Seu sistema recomendado",
+      array: "Arranjo FV",
+      inverter: "Potência contínua do inversor",
+      battery: "Banco de baterias",
+      batteryAtVoltage: "em {voltage} V",
+      empty: "Preencha os campos acima para ver um sistema recomendado.",
+      disclaimer: "Estimativa inicial para planejamento, com base nos padrões de derating e profundidade de descarga publicados em nossos guias de dimensionamento. Pico de partida de motores, dimensionamento de cabos, limites de entrada MPPT e conformidade local exigem verificação separada.",
+    },
+    recommended: {
+      heading: "Modelos correspondentes do nosso catálogo",
+      note: "Menores modelos do catálogo que atendem aos números acima na tensão de sistema selecionada.",
+      none: "Nenhum modelo único do catálogo cobre todos os números acima. Fale com nossos engenheiros — uma configuração com várias unidades ou personalizada pode se encaixar melhor.",
+      viewAll: "Ver todos os inversores",
+    },
+    howItWorks: {
+      heading: "Como os três números são calculados",
+      steps: [
+        {
+          title: "Arranjo fotovoltaico",
+          formula: "energia diária (Wh) × 1.3 ÷ horas de sol pleno",
+          text: "O fator 1.3 cobre perdas de conversão, fiação e ida e volta da bateria. Horas de sol pleno é o equivalente diário de luz solar em intensidade máxima, não horas de luz do dia.",
+        },
+        {
+          title: "Inversor",
+          formula: "carga de pico simultânea (W) × 1.25",
+          text: "Dimensionado com base na carga que opera simultaneamente, nunca no total diário. O surto de partida do motor é uma verificação separada — consulte nosso guia de potência de surto.",
+        },
+        {
+          title: "Banco de baterias",
+          formula: "energia diária (Wh) ÷ profundidade de descarga × dias de autonomia ÷ tensão",
+          text: "Profundidade de descarga é quanto da bateria é utilizável com segurança: cerca de 50% para chumbo-ácido inundada, 55% para AGM / gel e 85% para LiFePO4.",
+        },
+      ],
+    },
+    faq: {
+      heading: "Calculadora de dimensionamento — FAQ",
+      items: [
+        {
+          q: "Esta calculadora substitui uma revisão de engenharia?",
+          a: "Não. Ela fornece uma estimativa inicial a partir dos fatores padrão de derating e profundidade de descarga. Surto de partida do motor, dimensionamento de cabos e fusíveis, limites de entrada do MPPT, tensão da string e conformidade com o mercado de destino estão todos fora do escopo — envie-nos sua auditoria de carga e nossos engenheiros revisarão o dimensionamento gratuitamente.",
+        },
+        {
+          q: "Por que a calculadora pede dois números de potência diferentes?",
+          a: "Energia diária e carga de pico dimensionam partes diferentes do sistema. O arranjo e a bateria seguem a energia diária, porque ambos trabalham com energia ao longo do tempo. O inversor segue a carga de pico simultânea, porque precisa fornecer essa quantidade de watts de uma só vez.",
+        },
+        {
+          q: "O que é profundidade de descarga?",
+          a: "Profundidade de descarga é a parcela da capacidade de uma bateria que pode ser usada com segurança antes da recarga. Descarregar um banco de chumbo-ácido abaixo de cerca de 50% reduz drasticamente sua vida útil; um banco de LiFePO4 tolera aproximadamente 85%. É por isso que a mesma energia diária exige uma capacidade nominal maior em chumbo-ácido do que em lítio.",
+        },
+        {
+          q: "Isso funciona para sistemas híbridos ou conectados à rede?",
+          a: "As fórmulas aqui são para sistemas off-grid com banco de baterias. Um sistema conectado à rede não tem requisito de autonomia e um sistema híbrido adiciona regras de exportação e carregamento pela rede, então ambos são dimensionados de forma diferente. Nossos guias de dimensionamento cobrem o caso off-grid; entre em contato conosco para os outros.",
+        },
+      ],
+    },
+    guides: {
+      heading: "Analise os números em detalhes",
+      links: [
+        {
+          label: "Quantos painéis solares você precisa?",
+          href: "/blog/how-many-solar-panels-for-off-grid/",
+        },
+        {
+          label: "Dimensionamento de banco de baterias, passo a passo",
+          href: "/blog/off-grid-battery-bank-sizing/",
+        },
+        {
+          label: "Potência de surto e partida de motor",
+          href: "/blog/inverter-surge-power-motor-starting/",
+        },
+      ],
+    },
+    cta: {
+      title: "Quer que nossos engenheiros verifiquem seu dimensionamento?",
+      subtitle: "Envie sua auditoria de carga e mercado-alvo — nós a revisaremos e recomendaremos modelos, gratuitamente.",
     },
   },
 };

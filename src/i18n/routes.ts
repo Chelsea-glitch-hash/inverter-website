@@ -27,7 +27,8 @@ export type PageKind =
   | 'privacy'
   | 'oemOdm'
   | 'blog'
-  | 'blogArticle';
+  | 'blogArticle'
+  | 'sizingCalculator';
 
 export interface RouteEntry {
   locale: Locale;
@@ -92,6 +93,7 @@ export function buildLocalizedRoutes(posts: { id: string }[] = []): {
       { locale: 'en', enPath: '/contact/', kind: 'contact', data: {} },
       { locale: 'en', enPath: '/privacy-policy/', kind: 'privacy', data: {} },
       { locale: 'en', enPath: '/oem-odm/', kind: 'oemOdm', data: {} },
+      { locale: 'en', enPath: '/tools/sizing-calculator/', kind: 'sizingCalculator', data: {} },
       { locale: 'en', enPath: '/blog/', kind: 'blog', data: {} },
     ] as RouteEntry[],
     posts.map(

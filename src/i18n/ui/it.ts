@@ -13,6 +13,7 @@ export const it: Dictionary = {
     oemOdm: "OEM / ODM",
     about: "Chi siamo",
     blog: "Blog",
+    sizingCalculator: "Calcolatore di dimensionamento",
     viewAllProducts: "Vedi tutti i prodotti",
     requestQuote: "Richiedi un preventivo",
     whatsappUs: "Scrivici su WhatsApp",
@@ -30,6 +31,7 @@ export const it: Dictionary = {
     factoryAndManufacturing: "Fabbrica e produzione",
     qualityControl: "Controllo qualità",
     blogInsights: "Blog e approfondimenti",
+    sizingCalculator: "Calcolatore di dimensionamento",
     contactUs: "Contattaci",
     privacyPolicy: "Informativa sulla privacy",
     stayUpdated: "Resta aggiornato",
@@ -40,6 +42,9 @@ export const it: Dictionary = {
     rights: "Tutti i diritti riservati.",
     productCategoriesAria: "Categorie di prodotto",
     companyNavAria: "Azienda",
+    legalNameLabel: "Denominazione sociale",
+    registeredAddressLabel: "Sede legale",
+    lastUpdatedLabel: "Ultimo aggiornamento",
   },
   newsletter: {
     emailLabel: "Indirizzo email",
@@ -137,21 +142,49 @@ export const it: Dictionary = {
     },
     privacy: {
       title: "Informativa sulla Privacy — Trattamento dei vostri Dati",
-      description:
-        "Come raccogliamo, utilizziamo e proteggiamo i vostri dati personali quando utilizzate il nostro sito, inviate una richiesta o vi iscrivete alla newsletter.",
+      description: "Come raccogliamo, utilizziamo e proteggiamo i vostri dati personali quando utilizzate il nostro sito, inviate una richiesta o vi iscrivete alla newsletter.",
+    },
+    sizing: {
+      title: "Calcolatore di dimensionamento per sistemi off-grid — Inverter, batteria e campo fotovoltaico",
+      description: "Calcolatore off-grid gratuito: inserisci energia giornaliera, carico di picco, tensione di sistema e ore di sole per ottenere la potenza nominale dell'inverter consigliata, la capacità del banco batterie e la dimensione del campo fotovoltaico — poi confronta il risultato con i modelli reali del catalogo.",
     },
   },
   home: {
     hero: {
       eyebrow: "Produttore di inverter dal {year}",
       title: "Inverter solari direttamente dalla fabbrica per partner B2B internazionali",
-      subtitle: "Inverter ibridi, grid-tie e off-grid direttamente dalla fabbrica, progettati per regioni con reti elettriche deboli, costi energetici elevati o alimentazione instabile. Costruiti per autoconsumo, peak-shifting e backup — con programmi OEM / ODM, qualità ISO 9001 e risposta in 24 ore per distributori, installatori e sviluppatori di progetti.",
+      subtitle: "Zhongze Huasong è un produttore di inverter di Shenzhen che realizza 35 modelli da 900 W a 11 kW nel proprio stabilimento di 12.000 m². La gamma comprende inverter off-grid e off-grid solar per regioni con reti elettriche deboli, costi dell'energia elevati o alimentazione inaffidabile — venduti direttamente dalla fabbrica con programmi OEM / ODM, qualità ISO 9001 e risposta entro 24 ore.",
       heroImageAria: "Illustrazione di un sistema di energia solare",
       bullets: [
         "OEM / ODM",
         "ISO 9001",
         "Risposta in 24h",
         "{countries}+ paesi di esportazione",
+      ],
+    },
+    summary: {
+      title: "Zhongze Huasong in breve",
+      items: [
+        {
+          label: "Cosa produciamo",
+          text: "{models} modelli di inverter da {minPower} a {maxPower} — {offGrid} unità off-grid e {solar} unità solari off-grid, tutte a onda sinusoidale pura.",
+        },
+        {
+          label: "Dove",
+          text: "Un nostro stabilimento di {area} m² a Shenzhen, in Cina, con linee SMT, assemblaggio e aging gestite internamente.",
+        },
+        {
+          label: "Quanto",
+          text: "Circa {capacity} unità all'anno, prodotte da {employees} dipendenti, tra cui {engineers} ingegneri R&S.",
+        },
+        {
+          label: "Chi acquista",
+          text: "Più di {oemClients} clienti OEM / ODM e distributori su oltre {countries} mercati di esportazione.",
+        },
+        {
+          label: "Come iniziare",
+          text: "Inviate le vostre specifiche e la quantità — i nostri ingegneri commerciali rispondono entro 24 ore e una produzione standard viene spedita in 30–45 giorni dall'approvazione del campione.",
+        },
       ],
     },
     trust: {
@@ -164,17 +197,17 @@ export const it: Dictionary = {
     categories: {
       eyebrow: "I nostri prodotti",
       title: "Categorie di inverter",
-      subtitle: "Esplora le gamme di inverter che produciamo attualmente. Le categorie vengono aggiunte qui non appena è pubblicato il loro primo modello.",
+      subtitle: "Produciamo due gamme di inverter: inverter off-grid senza regolatore solare integrato e inverter off-grid solar con regolatore integrato. Scegli una gamma per vedere ogni modello e la sua tabella delle specifiche completa.",
     },
     featured: {
       eyebrow: "In evidenza",
       title: "Modelli più richiesti",
-      subtitle: "Gli inverter più venduti del nostro catalogo. Ogni modello supporta la personalizzazione OEM del marchio e delle specifiche.",
+      subtitle: "Questi sono i modelli che i buyer esteri ordinano più spesso. Ognuno può portare il vostro marchio, con configurazione di uscita, intervallo di ingresso DC e tipi di presa adattati al vostro mercato.",
     },
     advantages: {
       eyebrow: "Vantaggi del prodotto",
       title: "Vantaggi del prodotto e competenza tecnica",
-      subtitle: "Caratteristiche chiave della nostra gamma di inverter off-grid — dal tipo di uscita e dalle opzioni di ingresso DC alle potenze nominali e alle configurazioni pratiche del prodotto.",
+      subtitle: "Sei caratteristiche definiscono la gamma off-grid: uscita a onda sinusoidale pura, opzioni di ingresso DC da 12 V a 72 V, raffreddamento a controllo di temperatura, uscita AC a 220 V o 110 V, potenze nominali da 900 W a 5000 W e display LCD o digitali con varianti USB.",
       items: [
         {
           title: "Uscita a onda sinusoidale pura",
@@ -205,7 +238,7 @@ export const it: Dictionary = {
     whyUs: {
       eyebrow: "Perché noi",
       title: "Perché gli acquirenti internazionali ci scelgono",
-      subtitle: "Siamo un produttore, non una società commerciale — il che significa supporto tecnico diretto, qualità controllata e margini migliori.",
+      subtitle: "Siamo la fabbrica, non una società commerciale: le vostre domande tecniche arrivano alle persone che progettano il prodotto e il vostro costo riflette la linea di produzione anziché il margine di un rivenditore.",
       items: [
         {
           title: "R&S interna",
@@ -224,7 +257,7 @@ export const it: Dictionary = {
     process: {
       eyebrow: "Come lavoriamo",
       title: "Dalla richiesta di preventivo alla consegna",
-      subtitle: "Un processo trasparente in sei fasi pensato per i partner B2B internazionali — sai sempre a che punto è il tuo ordine.",
+      subtitle: "Un ordine attraversa sei fasi: richiesta di preventivo, offerta, conferma del campione, test e certificazione, produzione in serie, poi consegna. Ricevete una risposta entro 24 ore alla seconda fase e una produzione standard viene spedita 30–45 giorni dopo l'approvazione dei campioni.",
       steps: [
         {
           title: "RFQ",
@@ -255,7 +288,7 @@ export const it: Dictionary = {
     factory: {
       eyebrow: "Dentro la nostra fabbrica",
       title: "Costruiti per una qualità costante e una fornitura affidabile",
-      subtitle: "Il nostro processo produttivo unisce produzione, assemblaggio, test e controllo qualità per garantire una qualità del prodotto costante e una fornitura affidabile per i clienti di tutto il mondo.",
+      subtitle: "Un impianto di {area} m² con linee SMT, assemblaggio e invecchiamento interne, con {employees} dipendenti e una capacità di circa {capacity} unità all'anno. Ogni lotto di produzione viene sottoposto a test funzionale al 100% e a un test di invecchiamento di 8 ore prima dell'imballaggio.",
       capabilities: [
         {
           title: "Produzione e assemblaggio",
@@ -286,7 +319,7 @@ export const it: Dictionary = {
     applications: {
       eyebrow: "Applicazioni",
       title: "Dove funzionano i nostri inverter",
-      subtitle: "Collaudati in progetti residenziali, commerciali, di telecomunicazioni e off-grid in climi e condizioni di rete diversi.",
+      subtitle: "Sei tipi di applicazione generano la maggior parte dei nostri ordini: tetti residenziali, impianti commerciali e industriali, accumulo a batteria, stazioni radio base per telecomunicazioni, elettrificazione rurale e alimentazione di riserva. Ognuno si basa su una parte diversa della gamma.",
       items: [
         {
           title: "Energia solare residenziale",
@@ -317,7 +350,7 @@ export const it: Dictionary = {
     certifications: {
       eyebrow: "Certificazioni e norme",
       title: "Documentazione di conformità per i mercati internazionali",
-      subtitle: "La documentazione di conformità dei nostri inverter solari supporta le esigenze di revisione dei clienti e di qualificazione del prodotto. La documentazione è disponibile su richiesta.",
+      subtitle: "Per la gamma di inverter solari sono disponibili due set di documenti: documentazione LVD correlata CE valutata secondo IEC 62109-1:2010 e documentazione EMC. I certificati vengono rilasciati per modello e per mercato di destinazione, quindi il set applicabile dipende dal vostro ordine.",
       items: [
         {
           title: "CE / LVD",
@@ -330,6 +363,30 @@ export const it: Dictionary = {
       ],
       note: "La disponibilità delle certificazioni varia in base al modello e al mercato di destinazione. Indicaci il paese di destinazione e confermeremo le certificazioni applicabili al tuo ordine.",
       qualityButton: "Scopri il nostro sistema qualità",
+      standards: {
+        heading: "Norme di riferimento per questa documentazione",
+        items: [
+          {
+            code: "IEC 62109-1:2010",
+            scope: "Sicurezza dei convertitori di potenza per sistemi fotovoltaici — Parte 1: Requisiti generali.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6470",
+          },
+          {
+            code: "IEC 62109-2:2011",
+            scope: "Sicurezza dei convertitori di potenza per sistemi fotovoltaici — Parte 2: Requisiti particolari per gli inverter.",
+            publisher: "IEC",
+            url: "https://webstore.iec.ch/en/publication/6471",
+          },
+          {
+            code: "ISO 9001",
+            scope: "Sistemi di gestione per la qualità — la norma alla base del nostro sistema qualità di fabbrica, del collaudo funzionale al 100% e del test di aging di 8 ore.",
+            publisher: "ISO",
+            url: "https://www.iso.org/standard/62085.html",
+          },
+        ],
+        sourceNote: "Denominazioni e ambiti delle norme come pubblicati dagli enti emittenti. Seguite un link per leggere la norma alla fonte.",
+      },
     },
     testimonials: {
       title: "Cosa dicono i nostri partner",
@@ -369,6 +426,44 @@ export const it: Dictionary = {
     blog: {
       eyebrow: "Approfondimenti",
       title: "Ultimi dal nostro blog",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Le domande che gli acquirenti pongono prima di ordinare",
+      items: [
+        {
+          q: "Siete un produttore o una società commerciale?",
+          a: "Siamo un produttore. Shenzhen Zhongze Huasong Trading Co., Ltd. gestisce un proprio stabilimento di 12.000 m² con linee SMT, assemblaggio e aging interne e spedisce circa 200.000 unità all'anno. Acquistate direttamente dalla fabbrica, senza intermediari.",
+        },
+        {
+          q: "Quanti modelli di inverter producete e con quale range di potenza?",
+          a: "Il catalogo attuale comprende 35 modelli da 900 W a 11 kW. Si suddivide in 12 inverter off-grid (900 W–5000 W, senza regolatore di carica solare integrato) e 23 inverter solari off-grid (1500 W–11 kW, con regolatore MPPT integrato).",
+        },
+        {
+          q: "Potete produrre con il mio marchio?",
+          a: "Sì. Il nostro programma OEM/ODM comprende contenitore, imballaggio, manuale e display; il firmware può riportare il vostro marchio quando il modello lo supporta. La configurazione dell'uscita, il range di ingresso DC e i tipi di presa possono essere adattati al vostro mercato.",
+        },
+        {
+          q: "Qual è la quantità minima d'ordine?",
+          a: "Il MOQ dipende dal modello e dal livello di personalizzazione, perché una produzione a marchio privato richiede grafiche e configurazione firmware dedicate. Indicateci il modello e la quantità che avete in mente e vi confermeremo un MOQ realistico con i prezzi.",
+        },
+        {
+          q: "Quanto tempo occorre per la spedizione di un ordine?",
+          a: "I nostri ingegneri commerciali rispondono a una richiesta entro 24 ore. Dopo l'approvazione del campione, una produzione standard viene in genere spedita in 30–45 giorni, in base alla quantità e al livello di personalizzazione.",
+        },
+        {
+          q: "Come viene verificata la qualità del prodotto prima della spedizione?",
+          a: "La fabbrica opera secondo un sistema qualità ISO 9001 con test funzionale al 100% e un test di invecchiamento di 8 ore prima dell'imballaggio. Le ispezioni pre-spedizione condotte da terzi sono benvenute e collaboreremo con l'ispettore da voi incaricato.",
+        },
+        {
+          q: "Quali certificazioni hanno i vostri inverter?",
+          a: "Per la gamma di inverter solari sono disponibili su richiesta la documentazione LVD correlata CE secondo EN 62109-1 e la documentazione EMC. I certificati vengono rilasciati per modello e per mercato di destinazione, quindi comunicateci il vostro paese di destinazione e confermeremo il set applicabile.",
+        },
+        {
+          q: "Off-grid o off-grid solar: quale mi serve?",
+          a: "Scegli un inverter off-grid quando la carica solare è già gestita da un regolatore di carica separato. Scegli un inverter off-grid solar quando vuoi ingresso PV, carica della batteria e uscita AC in un unico apparecchio a parete. Entrambi erogano un'uscita a onda sinusoidale pura; la differenza è se il regolatore MPPT è integrato.",
+        },
+      ],
     },
   },
   productsIndex: {
@@ -563,6 +658,7 @@ export const it: Dictionary = {
     ],
     instagram: "Seguici su Instagram",
     linkedin: "Connettiti su LinkedIn",
+    youtube: "Guardaci su YouTube",
   },
   form: {
     title: "Richiedi un preventivo",
@@ -725,6 +821,116 @@ export const it: Dictionary = {
           a: "Dopo l'approvazione del campione, le produzioni standard vengono solitamente spedite in 30–45 giorni a seconda della quantità e della personalizzazione.",
         },
       ],
+    },
+  },
+  sizing: {
+    eyebrow: "Strumento di progettazione gratuito",
+    title: "Calcolatore di dimensionamento per sistemi off-grid",
+    subtitle: "Inserisci i tuoi carichi e le condizioni del sito per ottenere una prima stima di campo fotovoltaico, inverter e batteria — poi confronta il risultato con i modelli del nostro catalogo.",
+    intro: "Questo calcolatore dimensiona un sistema off-grid con tre formule: potenza del campo fotovoltaico = energia giornaliera × 1,3 ÷ ore di sole equivalenti; potenza dell'inverter = carico di picco simultaneo × 1,25; capacità della batteria = energia giornaliera ÷ profondità di scarica × giorni di autonomia ÷ tensione di sistema. Sono le stesse tre formule illustrate nelle nostre guide al dimensionamento off-grid.",
+    form: {
+      heading: "I tuoi carichi e il sito",
+      dailyEnergy: "Consumo energetico giornaliero",
+      dailyEnergyHelp: "Wattora totali consumati dai carichi in un giorno. Watt × ore al giorno, sommati per ogni carico.",
+      peakLoad: "Carico di picco simultaneo",
+      peakLoadHelp: "I watt in funzione nello stesso momento — l'ora di massimo carico, non il totale giornaliero.",
+      voltage: "Tensione batteria / sistema",
+      chemistry: "Tipo di batteria",
+      autonomy: "Giorni di autonomia",
+      autonomyHelp: "Quanti giorni senza sole il banco batterie deve coprire.",
+      region: "Seleziona una regione",
+      sunHours: "Ore di sole equivalenti",
+      sunHoursHelp: "L'equivalente giornaliero di irraggiamento a piena intensità — non le ore di luce. Usa il mese peggiore.",
+    },
+    chemistry: {
+      flooded: "Piombo-acido (a elettrolita liquido)",
+      agm: "Piombo-acido (AGM / gel)",
+      lifepo4: "LiFePO4 (litio)",
+    },
+    region: {
+      "northern-europe": "Europa settentrionale",
+      "central-europe": "Europa centrale",
+      mediterranean: "Mediterraneo",
+      "middle-east-africa": "Medio Oriente / Nord Africa",
+      "southeast-asia": "Sud-est asiatico (equatoriale)",
+      "us-southwest": "Sud-ovest degli Stati Uniti",
+    },
+    results: {
+      heading: "Il sistema consigliato",
+      array: "Campo fotovoltaico",
+      inverter: "Potenza nominale continua dell'inverter",
+      battery: "Banco batterie",
+      batteryAtVoltage: "a {voltage} V",
+      empty: "Compila i campi qui sopra per vedere un sistema consigliato.",
+      disclaimer: "Stima preliminare per la pianificazione, basata sui fattori di derating standard e sui valori di profondità di scarica pubblicati nelle nostre guide al dimensionamento. Spunto all'avviamento dei motori, dimensionamento dei cavi, limiti di ingresso MPPT e conformità locale richiedono tutti una verifica separata.",
+    },
+    recommended: {
+      heading: "Modelli corrispondenti dal nostro catalogo",
+      note: "I modelli più piccoli del catalogo che soddisfano i valori sopra alla tensione di sistema selezionata.",
+      none: "Nessun singolo modello di catalogo copre tutti i valori sopra. Contatta i nostri ingegneri — una configurazione multi-unità o personalizzata potrebbe essere più adatta.",
+      viewAll: "Vedi tutti gli inverter",
+    },
+    howItWorks: {
+      heading: "Come vengono calcolati i tre valori",
+      steps: [
+        {
+          title: "Campo fotovoltaico",
+          formula: "energia giornaliera (Wh) × 1.3 ÷ ore di sole di picco",
+          text: "Il fattore 1.3 copre le perdite di conversione, di cablaggio e di ciclo carica/scarica della batteria. Le ore di sole di picco rappresentano l'equivalente giornaliero di irraggiamento a piena intensità, non le ore di luce diurna.",
+        },
+        {
+          title: "Inverter",
+          formula: "carico di picco simultaneo (W) × 1.25",
+          text: "Si dimensiona sul carico che funziona contemporaneamente, mai sul totale giornaliero. Lo spunto all'avvio dei motori richiede una verifica separata — consulta la nostra guida alla potenza di picco.",
+        },
+        {
+          title: "Banco batterie",
+          formula: "energia giornaliera (Wh) ÷ profondità di scarica × giorni di autonomia ÷ tensione",
+          text: "La profondità di scarica indica quanta parte della batteria è utilizzabile in sicurezza: circa il 50% per il piombo-acido allagato, il 55% per AGM / gel e l'85% per LiFePO4.",
+        },
+      ],
+    },
+    faq: {
+      heading: "Calcolatore di dimensionamento — FAQ",
+      items: [
+        {
+          q: "Questo calcolatore sostituisce una verifica ingegneristica?",
+          a: "No. Restituisce una stima di primo livello basata sui valori standard di derating e di profondità di scarica. Lo spunto all'avvio dei motori, il dimensionamento di cavi e fusibili, i limiti di ingresso MPPT, la tensione delle stringhe e la conformità al mercato di destinazione restano al di fuori del calcolo — inviaci la tua analisi dei carichi e i nostri ingegneri verificheranno il dimensionamento gratuitamente.",
+        },
+        {
+          q: "Perché il calcolatore richiede due valori di potenza diversi?",
+          a: "L'energia giornaliera e il carico di picco dimensionano parti diverse del sistema. Il campo fotovoltaico e la batteria seguono l'energia giornaliera, perché entrambi lavorano sull'energia nel tempo. L'inverter segue il carico di picco simultaneo, perché deve erogare tutti quei watt in una sola volta.",
+        },
+        {
+          q: "Che cos'è la profondità di scarica?",
+          a: "La profondità di scarica è la quota di capacità di una batteria che può essere utilizzata in sicurezza prima della ricarica. Scaricare un banco al piombo-acido oltre il 50% circa ne riduce drasticamente la durata; un banco LiFePO4 tollera circa l'85%. Ecco perché la stessa energia giornaliera richiede una capacità nominale maggiore nel piombo-acido rispetto al litio.",
+        },
+        {
+          q: "Funziona anche per sistemi ibridi o connessi alla rete?",
+          a: "Le formule qui riportate valgono per i sistemi off-grid con banco batterie. Un sistema connesso alla rete non ha requisiti di autonomia e un sistema ibrido aggiunge le regole di immissione in rete e di ricarica dalla rete, quindi entrambi si dimensionano in modo diverso. Le nostre guide di dimensionamento trattano il caso off-grid; contattaci per gli altri.",
+        },
+      ],
+    },
+    guides: {
+      heading: "Approfondisci i calcoli nel dettaglio",
+      links: [
+        {
+          label: "Quanti pannelli solari ti servono?",
+          href: "/blog/how-many-solar-panels-for-off-grid/",
+        },
+        {
+          label: "Dimensionamento del banco batterie, passo per passo",
+          href: "/blog/off-grid-battery-bank-sizing/",
+        },
+        {
+          label: "Potenza di picco e avvio dei motori",
+          href: "/blog/inverter-surge-power-motor-starting/",
+        },
+      ],
+    },
+    cta: {
+      title: "Vuoi che i nostri ingegneri verifichino il tuo dimensionamento?",
+      subtitle: "Inviaci la tua analisi dei carichi e il mercato di destinazione — la esamineremo e ti consiglieremo i modelli, gratuitamente.",
     },
   },
 };
